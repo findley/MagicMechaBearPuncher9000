@@ -1,0 +1,77 @@
+
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+
+public class PlayerObj {
+	private float posX;
+	private float posY;
+	private float speed;
+	private Control keys = null;
+	public Image sprite;
+	private Rectangle boundingBox;
+	private final int sizeX = 32;
+	private final int sizeY = 32;
+	private int playerNum;
+	private int health;
+	private static final int healthNum = 5;
+	private int numPoints = 0;
+		
+	//32x32 Pixel Sprite
+	public PlayerObj(float x, float y, Control controls, Image image, int playerNum) {
+		posX = x;
+		posY = y;
+		speed = 3.5f;
+		health = healthNum;
+		this.keys = controls;
+		this.playerNum = playerNum;
+		sprite = image;
+	}
+	
+	public void update(GameContainer container, int delta, UnitsList gameState) throws SlickException {
+		Input input = container.getInput();
+		    
+			if (input.isKeyDown(keys.LEFT) && !gameState.collideWithUnitAt(posX-speed, posY, this)) {
+				if(posX > 0)
+					posX -= speed;
+			}
+			if (input.isKeyDown(keys.RIGHT) && !gameState.collideWithUnitAt(posX+speed, posY, this)) {
+				if(posX < MainGame.GAME_WIDTH - sizeX)
+					posX += speed;
+			}
+			if (input.isKeyDown(keys.UP) && !gameState.collideWithUnitAt(posX, posY-speed, this)) {
+				if(posY > 0)
+					posY -= speed;
+			}
+	
+			if (input.isKeyDown(keys.DOWN) && !gameState.collideWithUnitAt(posX, posY+speed, this)) {
+				if(posY < MainGame.GAME_HEIGHT - sizeY)
+					posY += speed;
+			}
+
+	}
+	
+	public void draw(GameContainer container, Graphics g) {
+		this.sprite.draw(posX, posY, 1f);
+	}
+	
+	public Rectangle getBoundingBox() {
+		return new Rectangle(posX, posY, sizeX, sizeY);
+	}
+	
+	public void addPoints(int numPoints){
+		this.numPoints += numPoints;
+	}
+	
+	public int getPoints(){
+		return this.numPoints;
+	}
+	
+	public String toString(){
+		return "Player " + playerNum;
+	}
+}
