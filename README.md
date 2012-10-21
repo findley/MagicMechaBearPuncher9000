@@ -2,16 +2,26 @@ HowToSaveTheWorld
 =================
 
 I. Development Tasks:
-	Game States/Map
-	Time Limit/State
-	Points System?
-	Choices
-	Movement + Confirmation/Action Buttons
-	Menu + Credits
-	Co-op after stats
-	Split Screen/Networking
-		Camera
-	Player Stats?
+
+Game States/Map DONE
+
+Time Limit/State
+
+Points System?
+
+Choices
+
+Movement + Confirmation/Action Buttons DONE
+
+Menu + Credits MENU DONE, CREDITS NOT DONE
+
+Co-op after stats
+
+Split Screen
+
+Camera
+
+Player Stats
 
 II. Scheduling
 
