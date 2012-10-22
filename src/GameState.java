@@ -27,6 +27,7 @@ public class GameState extends BasicGameState {
     UnitsList gameState = null;
     boolean isGameOver = false;
     public static String winningPlayer = "";
+    int timeRemaining;
     
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -35,6 +36,7 @@ public class GameState extends BasicGameState {
         // TODO Auto-generated method stub
         isGameOver = false;
         winningPlayer = "";
+        timeRemaining = 120000;
         //gameOverDelay = null;
         
         background = new Image("Assets/Black.jpg");
@@ -72,6 +74,10 @@ public class GameState extends BasicGameState {
             player2.update(container, delta, gameState);
         if (isGameOver){
             game.enterState(0);
+        }
+        timeRemaining -= delta;
+        if (timeRemaining <= 0){
+        	game.enterState(0);
         }
     }
         
