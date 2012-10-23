@@ -119,6 +119,7 @@ public class GameState extends BasicGameState {
     @Override
     public void enter(GameContainer container, StateBasedGame game) throws SlickException{
         // Uses code from this.init(container, game);
+        timeRemaining = 120000;
         isGameOver = false;
         gameState = new UnitsList();
         player1 = new PlayerObj(10, 400,
