@@ -2,12 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="Lib/lwjgl.jar">
+	<classpathentry kind="lib" path="Lib/lwjgl.jar" sourcepath="Lib/lwjgl.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="HowToSaveTheWorld/Lib"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="HowToSaveTheWorld/lwjgl/native/all"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="Lib/slick.jar">
+	<classpathentry kind="lib" path="Lib/slick.jar" sourcepath="Lib/slick.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="file:/C:/Users/Zhang/Documents/GameProj/slick/javadoc/"/>
 		</attributes>
