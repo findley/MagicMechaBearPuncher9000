@@ -48,6 +48,7 @@ b. Design Team:
 	David
 	Beth
 	Nolan
+	Mike
 
 c. Art/Sound:
 	Daniel (Head)
