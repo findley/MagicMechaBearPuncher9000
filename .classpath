@@ -12,6 +12,5 @@
 			<attribute name="javadoc_location" value="file:/C:/Users/Zhang/Documents/GameProj/slick/javadoc/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/Twister Fighter"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

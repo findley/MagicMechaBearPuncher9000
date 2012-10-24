@@ -1,5 +1,7 @@
 
 
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 
 import java.util.Date;
@@ -9,6 +11,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -28,6 +31,7 @@ public class GameState extends BasicGameState {
     boolean isGameOver = false;
     public static String winningPlayer = "";
     int timeRemaining;
+    private UnicodeFont timer_font;
     
     @Override
     public void init(GameContainer container, StateBasedGame game)
@@ -49,6 +53,8 @@ public class GameState extends BasicGameState {
                 new Image("Assets/Player2.png"), 2);
         gameState.unitCollision.add(player1);
         gameState.unitCollision.add(player2);
+        
+        timer_font = MainGame.loadFont("Arial Monospaced", Font.BOLD, 40, Color.WHITE);
     }
 
     @Override
@@ -56,6 +62,8 @@ public class GameState extends BasicGameState {
             throws SlickException {
         // TODO Auto-generated method stub
         background.draw(0,0);
+        int timer_width = timer_font.getWidth(Integer.toString(timeRemaining/1000));
+        timer_font.drawString(container.getWidth()/2 - timer_width/2, 20, Integer.toString(timeRemaining/1000));
         
         player1.draw(container, g);
         player2.draw(container, g);

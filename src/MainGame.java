@@ -1,17 +1,33 @@
 
 
+import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
+import org.newdawn.slick.font.effects.Effect;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MainGame extends StateBasedGame {
  
 	public static final int GAME_WIDTH = 1200;
 	public static final int GAME_HEIGHT = 720;
-
+	
+	@SuppressWarnings("unchecked")
+    public static UnicodeFont loadFont(String name, int style, int size,
+            Color color) throws SlickException {
+        UnicodeFont font = new UnicodeFont(new Font(name, style, size));
+        font.addAsciiGlyphs();
+        ((List<Effect>) font.getEffects()).add(new ColorEffect(color));
+        font.loadGlyphs();
+        return font;
+    }
+	
 	public MainGame() {
         super("How to Save the World in 15 Minutes");
     }
