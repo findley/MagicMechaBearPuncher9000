@@ -62,11 +62,10 @@ public class GameState extends BasicGameState {
             throws SlickException {
         // TODO Auto-generated method stub
         background.draw(0,0);
-        int timer_width = timer_font.getWidth(Integer.toString(timeRemaining/1000));
-        timer_font.drawString(container.getWidth()/2 - timer_width/2, 20, Integer.toString(timeRemaining/1000));
-        
         player1.draw(container, g);
         player2.draw(container, g);
+        int timer_width = timer_font.getWidth(Integer.toString(timeRemaining/1000));
+        timer_font.drawString(container.getWidth()/2 - timer_width/2, 20, Integer.toString(timeRemaining/1000));
     }
 
     @Override
