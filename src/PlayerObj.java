@@ -89,7 +89,8 @@ public class PlayerObj {
 		return this.numPoints;
 	}
 	
-	public String toString(){
+	@Override
+    public String toString(){
 		return "Player " + playerNum;
 	}
 }
