@@ -18,9 +18,15 @@ public class TownWindow extends NodeWindow {
     @Override
     public void render(GameContainer container, StateBasedGame game,
             Graphics g, Player[] player) throws SlickException {
+        for(int i = 0; i < player.length; i++){
+            if(inNode[i]){
+                this.displayMinigameBackground(g, player[i]);
+            }
+        }
         for (int i = 0; i < players.length; i++) {
             if (inNode[i]) {
-                this.displayMinigameBackground(g, player[i]);
+                player[i].render(container, game, g, playerPos[i][0] + container.getWidth()/2,
+                        playerPos[i][1]);
                 player[i].render(container, game, g, playerPos[i][0],
                         playerPos[i][1]);
                 GameState state = (GameState) (game.getCurrentState());
@@ -39,10 +45,13 @@ public class TownWindow extends NodeWindow {
             Player[] players) throws SlickException {
         super.init(container, game, players);
         for (int i = 0; i < players.length; i++) {
-            playerPos[i][0] = players[i].windowPos[0]
-                    + players[i].windowSize[0] - players[i].pWidth;
-            playerPos[i][1] = players[i].windowPos[1]
-                    + (int) players[i].windowSize[1] / 2;
+            /*
+             * playerPos[i][0] = players[i].windowPos[0] +
+             * players[i].windowSize[0] - players[i].pWidth; playerPos[i][1] =
+             * players[i].windowPos[1] + (int) players[i].windowSize[1] / 2;
+             */
+            playerPos[i][0] = 0;
+            playerPos[i][1] = 0;
             timer = 4000.0;
         }
     }
