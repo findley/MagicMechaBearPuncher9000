@@ -3,140 +3,191 @@
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Stack;
+import java.util.TreeSet;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
 
-    int stateID = -1;
-    
-    GameState( int stateID ) {
+    // states holds two stacks of Windows, one for each of the player views
+    // the top state of each stack swill be rendered each time render is called on this object
+    public ArrayList<Stack<Window>> states;
+    public Player[] players;
+
+    public Image background;
+
+    public boolean started;
+    public Player wonPlayer;
+
+    private Set<Integer> startKeys;
+
+    private PopUp currentPopUp;
+
+    public UnicodeFont uFont;
+
+    public int[] delay = { 0, 0 };
+    public float maxDelay;
+
+    public Sound levelUp;
+    int stateID;
+
+    public GameState(int stateID) {
+        super();
+    }
+
+    @Override
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        // show a background
+        //Image im = this.background;
+        //g.drawImage(im, 0, 0);
+
+        // maintain two internal states. Render one on each side of the screen
+        for (int i = 0; i < this.states.size(); i++) {
+            Stack<Window> stack = this.states.get(i);
+            Window windowedState = stack.peek();
+            windowedState.render(container, game, g, players[i]);
+        }
+        /*
+        for (int i = 0; i < this.states.size(); i++) {
+            if (delay[i] > 0) {
+                g.draw(new Rectangle(50 + container.getWidth()/2 * i, 275, delay[i] * 300 / maxDelay, 50));
+            }
+        }
+        */
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        
+        float[] p1WinSize = { container.getWidth()/2, container.getHeight()};
+        float[] p2WinSize = { container.getWidth()/2, container.getHeight()};
+        float[] p1WinPos = { 0, 0 };
+        float[] p2WinPos = {container.getWidth()/2, 0 };
+        
+        
         this.stateID = stateID;
+        
+        maxDelay = 60;
+
+        HashMap<String, Integer> p1Buttons = new HashMap<String, Integer>();
+        p1Buttons.put("up", Input.KEY_W);
+        p1Buttons.put("left", Input.KEY_A);
+        p1Buttons.put("down", Input.KEY_S);
+        p1Buttons.put("right", Input.KEY_D);
+        p1Buttons.put("action", Input.KEY_T);
+        HashMap<String, Integer> p2Buttons = new HashMap<String, Integer>();
+        p2Buttons.put("up", Input.KEY_UP);
+        p2Buttons.put("left", Input.KEY_LEFT);
+        p2Buttons.put("down", Input.KEY_DOWN);
+        p2Buttons.put("right", Input.KEY_RIGHT);
+        p2Buttons.put("action", Input.KEY_PERIOD);
+
+        startKeys = new TreeSet<Integer>();
+        startKeys.addAll(p1Buttons.values());
+        startKeys.addAll(p2Buttons.values());
+
+        players = new Player[2];
+        players[0] = new Player(p1WinPos, p1WinSize, p1Buttons, 1);
+        players[1] = new Player(p2WinPos, p2WinSize, p2Buttons, 2);
+        started = false;
+        wonPlayer = null;
+        
+        
+        this.background = new Image("Assets/Background.png");
+
+        //levelUp = new Sound("resources/music/levelup.wav");
+
+        //Music loop = new Music("resources/music/five-minutes_longloop.wav");
+        //loop.loop();
+
+        this.states = new ArrayList<Stack<Window>>();
+        Stack<Window> states1 = new Stack<Window>();
+        Stack<Window> states2 = new Stack<Window>();
+
+        states1.push(new DodgeWindow(players[0]));
+        states2.push(new DodgeWindow(players[1]));
+
+        states.add(states1);
+        states.add(states2);
+
+        uFont = MainGame.loadFont("Arial Monospaced", Font.BOLD, 40, Color.WHITE);
+
+        for (int i = 0; i < this.states.size(); i++) {
+            Stack<Window> stack = this.states.get(i);
+            Window windowedState = stack.peek();
+            windowedState.init(container, game, players[i]);
+        }
+
+        currentPopUp = null;
     }
 
-    PlayerObj player1 = null;
-    PlayerObj player2 = null;
-    Image background = null;
-    UnitsList gameState = null;
-    boolean isGameOver = false;
-    public static String winningPlayer = "";
-    int timeRemaining;
-    private UnicodeFont timer_font;
-    
     @Override
-    public void init(GameContainer container, StateBasedGame game)
-            throws SlickException {
-        // TODO Auto-generated method stub
-        // TODO Auto-generated method stub
-        isGameOver = false;
-        winningPlayer = "";
-        timeRemaining = 120000;
-        //gameOverDelay = null;
-        
-        background = new Image("Assets/Black.jpg");
-        gameState = new UnitsList();
-        player1 = new PlayerObj(100, MainGame.GAME_HEIGHT - 300,
-                new Control(Input.KEY_W, Input.KEY_S, Input.KEY_A, Input.KEY_D, Input.KEY_LSHIFT),
-                new Image("Assets/Player1.png"), 1);
-        player2 = new PlayerObj(MainGame.GAME_WIDTH - 100,MainGame.GAME_HEIGHT - 300,
-                new Control(Input.KEY_UP, Input.KEY_DOWN, Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_SPACE),
-                new Image("Assets/Player2.png"), 2);
-        gameState.unitCollision.add(player1);
-        gameState.unitCollision.add(player2);
-        
-        timer_font = MainGame.loadFont("Arial Monospaced", Font.BOLD, 40, Color.WHITE);
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+        Input input = container.getInput();
+
+        for (int key : startKeys) {
+            if (input.isKeyDown(key)) {
+                started = true;
+            }
+        }
+        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            container.exit();
+        }
+
+        if (started && wonPlayer == null) {
+            for (int i = 0; i < this.states.size(); i++) {
+                Stack<Window> stack = this.states.get(i);
+                Window windowedState = stack.peek();
+
+                // note: update before or after?
+                if (windowedState.over() == true) {
+                    stack.pop();
+                    delay[i] = (int) maxDelay;
+                }
+
+                if (delay[i] > 0) {
+                    delay[i]--;
+                } else {
+                    windowedState.update(container, game, delta, players[i]);
+                }
+            }
+
+        }
     }
 
-    @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g)
+    protected void triggerMinigame(GameContainer container, StateBasedGame game, Player player, Window minigame)
             throws SlickException {
-        // TODO Auto-generated method stub
-        background.draw(0,0);
-        player1.draw(container, g);
-        player2.draw(container, g);
-        int timer_width = timer_font.getWidth(Integer.toString(timeRemaining/1000));
-        timer_font.drawString(container.getWidth()/2 - timer_width/2, 20, Integer.toString(timeRemaining/1000));
+        int playerIndex = (player == players[0]) ? 0 : 1;
+        this.states.get(playerIndex).push(minigame);
+        minigame.init(container, game, player);
     }
 
-    @Override
-    public void update(GameContainer container, StateBasedGame game, int delta)
-            throws SlickException {
-        
-        // Allow players to quit to menu with backspace or escape
-        if (container.getInput().isKeyPressed(Input.KEY_ESCAPE) || container.getInput().isKeyPressed(Input.KEY_BACK)) {
-            game.enterState(0);
-        }
-            // Update Players
-            player1.update(container, delta, gameState);
-            player2.update(container, delta, gameState);
-        if (isGameOver){
-            game.enterState(0);
-        }
-        timeRemaining -= delta;
-        if (timeRemaining <= 0){
-        	game.enterState(0);
-        }
-    }
-        
-    /**
-     * Assigns points to the given player based on what kind of enemy they killed. enemyType not yet implemented.
-     * @param playerNum which player made the kill
-     * @param enemyType what enemy they killed
-     */
-    public void assignPoints(int playerNum, int enemyType){
-
-    }
-    
-    
-    public PlayerObj whichPlayer(int i){
-        switch(i){
-            case 1:
-                return player1;
-            default:
-                return player2;
-        }
-    }
-    
-    public boolean isOffscreen(PlayerObj obj){
-        Rectangle r = obj.getBoundingBox();
-        if(r.getMinX() < 0 || r.getMaxX() > MainGame.GAME_WIDTH || r.getMinY() < 0 || r.getMaxY() > MainGame.GAME_HEIGHT)
-            return true;
-        return false;
-    }
-    
     @Override
     public int getID() {
-        return stateID;
+        return 1;
     }
-    
-    /* 
-     * Method for other states to launch a new game.
-     * Initializes a new game
-     */
+
     @Override
-    public void enter(GameContainer container, StateBasedGame game) throws SlickException{
-        // Uses code from this.init(container, game);
-        timeRemaining = 120000;
-        isGameOver = false;
-        gameState = new UnitsList();
-        player1 = new PlayerObj(10, 400,
-                new Control(Input.KEY_W, Input.KEY_S, Input.KEY_A, Input.KEY_D, Input.KEY_LSHIFT),
-                new Image("Assets/Player1.png"), 1);
-        player2 = new PlayerObj(600,400,
-                new Control(Input.KEY_UP, Input.KEY_DOWN, Input.KEY_LEFT, Input.KEY_RIGHT, Input.KEY_SPACE),
-                new Image("Assets/Player2.png"), 2);
-        gameState.unitCollision.add(player1);
-        gameState.unitCollision.add(player2);
+    public void enter(GameContainer container, StateBasedGame game) {
+        for (int i = 0; i < this.states.size(); i++) {
+            Stack<Window> stack = this.states.get(i);
+            Window windowedState = stack.peek();
+            windowedState.enter(container, game, players[i]);
+        }
     }
- 
 }
