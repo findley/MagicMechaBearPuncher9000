@@ -1,5 +1,3 @@
-
-
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -21,8 +19,10 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameState extends BasicGameState {
 
     // states holds two stacks of Windows, one for each of the player views
-    // the top state of each stack swill be rendered each time render is called on this object
+    // the top state of each stack swill be rendered each time render is called
+    // on this object
     public ArrayList<Stack<Window>> states;
+    public NodeWindow masterState;
     public Player[] players;
 
     public Image background;
@@ -47,38 +47,40 @@ public class GameState extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g)
+            throws SlickException {
         // show a background
-        //Image im = this.background;
-        //g.drawImage(im, 0, 0);
+        // Image im = this.background;
+        // g.drawImage(im, 0, 0);
+        this.masterState.render(container, game, g, players);
 
         // maintain two internal states. Render one on each side of the screen
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);
-            Window windowedState = stack.peek();
-            windowedState.render(container, game, g, players[i]);
-        }
-        /*
-        for (int i = 0; i < this.states.size(); i++) {
-            if (delay[i] > 0) {
-                g.draw(new Rectangle(50 + container.getWidth()/2 * i, 275, delay[i] * 300 / maxDelay, 50));
+            if (stack.size() > 0) {
+                Window windowedState = stack.peek();
+                windowedState.render(container, game, g, players[i]);
             }
         }
-        */
+        /*
+         * for (int i = 0; i < this.states.size(); i++) { if (delay[i] > 0) {
+         * g.draw(new Rectangle(50 + container.getWidth()/2 * i, 275, delay[i] *
+         * 300 / maxDelay, 50)); } }
+         */
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        
-        float[] p1WinSize = { container.getWidth()/2, container.getHeight()};
-        float[] p2WinSize = { container.getWidth()/2, container.getHeight()};
+    public void init(GameContainer container, StateBasedGame game)
+            throws SlickException {
+
+        float[] p1WinSize = { container.getWidth() / 2, container.getHeight() };
+        float[] p2WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p1WinPos = { 0, 0 };
-        float[] p2WinPos = {container.getWidth()/2, 0 };
-        
-        
+        float[] p2WinPos = { container.getWidth() / 2, 0 };
+
         this.stateID = stateID;
-        
+
         maxDelay = 60;
 
         HashMap<String, Integer> p1Buttons = new HashMap<String, Integer>();
@@ -103,38 +105,43 @@ public class GameState extends BasicGameState {
         players[1] = new Player(p2WinPos, p2WinSize, p2Buttons, 2);
         started = false;
         wonPlayer = null;
-        
-        
+
         this.background = new Image("Assets/Background.png");
 
-        //levelUp = new Sound("resources/music/levelup.wav");
+        // levelUp = new Sound("resources/music/levelup.wav");
 
-        //Music loop = new Music("resources/music/five-minutes_longloop.wav");
-        //loop.loop();
-
+        // Music loop = new Music("resources/music/five-minutes_longloop.wav");
+        // loop.loop();
+        this.masterState = new TownWindow(players);
         this.states = new ArrayList<Stack<Window>>();
         Stack<Window> states1 = new Stack<Window>();
         Stack<Window> states2 = new Stack<Window>();
 
-        states1.push(new DodgeWindow(players[0]));
-        states2.push(new DodgeWindow(players[1]));
+        // states1.push(new DodgeWindow(players[0]));
+        // states2.push(new DodgeWindow(players[1]));
 
         states.add(states1);
         states.add(states2);
 
-        uFont = MainGame.loadFont("Arial Monospaced", Font.BOLD, 40, Color.WHITE);
+        uFont = MainGame.loadFont("Arial Monospaced", Font.BOLD, 40,
+                Color.WHITE);
+
+        masterState.init(container, game, players);
 
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);
-            Window windowedState = stack.peek();
-            windowedState.init(container, game, players[i]);
+            if (stack.size() != 0) {
+                Window windowedState = stack.peek();
+                windowedState.init(container, game, players[i]);
+            }
         }
 
         currentPopUp = null;
     }
 
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta)
+            throws SlickException {
         Input input = container.getInput();
 
         for (int key : startKeys) {
@@ -145,29 +152,34 @@ public class GameState extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
-
+        
+        masterState.update(container, game, delta, players);
+        
         if (started && wonPlayer == null) {
             for (int i = 0; i < this.states.size(); i++) {
                 Stack<Window> stack = this.states.get(i);
-                Window windowedState = stack.peek();
+                if (stack.size() > 0) {
+                    Window windowedState = stack.peek();
+                    // note: update before or after?
+                    if (windowedState.over() == true) {
+                        stack.pop();
+                        delay[i] = (int) maxDelay;
+                    }
 
-                // note: update before or after?
-                if (windowedState.over() == true) {
-                    stack.pop();
-                    delay[i] = (int) maxDelay;
-                }
-
-                if (delay[i] > 0) {
-                    delay[i]--;
-                } else {
-                    windowedState.update(container, game, delta, players[i]);
+                    if (delay[i] > 0) {
+                        delay[i]--;
+                    } else {
+                        windowedState
+                                .update(container, game, delta, players[i]);
+                    }
                 }
             }
 
         }
     }
 
-    protected void triggerMinigame(GameContainer container, StateBasedGame game, Player player, Window minigame)
+    protected void triggerMinigame(GameContainer container,
+            StateBasedGame game, Player player, Window minigame)
             throws SlickException {
         int playerIndex = (player == players[0]) ? 0 : 1;
         this.states.get(playerIndex).push(minigame);
@@ -181,10 +193,23 @@ public class GameState extends BasicGameState {
 
     @Override
     public void enter(GameContainer container, StateBasedGame game) {
+        try {
+            masterState.init(container, game, players);
+        } catch (SlickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);
-            Window windowedState = stack.peek();
-            windowedState.enter(container, game, players[i]);
+            if (stack.size() != 0) {
+                Window windowedState = stack.peek();
+                try {
+                    windowedState.init(container, game, players[i]);
+                } catch (SlickException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }
