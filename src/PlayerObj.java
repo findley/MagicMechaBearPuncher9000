@@ -6,6 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class PlayerObj {
 	private float posX;
@@ -14,12 +15,14 @@ public class PlayerObj {
 	private Control keys = null;
 	public Image sprite;
 	private Rectangle boundingBox;
-	private final int sizeX = 32;
+	public final int sizeX = 32;
 	private final int sizeY = 32;
 	private int playerNum;
 	private int health;
 	private static final int healthNum = 5;
 	private int numPoints = 0;
+	public float[] windowPos;
+    public float[] windowSize;
 		
 	//32x32 Pixel Sprite
 	public PlayerObj(float x, float y, Control controls, Image image, int playerNum) {
@@ -58,6 +61,13 @@ public class PlayerObj {
 	public void draw(GameContainer container, Graphics g) {
 		this.sprite.draw(posX, posY, 1f);
 	}
+	
+	public void render(GameContainer container, StateBasedGame game, Graphics g, float x, float y) {
+
+        boundingBox.setX(x);
+        boundingBox.setY(y);
+        g.drawImage(sprite, x, y);
+    }
 	
 	public Rectangle getBoundingBox() {
 		return new Rectangle(posX, posY, sizeX, sizeY);
