@@ -36,7 +36,7 @@ public class DodgeWindow extends Window {
 
         g.setColor(Color.white);
         GameState state = (GameState) (game.getCurrentState());
-        UnicodeFont uFont = state.uFont;
+        //UnicodeFont uFont = state.uFont;
         g.setFont(state.uFont);
         g.drawString("Survive for 4 seconds!", 100 + player.windowPos[0], 65);
         g.setColor(Color.black);
@@ -73,7 +73,7 @@ public class DodgeWindow extends Window {
             }
         }
         if (input.isKeyDown(player.getButton("right"))) {
-            if (playerPos[0] + player.pWidth + moveValue < player.windowPos[0] + player.windowSize[0]) {
+            if (playerPos[0] + player.sizeX + moveValue < player.windowPos[0] + player.windowSize[0]) {
                 playerPos[0] += moveValue;
             }
         }
@@ -83,7 +83,7 @@ public class DodgeWindow extends Window {
             }
         }
         if (input.isKeyDown(player.getButton("down"))) {
-            if (playerPos[1] + player.pHeight + moveValue < player.windowPos[1] + player.windowSize[1]) {
+            if (playerPos[1] + player.sizeY + moveValue < player.windowPos[1] + player.windowSize[1]) {
                 playerPos[1] += moveValue;
             }
         }

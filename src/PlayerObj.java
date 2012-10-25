@@ -8,6 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
+import java.util.*;
+
 public class PlayerObj {
 	private float posX;
 	private float posY;
@@ -16,16 +18,17 @@ public class PlayerObj {
 	public Image sprite;
 	private Rectangle boundingBox;
 	public final int sizeX = 32;
-	private final int sizeY = 32;
+	public final int sizeY = 32;
 	private int playerNum;
 	private int health;
 	private static final int healthNum = 5;
 	private int numPoints = 0;
 	public float[] windowPos;
     public float[] windowSize;
+    private HashMap<String, Integer> buttons;
 		
 	//32x32 Pixel Sprite
-	public PlayerObj(float x, float y, Control controls, Image image, int playerNum) {
+	public PlayerObj(float x, float y, Control controls, Image image, int playerNum, HashMap<String, Integer> playerButtons) {
 		posX = x;
 		posY = y;
 		speed = 3.5f;
@@ -33,6 +36,7 @@ public class PlayerObj {
 		this.keys = controls;
 		this.playerNum = playerNum;
 		sprite = image;
+		buttons = playerButtons;
 	}
 	
 	public void update(GameContainer container, int delta, UnitsList gameState) throws SlickException {
@@ -67,6 +71,10 @@ public class PlayerObj {
         boundingBox.setX(x);
         boundingBox.setY(y);
         g.drawImage(sprite, x, y);
+    }
+	
+	public Integer getButton(String command) {
+        return this.buttons.get(command);
     }
 	
 	public Rectangle getBoundingBox() {
