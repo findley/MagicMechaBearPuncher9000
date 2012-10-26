@@ -24,7 +24,7 @@ public class NodeWindow {
     protected boolean[] inNode = {true,true};
     private Image bgImageOne;
     private Image bgImageTwo;
-    public Rectangle[] miniGames;
+    public MiniGame[] miniGames;
 
     /*
      * Constructor that allows for providing of a stateID
@@ -61,12 +61,6 @@ public class NodeWindow {
 
     public void enter(GameContainer container, StateBasedGame game,
             Player[] players) {
-    }
-    
-    public void startMinigame(int i, Player player){
-        if(i == 0){
-            
-        }
     }
 
     public boolean over() {

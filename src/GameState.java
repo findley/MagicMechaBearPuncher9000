@@ -163,6 +163,7 @@ public class GameState extends BasicGameState {
                     // note: update before or after?
                     if (windowedState.over() == true) {
                         stack.pop();
+                        masterState.inNode[i] = true;
                         delay[i] = (int) maxDelay;
                     }
 

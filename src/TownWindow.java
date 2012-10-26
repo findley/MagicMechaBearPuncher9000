@@ -18,6 +18,7 @@ public class TownWindow extends NodeWindow {
     @Override
     public void render(GameContainer container, StateBasedGame game,
             Graphics g, Player[] player) throws SlickException {
+        System.out.println(inNode[1]);
         for (int i = 0; i < player.length; i++) {
             if (inNode[i]) {
                 this.displayMinigameBackground(g, player[i]);
@@ -42,7 +43,8 @@ public class TownWindow extends NodeWindow {
                 // UnicodeFont uFont = state.uFont;
             }
         }
-        for (Rectangle r : miniGames) {
+        for (MiniGame mgame : miniGames) {
+            Rectangle r = mgame.location;
             g.draw(r);
             g.drawRect(r.getX() + container.getWidth() / 2, r.getY(), r
                     .getWidth(), r.getHeight());
@@ -54,8 +56,8 @@ public class TownWindow extends NodeWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         super.init(container, game, players);
-        miniGames = new Rectangle[1];
-        miniGames[0] = new Rectangle(200, 200, 10, 10);
+        miniGames = new MiniGame[1];
+        miniGames[0] = new MiniGame(new Rectangle(200, 200, 10, 10), 0);
         for (int i = 0; i < players.length; i++) {
             /*
              * playerPos[i][0] = players[i].windowPos[0] +
@@ -99,10 +101,11 @@ public class TownWindow extends NodeWindow {
                 }
             }
             for (int j = 0; j < miniGames.length; j++) {
-                if (miniGames[j].intersects(player[i].boundingBox)) {
+                if (miniGames[j].location.intersects(player[i].boundingBox)) {
                     GameState state = (GameState) game.getCurrentState();
-                    inNode[i] = false;
-                    state.triggerMinigame(container, game, players[i], new DodgeWindow(players[i]));
+                    if(miniGames[j].enterGame(container, game, players, i)){
+                        inNode[i] = false;
+                    }
                 }
             }
         }
