@@ -39,7 +39,7 @@ public class DodgeWindow extends Window {
         g.setColor(Color.white);
         //UnicodeFont uFont = state.uFont;
         
-        g.drawString("Survive for 4 seconds!", 100 + player.windowPos[0], 65);
+        g.drawString("Survive for 4 seconds!", 60 + player.windowPos[0], 65);
         
     }
 
