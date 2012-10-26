@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="24" height="16" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="dirt_grass_fence_sheet_zoom2" tilewidth="32" tileheight="32">
+  <image source="Hub 1/Tileset/dirt_grass_fence_sheet_zoom2.png" width="256" height="192"/>
+ </tileset>
+ <tileset firstgid="49" name="barn_1" tilewidth="32" tileheight="32">
+  <image source="Hub 1/Images/barn_1.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="113" name="house_1" tilewidth="32" tileheight="32">
+  <image source="Hub 1/Images/house_1.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="129" name="house_2" tilewidth="32" tileheight="32">
+  <image source="Hub 1/Images/house_2.png" width="128" height="128"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="24" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC7WUzQ4CIQyEif96ETXq0aMgovv+T2c3KcmktlhNPHwBdulsO4XNIYRC3IgEY+R5I4u1fC73IwnmxbFfi42KlpVLFvrF0ER69RaI8eYvv9nbL71F/y3fZbxW7zhuDa6ddxpH5dnhx3pH7g6kRvnC/8rjADHNyyfxYA3rPHn0MXaAHDPoW/H/8AfZcY/Oomdt7en/KehnU9aRwntd0Zn/hpgrrA2fUL9yLzPPC/ehgv8LYqIwE3p4rtp98uRv6V/AQ+1et/702BNLYqqwEvla5+rTv+8Frg2AsQAGAAA=
+  </data>
+ </layer>
+ <layer name="Buildings" width="24" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3MNw7CQBBGYV8NTDA5Z4O5AjnnbOKReeVWK802UPhJX/NLM5b1+3roY4ChZjNthDEmmGo202aYY4GlZjNthTU22Gq2fyuEMGxEEEUMcTiCPzvsccBR2RNIIoU0Msgih7zg/wlnXHBV9gKKKKGMCqqooS74f4OPOx7K3kATLbhoowMPXcH/J1544yO4Cwr6AgBXwskABgAA
+  </data>
+ </layer>
+</map>
