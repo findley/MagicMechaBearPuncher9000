@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="24" height="16" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="dirt_grass_fence_sheet_zoom2" tilewidth="32" tileheight="32">
+  <image source="../workspace/HowToSaveTheWorld/Assets/Hub 1/Tileset/dirt_grass_fence_sheet_zoom2.png" width="256" height="192"/>
+ </tileset>
+ <tileset firstgid="49" name="barn_1" tilewidth="32" tileheight="32">
+  <image source="../workspace/HowToSaveTheWorld/Assets/Hub 1/Images/barn_1.png" width="256" height="256"/>
+ </tileset>
+ <tileset firstgid="113" name="house_1" tilewidth="32" tileheight="32">
+  <image source="../workspace/HowToSaveTheWorld/Assets/Hub 1/Images/house_1.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="129" name="house_2" tilewidth="32" tileheight="32">
+  <image source="../workspace/HowToSaveTheWorld/Assets/Hub 1/Images/house_2.png" width="128" height="128"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="24" height="16">
+  <data encoding="base64" compression="zlib">
+   eJy1lM0OAiEMhIn/ehE16tGjIKL7/k9nNynJpLZYTTx8AXbpbDuFzSGEQtyIBGPkeSOLtXwu9yMJ5sWxX4uNipaVSxb6xdBEevUWiPHmL7/Z2y+9Rf8t32W8Vu84bg2unXcaR+XZ4cd6R+4OpEb5wv/K4wAxzcsn8WAN6zx59DF2gBwz6Fvx//AH2XGPzqJnbe3p/ynoZ1PWkcJ7XdGZ/4aYK6wNn1C/ci8zzwv3oYL/C2KiMBN6eK7affLkb+lfwEPtXrf+9NgTS2KqsBL5Wufq07/vBd+hMqk=
+  </data>
+ </layer>
+ <layer name="Buildings" width="24" height="16">
+  <data encoding="base64" compression="zlib">
+   eJztzDcOwkAQRmFfDUwwOWeDuQI552zikXnlVivNNlD4SV/zSzOW9ft66GOAoWYzbYQxJphqNtNmmGOBpWYzbYU1Nthqtn8rhDBsRBBFDHE4gj877HHAUdkTSCKFNDLIIoe84P8JZ1xwVfYCiiihjAqqqKEu+H+Djzseyt5AEy24aKMDD13B/ydeeOMjuAsK+gJ/IiGp
+  </data>
+ </layer>
+</map>

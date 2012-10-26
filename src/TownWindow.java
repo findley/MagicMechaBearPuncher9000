@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
 
 public class TownWindow extends NodeWindow {
     private Double timer;
@@ -60,7 +61,7 @@ public class TownWindow extends NodeWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         super.init(container, game, players);
-        bgImage = new Image("Assets/Background.png");
+        bgImage = new TiledMap("Assets/Hub 1/GameBackground1.tmx");
         miniGames = new MiniGame[1];
         miniGames[0] = new MiniGame(new Rectangle(200, 200, 10, 10), 0);
         for (int i = 0; i < players.length; i++) {

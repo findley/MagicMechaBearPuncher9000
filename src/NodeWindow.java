@@ -12,6 +12,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.Image;
 
 /**
@@ -26,7 +27,7 @@ public class NodeWindow {
     protected Player[] players;
     protected float[][] playerPos = new float[2][2];
     protected boolean[] inNode = {true,true};
-    protected Image bgImage;
+    protected TiledMap bgImage;
     public MiniGame[] miniGames;
 
     /*
@@ -38,10 +39,10 @@ public class NodeWindow {
 
     public void displayMinigameBackground(Graphics g, Player player) {
         //do we want the +21? Probably, but easy to fix
-        g.drawImage(bgImage, players[0].windowPos[0] + 21,
-                players[0].windowPos[1] + 21);
-        g.drawImage(bgImage, players[1].windowPos[0] + 21,
-                players[1].windowPos[1] + 21);
+        bgImage.render((int) (players[0].windowPos[0] + 21),
+                (int)(players[0].windowPos[1] + 21));
+        bgImage.render((int) (players[1].windowPos[0] + 21),
+                (int)(players[1].windowPos[1] + 21));
     }
 
     public void render(GameContainer container, StateBasedGame game,
