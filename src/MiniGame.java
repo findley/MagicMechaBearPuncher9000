@@ -20,6 +20,9 @@ public class MiniGame {
             if(index == 0){
                 state.triggerMinigame(container, game, players[playerIndex], new DodgeWindow(players[playerIndex]));
             }
+            if(index == 1){
+                state.triggerMinigame(container, game, players[playerIndex], new CatchWindow(players[playerIndex]));
+            }
             playerDone[playerIndex] = true;
             return true;
         }

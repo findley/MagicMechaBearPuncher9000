@@ -73,7 +73,7 @@ public class GameState extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
-        
+
         float[] p1WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p2WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p1WinPos = { 0, 0 };
@@ -150,9 +150,12 @@ public class GameState extends BasicGameState {
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
-        
+
         masterState.update(container, game, delta, players);
-        
+        if (masterState.over == true) {
+            game.enterState(0);
+        }
+
         if (started && wonPlayer == null) {
             for (int i = 0; i < this.states.size(); i++) {
                 Stack<Window> stack = this.states.get(i);
@@ -191,24 +194,28 @@ public class GameState extends BasicGameState {
     }
 
     @Override
-    public void enter(GameContainer container, StateBasedGame game) {
-        try {
-            masterState.init(container, game, players);
-        } catch (SlickException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+    public void enter(GameContainer container, StateBasedGame game)
+            throws SlickException {
+        this.masterState = new TownWindow(players);
+        this.states = new ArrayList<Stack<Window>>();
+        Stack<Window> states1 = new Stack<Window>();
+        Stack<Window> states2 = new Stack<Window>();
+
+        // states1.push(new DodgeWindow(players[0]));
+        // states2.push(new DodgeWindow(players[1]));
+
+        states.add(states1);
+        states.add(states2);
+
+        masterState.init(container, game, players);
+
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);
             if (stack.size() != 0) {
                 Window windowedState = stack.peek();
-                try {
-                    windowedState.init(container, game, players[i]);
-                } catch (SlickException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+                windowedState.init(container, game, players[i]);
             }
+            // TODO Auto-generated catch block
         }
     }
 }

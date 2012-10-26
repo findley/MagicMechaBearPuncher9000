@@ -89,9 +89,9 @@ public class DodgeWindow extends Window {
             }
         }
 
-        Rectangle playerShape = new Rectangle(playerPos[0], playerPos[1], 20, 20);
+        //Rectangle playerShape = new Rectangle(playerPos[0], playerPos[1], 20, 20);
         for (int i = 0; i < objPos.length; i++) {
-            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 40, 40)).intersects(playerShape)) {
+            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 40, 40)).intersects(player.boundingBox)) {
                 timer = 4.0;
                 objVis[i] = false;
             }

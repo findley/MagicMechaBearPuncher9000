@@ -29,7 +29,7 @@ public class TownWindow extends NodeWindow {
                 //Note that player.render defines the persons location.
                 //so it has to render in this order. We may want to change this.
                 player[i].render(container, game, g, playerPos[i][0]
-                       + container.getWidth() / 2, playerPos[i][1]);
+                       + container.getWidth() / 2 +10 , playerPos[i][1]);
             }
             if (inNode[0]) {
                 player[i].render(container, game, g, playerPos[i][0],
@@ -51,7 +51,7 @@ public class TownWindow extends NodeWindow {
                 g.draw(r);
             }
             if(inNode[1]){
-            g.drawRect(r.getX() + container.getWidth() / 2, r.getY(), r
+            g.drawRect(r.getX() +9 + container.getWidth() / 2, r.getY(), r
                     .getWidth(), r.getHeight());
             }
         }
@@ -62,8 +62,9 @@ public class TownWindow extends NodeWindow {
             Player[] players) throws SlickException {
         super.init(container, game, players);
         bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
-        miniGames = new MiniGame[1];
-        miniGames[0] = new MiniGame(new Rectangle(200, 200, 10, 10), 0);
+        miniGames = new MiniGame[2];
+        miniGames[0] = new MiniGame(new Rectangle(53, 500, 30, 20), 0);
+        miniGames[1] = new MiniGame(new Rectangle(228, 435, 50, 20), 1);
         for (int i = 0; i < players.length; i++) {
             /*
              * playerPos[i][0] = players[i].windowPos[0] +
@@ -72,7 +73,7 @@ public class TownWindow extends NodeWindow {
              */
             playerPos[i][0] = 0;
             playerPos[i][1] = 0;
-            timer = 4000.0;
+            timer = 30.0;
         }
     }
 

@@ -5,16 +5,7 @@
  * rendering of this view multiple times in different locations on the screen,
  * or for the movement of this view around the screen.
  */
-/**
- * 
- */
-/**
- * 
- */
 
-/**
- * 
- */
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -47,7 +38,7 @@ public class Window {
             g.drawImage(bgImageOne.getScaledCopy(590, 720), player.windowPos[0], player.windowPos[1]);
         }
         else {
-            g.drawImage(bgImageTwo.getScaledCopy(590, 720), player.windowPos[0], player.windowPos[1]);
+            g.drawImage(bgImageTwo.getScaledCopy(590, 720), player.windowPos[0]+10, player.windowPos[1]);
         }
     }
 
