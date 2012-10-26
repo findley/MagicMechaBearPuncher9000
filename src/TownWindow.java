@@ -61,7 +61,7 @@ public class TownWindow extends NodeWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         super.init(container, game, players);
-        bgImage = new TiledMap("Assets/Hub 1/GameBackground1.tmx");
+        bgImage = new TiledMap("Assets/GameBackground1.tmx");
         miniGames = new MiniGame[1];
         miniGames[0] = new MiniGame(new Rectangle(200, 200, 10, 10), 0);
         for (int i = 0; i < players.length; i++) {
