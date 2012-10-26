@@ -30,7 +30,7 @@ public class GameState extends BasicGameState {
     public Player[] players;
 
     public Audio music;
-    
+
     public Image background;
 
     public boolean started;
@@ -41,9 +41,6 @@ public class GameState extends BasicGameState {
     private PopUp currentPopUp;
 
     public UnicodeFont uFont;
-
-    public int[] delay = { 0, 0 };
-    public float maxDelay;
 
     public Sound levelUp;
     int stateID;
@@ -84,10 +81,8 @@ public class GameState extends BasicGameState {
         float[] p2WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p1WinPos = { 0, 0 };
         float[] p2WinPos = { container.getWidth() / 2, 0 };
-      
-        this.stateID = stateID;
 
-        maxDelay = 60;
+        this.stateID = stateID;
 
         HashMap<String, Integer> p1Buttons = new HashMap<String, Integer>();
         p1Buttons.put("up", Input.KEY_W);
@@ -144,7 +139,7 @@ public class GameState extends BasicGameState {
             throws SlickException {
         Input input = container.getInput();
 
-		for (int key : startKeys) {
+        for (int key : startKeys) {
             if (input.isKeyDown(key)) {
                 started = true;
             }
@@ -167,15 +162,10 @@ public class GameState extends BasicGameState {
                     if (windowedState.over() == true) {
                         stack.pop();
                         masterState.inNode[i] = true;
-                        delay[i] = (int) maxDelay;
                     }
 
-                    if (delay[i] > 0) {
-                        delay[i]--;
-                    } else {
-                        windowedState
-                                .update(container, game, delta, players[i]);
-                    }
+                    windowedState.update(container, game, delta, players[i]);
+
                 }
             }
 
