@@ -84,15 +84,7 @@ public class GameState extends BasicGameState {
         float[] p2WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p1WinPos = { 0, 0 };
         float[] p2WinPos = { container.getWidth() / 2, 0 };
-
-	    try {
-			music = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Assets/Town2.wav"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-        
+      
         this.stateID = stateID;
 
         maxDelay = 60;
@@ -122,8 +114,6 @@ public class GameState extends BasicGameState {
 
         // levelUp = new Sound("resources/music/levelup.wav");
 
-        // Music loop = new Music("resources/music/five-minutes_longloop.wav");
-        // loop.loop();
         this.masterState = new TownWindow(players);
         this.states = new ArrayList<Stack<Window>>();
         Stack<Window> states1 = new Stack<Window>();
@@ -137,8 +127,6 @@ public class GameState extends BasicGameState {
 
         uFont = MainGame.loadFont("Arial Monospaced", Font.BOLD, 40,
                 Color.WHITE);
-
-        masterState.init(container, game, players);
 
         for (int i = 0; i < this.states.size(); i++) {
             Stack<Window> stack = this.states.get(i);
@@ -155,8 +143,6 @@ public class GameState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int delta)
             throws SlickException {
         Input input = container.getInput();
-
-		music.playAsSoundEffect(1.0f, .5f, false);
 
 		for (int key : startKeys) {
             if (input.isKeyDown(key)) {

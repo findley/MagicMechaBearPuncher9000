@@ -3,6 +3,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
@@ -61,6 +62,8 @@ public class TownWindow extends NodeWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         super.init(container, game, players);
+        Music loop = new Music("Assets/Town2.wav");
+        loop.loop();
         bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
         miniGames = new MiniGame[2];
         miniGames[0] = new MiniGame(new Rectangle(53, 500, 30, 20), 0);
