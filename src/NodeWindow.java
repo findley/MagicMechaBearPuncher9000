@@ -27,7 +27,7 @@ public class NodeWindow {
     protected Player[] players;
     protected float[][] playerPos = new float[2][2];
     protected boolean[] inNode = {true,true};
-    protected TiledMap bgImage;
+    protected Image bgImage;
     public MiniGame[] miniGames;
 
     /*
@@ -39,10 +39,11 @@ public class NodeWindow {
 
     public void displayMinigameBackground(Graphics g, Player player) {
         //do we want the +21? Probably, but easy to fix
-        bgImage.render((int) (players[0].windowPos[0] + 21),
-                (int)(players[0].windowPos[1] + 21));
-        bgImage.render((int) (players[1].windowPos[0] + 21),
-                (int)(players[1].windowPos[1] + 21));
+    	//hacky image instead of tileset deal
+        g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(600, 720),(int) (players[0].windowPos[0]),
+                (int)(players[0].windowPos[1]));
+        g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(600, 720),(int) (players[1].windowPos[0]),
+                (int)(players[1].windowPos[1]));
     }
 
     public void render(GameContainer container, StateBasedGame game,
