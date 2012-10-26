@@ -6,11 +6,15 @@
  * or for the movement of this view around the screen.
  */
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
 
 public class NodeWindow {
 
@@ -20,6 +24,7 @@ public class NodeWindow {
     protected boolean[] inNode = {true,true};
     private Image bgImageOne;
     private Image bgImageTwo;
+    public Rectangle[] miniGames;
 
     /*
      * Constructor that allows for providing of a stateID
@@ -56,6 +61,12 @@ public class NodeWindow {
 
     public void enter(GameContainer container, StateBasedGame game,
             Player[] players) {
+    }
+    
+    public void startMinigame(int i, Player player){
+        if(i == 0){
+            
+        }
     }
 
     public boolean over() {

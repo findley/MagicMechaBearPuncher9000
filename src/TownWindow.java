@@ -18,17 +18,21 @@ public class TownWindow extends NodeWindow {
     @Override
     public void render(GameContainer container, StateBasedGame game,
             Graphics g, Player[] player) throws SlickException {
-        for(int i = 0; i < player.length; i++){
-            if(inNode[i]){
+        for (int i = 0; i < player.length; i++) {
+            if (inNode[i]) {
                 this.displayMinigameBackground(g, player[i]);
             }
         }
         for (int i = 0; i < players.length; i++) {
-            if (inNode[i]) {
-                player[i].render(container, game, g, playerPos[i][0] + container.getWidth()/2,
-                        playerPos[i][1]);
+            if(inNode[1]){
+                player[i].render(container, game, g, playerPos[i][0]
+                       + container.getWidth() / 2, playerPos[i][1]);
+            }
+            if (inNode[0]) {
                 player[i].render(container, game, g, playerPos[i][0],
                         playerPos[i][1]);
+            }
+            if(inNode[i]) {
                 GameState state = (GameState) (game.getCurrentState());
                 g.setFont(state.uFont);
                 g.setColor(Color.black);
@@ -38,12 +42,20 @@ public class TownWindow extends NodeWindow {
                 // UnicodeFont uFont = state.uFont;
             }
         }
+        for (Rectangle r : miniGames) {
+            g.draw(r);
+            g.drawRect(r.getX() + container.getWidth() / 2, r.getY(), r
+                    .getWidth(), r.getHeight());
+
+        }
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         super.init(container, game, players);
+        miniGames = new Rectangle[1];
+        miniGames[0] = new Rectangle(200, 200, 10, 10);
         for (int i = 0; i < players.length; i++) {
             /*
              * playerPos[i][0] = players[i].windowPos[0] +
@@ -64,12 +76,12 @@ public class TownWindow extends NodeWindow {
             if (inNode[i]) {
                 float moveValue = delta * .2f;
                 if (input.isKeyDown(players[i].getButton("left"))) {
-                    if (playerPos[i][0] - moveValue > players[i].windowPos[0]) {
+                    if (playerPos[i][0] - moveValue > players[0].windowPos[0]) {
                         playerPos[i][0] -= moveValue;
                     }
                 }
                 if (input.isKeyDown(players[i].getButton("right"))) {
-                    if (playerPos[i][0] + players[i].pWidth + moveValue < players[i].windowPos[0]
+                    if (playerPos[i][0] + players[i].pWidth + moveValue < players[0].windowPos[0]
                             + players[i].windowSize[0]) {
                         playerPos[i][0] += moveValue;
                     }
@@ -86,7 +98,15 @@ public class TownWindow extends NodeWindow {
                     }
                 }
             }
+            for (int j = 0; j < miniGames.length; j++) {
+                if (miniGames[j].intersects(player[i].boundingBox)) {
+                    GameState state = (GameState) game.getCurrentState();
+                    inNode[i] = false;
+                    state.triggerMinigame(container, game, players[i], new DodgeWindow(players[i]));
+                }
+            }
         }
+
         timer -= 1.0 / 60;
         if (timer <= 0) {
             this.over = true;
