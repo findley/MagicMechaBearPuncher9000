@@ -44,10 +44,10 @@ public class Window {
 
     public void displayMinigameBackground(Graphics g, Player player) {
         if (player.tag == 1) {
-            g.drawImage(bgImageOne, player.windowPos[0], player.windowPos[1]);
+            g.drawImage(bgImageOne.getScaledCopy(590, 720), player.windowPos[0], player.windowPos[1]);
         }
         else {
-            g.drawImage(bgImageTwo, player.windowPos[0], player.windowPos[1]);
+            g.drawImage(bgImageTwo.getScaledCopy(590, 720), player.windowPos[0], player.windowPos[1]);
         }
     }
 
