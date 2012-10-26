@@ -26,8 +26,8 @@ public class MainMenuState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
         // TODO Auto-generated method stub
-        background = new Image("Assets/Background.png");
-        System.out.println("init Menu");
+        background = new Image("Assets/Black.jpg");
+        //System.out.println("init Menu");
     }
 
     @Override
