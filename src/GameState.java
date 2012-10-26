@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Font;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -13,8 +14,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
 
 public class GameState extends BasicGameState {
 
@@ -25,6 +29,8 @@ public class GameState extends BasicGameState {
     public NodeWindow masterState;
     public Player[] players;
 
+    public Audio music;
+    
     public Image background;
 
     public boolean started;
@@ -79,6 +85,14 @@ public class GameState extends BasicGameState {
         float[] p1WinPos = { 0, 0 };
         float[] p2WinPos = { container.getWidth() / 2, 0 };
 
+	    try {
+			music = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("Assets/Town2.wav"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+        
         this.stateID = stateID;
 
         maxDelay = 60;
@@ -142,7 +156,9 @@ public class GameState extends BasicGameState {
             throws SlickException {
         Input input = container.getInput();
 
-        for (int key : startKeys) {
+		music.playAsSoundEffect(1.0f, .5f, false);
+
+		for (int key : startKeys) {
             if (input.isKeyDown(key)) {
                 started = true;
             }

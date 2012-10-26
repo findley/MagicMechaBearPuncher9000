@@ -64,7 +64,8 @@ public class NodeWindow {
     
     public void movePlayer(Input input, float moveValue, int playerIndex){
         if (input.isKeyDown(players[playerIndex].getButton("left"))) {
-            if (playerPos[playerIndex][0] - moveValue > players[0].windowPos[0]) {
+        	float newPos = playerPos[playerIndex][0] - moveValue;
+            if (newPos > players[0].windowPos[0]) {
                 playerPos[playerIndex][0] -= moveValue;
             }
         }
