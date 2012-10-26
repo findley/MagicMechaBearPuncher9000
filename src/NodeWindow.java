@@ -6,15 +6,19 @@
  * or for the movement of this view around the screen.
  */
 
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.geom.Rectangle;
+
+/**
+ * Superclass for nodes (towns, field, castle, etc.)
+ * @author msalvato
+ *
+ */
 
 public class NodeWindow {
 
@@ -22,8 +26,8 @@ public class NodeWindow {
     protected Player[] players;
     protected float[][] playerPos = new float[2][2];
     protected boolean[] inNode = {true,true};
-    private Image bgImageOne;
-    private Image bgImageTwo;
+    protected Image bgImageOne;
+    protected Image bgImageTwo;
     public MiniGame[] miniGames;
 
     /*
@@ -34,6 +38,7 @@ public class NodeWindow {
     }
 
     public void displayMinigameBackground(Graphics g, Player player) {
+        //do we want the +21? Probably, but easy to fix
         g.drawImage(bgImageOne, players[0].windowPos[0] + 21,
                 players[0].windowPos[1] + 21);
         g.drawImage(bgImageTwo, players[1].windowPos[0] + 21,
@@ -45,14 +50,7 @@ public class NodeWindow {
 
     }
 
-    public void init(GameContainer container, StateBasedGame game, Player[] players)
-            throws SlickException {
-        try {
-            bgImageOne = new Image("Assets/Background.png");
-            bgImageTwo = new Image("Assets/Background.png");
-        } catch (SlickException e) {
-            System.out.println("Error loading mini game resources.");
-        }
+    public void init(GameContainer container, StateBasedGame game, Player[] players) throws SlickException{
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta,
@@ -62,7 +60,32 @@ public class NodeWindow {
     public void enter(GameContainer container, StateBasedGame game,
             Player[] players) {
     }
-
+    
+    public void movePlayer(Input input, float moveValue, int playerIndex){
+        if (input.isKeyDown(players[playerIndex].getButton("left"))) {
+            if (playerPos[playerIndex][0] - moveValue > players[0].windowPos[0]) {
+                playerPos[playerIndex][0] -= moveValue;
+            }
+        }
+        if (input.isKeyDown(players[playerIndex].getButton("right"))) {
+            if (playerPos[playerIndex][0] + players[playerIndex].pWidth + moveValue < players[0].windowPos[0]
+                    + players[playerIndex].windowSize[0]) {
+                playerPos[playerIndex][0] += moveValue;
+            }
+        }
+        if (input.isKeyDown(players[playerIndex].getButton("up"))) {
+            if (playerPos[playerIndex][1] - moveValue > players[playerIndex].windowPos[1]) {
+                playerPos[playerIndex][1] -= moveValue;
+            }
+        }
+        if (input.isKeyDown(players[playerIndex].getButton("down"))) {
+            if (playerPos[playerIndex][1] + players[playerIndex].pHeight + moveValue < players[playerIndex].windowPos[1]
+                    + players[playerIndex].windowSize[1]) {
+                playerPos[playerIndex][1] += moveValue;
+            }
+        }
+    }
+    
     public boolean over() {
         return over;
     }

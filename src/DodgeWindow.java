@@ -19,7 +19,7 @@ public class DodgeWindow extends Window {
 
     public DodgeWindow(Player player) throws SlickException {
         super(player);
-        objSprite = new Image("Assets/house.png");
+        objSprite = new Image("Assets/rock.png");
         // TODO Change objSprite
     }
 

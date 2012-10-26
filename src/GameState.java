@@ -73,6 +73,8 @@ public class GameState extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
+        
+        this.background = new Image("Assets/Background.png");
 
         float[] p1WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p2WinSize = { container.getWidth() / 2, container.getHeight() };
@@ -105,8 +107,6 @@ public class GameState extends BasicGameState {
         players[1] = new Player(p2WinPos, p2WinSize, p2Buttons, 2);
         started = false;
         wonPlayer = null;
-
-        this.background = new Image("Assets/Background.png");
 
         // levelUp = new Sound("resources/music/levelup.wav");
 

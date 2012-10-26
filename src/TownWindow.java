@@ -12,13 +12,12 @@ public class TownWindow extends NodeWindow {
 
     public TownWindow(Player[] players) throws SlickException {
         super(players);
-        // TODO Change objSprite
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game,
             Graphics g, Player[] player) throws SlickException {
-        System.out.println(inNode[1]);
+        //Rendering things has.. an interesting order.
         for (int i = 0; i < player.length; i++) {
             if (inNode[i]) {
                 this.displayMinigameBackground(g, player[i]);
@@ -26,6 +25,8 @@ public class TownWindow extends NodeWindow {
         }
         for (int i = 0; i < players.length; i++) {
             if(inNode[1]){
+                //Note that player.render defines the persons location.
+                //so it has to render in this order. We may want to change this.
                 player[i].render(container, game, g, playerPos[i][0]
                        + container.getWidth() / 2, playerPos[i][1]);
             }
@@ -40,15 +41,18 @@ public class TownWindow extends NodeWindow {
                 g.drawString(Double.toString(Math.ceil(timer)),
                         players[i].windowPos[0] + container.getWidth() / 4,
                         players[i].windowPos[1]);
-                // UnicodeFont uFont = state.uFont;
             }
         }
+        // not necessary once the images are imported correctly
         for (MiniGame mgame : miniGames) {
             Rectangle r = mgame.location;
-            g.draw(r);
+            if(inNode[0]){
+                g.draw(r);
+            }
+            if(inNode[1]){
             g.drawRect(r.getX() + container.getWidth() / 2, r.getY(), r
                     .getWidth(), r.getHeight());
-
+            }
         }
     }
 
@@ -56,6 +60,8 @@ public class TownWindow extends NodeWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         super.init(container, game, players);
+        bgImageOne = new Image("Assets/Background.png");
+        bgImageTwo = new Image("Assets/Background.png");
         miniGames = new MiniGame[1];
         miniGames[0] = new MiniGame(new Rectangle(200, 200, 10, 10), 0);
         for (int i = 0; i < players.length; i++) {
@@ -77,28 +83,7 @@ public class TownWindow extends NodeWindow {
         for (int i = 0; i < players.length; i++) {
             if (inNode[i]) {
                 float moveValue = delta * .2f;
-                if (input.isKeyDown(players[i].getButton("left"))) {
-                    if (playerPos[i][0] - moveValue > players[0].windowPos[0]) {
-                        playerPos[i][0] -= moveValue;
-                    }
-                }
-                if (input.isKeyDown(players[i].getButton("right"))) {
-                    if (playerPos[i][0] + players[i].pWidth + moveValue < players[0].windowPos[0]
-                            + players[i].windowSize[0]) {
-                        playerPos[i][0] += moveValue;
-                    }
-                }
-                if (input.isKeyDown(players[i].getButton("up"))) {
-                    if (playerPos[i][1] - moveValue > players[i].windowPos[1]) {
-                        playerPos[i][1] -= moveValue;
-                    }
-                }
-                if (input.isKeyDown(players[i].getButton("down"))) {
-                    if (playerPos[i][1] + players[i].pHeight + moveValue < players[i].windowPos[1]
-                            + players[i].windowSize[1]) {
-                        playerPos[i][1] += moveValue;
-                    }
-                }
+                movePlayer(input, moveValue, i);
             }
             for (int j = 0; j < miniGames.length; j++) {
                 if (miniGames[j].location.intersects(player[i].boundingBox)) {
