@@ -26,8 +26,7 @@ public class NodeWindow {
     protected Player[] players;
     protected float[][] playerPos = new float[2][2];
     protected boolean[] inNode = {true,true};
-    protected Image bgImageOne;
-    protected Image bgImageTwo;
+    protected Image bgImage;
     public MiniGame[] miniGames;
 
     /*
@@ -39,9 +38,9 @@ public class NodeWindow {
 
     public void displayMinigameBackground(Graphics g, Player player) {
         //do we want the +21? Probably, but easy to fix
-        g.drawImage(bgImageOne, players[0].windowPos[0] + 21,
+        g.drawImage(bgImage, players[0].windowPos[0] + 21,
                 players[0].windowPos[1] + 21);
-        g.drawImage(bgImageTwo, players[1].windowPos[0] + 21,
+        g.drawImage(bgImage, players[1].windowPos[0] + 21,
                 players[1].windowPos[1] + 21);
     }
 

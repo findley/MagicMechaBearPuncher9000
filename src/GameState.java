@@ -74,8 +74,6 @@ public class GameState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
         
-        this.background = new Image("Assets/Background.png");
-
         float[] p1WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p2WinSize = { container.getWidth() / 2, container.getHeight() };
         float[] p1WinPos = { 0, 0 };
