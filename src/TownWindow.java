@@ -90,7 +90,7 @@ public class TownWindow extends NodeWindow {
                 movePlayer(input, moveValue, i);
             }
             for (int j = 0; j < miniGames.length; j++) {
-                if (miniGames[j].location.intersects(player[i].boundingBox)) {
+                if (miniGames[j].location.intersects(player[i].boundingBox) && inNode[i]) {
                     GameState state = (GameState) game.getCurrentState();
                     if(miniGames[j].enterGame(container, game, players, i)){
                         inNode[i] = false;
