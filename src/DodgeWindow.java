@@ -46,6 +46,9 @@ public class DodgeWindow extends Window {
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
         super.init(container, game, player);
+        //bg for each player... in case they're different?
+        bgImageOne = new Image("Assets/Background.png");
+        bgImageTwo = new Image("Assets/Background.png");
         playerPos[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
         playerPos[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
         for (int i = 0; i < objPos.length; i++) {
@@ -68,26 +71,9 @@ public class DodgeWindow extends Window {
         Input input = container.getInput();
 
         float moveValue = delta * .2f;
-        if (input.isKeyDown(player.getButton("left"))) {
-            if (playerPos[0] - moveValue > player.windowPos[0]) {
-                playerPos[0] -= moveValue;
-            }
-        }
-        if (input.isKeyDown(player.getButton("right"))) {
-            if (playerPos[0] + player.pWidth + moveValue < player.windowPos[0] + player.windowSize[0]) {
-                playerPos[0] += moveValue;
-            }
-        }
-        if (input.isKeyDown(player.getButton("up"))) {
-            if (playerPos[1] - moveValue > player.windowPos[1]) {
-                playerPos[1] -= moveValue;
-            }
-        }
-        if (input.isKeyDown(player.getButton("down"))) {
-            if (playerPos[1] + player.pHeight + moveValue < player.windowPos[1] + player.windowSize[1]) {
-                playerPos[1] += moveValue;
-            }
-        }
+        
+        movePlayer(input, moveValue);
+        
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i]) {
                 if (player.windowPos[0] + player.windowSize[0] < objPos[i][0] + 40 + moveValue * objSpd[i][0]
