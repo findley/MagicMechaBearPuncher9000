@@ -10,7 +10,7 @@ import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class CatchWindow extends Window {
+public class CatchWindow extends EventWindow {
     private float[][] objPos = new float[10][2];
     private Image objSprite;
     private boolean[] objVis = new boolean[10];
@@ -30,11 +30,11 @@ public class CatchWindow extends Window {
             if (objVis[i])
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
         }
-        player.render(container, game, g, playerPos[0], playerPos[1]);
+        player.render(container, game, g, player.eventLoc[0], player.eventLoc[1]);
         g.drawString(Double.toString(Math.ceil(counter)), player.windowPos[0] + 350, player.windowPos[1]);
 
         g.setColor(Color.white);
-        GameState state = (GameState) (game.getCurrentState());
+        GameStateOld state = (GameStateOld) (game.getCurrentState());
         UnicodeFont uFont = state.uFont;
         g.setFont(state.uFont);
         g.drawString("Collect most objects", 100 + player.windowPos[0], 65);
@@ -46,10 +46,9 @@ public class CatchWindow extends Window {
         super.init(container, game, player);
       //bg for each player... in case they're different?
         Image tempImage = new Image("Assets/Hub 1/FinalImageRef.png");
-        bgImageOne = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
-        bgImageTwo = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
-        playerPos[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
-        playerPos[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
+        bgImage = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
+        player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
+        player.eventLoc[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
         for (int i = 0; i < objPos.length; i++) {
             objPos[i][0] = player.windowPos[0] + (int) ((player.windowSize[0] - 100) * Math.random());
             objPos[i][1] = player.windowPos[1] + (int) (player.windowSize[1] * Math.random());
@@ -71,23 +70,23 @@ public class CatchWindow extends Window {
 
         float moveValue = delta * .2f;
         if (input.isKeyDown(player.getButton("left"))) {
-            if (playerPos[0] - moveValue > player.windowPos[0]) {
-                playerPos[0] -= moveValue;
+            if (player.eventLoc[0] - moveValue > player.windowPos[0]) {
+                player.eventLoc[0] -= moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("right"))) {
-            if (playerPos[0] + player.pWidth + moveValue < player.windowPos[0] + player.windowSize[0]) {
-                playerPos[0] += moveValue;
+            if (player.eventLoc[0] + player.pWidth + moveValue < player.windowPos[0] + player.windowSize[0]) {
+                player.eventLoc[0] += moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("up"))) {
-            if (playerPos[1] - moveValue > player.windowPos[1]) {
-                playerPos[1] -= moveValue;
+            if (player.eventLoc[1] - moveValue > player.windowPos[1]) {
+                player.eventLoc[1] -= moveValue;
             }
         }
         if (input.isKeyDown(player.getButton("down"))) {
-            if (playerPos[1] + player.pHeight + moveValue < player.windowPos[1] + player.windowSize[1]) {
-                playerPos[1] += moveValue;
+            if (player.eventLoc[1] + player.pHeight + moveValue < player.windowPos[1] + player.windowSize[1]) {
+                player.eventLoc[1] += moveValue;
             }
         }
         for (int i = 0; i < objPos.length; i++) {
@@ -105,9 +104,8 @@ public class CatchWindow extends Window {
             }
         }
 
-        //Rectangle playerShape = new Rectangle(playerPos[0], playerPos[1], 32,32);
         for (int i = 0; i < objPos.length; i++) {
-            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 32,32)).intersects(player.boundingBox)) {
+            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 32,32)).intersects(player.collisionRect)) {
                 counter -= 1;
                 objVis[i] = false;
             }

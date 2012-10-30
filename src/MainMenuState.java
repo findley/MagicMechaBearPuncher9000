@@ -27,14 +27,13 @@ public class MainMenuState extends BasicGameState {
             throws SlickException {
         // TODO Auto-generated method stub
         background = new Image("Assets/Black.jpg");
-        //System.out.println("init Menu");
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g)
             throws SlickException {
         // TODO Auto-generated method stub
-        background.draw(0,0);
+        //background.draw(0,0);
         String Title = "Main Menu";
         g.drawString(Title, container.getWidth()/2f, 15);
         String navKeys = "P for play\nI for instructions\nEsc for Exit";
@@ -57,6 +56,12 @@ public class MainMenuState extends BasicGameState {
         
     }
 
+    @Override
+    public void enter(GameContainer container, StateBasedGame game)
+            throws SlickException {
+    	background = new Image("Assets/Black.jpg");
+    }
+    
     @Override
     public int getID() {
         // TODO Auto-generated method stub
