@@ -1,5 +1,7 @@
 
 
+import java.awt.Font;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -15,11 +17,15 @@ public class CatchWindow extends EventWindow {
     private Image objSprite;
     private boolean[] objVis = new boolean[10];
     private float[][] objSpd = new float[10][2];
-    private int counter;
+    private int counter; 
+	private Image bgImage;
+    private UnicodeFont uFont;
+
 
     public CatchWindow(Player player) throws SlickException {
         super(player);
         objSprite = new Image("Assets/sheep.png");
+        uFont = new UnicodeFont(new Font("Arial Monospace", Font.BOLD, 40));
         // TODO Change objSprite
     }
 
@@ -34,12 +40,16 @@ public class CatchWindow extends EventWindow {
         g.drawString(Double.toString(Math.ceil(counter)), player.windowPos[0] + 350, player.windowPos[1]);
 
         g.setColor(Color.white);
-        GameStateOld state = (GameStateOld) (game.getCurrentState());
-        UnicodeFont uFont = state.uFont;
-        g.setFont(state.uFont);
+        g.setFont(uFont);
         g.drawString("Collect most objects", 100 + player.windowPos[0], 65);
         g.setColor(Color.black);
     }
+    
+	public void displayMinigameBackground(Graphics g, Player player) {
+		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
+				.getScaledCopy(590, 720), (int) (player.windowPos[0]),
+				(int) (player.windowPos[1]));    	
+	}
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {

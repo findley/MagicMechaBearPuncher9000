@@ -16,7 +16,6 @@ public class HubWindow {
 	protected boolean over = false;
 	protected Player[] players;
 	protected boolean[] inNode = { true, true };
-	protected Image bgImage;
 	public Event[] events;
 
 	/*
@@ -26,15 +25,8 @@ public class HubWindow {
 		this.players = players;
 	}
 
-	public void displayMinigameBackground(Graphics g, Player player) {
-		// do we want the +21? Probably, but easy to fix
-		// hacky image instead of tileset deal
-		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
-				.getScaledCopy(590, 720), (int) (players[0].windowPos[0]),
-				(int) (players[0].windowPos[1]));
-		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
-				.getScaledCopy(590, 720), (int) (players[1].windowPos[0] + 10),
-				(int) (players[1].windowPos[1]));
+	public void displayHubBackground(Graphics g, Player player) {
+		
 	}
 
 	public void render(GameContainer container, StateBasedGame game,

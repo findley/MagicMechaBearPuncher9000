@@ -19,17 +19,15 @@ public class EventWindow {
 
 	protected boolean over = false;
 	protected Player player;
-	protected Image bgImage;
-
 	/*
 	 * Constructor that allows for providing of a stateID
 	 */
 	public EventWindow(Player player) {
 		this.player = player;
 	}
-
+	
 	public void displayMinigameBackground(Graphics g, Player player) {
-		// function implementation needed
+
 	}
 
 	public void render(GameContainer container, StateBasedGame game,
