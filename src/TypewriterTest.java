@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 
 /** @author davedes */
 public class TypewriterTest extends BasicGame {
@@ -42,7 +43,7 @@ public class TypewriterTest extends BasicGame {
     private boolean finished = false;
    
     public TypewriterTest() {
-        super("TypeWriter");
+        super("TypeWriter");   
     }
    
     public void keyPressed(int key, char c) {
@@ -56,21 +57,33 @@ public class TypewriterTest extends BasicGame {
                     + "elit. Mauris commodo erat lectus. \n\nNullam id magna erat, "
                     + "lacinia vulputate nulla. Lorem ipsum dolor sit amet, "
                     + "consectetur adipiscing elit.";
-            DialogBox dialog = new DialogBox(100,100, text);
+            DialogBox dialog = new DialogBox(100,100, text, font, Input.KEY_DOWN);
             dialogBoxes[0] = dialog;
         }
     }
    
     //initialize the game and dialog box
     public void init(GameContainer c) throws SlickException {
-        font = new UnicodeFont(new Font("Times New Roman", Font.BOLD, 18));
-        String text = "Lorem ipsum dolor sit amet, consectetur adipiscing "
+        /*String text = "Lorem ipsum dolor sit amet, consectetur adipiscing "
                 + "elit. Mauris commodo erat lectus. \n\nNullam id magna erat, "
                 + "lacinia vulputate nulla. Lorem ipsum dolor sit amet, "
-                + "consectetur adipiscing elit.";
+                + "consectetur adipiscing elit.";*/
+        
+        String text = "I want meat!";
 
         //create a list of lines based on the above text
+        Font awtFont = new Font("Arial Monospaced", Font.BOLD, 18);
+	    font = new UnicodeFont(awtFont);
+	    font.getEffects().add(new ColorEffect(java.awt.Color.white));
+	    font.addAsciiGlyphs();
+	    try {
+	        font.loadGlyphs();
+	    } catch (SlickException ex) {
+	       // Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+	    }
         lines = wrap(text, font, width);
+        
+        
     }
    
     //render the dialog box
@@ -79,7 +92,6 @@ public class TypewriterTest extends BasicGame {
         int y = 150;
        
         int pad = 5;
-        System.out.println(g.getFont().toString());
         g.setColor(box);
         g.fillRect(x-pad, y-pad, width+pad*2, 200+pad*2);
        
@@ -117,7 +129,6 @@ public class TypewriterTest extends BasicGame {
         }
         if (time<=0 && !finished) {
             time = TYPE_DELAY;
-            String line = lines.get(renderRow);
            
             //if we are moving down to the next line
             if (renderCol > lines.get(renderRow).length()-1) {
