@@ -38,8 +38,6 @@ public class GameStateOld extends BasicGameState {
 
     private Set<Integer> startKeys;
 
-    public UnicodeFont uFont;
-
     public Sound levelUp;
     int stateID;
 

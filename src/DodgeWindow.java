@@ -1,14 +1,28 @@
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Stack;
+import java.util.TreeSet;
+import java.awt.Font;
 
-
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.Sound;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.util.ResourceLoader;
+
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.geom.Rectangle;
 
 public class DodgeWindow extends EventWindow {
     private float[][] objPos = new float[10][2];
@@ -16,10 +30,14 @@ public class DodgeWindow extends EventWindow {
     private boolean[] objVis = new boolean[10];
     private float[][] objSpd = new float[10][2];
     private Double timer;
+    private Image bgImage;
+    private UnicodeFont uFont;
+
 
     public DodgeWindow(Player player) throws SlickException {
         super(player);
         objSprite = new Image("Assets/rock.png");
+        uFont = new UnicodeFont(new Font("Arial Monospace", Font.BOLD, 40));
         // TODO Change objSprite
     }
 
@@ -31,8 +49,7 @@ public class DodgeWindow extends EventWindow {
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
         }
         player.render(container, game, g, player.eventLoc[0], player.eventLoc[1]);
-        GameStateOld state = (GameStateOld) (game.getCurrentState());
-        g.setFont(state.uFont);
+        g.setFont(uFont);
         g.setColor(Color.black);
         g.drawString(Double.toString(Math.ceil(timer)), player.windowPos[0] + container.getWidth()/4, player.windowPos[1]);
 
@@ -42,6 +59,13 @@ public class DodgeWindow extends EventWindow {
         g.drawString("Survive for 4 seconds!", 60 + player.windowPos[0], 65);
         
     }
+    
+    @Override
+	public void displayMinigameBackground(Graphics g, Player player) {
+		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
+				.getScaledCopy(590, 720), (int) (player.windowPos[0]),
+				(int) (player.windowPos[1]));    	
+	}
 
     @Override
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {

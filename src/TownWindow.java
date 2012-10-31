@@ -11,6 +11,8 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class TownWindow extends HubWindow {
     private Double timer;
+	private Image bgImage;
+
 
     public TownWindow(Player[] players) throws SlickException {
         super(players);
@@ -25,12 +27,24 @@ public class TownWindow extends HubWindow {
     @Override
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
+        bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
         super.init(container, game, players);
         Music loop = new Music("Assets/Town2.wav");
         loop.loop();
-        bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
     }
 
+    @Override
+	public void displayHubBackground(Graphics g, Player player) {
+		// do we want the +21? Probably, but easy to fix
+		// hacky image instead of tileset deal
+		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
+				.getScaledCopy(590, 720), (int) (players[0].windowPos[0]),
+				(int) (players[0].windowPos[1]));
+		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
+				.getScaledCopy(590, 720), (int) (players[1].windowPos[0] + 10),
+				(int) (players[1].windowPos[1]));
+	}
+    
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta,
             Player[] player) throws SlickException {

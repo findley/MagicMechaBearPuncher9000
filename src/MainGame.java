@@ -1,6 +1,6 @@
 
 
-import java.awt.Color;
+import org.newdawn.slick.Color;
 import java.awt.Font;
 import java.util.List;
 
@@ -19,7 +19,7 @@ public class MainGame extends StateBasedGame {
 	
 	@SuppressWarnings("unchecked")
     public static UnicodeFont loadFont(String name, int style, int size,
-            Color color) throws SlickException {
+            java.awt.Color color) throws SlickException {
         UnicodeFont font = new UnicodeFont(new Font(name, style, size));
         font.addAsciiGlyphs();
         ((List<Effect>) font.getEffects()).add(new ColorEffect(color));
