@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class DodgeWindow extends Window {
+public class DodgeWindow extends EventWindow {
     private float[][] objPos = new float[10][2];
     private Image objSprite;
     private boolean[] objVis = new boolean[10];
@@ -30,8 +30,8 @@ public class DodgeWindow extends Window {
             if (objVis[i])
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
         }
-        player.render(container, game, g, playerPos[0], playerPos[1]);
-        GameState state = (GameState) (game.getCurrentState());
+        player.render(container, game, g, player.eventLoc[0], player.eventLoc[1]);
+        GameStateOld state = (GameStateOld) (game.getCurrentState());
         g.setFont(state.uFont);
         g.setColor(Color.black);
         g.drawString(Double.toString(Math.ceil(timer)), player.windowPos[0] + container.getWidth()/4, player.windowPos[1]);
@@ -47,10 +47,9 @@ public class DodgeWindow extends Window {
     public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
         super.init(container, game, player);
         //bg for each player... in case they're different?
-        bgImageOne = new Image("Assets/Black.jpg");
-        bgImageTwo = new Image("Assets/Black.jpg");
-        playerPos[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
-        playerPos[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
+        bgImage = new Image("Assets/Black.jpg");
+        player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
+        player.eventLoc[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
         for (int i = 0; i < objPos.length; i++) {
             objPos[i][0] = player.windowPos[0] + (int) ((player.windowSize[0] - 100) * Math.random());
             objPos[i][1] = player.windowPos[1] + (int) (player.windowSize[1] * Math.random());
@@ -72,7 +71,7 @@ public class DodgeWindow extends Window {
 
         float moveValue = delta * .2f;
         
-        movePlayer(input, moveValue);
+        super.movePlayer(input, moveValue, 0);
         
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i]) {
@@ -89,9 +88,9 @@ public class DodgeWindow extends Window {
             }
         }
 
-        //Rectangle playerShape = new Rectangle(playerPos[0], playerPos[1], 20, 20);
+        //Rectangle playerShape = new Rectangle(player.eventLoc[0], player.eventLoc[1], 20, 20);
         for (int i = 0; i < objPos.length; i++) {
-            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 40, 40)).intersects(player.boundingBox)) {
+            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 40, 40)).intersects(player.collisionRect)) {
                 timer = 4.0;
                 objVis[i] = false;
             }
