@@ -34,7 +34,7 @@ public class TransitionWindow {
 		//fuck if I know how this will work
 	}
 
-	public void update(GameContainer container, StateBasedGame game, int delta,
+	public void update(GameContainer container, StateBasedGame game,
 			Player[] players) throws SlickException {
 	}
 

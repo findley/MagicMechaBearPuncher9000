@@ -17,7 +17,8 @@ public class HubWindow {
 	protected Player[] players;
 	protected boolean[] inNode = { true, true };
 	public Event[] events;
-
+	private Event eventOne;
+	private Event eventTwo;
 	/*
 	 * Constructor that allows for providing of a stateID
 	 */
@@ -26,8 +27,7 @@ public class HubWindow {
 		locp1[0] = locp1[0]*this.players[0].pHeight;
 		locp1[1] = locp1[1]*this.players[0].pHeight;
 		locp2[0] = locp2[0]*this.players[1].pHeight;
-		locp2[1] = locp2[1]*this.players[1].pHeight;
-		
+		locp2[1] = locp2[1]*this.players[1].pHeight;		
 		this.players[0].hubLoc = locp1;
 		this.players[1].hubLoc = locp2;
 	}
@@ -38,11 +38,8 @@ public class HubWindow {
 
 	public void render(GameContainer container, StateBasedGame game,
 			Graphics g) throws SlickException {
-			System.out.println("aaaa");
-			for (Player x: players) {
-				System.out.println(x.hubLoc[0]);
-				x.render(container, game, g, x.hubLoc[0], x.hubLoc[1]);
-			}
+			
+			
 	}
 
 	public void init(GameContainer container, StateBasedGame game,
@@ -53,7 +50,7 @@ public class HubWindow {
 		//fuck if I know how this will work
 	}
 
-	public void update(GameContainer container, StateBasedGame game, int delta,
+	public void update(GameContainer container, StateBasedGame game,
 			Player[] players) throws SlickException {
 	}
 

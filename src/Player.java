@@ -52,8 +52,6 @@ public class Player {
         collisionRect.setX(x);
         collisionRect.setY(y);
         //later incorporating array of sprites
-        System.out.println("aaa");
-        System.out.println(this.hubLoc[1]);
         g.drawImage(playerSprite[0], x, y);
     }
 

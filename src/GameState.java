@@ -61,18 +61,24 @@ shown during a particular 'event' (also explained later)*/
         started = false;
 
         // levelUp = new Sound("resources/music/levelup.wav");
-        initHubs();
+        initHubs(container, game);
         initTransitions();
         
     }
     
-    public void initHubs() {
+    ///TODO: ADD MORE HUBS HERE
+    public void initHubs(GameContainer container, StateBasedGame game) {
     	hubWindows = new ArrayList<HubWindow>();
-    	hubWindows.add(new HubWindow(players, new float[] {1,2}, new float[] {5, 10}));
-    	
-    	currentHubWindow = hubWindows.get(0);
+    	try{
+    		hubWindows.add(new TownWindow(players, new float[] {1,2}, new float[] {5, 10}));
+    		currentHubWindow = hubWindows.get(0);
+    		currentHubWindow.init(container, game, players);
+    	} catch (SlickException e) {
+    		e.printStackTrace();
+    	}
     }
     
+    //TODO: ADD MORE TRANSITION SCREENS
     public void initTransitions() {
     	transitionWindows = new ArrayList<TransitionWindow>();
     	transitionWindows.add(new TransitionWindow(players));
@@ -81,13 +87,6 @@ shown during a particular 'event' (also explained later)*/
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g)
     		throws SlickException {
-    	if (currentHubWindow.over()) {
-    		hubWindows.remove(0);
-    	}
-    	
-    	if (currentTransition.over()) {
-    		transitionWindows.remove(0);
-    	}
     	
     	if (hubWindows.size() == transitionWindows.size()) {
     		currentHubWindow.render(container, game, g);
@@ -109,6 +108,21 @@ shown during a particular 'event' (also explained later)*/
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
+        
+        
+        if (currentHubWindow.over()) {
+    		hubWindows.remove(0);
+    	}
+    	
+    	if (currentTransition.over()) {
+    		transitionWindows.remove(0);
+    	}
+    	
+    	if (hubWindows.size() == transitionWindows.size()) {
+    		currentHubWindow.update(container, game, players);
+    	} else {
+    		currentTransition.update(container, game, players);
+    	}
         
     }
 

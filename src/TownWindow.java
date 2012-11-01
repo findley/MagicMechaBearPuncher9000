@@ -12,21 +12,46 @@ import org.newdawn.slick.tiled.TiledMap;
 public class TownWindow extends HubWindow {
     private Double timer;
 	private Image bgImage;
-
-
+	private Event eventOne;
+	private Event eventTwo;
+	
     public TownWindow(Player[] players, float[] locp1, float[] locp2) throws SlickException {
         super(players, locp1, locp2);
+        
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game,
             Graphics g) throws SlickException {
-   
+		int width = container.getWidth()/2;		
+		int height = container.getHeight();
+		//render player one screen		
+		if (eventOne != null) {
+		} else {
+			g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720), 0, 0);
+			players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
+			players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
+		}
+		
+		
+		//render player two screen
+		Player p2 = players[1];
+		if (eventTwo != null) {
+			
+		} else {
+			g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720), width, 0);
+			players[1].render(container, game, g, players[1].hubLoc[0] + width, players[1].hubLoc[1]);
+			players[0].render(container, game, g, players[0].hubLoc[0] + width, players[0].hubLoc[1]);
+		}
+		
+		
+		
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
+
         bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
         super.init(container, game, players);
         Music loop = new Music("Assets/Town2.wav");
@@ -46,18 +71,13 @@ public class TownWindow extends HubWindow {
 	}
     
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta,
-            Player[] player) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game,
+            Player[] players) throws SlickException {
         Input input = container.getInput();
-        for (int i = 0; i < players.length; i++) {
-            if (inNode[i]) {
-                float moveValue = delta * .2f;
-                super.movePlayer(input, moveValue, players[i]);
-            }
-        }
-        timer -= 1.0 / 60;
-        if (timer <= 0) {
-            this.over = true;
-        }
+        
+        //timer -= 1.0 / 60;
+        //if (timer <= 0) {
+        //   this.over = true;
+        //}
     }
 }
