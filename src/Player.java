@@ -33,13 +33,17 @@ public class Player {
     	buttons = playerButtons;
         collisionRect = new Rectangle(10, 10, 30, 30);
         this.playerNum = playerNum;
+        
         try {
         	//later incorporating array of sprites
+        	playerSprite = new Image[1];
             this.playerSprite[0] = new Image("Assets/Player"+playerNum+".png");
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        
+        
     }
 
     public void render(GameContainer container, StateBasedGame game,
@@ -48,6 +52,8 @@ public class Player {
         collisionRect.setX(x);
         collisionRect.setY(y);
         //later incorporating array of sprites
+        System.out.println("aaa");
+        System.out.println(this.hubLoc[1]);
         g.drawImage(playerSprite[0], x, y);
     }
 

@@ -14,13 +14,13 @@ public class TownWindow extends HubWindow {
 	private Image bgImage;
 
 
-    public TownWindow(Player[] players) throws SlickException {
-        super(players);
+    public TownWindow(Player[] players, float[] locp1, float[] locp2) throws SlickException {
+        super(players, locp1, locp2);
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game,
-            Graphics g, Player[] player) throws SlickException {
+            Graphics g) throws SlickException {
    
     }
 

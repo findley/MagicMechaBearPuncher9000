@@ -15,7 +15,7 @@ public class Event {
 	
     public boolean enterGame(GameContainer container,StateBasedGame game, Player[] players, int playerIndex) throws SlickException{
         if(!hasEntered[playerIndex]){
-            GameStateOld state = (GameStateOld) game.getCurrentState();
+            GameState state = (GameState) game.getCurrentState();
             if(eventName.equalsIgnoreCase("dodge")){
                 state.triggerMinigame(container, game, players[playerIndex], new DodgeWindow(players[playerIndex]));
             }
