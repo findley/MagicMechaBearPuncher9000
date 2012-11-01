@@ -51,7 +51,6 @@ public class TownWindow extends HubWindow {
     @Override
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
-
         bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
         super.init(container, game, players);
         Music loop = new Music("Assets/Town2.wav");
