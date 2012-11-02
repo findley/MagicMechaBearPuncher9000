@@ -11,8 +11,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class TownWindow extends HubWindow {
     private Double timer;
-//	private Image bgImage;
-	private TiledMap bgImage;
+//	private TiledMap bgImage;
 	private Event eventOne;
 	private Event eventTwo;
 	
@@ -24,19 +23,15 @@ public class TownWindow extends HubWindow {
     @Override
     public void render(GameContainer container, StateBasedGame game,
             Graphics g) throws SlickException {
-		int width = container.getWidth()/2;		
-		int height = container.getHeight();
 		//render player one screen		
 		if (eventOne != null) {
-		} else {
-//			g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720), 0, 0);
-		    //bgImage.render(0, 0, 1);
-			//bgImage.render(0, 0, 2);
-		    
+		} else {    
 		    cameras[0].drawMap();
 		    cameras[0].translateGraphics();
 			players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
-			players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
+			if(players[1].hubLoc[0] < players[0].hubLoc[0] + players[0].windowSize[0] - 32){
+			    players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
+			}
 			cameras[0].untranslateGraphics();
 			
 		}
@@ -47,30 +42,30 @@ public class TownWindow extends HubWindow {
 		if (eventTwo != null) {
 			
 		} else {
-		    /*
+		    
 		    cameras[1].drawMap();
             cameras[1].translateGraphics();
-            players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
+            if(players[0].hubLoc[0] + 32> players[1].hubLoc[0] - players[1].windowSize[0]/2){
+                players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
+            }
             players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
             cameras[1].untranslateGraphics();
-            */
-		    //bgImage.render(container.getWidth()/2, 0,1);
-		    //bgImage.render(container.getWidth()/2, 0,2);
-//			g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720), width, 0);
-			//players[1].render(container, game, g, players[1].hubLoc[0] + width, players[1].hubLoc[1]);
-			//players[0].render(container, game, g, players[0].hubLoc[0] + width, players[0].hubLoc[1]);
 		}
-		
-		
+		container.getGraphics().resetTransform();
+		float leftLoc = players[0].windowPos[0]+ players[0].windowSize[0];
+		float rightLoc = players[1].windowPos[0]-players[0].windowSize[0];
+		g.setColor(Color.black);
+		g.fillRect(leftLoc, (float) 0, rightLoc, (float) container.getHeight());
 		
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
-//        bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
-        bgImage = new TiledMap("Assets/Big Test Map.tmx");
+        //bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
+        this.bgImage = new TiledMap("Assets/Big Test Map.tmx");
         super.init(container, game, players);
+        
         this.cameras = new Camera[2];
         cameras[0] = new Camera(container, bgImage, this.players[0]);
         cameras[1] = new Camera(container, bgImage, this.players[1]);
@@ -80,15 +75,6 @@ public class TownWindow extends HubWindow {
 
     @Override
 	public void displayHubBackground(Graphics g, Player player) {
-		// do we want the +21? Probably, but easy to fix
-		// hacky image instead of tileset deal
-/*		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
-				.getScaledCopy(590, 720), (int) (players[0].windowPos[0]),
-				(int) (players[0].windowPos[1]));
-		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
-				.getScaledCopy(590, 720), (int) (players[1].windowPos[0] + 10),
-				(int) (players[1].windowPos[1]));
-*/
 	}
     
     @Override

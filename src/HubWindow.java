@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
 
 public class HubWindow {
 	/*-TileMap (hopefully.  if not, Image) masterMap
@@ -20,9 +21,9 @@ public class HubWindow {
 	public Event[] events;
 	private Event eventOne;
 	private Event eventTwo;
-	protected Camera[] cameras;
-	
+	protected Camera[] cameras;	
 	private final int imageChange = 75;
+	protected TiledMap bgImage;
 	
 	/*
 	 * Constructor that allows for providing of a stateID
@@ -63,11 +64,11 @@ public class HubWindow {
 			Player[] players) {
 	}
 
-	public void movePlayer(Input input, float moveValue, Player player, int delta) {
+	public void movePlayer(Input input, float moveValue, Player player, int delta){
 		if (!player.isMoving) {
 			if (input.isKeyDown(player.getButton("left"))) {
 				float newPos = player.hubLoc[0]-gridSize[0];
-				if (newPos > players[0].windowPos[0]) {
+				if (newPos  > 0) {
 					player.destination = new float[] {newPos, player.hubLoc[1]};
 					player.isMoving = true;
 					player.direction = Direction.LEFT;
@@ -76,8 +77,7 @@ public class HubWindow {
 			}
 			if (input.isKeyDown(player.getButton("right"))) {
 				float newPos = player.hubLoc[0]+gridSize[0];
-				if (newPos + player.pWidth < players[0].windowPos[0]
-						+ player.windowSize[0]) {
+				if (newPos + player.pWidth < bgImage.getWidth()*bgImage.getTileWidth()) {
 					player.destination = new float[] {newPos, player.hubLoc[1]};
 					player.isMoving = true;
 					player.direction = Direction.RIGHT;
@@ -85,7 +85,7 @@ public class HubWindow {
 			}
 			if (input.isKeyDown(player.getButton("up"))) {
 				float newPos = player.hubLoc[1]-gridSize[1];
-				if (newPos > player.windowPos[1]) {
+				if (newPos  > 0) {
 					player.destination = new float[] {player.hubLoc[0], newPos};
 					player.isMoving = true;
 					player.direction = Direction.UP;
@@ -93,8 +93,7 @@ public class HubWindow {
 			}
 			if (input.isKeyDown(player.getButton("down"))) {
 				float newPos = player.hubLoc[1]+gridSize[1];
-				if (newPos + player.pHeight < player.windowPos[1]
-						+ player.windowSize[1]) {
+				if (newPos < bgImage.getHeight()*bgImage.getTileHeight()) {
 					player.destination = new float[] {player.hubLoc[0], newPos};
 					player.isMoving = true;
 					player.direction = Direction.DOWN;

@@ -48,13 +48,12 @@ public class Camera {
       
       this.numTilesX = map.getWidth();
       this.numTilesY = map.getHeight();
-      
       this.tileWidth = map.getTileWidth();
       this.tileHeight = map.getTileHeight();
       
-      this.mapHeight = this.numTilesX * this.tileWidth;
-      this.mapWidth = this.numTilesY * this.tileHeight;
-      
+
+      this.mapWidth = this.numTilesX * this.tileWidth;
+      this.mapHeight = this.numTilesY * this.tileHeight;
       this.player = player;
       
       this.gc = gc;
@@ -72,12 +71,13 @@ public class Camera {
       cameraY = y - player.windowSize[1] / 2;
       
       //if the camera is at the right or left edge lock it to prevent a black bar
-      if(cameraX < player.windowPos[0]) cameraX = player.windowPos[0];
-      if(cameraX + (player.windowPos[0] + player.windowSize[0]) > mapWidth) cameraX = mapWidth - (player.windowPos[0] + player.windowSize[0]);
+      if(cameraX < 0) cameraX = 0;
+      if(cameraX + player.windowSize[0] > mapWidth) cameraX = mapWidth - player.windowSize[0];
       
       //if the camera is at the top or bottom edge lock it to prevent a black bar
-      if(cameraY < player.windowPos[1]) cameraY = player.windowPos[1];
-      if(cameraY + (player.windowPos[1] + player.windowSize[1]) > mapHeight) cameraY = mapHeight - (player.windowPos[1] + player.windowSize[1]);
+      if(cameraY < 0) cameraY = 0;
+      
+      if(cameraY + player.windowSize[1] > mapHeight) cameraY = mapHeight - player.windowSize[1];
    }
    
    /**
@@ -126,12 +126,14 @@ public class Camera {
        
        //finally draw the section of the map on the screen
        map.render(   
-             tileOffsetX + offsetX, 
-             tileOffsetY + offsetY, 
+             //tileOffsetX + 
+             offsetX, 
+             //tileOffsetY + 
+             offsetY, 
              tileIndexX,  
              tileIndexY,
-                ((int) player.windowSize[0]  - tileOffsetX) / tileWidth  + 1,
-                ((int) player.windowSize[1] - tileOffsetY) / tileHeight + 1);
+                ((int) player.windowSize[0]  /*- tileOffsetX*/) / tileWidth  + 1,
+                ((int) player.windowSize[1] /*- tileOffsetY*/) / tileHeight + 1);
    }
    
    /**
@@ -140,7 +142,7 @@ public class Camera {
     */
    public void translateGraphics() {
        //not actually certain the math here is right
-      gc.getGraphics().translate(-cameraX, -cameraY);
+      gc.getGraphics().translate(-cameraX + player.windowPos[0], -cameraY);
    }
    /**
     * Reverses the Graphics-translation of Camera.translatesGraphics().
