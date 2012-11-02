@@ -68,7 +68,6 @@ public class Camera {
     */
    public void centerOn(float x, float y) {
       //try to set the given position as center of the camera by default
-      System.out.println(player.windowSize[0]);
       cameraX = x - player.windowSize[0]  / 2;
       cameraY = y - player.windowSize[1] / 2;
       

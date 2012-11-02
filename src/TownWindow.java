@@ -32,13 +32,13 @@ public class TownWindow extends HubWindow {
 //			g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720), 0, 0);
 		    //bgImage.render(0, 0, 1);
 			//bgImage.render(0, 0, 2);
-		    /*
+		    
 		    cameras[0].drawMap();
 		    cameras[0].translateGraphics();
 			players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
 			players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
 			cameras[0].untranslateGraphics();
-			*/
+			
 		}
 		
 		
@@ -47,11 +47,13 @@ public class TownWindow extends HubWindow {
 		if (eventTwo != null) {
 			
 		} else {
+		    /*
 		    cameras[1].drawMap();
             cameras[1].translateGraphics();
             players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
             players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
             cameras[1].untranslateGraphics();
+            */
 		    //bgImage.render(container.getWidth()/2, 0,1);
 		    //bgImage.render(container.getWidth()/2, 0,2);
 //			g.drawImage(bgImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720), width, 0);
@@ -67,7 +69,7 @@ public class TownWindow extends HubWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
 //        bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
-        bgImage = new TiledMap("Assets/GameBackground1.tmx");
+        bgImage = new TiledMap("Assets/Big Test Map.tmx");
         super.init(container, game, players);
         this.cameras = new Camera[2];
         cameras[0] = new Camera(container, bgImage, this.players[0]);
