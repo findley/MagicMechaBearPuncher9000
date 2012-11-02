@@ -1,5 +1,3 @@
-
-
 import org.newdawn.slick.Color;
 import java.awt.Font;
 import java.util.List;
