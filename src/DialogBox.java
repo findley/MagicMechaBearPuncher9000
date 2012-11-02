@@ -31,16 +31,19 @@ public class DialogBox{
 	
 	private final int x;
 	private final int y;
+	private int boxIndex = 0;
 	
 	private List<String> dialog;
+	private List<String> boxes;
+	
 	private UnicodeFont font;
 	private int width = 600;
 	private int height = 200;
 	private int padding = 5;
 	private Color box = new Color(1f,1f,1f,0.45f);
-	   
-	private int renderRow = 0;
-	private int renderCol = 0;
+	
+	private int numLinesRendered = 0;
+	private int numCharactersRendered = 0;
 	   
 	private final static int REGULAR_DELAY = 50;
 	private final static int QUICK_DELAY = 10;
@@ -49,6 +52,7 @@ public class DialogBox{
 	private boolean finished = false;
 	
 	private int quickTextKey = Input.KEY_DOWN;
+	private int proceedTextKey = Input.KEY_SPACE;
 	
 	/**
 	 * Constructor for creating the dialog box.
@@ -60,17 +64,21 @@ public class DialogBox{
 	 * @param font: Font that the dialog box will use to render the text.
 	 * @param key: Key that, when pressed will accelerate the text rendering.
 	 */
-	public DialogBox(int x, int y, String text, UnicodeFont font, int key){
+	public DialogBox(int x, int y, String text, UnicodeFont font, int speedKey, int proceedKey){
 		
 		this.x = x;
 		this.y = y;
 		this.font = font;
-		dialog = wrap(text, font, width);
-		quickTextKey = key;
+		quickTextKey = speedKey;
+		proceedTextKey = proceedKey;
+		boxes = parseDialog(text, '-');
+		dialog = wrap(boxes.get(boxIndex), font, width);
 	}
 	/**
 	 * Main function that renders the dialog box and displays the text
-	 * in a typewriter-like fashion.
+	 * in a typewriter-like fashion. The text box only renders as many lines
+	 * as can fit within the text box, and thus there is a scrolling effect for
+	 * long text.
 	 * 
 	 * @param container
 	 * @param g
@@ -83,15 +91,22 @@ public class DialogBox{
         g.setColor(Color.white);
         
         int lineHeight = font.getLineHeight();
+        int maxLines = height/lineHeight;
+        int startRender = Math.max(0, numLinesRendered-maxLines+1);
        
         //only render the rows we have typed out so far (renderRow = current row)
-        for (int i=0; i<renderRow+1; i++) {
+        for (int i=startRender; i<= numLinesRendered; i++) {
             String line = dialog.get(i);
-            //render whole line if it's a previous one, otherwise render the col
-            int len = i<renderRow ? line.length() : renderCol;
+            //render whole line if it's a previous one, otherwise render the column
+            int len;
+            if (i < numLinesRendered){
+            	len = line.length();
+            }
+            else{
+            	len = numCharactersRendered;
+            }
             String t = line.substring(0, len);
             if (t.length()!=0) {
-            	//g.drawString(t,x,y);
             	font.drawString(x, lineLocation, t, Color.white);
             }
             lineLocation += lineHeight;
@@ -110,22 +125,21 @@ public class DialogBox{
         keyPressed(container);
         if (time<=0 && !finished) {
             time = delay;
-           
-            //if we are moving down to the next line
-            if (renderCol > dialog.get(renderRow).length()-1) {
-                //we've rendered all characters
-                if (renderRow >= dialog.size()-1) {
-                    finished = true;
-                }
-                //move to next line
-                else {
-                    renderRow++;
-                    renderCol = 0;
-                }
-            } else {
-                //move to next character
-                renderCol++;
-            }
+        
+	        //Check to see if we should move down to next line. 
+	        if (numCharactersRendered > dialog.get(numLinesRendered).length()-1){
+	        	//Everything has been rendered
+	        	if (numLinesRendered >= dialog.size()-1){
+	        		finished = true;
+	        	}
+	        	else{//Move to next line
+	        		numLinesRendered++;
+	        		numCharactersRendered = 0;
+	        	}
+	        }
+	        else{//move to the next character
+	        	numCharactersRendered++;
+	        }
         }
     }
    
@@ -191,6 +205,28 @@ public class DialogBox{
             list.add(str);
         return list;
     }
+    private List<String> parseDialog(String dialog, char demarcation){
+    	List<String> boxes  = new ArrayList<String>();
+    	int j = 0;
+    	for (int i = 0; i <dialog.length(); i++){
+    		if (dialog.charAt(i) == demarcation){
+    			String box = dialog.substring(j, i);
+    			j = i+1;
+    			boxes.add(box);
+    		}
+    	}
+    	return boxes;
+    }
+    private void proceed(){
+    	finished = false;
+    	numCharactersRendered = 0;
+    	numLinesRendered = 0;
+    	boxIndex++;
+    	dialog = wrap(boxes.get(boxIndex),font,width);
+    	
+    	
+    	
+    }
     /**
      * Method that takes whatever input the container is currently receiving and compares 
      * it to the key that has been designated for speeding up text. 
@@ -201,6 +237,9 @@ public class DialogBox{
     	Input key = c.getInput();
     	if (key.isKeyDown(quickTextKey)){
     		delay = QUICK_DELAY;
+    	}
+    	else if (key.isKeyPressed(proceedTextKey)){
+    		proceed();
     	}
     	else{
     		delay = REGULAR_DELAY;
