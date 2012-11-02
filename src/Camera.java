@@ -126,14 +126,14 @@ public class Camera {
        
        //finally draw the section of the map on the screen
        map.render(   
-             //tileOffsetX + 
+             tileOffsetX + 
              offsetX, 
-             //tileOffsetY + 
+             tileOffsetY + 
              offsetY, 
              tileIndexX,  
              tileIndexY,
-                ((int) player.windowSize[0]  /*- tileOffsetX*/) / tileWidth  + 1,
-                ((int) player.windowSize[1] /*- tileOffsetY*/) / tileHeight + 1);
+                ((int) player.windowSize[0]  - tileOffsetX) / tileWidth  + 1,
+                ((int) player.windowSize[1] - tileOffsetY) / tileHeight + 1);
    }
    
    /**

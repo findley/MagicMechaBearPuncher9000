@@ -23,6 +23,8 @@ public class TownWindow extends HubWindow {
     @Override
     public void render(GameContainer container, StateBasedGame game,
             Graphics g) throws SlickException {
+    	for(int i = 0; i < players.length; i++){
+    	}
 		//render player one screen		
 		if (eventOne != null) {
 		} else {    
