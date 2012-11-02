@@ -131,7 +131,7 @@ public class Camera {
              tileIndexX,  
              tileIndexY,
                 ((int) player.windowSize[0]  - tileOffsetX) / tileWidth  + 1,
-                ((int) player.windowSize[0] - tileOffsetY) / tileHeight + 1);
+                ((int) player.windowSize[1] - tileOffsetY) / tileHeight + 1);
    }
    
    /**
