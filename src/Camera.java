@@ -71,11 +71,11 @@ public class Camera {
       cameraY = y - player.windowSize[1] / 2;
       
       //if the camera is at the right or left edge lock it to prevent a black bar
-      if(cameraX < 0) cameraX = 0;
+      if(cameraX <= 0) cameraX = 0;
       if(cameraX + player.windowSize[0] > mapWidth) cameraX = mapWidth - player.windowSize[0];
       
       //if the camera is at the top or bottom edge lock it to prevent a black bar
-      if(cameraY < 0) cameraY = 0;
+      if(cameraY <= 0) cameraY = 0;
       
       if(cameraY + player.windowSize[1] > mapHeight) cameraY = mapHeight - player.windowSize[1];
    }
@@ -150,6 +150,10 @@ public class Camera {
     */
    public void untranslateGraphics() {
       gc.getGraphics().translate(cameraX, cameraY);
+   }
+   
+   public void drawObject(){
+	   
    }
    
 }

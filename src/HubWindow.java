@@ -19,6 +19,7 @@ public class HubWindow {
 	protected boolean[] inNode = { true, true };
 	protected int[] gridSize = {32, 32};
 	public Event[] events;
+	public Sprite[] sprites;
 	private Event eventOne;
 	private Event eventTwo;
 	protected Camera[] cameras;	
