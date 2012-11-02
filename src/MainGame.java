@@ -14,7 +14,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MainGame extends StateBasedGame {
  
-	public static final int GAME_WIDTH = 1200;
+	public static final int GAME_WIDTH = 1280;
 	public static final int GAME_HEIGHT = 720;
 	
 	@SuppressWarnings("unchecked")

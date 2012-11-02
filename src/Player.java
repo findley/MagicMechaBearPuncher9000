@@ -17,13 +17,31 @@ public class Player {
 	public float[] windowPos;
 	public float[] windowSize;
     private HashMap<String, Integer> buttons;
-    private Image[] playerSprite;
+    public Image playerSprite;
+    public Image left1;
+    public Image right1;
+    public Image up1;
+    public Image down1;
+    public Image left2;
+    public Image right2;
+    public Image up2;
+    public Image down2;
     public Rectangle collisionRect;
     public String kindOfWindow;
     public int pWidth = 32;
     public int pHeight = 32;
-    public float[] hubLoc;
     public float[] eventLoc;
+    
+    //Grid movement Code
+    //HubLoc is now the grid location of the player. Easier for me to do.
+    public float[] hubLoc;
+    public boolean isMoving;
+    public Direction direction;
+    //In milliseconds
+    public final int moveDuration = 250;
+    public int inMotion = 0;
+    public float[] destination;
+    
     //playerNum is 0 or 1
     public int playerNum;
     
@@ -31,13 +49,22 @@ public class Player {
         windowPos = startWindowPos;
         windowSize = startWindowSize;
     	buttons = playerButtons;
-        collisionRect = new Rectangle(10, 10, 30, 30);
+        collisionRect = new Rectangle(0,0,pWidth,pHeight);
         this.playerNum = playerNum;
+        isMoving = false;
         
         try {
         	//later incorporating array of sprites
-        	playerSprite = new Image[1];
-            this.playerSprite[0] = new Image("Assets/Player"+playerNum+".png");
+            this.down1 = new Image("Assets/players/player"+playerNum+"/forwardWalk1.png");
+            this.up1 = new Image("Assets/players/player"+playerNum+"/backWalk1.png");
+            this.right1 = new Image("Assets/players/player"+playerNum+"/walkRight1.png");
+            this.left1 = new Image("Assets/players/player"+playerNum+"/walkLeft1.png");
+            this.down2 = new Image("Assets/players/player"+playerNum+"/forwardWalk2.png");
+            this.up2 = new Image("Assets/players/player"+playerNum+"/backWalk2.png");
+            this.right2 = new Image("Assets/players/player"+playerNum+"/walkRight2.png");
+            this.left2 = new Image("Assets/players/player"+playerNum+"/walkLeft2.png");
+
+            playerSprite = this.down1;
         } catch (SlickException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -52,7 +79,7 @@ public class Player {
         collisionRect.setX(x);
         collisionRect.setY(y);
         //later incorporating array of sprites
-        g.drawImage(playerSprite[0], x, y);
+        g.drawImage(playerSprite, x, y);
     }
 
     public Integer getButton(String command) {
