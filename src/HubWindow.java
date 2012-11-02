@@ -20,6 +20,7 @@ public class HubWindow {
 	public Event[] events;
 	private Event eventOne;
 	private Event eventTwo;
+	protected Camera[] cameras;
 	
 	private final int imageChange = 75;
 	
