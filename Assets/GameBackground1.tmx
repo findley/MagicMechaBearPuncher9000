@@ -17,7 +17,7 @@
    H4sIAAAAAAAAC7WUzQ4CIQyEif96ETXq0aMgovv+T2c3KcmktlhNPHwBdulsO4XNIYRC3IgEY+R5I4u1fC73IwnmxbFfi42KlpVLFvrF0ER69RaI8eYvv9nbL71F/y3fZbxW7zhuDa6ddxpH5dnhx3pH7g6kRvnC/8rjADHNyyfxYA3rPHn0MXaAHDPoW/H/8AfZcY/Oomdt7en/KehnU9aRwntd0Zn/hpgrrA2fUL9yLzPPC/ehgv8LYqIwE3p4rtp98uRv6V/AQ+1et/702BNLYqqwEvla5+rTv+8Frg2AsQAGAAA=
   </data>
  </layer>
- <layer name="Tile Layer 2" width="24" height="16">
+ <layer name="Tile Layer 2" width="24" height="16" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC9NlYGDQHcWjeBSP4lE84jAA+vK/vwAGAAA=
   </data>
