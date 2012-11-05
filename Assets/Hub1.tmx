@@ -4,7 +4,7 @@
   <image source="../Hub 1/Tileset/dirt_grass_fence_sheet_zoom2.png" trans="ffffff" width="256" height="192"/>
  </tileset>
  <layer name="Tile Layer 1" width="24" height="16">
-  <data encoding="base64" compression="gzip">
+  <data encoding="base64" compression="zlib">
    eJyNVMsOwjAMi3jDhQKCHTnSMvb4/6+jlRotMm7pwaqWeonjZPMi8ga4iB5iPYnhO8hHTk+4HjgBuPiOB55y7DNqQX4g907q2m1t1NIC66n/Uwv1oyfMO9Zz4p8JXoV4DXcSuxU8ckYbatZePg2weYIsO4i9Yq10DuZuIn6PJg9qZF5irZR/Jn3NmTNKec+xLtvHVn/YflzyfDoys65yh3hUfCh9B86cLfpPEVvAUZY9Qn9t/iH3PJl7n2eg/u8iVoBNYQ4a09ot+ln+p/EPv3mtqTOq4Rqxj1gDDsSf0n8syO+MrKdfDPQzDg==
   </data>
  </layer>

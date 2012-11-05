@@ -65,7 +65,7 @@ public class TownWindow extends HubWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         //bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
-        this.bgImage = new TiledMap("Assets/Big Test Map.tmx");
+        this.bgImage = new TiledMap("Assets/TiledEditor/Hub1.tmx");
         super.init(container, game, players);
         
         this.cameras = new Camera[2];
