@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="24" height="16" tilewidth="32" tileheight="32">
- <tileset firstgid="1" name="Hub1" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="Hub1 Copy" tilewidth="32" tileheight="32">
   <image source="../Hub 1/Tileset/dirt_grass_fence_sheet_zoom2.png" trans="ffffff" width="256" height="192"/>
  </tileset>
- <layer name="Tile Layer 1" width="24" height="16">
+ <layer name="Tile Layer 2" width="24" height="16">
   <data encoding="base64" compression="gzip">
-   eJyNVMsOwjAMi3jDhQKCHTnSMvb4/6+jlRotMm7pwaqWeonjZPMi8ga4iB5iPYnhO8hHTk+4HjgBuPiOB55y7DNqQX4g907q2m1t1NIC66n/Uwv1oyfMO9Zz4p8JXoV4DXcSuxU8ckYbatZePg2weYIsO4i9Yq10DuZuIn6PJg9qZF5irZR/Jn3NmTNKec+xLtvHVn/YflzyfDoys65yh3hUfCh9B86cLfpPEVvAUZY9Qn9t/iH3PJl7n2eg/u8iVoBNYQ4a09ot+ln+p/EPv3mtqTOq4Rqxj1gDDsSf0n8syO+MrKdfDPQzDg==
+   H4sIAAAAAAAAC61Uyw4CIQxsfOtF1OgePQriPv7/62QTSJpxYHvwMCFbhmmZdvEi8ga4hAixSGJ4BvnIiYTrgROAi2c88ApHf2MtyA9k30m7dp2b6S9Be+oXcqE+esK8YzXN/DPBqxJv4U5it4pHFn8+Bjjod5lBi36v6hmJ34PSQV+t+hOJTznnIPU5/6c/bD4uuT8d6VnX2EM8Fmpk93BqtdR/StgCjvI7R4Ho9/nOo9r3uQfF/13CCrABLd1/p3Jb6mf6T+Uf/vMlZ+lRC9eEfcIacCD+1N6xAPnxXfkCkvnGIwAGAAA=
   </data>
  </layer>
 </map>
