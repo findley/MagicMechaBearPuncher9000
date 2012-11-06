@@ -33,14 +33,15 @@ public class Player {
     public float[] eventLoc;
     
     //Grid movement Code
-    //HubLoc is now the grid location of the player. Easier for me to do.
-    public float[] hubLoc;
+    //gridLoc is now the grid location of the player.
+    //floatLoc is the distance from a gridLoc.
+    public int[] gridLoc;
+    public float[] floatLoc;
     public boolean isMoving;
     public Direction direction;
     //In milliseconds
     public final int moveDuration = 250;
     public int inMotion = 0;
-    public float[] destination;
     
     //playerNum is 0 or 1
     public int playerNum;
@@ -52,6 +53,7 @@ public class Player {
         collisionRect = new Rectangle(0,0,pWidth,pHeight);
         this.playerNum = playerNum;
         isMoving = false;
+        floatLoc = new float[] {0, 0};
         
         try {
         	//later incorporating array of sprites

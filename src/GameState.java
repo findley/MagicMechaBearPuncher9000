@@ -70,8 +70,8 @@ public class GameState extends BasicGameState {
 	public void initHubs(GameContainer container, StateBasedGame game) {
 		hubWindows = new ArrayList<HubWindow>();
 		try {
-			hubWindows.add(new TownWindow(players, new float[] { 1, 2 },
-					new float[] { 5, 10 }));
+			hubWindows.add(new TownWindow(players, new int[] { 5, 12 },
+					new int[] { 10, 12 }));
 			currentHubWindow = hubWindows.get(0);
 			currentHubWindow.init(container, game, players);
 		} catch (SlickException e) {

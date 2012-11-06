@@ -14,7 +14,7 @@ public class TownWindow extends HubWindow {
 	private Event eventOne;
 	private Event eventTwo;
 	
-    public TownWindow(Player[] players, float[] locp1, float[] locp2) throws SlickException {
+    public TownWindow(Player[] players, int[] locp1, int[] locp2) throws SlickException {
         super(players, locp1, locp2);
 
     }
@@ -29,9 +29,9 @@ public class TownWindow extends HubWindow {
 		} else {    
 		    cameras[0].drawMap();
 		    cameras[0].translateGraphics();
-			players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
-			if(players[1].hubLoc[0] < players[0].hubLoc[0] + players[0].windowSize[0] - 32){
-			    players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
+			players[0].render(container, game, g, players[0].gridLoc[0]*32 + players[0].floatLoc[0], players[0].gridLoc[1]*32 + players[0].floatLoc[1]);
+			if(players[1].gridLoc[0] < players[0].gridLoc[0] + players[0].windowSize[0] - 32){
+			    players[1].render(container, game, g, players[1].gridLoc[0]*32 + players[1].floatLoc[0], players[1].gridLoc[1]*32 + players[1].floatLoc[1]);
 			}
 			cameras[0].untranslateGraphics();
 			
@@ -46,10 +46,10 @@ public class TownWindow extends HubWindow {
 		    
 		    cameras[1].drawMap();
             cameras[1].translateGraphics();
-            if(players[0].hubLoc[0] + 32> players[1].hubLoc[0] - players[1].windowSize[0]/2){
-                players[0].render(container, game, g, players[0].hubLoc[0], players[0].hubLoc[1]);
+            if(players[0].gridLoc[0] + 1> players[1].gridLoc[0] - players[1].windowSize[0]/2){
+                players[0].render(container, game, g, players[0].gridLoc[0]*32 + players[0].floatLoc[0], players[0].gridLoc[1]*32 + players[0].floatLoc[1]);
             }
-            players[1].render(container, game, g, players[1].hubLoc[0], players[1].hubLoc[1]);
+            players[1].render(container, game, g, players[1].gridLoc[0]*32 + players[1].floatLoc[0], players[1].gridLoc[1]*32 + players[1].floatLoc[1]);
             cameras[1].untranslateGraphics();
 		}
 		container.getGraphics().resetTransform();
@@ -83,7 +83,8 @@ public class TownWindow extends HubWindow {
         this.cameras = new Camera[2];
         cameras[0] = new Camera(container, bgImage, this.players[0]);
         cameras[1] = new Camera(container, bgImage, this.players[1]);
-        Music loop = new Music("Assets/Town2.wav");
+
+        Music loop = new Music("Assets/Hub 1/Sound/Town2.wav");
         loop.loop();
     }
 
@@ -97,7 +98,7 @@ public class TownWindow extends HubWindow {
         Input input = container.getInput();
         for(int i = 0; i < players.length; i++){
             super.movePlayer(input, 5, players[i], delta); 
-            cameras[i].centerOn(players[i].hubLoc[0],players[i].hubLoc[1]);
+            cameras[i].centerOn(players[i].gridLoc[0]*32 + players[i].floatLoc[0],players[i].gridLoc[1]*32 + players[i].floatLoc[1]);
         }
     }
 }

@@ -11,19 +11,25 @@
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="65" name="house2" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/house_2.png" width="160" height="128"/>
+ </tileset>
+ <tileset firstgid="85" name="barn" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/barn.png" width="192" height="192"/>
+ </tileset>
  <layer name="Collision" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNkYGAQHEaYFmDUjlE7aGHvqB2U2UFtMGrHqB2jdow8O4Y6BgCoLR8ZxAkAAA==
+   H4sIAAAAAAAACxNkYGAQHEaYXIDPvFE7hrcd2PjE2ktJGqSWHaSGFT3tYMAjRqkd5IDhYgcuO0ftIM++UTtGrh1DHQMAD3frqMQJAAA=
   </data>
  </layer>
- <layer name="Background" width="25" height="25">
+ <layer name="Background" width="25" height="25" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNkYGAQHEbYigZ41I5RO0btGPp22AGxDQ5sS0U7kPkOSGxq2mGPQ44W/oDZ5UCCHVJ0iA8xMv1GSroC2SEyasewtmOoYwBdeDb7xAkAAA==
+   H4sIAAAAAAAAC92UPQ7CMAyFc4UKiioWBCP0AAkZ6P1PhSuIZFn+S+sFhqdWUePP9rM7pJSGP9KTURHOPapOBv5+feZOTg9ja30So93fmrvFqDviRfVKy+EEOgb6cQaNoAvSATQFMrico+dKY7xQTyMZC4rvreP67fGI+n4TGC1uJTxpz+nc0HyLcL7HDykWPZdmmmPQHfcyqBaFQXdgBj2QL00zw+D+YZYfa6739NktThNzp8eP6vRViq/tB/7HYkY28qV3rTo881mEd1qL5TllZHTX8sG7H5YfGiMLjF/XG/0kqdbECQAA
   </data>
  </layer>
  <layer name="Houses" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3NuRHAIBTEUAzmNFf/1VolkPyI1cyL5ZxS6qQHHgGv0SMiIaMYPSoaPnSjx8DEwjZ6KKXU7f1efQc2xAkAAA==
+   H4sIAAAAAAAAC+3RaW8BURiGYbSopfhB2sS+tyhFa1+Lltr9fLfkSERyJJM5JGSe5PryZpJ7MmMyGduviE+UUEYFX4ob36iihjoaaCputNBGB1300FfcGOAHQ4wwxq/ixh8mmOIfM8wVNxZYYoU1Ntieed4MCx7wKG4BBBFCGBGd72SFDXY8iVsUMcSRQPLo+Vf4JV4kDQeccMEtbimkkcEb3k8asskaz/DAC5+4ZZFDHh8o6Gxo3bUaWv+HiuZht9649LcyZuzetgOq4uPdxAkAAA==
   </data>
  </layer>
 </map>
