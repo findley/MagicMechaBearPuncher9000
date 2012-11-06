@@ -74,7 +74,6 @@ public class TownWindow extends HubWindow {
 				int tileID = bgImage.getTileId(xAxis, yAxis, 0);
 				String value = bgImage.getTileProperty(tileID, "blocked",
 						"false");
-				System.out.println(value);
 				if ("true".equals(value)) {
 					blocked[xAxis][yAxis] = true;
 				}
