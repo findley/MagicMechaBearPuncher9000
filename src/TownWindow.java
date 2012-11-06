@@ -11,13 +11,12 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class TownWindow extends HubWindow {
     private Double timer;
-//	private TiledMap bgImage;
 	private Event eventOne;
 	private Event eventTwo;
 	
     public TownWindow(Player[] players, float[] locp1, float[] locp2) throws SlickException {
         super(players, locp1, locp2);
-        
+
     }
 
     @Override
@@ -65,8 +64,22 @@ public class TownWindow extends HubWindow {
     public void init(GameContainer container, StateBasedGame game,
             Player[] players) throws SlickException {
         //bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
-        this.bgImage = new TiledMap("Assets/TiledEditor/Hub1.tmx");
+        this.bgImage = new TiledMap("Assets/TiledEditor/DanielHub.tmx");
+        this.blocked = new boolean[bgImage.getWidth()][bgImage.getHeight()];
         super.init(container, game, players);
+        
+
+		for (int xAxis = 0; xAxis < bgImage.getWidth(); xAxis++) {
+			for (int yAxis = 0; yAxis < bgImage.getHeight(); yAxis++) {
+				int tileID = bgImage.getTileId(xAxis, yAxis, 0);
+				String value = bgImage.getTileProperty(tileID, "blocked",
+						"false");
+				System.out.println(value);
+				if ("true".equals(value)) {
+					blocked[xAxis][yAxis] = true;
+				}
+			}
+		}
         
         this.cameras = new Camera[2];
         cameras[0] = new Camera(container, bgImage, this.players[0]);

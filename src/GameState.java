@@ -144,7 +144,7 @@ public class GameState extends BasicGameState {
 		float[] p2WinSize = { container.getWidth() / 2 - 16,
 				container.getHeight() };
 		float[] p1WinPos = { 0, 0 };
-		float[] p2WinPos = { container.getWidth() / 2 + 32, 0 };
+		float[] p2WinPos = { container.getWidth() / 2 + 16, 0 };
 
 		HashMap<String, Integer> p1Buttons = new HashMap<String, Integer>();
 		p1Buttons.put("up", Input.KEY_W);

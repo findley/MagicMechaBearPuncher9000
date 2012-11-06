@@ -25,6 +25,7 @@ public class HubWindow {
 	protected Camera[] cameras;	
 	private final int imageChange = 75;
 	protected TiledMap bgImage;
+	protected boolean[][] blocked;
 	
 	/*
 	 * Constructor that allows for providing of a stateID

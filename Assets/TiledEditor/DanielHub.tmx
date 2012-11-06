@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="house1" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/house_1.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="17" name="TownTiles" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/dirt_grass_fence_sheet_zoom2.png" width="256" height="192"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Collision" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACxNkYGAQHEaYFmDUjlE7aGHvqB2U2UFtMGrHqB2jdow8O4Y6BgCoLR8ZxAkAAA==
+  </data>
+ </layer>
+ <layer name="Background" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACxNkYGAQHEbYigZ41I5RO0btGPp22AGxDQ5sS0U7kPkOSGxq2mGPQ44W/oDZ5UCCHVJ0iA8xMv1GSroC2SEyasewtmOoYwBdeDb7xAkAAA==
+  </data>
+ </layer>
+ <layer name="Houses" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3NuRHAIBTEUAzmNFf/1VolkPyI1cyL5ZxS6qQHHgGv0SMiIaMYPSoaPnSjx8DEwjZ6KKXU7f1efQc2xAkAAA==
+  </data>
+ </layer>
+</map>
