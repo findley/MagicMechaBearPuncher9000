@@ -42,7 +42,7 @@ public class TransitionWindow {
 			Player[] players) {
 	}
 
-	public void movePlayer(Input input, float moveValue, Player player) {
+/*	public void movePlayer(Input input, float moveValue, Player player) {
 		if (input.isKeyDown(player.getButton("left"))) {
 			float newPos = player.hubLoc[0] - moveValue;
 			if (newPos > players[0].windowPos[0]) {
@@ -69,7 +69,7 @@ public class TransitionWindow {
 			}
 		}
 	}
-
+*/
 	public boolean over() {
 		return over;
 	}
