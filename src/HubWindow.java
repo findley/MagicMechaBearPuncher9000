@@ -72,6 +72,8 @@ public class HubWindow {
 						player.gridLoc[0] = newPos;
 						player.isMoving = true;
 						player.direction = Direction.LEFT;
+					} else {
+						player.playerSprite = player.left1;
 					}
 				}
 			} else if (input.isKeyDown(player.getButton("right"))) {
@@ -83,6 +85,8 @@ public class HubWindow {
 						player.gridLoc[0] = newPos;
 						player.isMoving = true;
 						player.direction = Direction.RIGHT;
+					} else {
+						player.playerSprite = player.right1;
 					}
 				}
 			} else if (input.isKeyDown(player.getButton("up"))) {
@@ -93,6 +97,8 @@ public class HubWindow {
 						player.gridLoc[1] = newPos;
 						player.isMoving = true;
 						player.direction = Direction.UP;
+					} else {
+						player.playerSprite = player.up1;
 					}
 				}
 			} else if (input.isKeyDown(player.getButton("down"))) {
@@ -103,6 +109,8 @@ public class HubWindow {
 						player.gridLoc[1] = newPos;
 						player.isMoving = true;
 						player.direction = Direction.DOWN;
+					}else {
+						player.playerSprite = player.down1;
 					}
 				}
 			}
