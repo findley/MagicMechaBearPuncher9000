@@ -26,6 +26,7 @@ public class HubWindow {
 	private final int imageChange = 75;
 	protected TiledMap bgImage;
 	protected boolean[][] blocked;
+	protected String[][] miniArray;
 
 	/*
 	 * Constructor that allows for providing of a stateID
@@ -109,7 +110,7 @@ public class HubWindow {
 						player.gridLoc[1] = newPos;
 						player.isMoving = true;
 						player.direction = Direction.DOWN;
-					}else {
+					} else {
 						player.playerSprite = player.down1;
 					}
 				}

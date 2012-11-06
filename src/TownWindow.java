@@ -23,7 +23,23 @@ public class TownWindow extends HubWindow {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
+		// check to start a minigame
+		// list of TownWindow (Hub1) events:
+		// dodge, catch, oldman, locked, shop, inn
 		for (int i = 0; i < players.length; i++) {
+			if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("dodge")) {
+				System.out.println("yo what up dodge");
+			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("catch")) {
+				System.out.println("yo what up catch");
+			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("oldman")) {
+				System.out.println("yo what up oldman");
+			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("locked")) {
+				System.out.println("yo what up locked");
+			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("shop")) {
+				System.out.println("yo what up shop");
+			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("inn")) {
+				System.out.println("yo what up inn");
+			}
 		}
 		// render player one screen
 		if (eventOne != null) {
@@ -73,9 +89,9 @@ public class TownWindow extends HubWindow {
 	@Override
 	public void init(GameContainer container, StateBasedGame game,
 			Player[] players) throws SlickException {
-		// bgImage = new Image("Assets/Hub 1/FinalImageRef.png");
 		this.bgImage = new TiledMap("Assets/TiledEditor/DanielHub.tmx");
 		this.blocked = new boolean[bgImage.getWidth()][bgImage.getHeight()];
+		this.miniArray = new String[bgImage.getWidth()][bgImage.getHeight()];
 		super.init(container, game, players);
 
 		for (int xAxis = 0; xAxis < bgImage.getWidth(); xAxis++) {
@@ -86,6 +102,9 @@ public class TownWindow extends HubWindow {
 				if ("true".equals(value)) {
 					blocked[xAxis][yAxis] = true;
 				}
+				
+				String miniID = bgImage.getTileProperty(tileID, "minigame", "none");
+				miniArray[xAxis][yAxis] = miniID;
 			}
 		}
 

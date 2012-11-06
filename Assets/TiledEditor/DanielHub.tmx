@@ -2,6 +2,11 @@
 <map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="house1" tilewidth="32" tileheight="32">
   <image source="../Hub 1/Images/house_1.png" width="128" height="128"/>
+  <tile id="14">
+   <properties>
+    <property name="minigame" value="locked"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="17" name="TownTiles" tilewidth="32" tileheight="32">
   <image source="../Hub 1/Images/dirt_grass_fence_sheet_zoom2.png" width="256" height="192"/>
@@ -13,13 +18,31 @@
  </tileset>
  <tileset firstgid="65" name="house2" tilewidth="32" tileheight="32">
   <image source="../Hub 1/Images/house_2.png" width="160" height="128"/>
+  <tile id="17">
+   <properties>
+    <property name="minigame" value="dodge"/>
+   </properties>
+  </tile>
  </tileset>
  <tileset firstgid="85" name="barn" tilewidth="32" tileheight="32">
   <image source="../Hub 1/Images/barn.png" width="192" height="192"/>
+  <tile id="32">
+   <properties>
+    <property name="minigame" value="catch"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="minigame" value="catch"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="121" name="old man" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/oldManSprite.png" width="32" height="32"/>
  </tileset>
  <layer name="Collision" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNkYGAQHEaYXIDPvFE7hrcd2PjE2ktJGqSWHaSGFT3tYMAjRqkd5IDhYgcuO0ftIM++UTtGrh1DHQMAD3frqMQJAAA=
+   H4sIAAAAAAAACxNkYGAQHEaYXIDPvFE7hrcdpUBcRoQdxIiR4h5q2UFqWNHTDn4sYkFUsoMcMFzswGXnqB3k2Tdqx8i1Y6hjANl+qrrECQAA
   </data>
  </layer>
  <layer name="Background" width="25" height="25" visible="0">
@@ -27,7 +50,7 @@
    H4sIAAAAAAAAC92UPQ7CMAyFc4UKiioWBCP0AAkZ6P1PhSuIZFn+S+sFhqdWUePP9rM7pJSGP9KTURHOPapOBv5+feZOTg9ja30So93fmrvFqDviRfVKy+EEOgb6cQaNoAvSATQFMrico+dKY7xQTyMZC4rvreP67fGI+n4TGC1uJTxpz+nc0HyLcL7HDykWPZdmmmPQHfcyqBaFQXdgBj2QL00zw+D+YZYfa6739NktThNzp8eP6vRViq/tB/7HYkY28qV3rTo881mEd1qL5TllZHTX8sG7H5YfGiMLjF/XG/0kqdbECQAA
   </data>
  </layer>
- <layer name="Houses" width="25" height="25">
+ <layer name="Houses + walls" width="25" height="25" visible="0">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3RaW8BURiGYbSopfhB2sS+tyhFa1+Lltr9fLfkSERyJJM5JGSe5PryZpJ7MmMyGduviE+UUEYFX4ob36iihjoaaCputNBGB1300FfcGOAHQ4wwxq/ixh8mmOIfM8wVNxZYYoU1Ntieed4MCx7wKG4BBBFCGBGd72SFDXY8iVsUMcSRQPLo+Vf4JV4kDQeccMEtbimkkcEb3k8asskaz/DAC5+4ZZFDHh8o6Gxo3bUaWv+HiuZht9649LcyZuzetgOq4uPdxAkAAA==
   </data>
