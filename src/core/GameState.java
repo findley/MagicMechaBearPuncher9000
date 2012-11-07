@@ -1,3 +1,4 @@
+package core;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -13,6 +14,12 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import framework.EventWindow;
+import framework.HubWindow;
+import framework.Player;
+import framework.TownWindow;
+import framework.TransitionWindow;
+
 public class GameState extends BasicGameState {
 	/*-has list of hubWindows
 	 -variable currentHubWindow -which hub we're currently in
@@ -24,7 +31,6 @@ public class GameState extends BasicGameState {
 	public ArrayList<HubWindow> hubWindows;
 	public ArrayList<TransitionWindow> transitionWindows;
 	public HubWindow currentHubWindow;
-	public EventWindow eventWindow;
 	public TransitionWindow currentTransition;
 	public ArrayList<String> textBoxes;
 	public boolean started;
@@ -123,11 +129,6 @@ public class GameState extends BasicGameState {
 			currentTransition.update(container, game, players);
 		}
 
-	}
-
-	protected void triggerMinigame(GameContainer container,
-			StateBasedGame game, Player player, EventWindow minigame)
-			throws SlickException {
 	}
 
 	@Override

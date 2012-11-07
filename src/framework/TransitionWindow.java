@@ -1,3 +1,4 @@
+package framework;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -10,7 +11,6 @@ public class TransitionWindow {
 	protected boolean over = false;
 	protected Player[] players;
 	protected boolean[] inNode = { true, true };
-	public Event[] events;
 
 	
 	public TransitionWindow(Player[] players) {

@@ -1,3 +1,4 @@
+package framework;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -16,35 +17,33 @@ public class EventWindow {
 	/**
 	 * This is for minigame windows, not for the overall node structure.
 	 */
-
-	protected boolean over = false;
-	protected Player player;
+	public Player player;
+	boolean[] hasEntered = {false, false};
+	boolean[] over = {false, false};
 	/*
 	 * Constructor that allows for providing of a stateID
 	 */
-	public EventWindow(Player player) {
-		this.player = player;
+	public EventWindow() {
+		
 	}
 	
-	public void displayMinigameBackground(Graphics g, Player player) {
+	public void displayMinigameBackground(Graphics g) {
 
 	}
 
 	public void render(GameContainer container, StateBasedGame game,
-			Graphics g, Player player) throws SlickException {
+			Graphics g) throws SlickException {
 
 	}
 
-	public void init(GameContainer container, StateBasedGame game, Player player)
+	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 	}
 
-	public void update(GameContainer container, StateBasedGame game, int delta,
-			Player player) throws SlickException {
+	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 	}
 
-	public void enter(GameContainer container, StateBasedGame game,
-			Player player) {
+	public void enter(GameContainer container, StateBasedGame game) {
 	}
 
 	public void movePlayer(Input input, float moveValue, int schema) {
@@ -79,7 +78,7 @@ public class EventWindow {
 	}
 
 	public boolean over() {
-		return over;
+		return false;//over;
 	}
 
 }

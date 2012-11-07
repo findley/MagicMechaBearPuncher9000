@@ -1,3 +1,4 @@
+package framework;
 import java.util.HashMap;
 
 import org.newdawn.slick.GameContainer;
@@ -88,7 +89,7 @@ public class Player {
 		collisionRect.setX(x);
 		collisionRect.setY(y);
 		// later incorporating array of sprites
-		g.drawImage(playerSprite, x, y + 1);
+		g.drawImage(playerSprite, x, y);
 	}
 
 	public Integer getButton(String command) {

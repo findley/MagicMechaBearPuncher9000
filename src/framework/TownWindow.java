@@ -1,3 +1,6 @@
+package framework;
+import hub1events.*;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -11,8 +14,6 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class TownWindow extends HubWindow {
 	private Double timer;
-	private Event eventOne;
-	private Event eventTwo;
 
 	public TownWindow(Player[] players, int[] locp1, int[] locp2)
 			throws SlickException {
@@ -23,26 +24,10 @@ public class TownWindow extends HubWindow {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		// check to start a minigame
-		// list of TownWindow (Hub1) events:
-		// dodge, catch, oldman, locked, shop, inn
-		for (int i = 0; i < players.length; i++) {
-			if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("dodge")) {
-				System.out.println("yo what up dodge");
-			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("catch")) {
-				System.out.println("yo what up catch");
-			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("oldman")) {
-				System.out.println("yo what up oldman");
-			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("locked")) {
-				System.out.println("yo what up locked");
-			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("shop")) {
-				System.out.println("yo what up shop");
-			} else if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]].equals("inn")) {
-				System.out.println("yo what up inn");
-			}
-		}
+		
 		// render player one screen
-		if (eventOne != null) {
+		if (currentEvents[0] != null) {
+			currentEvents[0].render(container, game, g);
 		} else {
 			cameras[0].drawMap();
 			cameras[0].translateGraphics();
@@ -56,13 +41,31 @@ public class TownWindow extends HubWindow {
 						* 32 + players[1].floatLoc[1]);
 			}
 			cameras[0].untranslateGraphics();
-
+			
+			// check to start a minigame
+			// list of TownWindow (Hub1) events:
+			// dodge, catch, oldman, locked, shop, inn
+			if (players[0].floatLoc[0] == 0 && players[0].floatLoc[1] == 0) {
+				if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("catch")) {
+					triggerMinigame(container, game, 0, events[0]);
+				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("dodge")) {
+					triggerMinigame(container, game, 0, events[1]);
+				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("inn")) {
+					triggerMinigame(container, game, 0, events[2]);
+				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("locked")) {
+					triggerMinigame(container, game, 0, events[3]);
+				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("oldman")) {
+					triggerMinigame(container, game, 0, events[4]);
+				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("shop")) {
+					triggerMinigame(container, game, 0, events[5]);
+				}
+			}
 		}
 
 		// render player two screen
 		Player p2 = players[1];
-		if (eventTwo != null) {
-
+		if (currentEvents[1] != null) {
+			currentEvents[1].render(container, game, g);
 		} else {
 
 			cameras[1].drawMap();
@@ -77,6 +80,30 @@ public class TownWindow extends HubWindow {
 					+ players[1].floatLoc[0], players[1].gridLoc[1] * 32
 					+ players[1].floatLoc[1]);
 			cameras[1].untranslateGraphics();
+			// check to start a minigame
+			// list of TownWindow (Hub1) events:
+			// dodge, catch, oldman, locked, shop, inn
+			if (players[1].floatLoc[0] == 0 && players[1].floatLoc[1] == 0) {
+				if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
+						.equals("catch")) {
+					triggerMinigame(container, game, 1, events[0]);
+				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
+						.equals("dodge")) {
+					triggerMinigame(container, game, 1, events[1]);
+				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
+						.equals("inn")) {
+					triggerMinigame(container, game, 1, events[2]);
+				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
+						.equals("locked")) {
+					triggerMinigame(container, game, 1, events[3]);
+				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
+						.equals("oldman")) {
+					triggerMinigame(container, game, 1, events[4]);
+				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
+						.equals("shop")) {
+					triggerMinigame(container, game, 1, events[5]);
+				}
+			}
 		}
 		container.getGraphics().resetTransform();
 		float leftLoc = players[0].windowPos[0] + players[0].windowSize[0];
@@ -107,6 +134,15 @@ public class TownWindow extends HubWindow {
 				miniArray[xAxis][yAxis] = miniID;
 			}
 		}
+		
+		// create events:
+		events = new EventWindow[6]; // this is the number of events in this hub
+		events[0] = new CatchWindow();
+		events[1] = new DodgeWindow();
+		events[2] = new InnWindow();
+		events[3] = new LockedEvent();
+		events[4] = new OldManEvent();
+		events[5] = new ShopWindow();
 
 		this.cameras = new Camera[2];
 		cameras[0] = new Camera(container, bgImage, this.players[0]);
@@ -125,10 +161,14 @@ public class TownWindow extends HubWindow {
 			Player[] players, int delta) throws SlickException {
 		Input input = container.getInput();
 		for (int i = 0; i < players.length; i++) {
-			super.movePlayer(input, 5, players[i], delta);
-			cameras[i].centerOn(players[i].gridLoc[0] * 32
-					+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
-					+ players[i].floatLoc[1]);
+			if (currentEvents[i] != null) {
+				currentEvents[i].update(container, game, delta);
+			} else {
+				super.movePlayer(input, 5, players[i], delta);
+				cameras[i].centerOn(players[i].gridLoc[0] * 32
+						+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
+						+ players[i].floatLoc[1]);
+			}
 		}
 	}
 }

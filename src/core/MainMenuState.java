@@ -1,3 +1,4 @@
+package core;
 
 
 import org.newdawn.slick.GameContainer;

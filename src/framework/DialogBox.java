@@ -1,3 +1,4 @@
+package framework;
 import java.util.ArrayList;
 import java.util.List;
 import org.newdawn.slick.Color;

@@ -1,3 +1,5 @@
+package framework;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -18,10 +20,8 @@ public class HubWindow {
 	protected Player[] players;
 	protected boolean[] inNode = { true, true };
 	protected int[] gridSize = { 32, 32 };
-	public Event[] events;
-	public Sprite[] sprites;
-	private Event eventOne;
-	private Event eventTwo;
+	public EventWindow[] events;
+	public EventWindow[] currentEvents = {null, null};
 	protected Camera[] cameras;
 	private final int imageChange = 75;
 	protected TiledMap bgImage;
@@ -43,15 +43,11 @@ public class HubWindow {
 
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-
+		
 	}
 
 	public void init(GameContainer container, StateBasedGame game,
 			Player[] players) throws SlickException {
-	}
-
-	public void zoom() {
-		// fuck if I know how this will work
 	}
 
 	public void update(GameContainer container, StateBasedGame game,
@@ -116,78 +112,85 @@ public class HubWindow {
 				}
 			}
 		} else {
-			if (!player.isMoving) {
-				player.floatLoc = new float[] { 0, 0 };
-				player.isMoving = false;
-				System.out.println("stop");
-			} else {
-				player.inMotion += delta;
-				switch (player.direction) {
-				case LEFT:
-					player.floatLoc[0] -= (delta * gridSize[0] / player.moveDuration);
-					if (player.inMotion - imageChange > 0) {
-						player.inMotion -= imageChange;
-						if (player.playerSprite == player.left1) {
-							player.playerSprite = player.left2;
-						} else {
-							player.playerSprite = player.left1;
-						}
+			player.inMotion += delta;
+			switch (player.direction) {
+			case LEFT:
+				player.floatLoc[0] -= (delta * gridSize[0] / player.moveDuration);
+				if (player.inMotion - imageChange > 0) {
+					player.inMotion -= imageChange;
+					if (player.playerSprite == player.left1) {
+						player.playerSprite = player.left2;
+					} else {
+						player.playerSprite = player.left1;
 					}
-					if (player.floatLoc[0] < 0) {
-						player.isMoving = false;
-					}
-					break;
-				case RIGHT:
-					player.floatLoc[0] += (delta * gridSize[0] / player.moveDuration);
-					if (player.inMotion - imageChange > 0) {
-						player.inMotion -= imageChange;
-						if (player.playerSprite == player.right1) {
-							player.playerSprite = player.right2;
-						} else {
-							player.playerSprite = player.right1;
-						}
-					}
-					if (player.floatLoc[0] > 0) {
-						player.isMoving = false;
-					}
-					break;
-				case UP:
-					player.floatLoc[1] -= (float) (delta * gridSize[1] / player.moveDuration);
-					if (player.inMotion - imageChange > 0) {
-						player.inMotion -= imageChange;
-						if (player.playerSprite == player.up1) {
-							player.playerSprite = player.up2;
-						} else {
-							player.playerSprite = player.up1;
-						}
-					}
-					if (player.floatLoc[1] < 0) {
-						player.isMoving = false;
-					}
-					break;
-				case DOWN:
-					player.floatLoc[1] += (float) (delta * gridSize[1] / player.moveDuration);
-					if (player.inMotion - imageChange > 0) {
-						player.inMotion -= imageChange;
-						if (player.playerSprite == player.down1) {
-							player.playerSprite = player.down2;
-						} else {
-							player.playerSprite = player.down1;
-						}
-					}
-					if (player.floatLoc[1] > 0) {
-						player.isMoving = false;
-					}
-					break;
-				case NONE:
-					// SHOULD NEVER HAPPEN IF IT DOES PRINT ERROR
-					System.out.println("ERRORRRRORRRORRR!");
-					break;
-				default:
-					break;
 				}
+				if (player.floatLoc[0] < 0) {
+					player.floatLoc = new float[] { 0f, 0f };
+					player.isMoving = false;
+				}
+				break;
+			case RIGHT:
+				player.floatLoc[0] += (delta * gridSize[0] / player.moveDuration);
+				if (player.inMotion - imageChange > 0) {
+					player.inMotion -= imageChange;
+					if (player.playerSprite == player.right1) {
+						player.playerSprite = player.right2;
+					} else {
+						player.playerSprite = player.right1;
+					}
+				}
+				if (player.floatLoc[0] > 0) {
+					player.floatLoc = new float[] { 0f, 0f };
+					player.isMoving = false;
+				}
+				break;
+			case UP:
+				player.floatLoc[1] -= (float) (delta * gridSize[1] / player.moveDuration);
+				if (player.inMotion - imageChange > 0) {
+					player.inMotion -= imageChange;
+					if (player.playerSprite == player.up1) {
+						player.playerSprite = player.up2;
+					} else {
+						player.playerSprite = player.up1;
+					}
+				}
+				if (player.floatLoc[1] < 0) {
+					player.floatLoc = new float[] { 0f, 0f };
+					player.isMoving = false;
+				}
+				break;
+			case DOWN:
+				player.floatLoc[1] += (float) (delta * gridSize[1] / player.moveDuration);
+				if (player.inMotion - imageChange > 0) {
+					player.inMotion -= imageChange;
+					if (player.playerSprite == player.down1) {
+						player.playerSprite = player.down2;
+					} else {
+						player.playerSprite = player.down1;
+					}
+				}
+				if (player.floatLoc[1] > 0) {
+					player.floatLoc = new float[] { 0f, 0f };
+					player.isMoving = false;
+				}
+				break;
+			case NONE:
+				// SHOULD NEVER HAPPEN IF IT DOES PRINT ERROR
+				System.out.println("ERRORRRRORRRORRR!");
+				break;
+			default:
+				break;
 			}
 		}
+	}
+
+	protected void triggerMinigame(GameContainer container,
+			StateBasedGame game, int playerID, EventWindow minigame)
+			throws SlickException {
+		minigame.hasEntered[playerID] = true;
+		minigame.over[playerID] = false;
+		minigame.player = players[playerID];
+		currentEvents[playerID] = minigame;
 	}
 
 	public boolean over() {

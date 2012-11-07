@@ -39,10 +39,15 @@
  </tileset>
  <tileset firstgid="121" name="old man" tilewidth="32" tileheight="32">
   <image source="../Hub 1/Images/oldManSprite.png" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="minigame" value="shop"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Collision" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNkYGAQHEaYXIDPvFE7hrcdpUBcRoQdxIiR4h5q2UFqWNHTDn4sYkFUsoMcMFzswGXnqB3k2Tdqx8i1Y6hjANl+qrrECQAA
+   H4sIAAAAAAAACxNkYGAQHEaYXIDPvFE7hrcdpUBcRoQdxIiR4h5q2UFqWNHTDn4sYkFUsoMcMFzsQAaVdLAD2dyhbgc2+0btGLl2DHUMAGf8IODECQAA
   </data>
  </layer>
  <layer name="Background" width="25" height="25" visible="0">

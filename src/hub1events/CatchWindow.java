@@ -1,77 +1,64 @@
+package hub1events;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.Stack;
-import java.util.TreeSet;
+
 import java.awt.Font;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.UnicodeFont;
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.StateBasedGame;
-import org.newdawn.slick.util.ResourceLoader;
-
-
-import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
-public class DodgeWindow extends EventWindow {
+import framework.*;
+
+public class CatchWindow extends EventWindow {
     private float[][] objPos = new float[10][2];
     private Image objSprite;
     private boolean[] objVis = new boolean[10];
     private float[][] objSpd = new float[10][2];
-    private Double timer;
-    private Image bgImage;
+    private int counter; 
+	private Image bgImage;
     private UnicodeFont uFont;
 
 
-    public DodgeWindow(Player player) throws SlickException {
-        super(player);
-        objSprite = new Image("Assets/rock.png");
+    public CatchWindow() throws SlickException {
+        objSprite = new Image("Assets/Hub 1/Images/sheep_1.png");
         uFont = new UnicodeFont(new Font("Arial Monospace", Font.BOLD, 40));
         // TODO Change objSprite
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g, Player player) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
         this.displayMinigameBackground(g, player);
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i])
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
         }
         player.render(container, game, g, player.eventLoc[0], player.eventLoc[1]);
-        g.setFont(uFont);
-        g.setColor(Color.black);
-        g.drawString(Double.toString(Math.ceil(timer)), player.windowPos[0] + container.getWidth()/4, player.windowPos[1]);
+        g.drawString(Double.toString(Math.ceil(counter)), player.windowPos[0] + 350, player.windowPos[1]);
 
         g.setColor(Color.white);
-        //UnicodeFont uFont = state.uFont;
-        
-        g.drawString("Survive for 4 seconds!", 60 + player.windowPos[0], 65);
-        
+        g.setFont(uFont);
+        g.drawString("Collect most objects", 100 + player.windowPos[0], 65);
+        g.setColor(Color.black);
     }
     
-    @Override
 	public void displayMinigameBackground(Graphics g, Player player) {
-		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
-				.getScaledCopy(590, 720), (int) (player.windowPos[0]),
-				(int) (player.windowPos[1]));    	
+//		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
+//				.getScaledCopy(590, 720), (int) (player.windowPos[0]),
+//				(int) (player.windowPos[1]));    	
 	}
 
     @Override
-    public void init(GameContainer container, StateBasedGame game, Player player) throws SlickException {
-        super.init(container, game, player);
-        //bg for each player... in case they're different?
-        bgImage = new Image("Assets/Black.jpg");
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
+        super.init(container, game);
+      //bg for each player... in case they're different?
+        Image tempImage = new Image("Assets/Hub 1/FinalImageRef.png");
+        bgImage = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
         player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
         player.eventLoc[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
         for (int i = 0; i < objPos.length; i++) {
@@ -86,17 +73,34 @@ public class DodgeWindow extends EventWindow {
                 y *= -1;
             objSpd[i] = new float[] { (float) x, (float) y };
         }
-        timer = 4.0;
+        counter = objVis.length;
     }
 
     @Override
-    public void update(GameContainer container, StateBasedGame game, int delta, Player player) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();
 
         float moveValue = delta * .2f;
-        
-        super.movePlayer(input, moveValue, 0);
-        
+        if (input.isKeyDown(player.getButton("left"))) {
+            if (player.eventLoc[0] - moveValue > player.windowPos[0]) {
+                player.eventLoc[0] -= moveValue;
+            }
+        }
+        if (input.isKeyDown(player.getButton("right"))) {
+            if (player.eventLoc[0] + player.pWidth + moveValue < player.windowPos[0] + player.windowSize[0]) {
+                player.eventLoc[0] += moveValue;
+            }
+        }
+        if (input.isKeyDown(player.getButton("up"))) {
+            if (player.eventLoc[1] - moveValue > player.windowPos[1]) {
+                player.eventLoc[1] -= moveValue;
+            }
+        }
+        if (input.isKeyDown(player.getButton("down"))) {
+            if (player.eventLoc[1] + player.pHeight + moveValue < player.windowPos[1] + player.windowSize[1]) {
+                player.eventLoc[1] += moveValue;
+            }
+        }
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i]) {
                 if (player.windowPos[0] + player.windowSize[0] < objPos[i][0] + 40 + moveValue * objSpd[i][0]
@@ -112,16 +116,14 @@ public class DodgeWindow extends EventWindow {
             }
         }
 
-        //Rectangle playerShape = new Rectangle(player.eventLoc[0], player.eventLoc[1], 20, 20);
         for (int i = 0; i < objPos.length; i++) {
-            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 40, 40)).intersects(player.collisionRect)) {
-                timer = 4.0;
+            if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 32,32)).intersects(player.collisionRect)) {
+                counter -= 1;
                 objVis[i] = false;
             }
         }
-        timer -= 1.0 / 60;
-        if (timer <= 0) {
-            this.over = true;
+        if (counter <= 2) {
+            //
         }
     }
 }
