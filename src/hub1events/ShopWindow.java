@@ -18,13 +18,13 @@ public class ShopWindow extends EventWindow {
 	private Image bg;
 
 	public ShopWindow() {
-		state = 1;
-		guess = 0;
 	}
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		bg = new Image("Assets/Hub 1/Images/shop_bg.png");
+		this.state = 1;
+		this.guess = 0;
 	}
 
 	public void displayMinigameBackground(Graphics g) {

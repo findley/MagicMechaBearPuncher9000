@@ -279,6 +279,7 @@ public class HubWindow {
 	protected void triggerMinigame(GameContainer container,
 			StateBasedGame game, int playerID, EventWindow minigame)
 			throws SlickException {
+		minigame.init(container, game);
 		minigame.hasEntered[playerID] = true;
 		minigame.inside[playerID] = true;
 		minigame.player = players[playerID];
