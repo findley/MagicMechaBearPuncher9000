@@ -126,6 +126,8 @@ public class HubWindow {
 	public void update(GameContainer container, StateBasedGame game,
 			Player[] players, int delta) throws SlickException {
 		Input input = container.getInput();
+		
+		
 		for (int i = 0; i < players.length; i++) {
 			if (currentEvents[i] != null) {
 				if (currentEvents[i].inside[i]) {
@@ -144,6 +146,8 @@ public class HubWindow {
 						+ players[i].floatLoc[1]);
 			}
 		}
+		
+		
 	}
 
 	public void enter(GameContainer container, StateBasedGame game,
@@ -279,7 +283,7 @@ public class HubWindow {
 	protected void triggerMinigame(GameContainer container,
 			StateBasedGame game, int playerID, EventWindow minigame)
 			throws SlickException {
-		minigame.init(container, game);
+		minigame.start();
 		minigame.hasEntered[playerID] = true;
 		minigame.inside[playerID] = true;
 		minigame.player = players[playerID];

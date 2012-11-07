@@ -40,6 +40,10 @@ public class EventWindow {
 			throws SlickException {
 	}
 
+	public void start() {
+		
+	}
+	
 	public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 	}
 
