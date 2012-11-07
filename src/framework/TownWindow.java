@@ -46,18 +46,13 @@ public class TownWindow extends HubWindow {
 			// list of TownWindow (Hub1) events:
 			// dodge, catch, oldman, locked, shop, inn
 			if (players[0].floatLoc[0] == 0 && players[0].floatLoc[1] == 0) {
-				if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("catch")) {
-					triggerMinigame(container, game, 0, events[0]);
-				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("dodge")) {
-					triggerMinigame(container, game, 0, events[1]);
-				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("inn")) {
-					triggerMinigame(container, game, 0, events[2]);
-				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("locked")) {
-					triggerMinigame(container, game, 0, events[3]);
-				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("oldman")) {
-					triggerMinigame(container, game, 0, events[4]);
-				} else if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]].equals("shop")) {
-					triggerMinigame(container, game, 0, events[5]);
+				for (int eventID = 0; eventID < miniNames.length; eventID++) {
+					if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]]
+							.equals(miniNames[eventID])) {
+						if (!events[eventID].hasEntered[1]) {
+							triggerMinigame(container, game, 0, events[eventID]);
+						}
+					} 
 				}
 			}
 		}
@@ -84,11 +79,11 @@ public class TownWindow extends HubWindow {
 			// list of TownWindow (Hub1) events:
 			// dodge, catch, oldman, locked, shop, inn
 			if (players[1].floatLoc[0] == 0 && players[1].floatLoc[1] == 0) {
-				for (int i = 0; i < miniNames.length; i++) {
+				for (int eventID = 0; eventID < miniNames.length; eventID++) {
 					if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-							.equals(miniNames[i])) {
-						if (!events[i].hasEntered[1]) {
-							triggerMinigame(container, game, 1, events[i]);
+							.equals(miniNames[eventID])) {
+						if (!events[eventID].hasEntered[1]) {
+							triggerMinigame(container, game, 1, events[eventID]);
 						}
 					} 
 				}
