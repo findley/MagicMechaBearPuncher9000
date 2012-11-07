@@ -24,77 +24,7 @@ public class TownWindow extends HubWindow {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		
-		// render player one screen
-		if (currentEvents[0] != null) {
-			currentEvents[0].render(container, game, g);
-		} else {
-			cameras[0].drawMap();
-			cameras[0].translateGraphics();
-			players[0].render(container, game, g, players[0].gridLoc[0] * 32
-					+ players[0].floatLoc[0], players[0].gridLoc[1] * 32
-					+ players[0].floatLoc[1]);
-			if (players[1].gridLoc[0] < players[0].gridLoc[0]
-					+ players[0].windowSize[0] - 32) {
-				players[1].render(container, game, g, players[1].gridLoc[0]
-						* 32 + players[1].floatLoc[0], players[1].gridLoc[1]
-						* 32 + players[1].floatLoc[1]);
-			}
-			cameras[0].untranslateGraphics();
-			
-			// check to start a minigame
-			// list of TownWindow (Hub1) events:
-			// dodge, catch, oldman, locked, shop, inn
-			if (players[0].floatLoc[0] == 0 && players[0].floatLoc[1] == 0) {
-				for (int eventID = 0; eventID < miniNames.length; eventID++) {
-					if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]]
-							.equals(miniNames[eventID])) {
-						if (!events[eventID].hasEntered[1]) {
-							triggerMinigame(container, game, 0, events[eventID]);
-						}
-					} 
-				}
-			}
-		}
-
-		// render player two screen
-		Player p2 = players[1];
-		if (currentEvents[1] != null) {
-			currentEvents[1].render(container, game, g);
-		} else {
-
-			cameras[1].drawMap();
-			cameras[1].translateGraphics();
-			if (players[0].gridLoc[0] + 1 > players[1].gridLoc[0]
-					- players[1].windowSize[0] / 2) {
-				players[0].render(container, game, g, players[0].gridLoc[0]
-						* 32 + players[0].floatLoc[0], players[0].gridLoc[1]
-						* 32 + players[0].floatLoc[1]);
-			}
-			players[1].render(container, game, g, players[1].gridLoc[0] * 32
-					+ players[1].floatLoc[0], players[1].gridLoc[1] * 32
-					+ players[1].floatLoc[1]);
-			cameras[1].untranslateGraphics();
-			// check to start a minigame
-			// list of TownWindow (Hub1) events:
-			// dodge, catch, oldman, locked, shop, inn
-			if (players[1].floatLoc[0] == 0 && players[1].floatLoc[1] == 0) {
-				for (int eventID = 0; eventID < miniNames.length; eventID++) {
-					if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-							.equals(miniNames[eventID])) {
-						if (!events[eventID].hasEntered[1]) {
-							triggerMinigame(container, game, 1, events[eventID]);
-						}
-					} 
-				}
-			}
-		}
-		container.getGraphics().resetTransform();
-		float leftLoc = players[0].windowPos[0] + players[0].windowSize[0];
-		float rightLoc = players[1].windowPos[0] - players[0].windowSize[0];
-		g.setColor(Color.black);
-		g.fillRect(leftLoc, (float) 0, rightLoc, (float) container.getHeight());
-
+		super.render(container, game, g);
 	}
 
 	@Override
@@ -147,24 +77,6 @@ public class TownWindow extends HubWindow {
 	@Override
 	public void update(GameContainer container, StateBasedGame game,
 			Player[] players, int delta) throws SlickException {
-		Input input = container.getInput();
-		for (int i = 0; i < players.length; i++) {
-			if (currentEvents[i] != null) {
-				if (currentEvents[i].inside[i]) {
-					currentEvents[i].update(container, game, delta);
-				} else {
-					currentEvents[i] = null;
-					super.movePlayer(input, 5, players[i], delta);
-					cameras[i].centerOn(players[i].gridLoc[0] * 32
-							+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
-							+ players[i].floatLoc[1]);
-				}
-			} else {
-				super.movePlayer(input, 5, players[i], delta);
-				cameras[i].centerOn(players[i].gridLoc[0] * 32
-						+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
-						+ players[i].floatLoc[1]);
-			}
-		}
+		super.update(container, game, players, delta);
 	}
 }

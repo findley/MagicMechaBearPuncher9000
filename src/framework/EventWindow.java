@@ -76,9 +76,4 @@ public class EventWindow {
 			// grid based movement here
 		}
 	}
-
-	public boolean over() {
-		return false;//over;
-	}
-
 }
