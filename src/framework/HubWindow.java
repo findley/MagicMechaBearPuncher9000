@@ -20,8 +20,11 @@ public class HubWindow {
 	protected Player[] players;
 	protected boolean[] inNode = { true, true };
 	protected int[] gridSize = { 32, 32 };
+	
+	protected String[] miniNames;
 	public EventWindow[] events;
 	public EventWindow[] currentEvents = {null, null};
+	
 	protected Camera[] cameras;
 	private final int imageChange = 75;
 	protected TiledMap bgImage;
@@ -188,7 +191,7 @@ public class HubWindow {
 			StateBasedGame game, int playerID, EventWindow minigame)
 			throws SlickException {
 		minigame.hasEntered[playerID] = true;
-		minigame.over[playerID] = false;
+		minigame.inside[playerID] = true;
 		minigame.player = players[playerID];
 		currentEvents[playerID] = minigame;
 	}

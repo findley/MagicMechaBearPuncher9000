@@ -18,8 +18,8 @@ public class EventWindow {
 	 * This is for minigame windows, not for the overall node structure.
 	 */
 	public Player player;
-	boolean[] hasEntered = {false, false};
-	boolean[] over = {false, false};
+	protected boolean[] hasEntered = {false, false};
+	protected boolean[] inside = {false, false};
 	/*
 	 * Constructor that allows for providing of a stateID
 	 */

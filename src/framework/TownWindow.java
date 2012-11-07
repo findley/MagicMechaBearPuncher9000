@@ -84,24 +84,13 @@ public class TownWindow extends HubWindow {
 			// list of TownWindow (Hub1) events:
 			// dodge, catch, oldman, locked, shop, inn
 			if (players[1].floatLoc[0] == 0 && players[1].floatLoc[1] == 0) {
-				if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-						.equals("catch")) {
-					triggerMinigame(container, game, 1, events[0]);
-				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-						.equals("dodge")) {
-					triggerMinigame(container, game, 1, events[1]);
-				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-						.equals("inn")) {
-					triggerMinigame(container, game, 1, events[2]);
-				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-						.equals("locked")) {
-					triggerMinigame(container, game, 1, events[3]);
-				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-						.equals("oldman")) {
-					triggerMinigame(container, game, 1, events[4]);
-				} else if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-						.equals("shop")) {
-					triggerMinigame(container, game, 1, events[5]);
+				for (int i = 0; i < miniNames.length; i++) {
+					if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
+							.equals(miniNames[i])) {
+						if (!events[i].hasEntered[1]) {
+							triggerMinigame(container, game, 1, events[i]);
+						}
+					} 
 				}
 			}
 		}
@@ -143,6 +132,10 @@ public class TownWindow extends HubWindow {
 		events[3] = new LockedEvent();
 		events[4] = new OldManEvent();
 		events[5] = new ShopWindow();
+		for (EventWindow event : events) {
+			event.init(container, game);
+		}
+		miniNames = new String[] {"catch", "dodge", "inn", "locked", "oldman", "shop"};
 
 		this.cameras = new Camera[2];
 		cameras[0] = new Camera(container, bgImage, this.players[0]);
@@ -162,7 +155,15 @@ public class TownWindow extends HubWindow {
 		Input input = container.getInput();
 		for (int i = 0; i < players.length; i++) {
 			if (currentEvents[i] != null) {
-				currentEvents[i].update(container, game, delta);
+				if (currentEvents[i].inside[i]) {
+					currentEvents[i].update(container, game, delta);
+				} else {
+					currentEvents[i] = null;
+					super.movePlayer(input, 5, players[i], delta);
+					cameras[i].centerOn(players[i].gridLoc[0] * 32
+							+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
+							+ players[i].floatLoc[1]);
+				}
 			} else {
 				super.movePlayer(input, 5, players[i], delta);
 				cameras[i].centerOn(players[i].gridLoc[0] * 32

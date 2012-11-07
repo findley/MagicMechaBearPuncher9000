@@ -2,6 +2,7 @@ package hub1events;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -14,15 +15,26 @@ public class ShopWindow extends EventWindow {
 	private final static int mysteryVal = 70;
 	private int guess;
 	private int state; // 0, 1, 2, 3, 4, 5. talking, waiting, too low, too high, just right, ERROR.
+	private Image bg;
 	
 	public ShopWindow() {
 		state = 1;
 		guess = 0;
 	}
 	
+	public void init(GameContainer container, StateBasedGame game)
+			throws SlickException {
+		bg = new Image("Assets/Hub 1/Images/shop_bg.png");
+	}
+	
+	public void displayMinigameBackground(Graphics g) {
+		g.drawImage(bg, player.windowPos[0], 0);
+	}
+	
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-		g.drawString("" + guess, 100, 100);//+ player.windowPos[0], 100);
+		displayMinigameBackground(g);
+		g.drawString("" + guess, 100 + player.windowPos[0], 100);
 		
 	}
 	
@@ -37,7 +49,10 @@ public class ShopWindow extends EventWindow {
 	        	guess -= 10;
 	        }
 	        if (input.isKeyPressed(player.getButton("right"))) {
-	        	state = priceCheck(guess);
+	        	//state = priceCheck(guess);
+	        	if (guess == 100) {
+	        		this.inside = new boolean[] {false, false};
+	        	}
 	        }
         } else if (state == 2) {
 			state = 0;

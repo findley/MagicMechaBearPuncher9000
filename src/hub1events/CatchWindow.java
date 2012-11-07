@@ -56,7 +56,7 @@ public class CatchWindow extends EventWindow {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         super.init(container, game);
-      //bg for each player... in case they're different?
+/*      //bg for each player... in case they're different?
         Image tempImage = new Image("Assets/Hub 1/FinalImageRef.png");
         bgImage = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
         player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
@@ -74,7 +74,7 @@ public class CatchWindow extends EventWindow {
             objSpd[i] = new float[] { (float) x, (float) y };
         }
         counter = objVis.length;
-    }
+*/    }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {

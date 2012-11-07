@@ -72,7 +72,7 @@ public class DodgeWindow extends EventWindow {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         super.init(container, game);
-        //bg for each player... in case they're different?
+/*        //bg for each player... in case they're different?
         bgImage = new Image("Assets/Black.jpg");
         player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
         player.eventLoc[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
@@ -89,7 +89,7 @@ public class DodgeWindow extends EventWindow {
             objSpd[i] = new float[] { (float) x, (float) y };
         }
         timer = 4.0;
-    }
+*/    }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
