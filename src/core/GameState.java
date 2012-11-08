@@ -14,6 +14,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import transitions.TransitionWindowOne;
+
 import framework.EventWindow;
 import framework.HubWindow;
 import framework.Player;
@@ -78,6 +80,8 @@ public class GameState extends BasicGameState {
 		try {
 			hubWindows.add(new TownWindow(players, new int[] { 5, 12 },
 					new int[] { 10, 12 }));
+			hubWindows.add(new TownWindow(players, new int[] { 5, 12 },
+					new int[] { 10, 12 }));
 			currentHubWindow = hubWindows.get(0);
 			currentHubWindow.init(container, game, players);
 		} catch (SlickException e) {
@@ -88,7 +92,7 @@ public class GameState extends BasicGameState {
 	// TODO: ADD MORE TRANSITION SCREENS
 	public void initTransitions() {
 		transitionWindows = new ArrayList<TransitionWindow>();
-		transitionWindows.add(new TransitionWindow(players));
+		transitionWindows.add(new TransitionWindowOne(players, new int[] {5,12}, new int[] {10,12}));
 		currentTransition = transitionWindows.get(0);
 	}
 
@@ -96,7 +100,7 @@ public class GameState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 
-		if (hubWindows.size() == transitionWindows.size()) {
+		if ( (hubWindows.size() - 1) == transitionWindows.size()) {
 			currentHubWindow.render(container, game, g);
 		} else {
 			currentTransition.render(container, game, g);
@@ -117,16 +121,19 @@ public class GameState extends BasicGameState {
 
 		if (currentHubWindow.over()) {
 			hubWindows.remove(0);
+			currentHubWindow = hubWindows.get(0);
+			currentTransition.init(container, game, players);
 		}
 
 		if (currentTransition.over()) {
 			transitionWindows.remove(0);
+			currentTransition = transitionWindows.get(0);
 		}
 
-		if (hubWindows.size() == transitionWindows.size()) {
+		if ( (hubWindows.size() -1 ) == transitionWindows.size()) {
 			currentHubWindow.update(container, game, players, delta);
 		} else {
-			currentTransition.update(container, game, players);
+			currentTransition.update(container, game, players, delta);
 		}
 
 	}
