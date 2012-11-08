@@ -264,6 +264,7 @@ public class HubWindow {
 		minigame.hasEntered[playerID] = true;
 		minigame.inside[playerID] = true;
 		minigame.player = players[playerID];
+		minigame.dialogBox = dialogBoxes[playerID];
 		currentEvents[playerID] = minigame;
 	}
 

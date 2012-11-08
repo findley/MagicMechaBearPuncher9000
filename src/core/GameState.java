@@ -105,7 +105,9 @@ public class GameState extends BasicGameState {
 		} else {
 			currentTransition.render(container, game, g);
 		}
-
+		
+		dialogBoxes[0].render(container, g);
+		dialogBoxes[1].render(container, g);
 	}
 
 	@Override
@@ -180,8 +182,8 @@ public class GameState extends BasicGameState {
 		players[1] = new Player(p2WinPos, p2WinSize, p2Buttons, 2);
 		
 		dialogBoxes = new DialogBox[2];
-		dialogBoxes[0] = new DialogBox(0, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[0].getButton("action"));
-		dialogBoxes[1] = new DialogBox( container.getWidth() / 2 + 16, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[1].getButton("action"));
+		dialogBoxes[0] = new DialogBox(0, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[0].getButton("right"));
+		dialogBoxes[1] = new DialogBox( container.getWidth() / 2 + 16, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[1].getButton("right"));
 		
 		started = false;
 

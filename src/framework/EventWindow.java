@@ -18,6 +18,7 @@ public class EventWindow {
 	 * This is for minigame windows, not for the overall node structure.
 	 */
 	public Player player;
+	public DialogBox dialogBox;
 	protected boolean[] hasEntered = {false, false};
 	protected boolean[] inside = {false, false};
 	/*

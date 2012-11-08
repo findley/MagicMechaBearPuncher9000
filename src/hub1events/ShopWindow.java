@@ -1,5 +1,7 @@
 package hub1events;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -16,15 +18,18 @@ public class ShopWindow extends EventWindow {
 	private int state; // 0, 1, 2, 3, 4, 5. talking, waiting, too low, too high,
 						// just right, ERROR.
 	private Image bg;
+	private ArrayList<String> text;
 
 	public ShopWindow() {
-		state = 1;
+		state = 0;
 		guess = 0;
 	}
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		bg = new Image("Assets/Hub 1/Images/shop_bg.png");
+		text = new ArrayList<String>();
+		text.add("Hehe how we doing on this fine day? Well, well, I see you're eyeing that magnificent sword! It's a masterpiece, my most prized possession. I'll tell you what, if you can guess its price, I'll give it to you for free!!!");
 	}
 
 	public void displayMinigameBackground(Graphics g) {
@@ -43,7 +48,14 @@ public class ShopWindow extends EventWindow {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = container.getInput();
+		if (state == 0) {
+			dialogBox.playMsg(text);
+			state = 1;
+		}
 		if (state == 1) {
+			if (input.isKeyPressed(player.getButton("left"))) {
+				dialogBox.playMsg(text);
+			}
 			if (input.isKeyPressed(player.getButton("up"))) {
 				guess += 10;
 			}
