@@ -241,13 +241,19 @@ public class DialogBox{
 		}
     	
     }
+    /**
+     * Method that opens a new dialog box, and starts playing text.
+     * @param text: List of strings that will be rendered in the dialog box.
+     */
     public void playMsg(ArrayList<String> text){
     	boxes = text;
     	messages = wrap(boxes.get(boxIndex),font,width);
     	active = true;
     }
     
-    
+    /**
+     * Method that closes a dialog box. Call this method after all text has been rendered.
+     */
     private void close(){
     	active = false;
     }
@@ -272,7 +278,9 @@ public class DialogBox{
     		proceedStall = false;
     	}	
     }
-    
+    /**
+     * @return Boolean stating whether or not this dialog box is active (visible) or not.
+     */
     public boolean isActive() {
     	return active;
     }
