@@ -29,6 +29,7 @@ import org.newdawn.slick.SlickException;
  *
  */
 public class DialogBox{
+	//Commen
 	private final int x;
 	private final int y;
 	private int boxIndex = 0;
