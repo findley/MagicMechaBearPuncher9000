@@ -47,65 +47,37 @@ public class HubWindow {
 
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		
-		// render player one screen
-		if (currentEvents[0] != null) {
-			currentEvents[0].render(container, game, g);
-		} else {
-			cameras[0].drawMap();
-			cameras[0].translateGraphics();
-			players[0].render(container, game, g, players[0].gridLoc[0] * 32
-					+ players[0].floatLoc[0], players[0].gridLoc[1] * 32
-					+ players[0].floatLoc[1]);
-			if (players[1].gridLoc[0] < players[0].gridLoc[0]
-					+ players[0].windowSize[0] - 32) {
-				players[1].render(container, game, g, players[1].gridLoc[0]
-						* 32 + players[1].floatLoc[0], players[1].gridLoc[1]
-						* 32 + players[1].floatLoc[1]);
-			}
-			cameras[0].untranslateGraphics();
-			
-			// check to start a minigame
-			// list of TownWindow (Hub1) events:
-			// dodge, catch, oldman, locked, shop, inn
-			if (players[0].floatLoc[0] == 0 && players[0].floatLoc[1] == 0) {
-				for (int eventID = 0; eventID < miniNames.length; eventID++) {
-					if (miniArray[players[0].gridLoc[0]][players[0].gridLoc[1]]
-							.equals(miniNames[eventID])) {
-						if (!events[eventID].hasEntered[0]) {
-							triggerMinigame(container, game, 0, events[eventID]);
-						}
-					} 
+		for (int i = 0; i < players.length; i++) {
+			// render player one screen
+			if (currentEvents[i] != null) {
+				currentEvents[i].render(container, game, g);
+			} else {
+				cameras[i].drawMap();
+				cameras[i].translateGraphics();
+				players[i].render(container, game, g, players[i].gridLoc[0]
+						* 32 + players[i].floatLoc[0], players[i].gridLoc[1]
+						* 32 + players[i].floatLoc[1]);
+				if ((players[(i + 1) % 2].gridLoc[0] + 1) * 32
+						+ players[(i + 1) % 2].floatLoc[0] > cameras[i].cameraX) {
+					players[(i + 1) % 2].render(container, game, g,
+							players[(i + 1) % 2].gridLoc[0] * 32
+									+ players[(i + 1) % 2].floatLoc[0],
+							players[(i + 1) % 2].gridLoc[1] * 32
+									+ players[(i + 1) % 2].floatLoc[1]);
 				}
-			}
-		}
+				cameras[i].untranslateGraphics();
 
-		// render player two screen
-		if (currentEvents[1] != null) {
-			currentEvents[1].render(container, game, g);
-		} else {
-
-			cameras[1].drawMap();
-			cameras[1].translateGraphics();
-			if (players[0].gridLoc[0] + 1 > players[1].gridLoc[0]
-					- players[1].windowSize[0] / 2) {
-				players[0].render(container, game, g, players[0].gridLoc[0]
-						* 32 + players[0].floatLoc[0], players[0].gridLoc[1]
-						* 32 + players[0].floatLoc[1]);
-			}
-			players[1].render(container, game, g, players[1].gridLoc[0] * 32
-					+ players[1].floatLoc[0], players[1].gridLoc[1] * 32
-					+ players[1].floatLoc[1]);
-			cameras[1].untranslateGraphics();
-			// check to start a minigame
-			// list of TownWindow (Hub1) events:
-			// dodge, catch, oldman, locked, shop, inn
-			if (players[1].floatLoc[0] == 0 && players[1].floatLoc[1] == 0) {
-				for (int eventID = 0; eventID < miniNames.length; eventID++) {
-					if (miniArray[players[1].gridLoc[0]][players[1].gridLoc[1]]
-							.equals(miniNames[eventID])) {
-						if (!events[eventID].hasEntered[1]) {
-							triggerMinigame(container, game, 1, events[eventID]);
+				// check to start a minigame
+				// list of TownWindow (Hub1) events:
+				// dodge, catch, oldman, locked, shop, inn
+				if (players[i].floatLoc[0] == 0 && players[i].floatLoc[1] == 0) {
+					for (int eventID = 0; eventID < miniNames.length; eventID++) {
+						if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]]
+								.equals(miniNames[eventID])) {
+							if (!events[eventID].hasEntered[i]) {
+								triggerMinigame(container, game, i,
+										events[eventID]);
+							}
 						}
 					}
 				}
@@ -126,6 +98,8 @@ public class HubWindow {
 	public void update(GameContainer container, StateBasedGame game,
 			Player[] players, int delta) throws SlickException {
 		Input input = container.getInput();
+		
+		
 		for (int i = 0; i < players.length; i++) {
 			if (currentEvents[i] != null) {
 				if (currentEvents[i].inside[i]) {
@@ -144,6 +118,8 @@ public class HubWindow {
 						+ players[i].floatLoc[1]);
 			}
 		}
+		
+		
 	}
 
 	public void enter(GameContainer container, StateBasedGame game,
@@ -279,7 +255,7 @@ public class HubWindow {
 	protected void triggerMinigame(GameContainer container,
 			StateBasedGame game, int playerID, EventWindow minigame)
 			throws SlickException {
-		minigame.init(container, game);
+		minigame.start();
 		minigame.hasEntered[playerID] = true;
 		minigame.inside[playerID] = true;
 		minigame.player = players[playerID];
