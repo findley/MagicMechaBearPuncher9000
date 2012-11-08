@@ -48,7 +48,6 @@ public class HubWindow {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		for (int i = 0; i < players.length; i++) {
-			// render player one screen
 			if (currentEvents[i] != null) {
 				currentEvents[i].render(container, game, g);
 			} else {
@@ -119,6 +118,10 @@ public class HubWindow {
 			}
 		}
 		
+		
+		if (input.isKeyDown(input.KEY_M)){
+			this.over = true;
+		}
 		
 	}
 

@@ -72,6 +72,7 @@ public class ShopWindow extends EventWindow {
 	public void start() {
 		guess = 0;
 	}
+	
 	private int priceCheck(int guess) {
 		if (guess < mysteryVal) {
 			return 2;
