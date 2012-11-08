@@ -41,23 +41,42 @@
   <image source="../Hub 1/Images/oldManSprite.png" width="32" height="32"/>
   <tile id="0">
    <properties>
+    <property name="minigame" value="oldman"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="122" name="shop" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/shop.png" width="160" height="128"/>
+  <tile id="17">
+   <properties>
     <property name="minigame" value="shop"/>
    </properties>
   </tile>
  </tileset>
+ <tileset firstgid="142" name="inn" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/inn.png" width="192" height="128"/>
+  <tile id="21">
+   <properties>
+    <property name="minigame" value="inn"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="166" name="farmer" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/farmerFront.png" width="32" height="32"/>
+ </tileset>
  <layer name="Collision" width="25" height="25">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAACxNkYGAQHEaYXIDPvFE7hrcdpUBcRoQdxIiR4h5q2UFqWNHTDn4sYkFUsoMcMFzsQAaVdLAD2dyhbgc2+0btGLl2DHUMAGf8IODECQAA
+   H4sIAAAAAAAACxNkYGAQHEaYXIDPvIG2gxS/jtqBwIuJtKMUiMtIsINaYKDSFTFipMTdSLCDH4tYEJXsoDYYSnbgi69RO7Db0U1DO4ixn5AdlTS2oxIqR649uPLnUMUAJ/poZ8QJAAA=
   </data>
  </layer>
  <layer name="Background" width="25" height="25" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC92UPQ7CMAyFc4UKiioWBCP0AAkZ6P1PhSuIZFn+S+sFhqdWUePP9rM7pJSGP9KTURHOPapOBv5+feZOTg9ja30So93fmrvFqDviRfVKy+EEOgb6cQaNoAvSATQFMrico+dKY7xQTyMZC4rvreP67fGI+n4TGC1uJTxpz+nc0HyLcL7HDykWPZdmmmPQHfcyqBaFQXdgBj2QL00zw+D+YZYfa6739NktThNzp8eP6vRViq/tB/7HYkY28qV3rTo881mEd1qL5TllZHTX8sG7H5YfGiMLjF/XG/0kqdbECQAA
+   H4sIAAAAAAAAC92V3Q6CMAyF+wpEMF4heml8AOZUeP+ncouQNOW03Yw3enGy0Wz5+rfSEFHzR7olxWVdFcR3jaLCsM7ndXT40kfEGAtZpfFpcQTSfa9VST2kDe0tH0rr0Rv55tontSIXGkP6dUo6CnWLuG2XdKiIw6vp6vMz6a7oUZAr1EMRMPL3DO6WMErj4PaJ7TWGrIX27jljEmdnh7Ge62nrO7d9ox4DYAyA4fU0YoQPGdo7tOLIb6ITuop9K+4EwPRmSfb1Qu+3hdSCOzVxRJAPlDttvkWDwfPKGSNt56GsGepFb7ZbcQTazrEziEcyZNxa70SxWvJmiVcP69+v9dWv6wVd68lkxAkAAA==
   </data>
  </layer>
- <layer name="Houses + walls" width="25" height="25" visible="0">
+ <layer name="Houses" width="25" height="25" visible="0">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3RaW8BURiGYbSopfhB2sS+tyhFa1+Lltr9fLfkSERyJJM5JGSe5PryZpJ7MmMyGduviE+UUEYFX4ob36iihjoaaCputNBGB1300FfcGOAHQ4wwxq/ixh8mmOIfM8wVNxZYYoU1Ntieed4MCx7wKG4BBBFCGBGd72SFDXY8iVsUMcSRQPLo+Vf4JV4kDQeccMEtbimkkcEb3k8asskaz/DAC5+4ZZFDHh8o6Gxo3bUaWv+HiuZht9649LcyZuzetgOq4uPdxAkAAA==
+   H4sIAAAAAAAAC+3O106UURQG0MECKAK+kihNpKmI9CYCCihdmtK70pv0+pwskrkiGfKbYQIT/JJ1s88+5zuh0P9cpoQPlPKRMspvuKOCSqqopobaAPf+sMgSy6ywGmG3jnoa+EQjnwN0rLHOBptssR1ht4lmWvjCV1oDdPxlh1322Ocgwm4b7XzjOx10Bug45IhjTjjlLMJuF9300EsfPwJ0xHsSeMBDHoVnL8jgJa/IDPDO+TVnj0kkieTwLItscsjl9b9+/Eqe8JQUnoVnebwhnwIKo+xIJY10nodnRRTzlne8j7LjPmeAQYYY5mcMOn4xwihjjMegY4JJpphmJgYds8wxzwK/Y9ARL+m/7Q/coVwAYfJO9cQJAAA=
   </data>
  </layer>
 </map>
