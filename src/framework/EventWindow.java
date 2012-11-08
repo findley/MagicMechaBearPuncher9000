@@ -21,11 +21,15 @@ public class EventWindow {
 	public DialogBox dialogBox;
 	protected boolean[] hasEntered = {false, false};
 	protected boolean[] inside = {false, false};
+	protected HubWindow hub;
 	/*
-	 * Constructor that allows for providing of a stateID
+	 * Constructor that passes up the Hub (if necessary)
 	 */
+	public EventWindow(HubWindow hubTransfer) {
+		hub = hubTransfer;
+	}
 	public EventWindow() {
-		
+		hub = null;
 	}
 	
 	public void displayMinigameBackground(Graphics g) {

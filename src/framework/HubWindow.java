@@ -259,6 +259,9 @@ public class HubWindow {
 		}
 	}
 
+	public Camera getCamera(int playerID) {
+		return cameras[playerID];
+	}
 	protected void triggerMinigame(GameContainer container,
 			StateBasedGame game, int playerID, EventWindow minigame)
 			throws SlickException {

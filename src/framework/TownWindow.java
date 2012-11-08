@@ -54,7 +54,7 @@ public class TownWindow extends HubWindow {
 		events[0] = new CatchWindow();
 		events[1] = new DodgeWindow();
 		events[2] = new InnWindow();
-		events[3] = new LockedEvent();
+		events[3] = new LockedEvent(this);
 		events[4] = new OldManEvent();
 		events[5] = new ShopWindow();
 		for (EventWindow event : events) {
