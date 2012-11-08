@@ -38,7 +38,6 @@ public class LockedEvent extends EventWindow {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		
 	}
 
 	public void start() {

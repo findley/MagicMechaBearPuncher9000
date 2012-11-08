@@ -49,7 +49,7 @@ public class MainMenuState extends BasicGameState {
             container.exit();
         }
         if (container.getInput().isKeyPressed(Input.KEY_I)){
-            game.enterState(0);
+            game.enterState(2);
         }
         if (container.getInput().isKeyPressed(Input.KEY_P)){
             game.enterState(1);
