@@ -50,10 +50,7 @@ public class TypewriterTest extends BasicGame {
     public void keyPressed(int key, char c) {
         if (key == Input.KEY_ESCAPE) {
             System.exit(0);
-        } else if (key == Input.KEY_SPACE) {
-            restart();
-        } else if (key == Input.KEY_ENTER) {
-            showAll();
+        }  else if (key == Input.KEY_ENTER) {
             String text = "Why hello there, young adventurer!-" +
             		"What? \nYou say you're not an adventurer?-" +
             		"Well of course you are! Just look how much you stand out " +
@@ -68,8 +65,9 @@ public class TypewriterTest extends BasicGame {
             		"in return for slightly relevant aid toward your cause. It is not in your " +
             		"nature to refuse such requests, so I must implore you, talk with caution! " +
             		"T...time is...your most valua...ble ally...use it wise...zzz...zzz...-"; 
-            DialogBox dialog = new DialogBox(100,100, text, font, Input.KEY_DOWN, Input.KEY_SPACE);
+            DialogBox dialog = new DialogBox(100,100, font, Input.KEY_DOWN, Input.KEY_SPACE);
             dialogBoxes[0] = dialog;
+            dialogBoxes[0].open(text);
         }
     }
    
@@ -99,64 +97,22 @@ public class TypewriterTest extends BasicGame {
    
     //render the dialog box
     public void render(GameContainer container, Graphics g) throws SlickException {
-        int x = 200;
-        int y = 150;
-       
-        int pad = 5;
-        g.setColor(box);
-        g.fillRect(x-pad, y-pad, width+pad*2, 200+pad*2);
-       
-        g.setColor(Color.white);
-        int lineHeight = font.getLineHeight();
-       
-        //only render the rows we have typed out so far (renderRow = current row)
-        for (int i=0; i<renderRow+1; i++) {
-            String line = lines.get(i);
-            //render whole line if it's a previous one, otherwise render the col
-            int len = i<renderRow ? line.length() : renderCol;
-            String t = line.substring(0, len);
-            if (t.length()!=0) {
-                g.drawString(t, x, y);
-            }
-            y += lineHeight;
-        }
         
         for (DialogBox d: dialogBoxes){
         	if (d != null){
         		d.render(container, g);
         	}
         }
-       
-        g.drawString("SPACE to restart, ENTER to show all", 10, 40);
     }
    
     //update the game logic and typewriting effect
     public void update(GameContainer container, int delta) throws SlickException {
-        time -= delta;
         for (DialogBox d: dialogBoxes){
         	if (d != null){
         		d.update(container, delta);
         	}
         }
-        if (time<=0 && !finished) {
-            time = TYPE_DELAY;
-           
-            //if we are moving down to the next line
-            if (renderCol > lines.get(renderRow).length()-1) {
-                //we've rendered all characters
-                if (renderRow >= lines.size()-1) {
-                    finished = true;
-                }
-                //move to next line
-                else {
-                    renderRow++;
-                    renderCol = 0;
-                }
-            } else {
-                //move to next character
-                renderCol++;
-            }
-        }
+     
     }
    
     //shows ALL text

@@ -29,9 +29,11 @@ import org.newdawn.slick.SlickException;
  *
  */
 public class DialogBox{
+	//Commen
 	private final int x;
 	private final int y;
 	private int boxIndex = 0;
+	private boolean active = false;
 	
 	private List<String> dialog;
 	private List<String> boxes;
@@ -64,15 +66,13 @@ public class DialogBox{
 	 * @param font: Font that the dialog box will use to render the text.
 	 * @param key: Key that, when pressed will accelerate the text rendering.
 	 */
-	public DialogBox(int x, int y, String text, UnicodeFont font, int speedKey, int proceedKey){
+	public DialogBox(int x, int y, UnicodeFont font, int speedKey, int proceedKey){
 		
 		this.x = x;
 		this.y = y;
 		this.font = font;
 		quickTextKey = speedKey;
 		proceedTextKey = proceedKey;
-		boxes = parseDialog(text, '-');
-		dialog = wrap(boxes.get(boxIndex), font, width);
 	}
 	/**
 	 * Main function that renders the dialog box and displays the text
@@ -84,33 +84,36 @@ public class DialogBox{
 	 * @param g
 	 */
 	public void render(GameContainer container, Graphics g){
-		int lineLocation = this.y;
+		if (active){
+			int lineLocation = this.y;
+			
+	        g.setColor(box);
+	        g.fillRect(x-padding, y-padding, width+padding*2, height+padding*2);
+	        g.setColor(Color.white);
+	        
+	        int lineHeight = font.getLineHeight();
+	        int maxLines = height/lineHeight;
+	        int startRender = Math.max(0, numLinesRendered-maxLines+1);
+	       
+	        //only render the rows we have typed out so far (renderRow = current row)
+	        for (int i=startRender; i<= numLinesRendered; i++) {
+	            String line = dialog.get(i);
+	            //render whole line if it's a previous one, otherwise render the column
+	            int len;
+	            if (i < numLinesRendered){
+	            	len = line.length();
+	            }
+	            else{
+	            	len = numCharactersRendered;
+	            }
+	            String t = line.substring(0, len);
+	            if (t.length()!=0) {
+	            	font.drawString(x, lineLocation, t, Color.white);
+	            }
+	            lineLocation += lineHeight;
+	        }
+		}
 		
-        g.setColor(box);
-        g.fillRect(x-padding, y-padding, width+padding*2, height+padding*2);
-        g.setColor(Color.white);
-        
-        int lineHeight = font.getLineHeight();
-        int maxLines = height/lineHeight;
-        int startRender = Math.max(0, numLinesRendered-maxLines+1);
-       
-        //only render the rows we have typed out so far (renderRow = current row)
-        for (int i=startRender; i<= numLinesRendered; i++) {
-            String line = dialog.get(i);
-            //render whole line if it's a previous one, otherwise render the column
-            int len;
-            if (i < numLinesRendered){
-            	len = line.length();
-            }
-            else{
-            	len = numCharactersRendered;
-            }
-            String t = line.substring(0, len);
-            if (t.length()!=0) {
-            	font.drawString(x, lineLocation, t, Color.white);
-            }
-            lineLocation += lineHeight;
-        }
 	}
 	
 	/**
@@ -121,26 +124,29 @@ public class DialogBox{
 	 * @throws SlickException
 	 */
     public void update(GameContainer container, int delta) throws SlickException {
-        time -= delta;
-        keyPressed(container);
-        if (time<=0 && !finished) {
-            time = delay;
+    	if (active){
+    		time -= delta;
+            keyPressed(container);
+            if (time<=0 && !finished) {
+                time = delay;
+            
+    	        //Check to see if we should move down to next line. 
+    	        if (numCharactersRendered > dialog.get(numLinesRendered).length()-1){
+    	        	//Everything has been rendered
+    	        	if (numLinesRendered >= dialog.size()-1){
+    	        		finished = true;
+    	        	}
+    	        	else{//Move to next line
+    	        		numLinesRendered++;
+    	        		numCharactersRendered = 0;
+    	        	}
+    	        }
+    	        else{//move to the next character
+    	        	numCharactersRendered++;
+    	        }
+            }
+    	}
         
-	        //Check to see if we should move down to next line. 
-	        if (numCharactersRendered > dialog.get(numLinesRendered).length()-1){
-	        	//Everything has been rendered
-	        	if (numLinesRendered >= dialog.size()-1){
-	        		finished = true;
-	        	}
-	        	else{//Move to next line
-	        		numLinesRendered++;
-	        		numCharactersRendered = 0;
-	        	}
-	        }
-	        else{//move to the next character
-	        	numCharactersRendered++;
-	        }
-        }
     }
    
     /**
@@ -218,14 +224,29 @@ public class DialogBox{
     	return boxes;
     }
     private void proceed(){
-    	finished = false;
-    	numCharactersRendered = 0;
-    	numLinesRendered = 0;
-    	boxIndex++;
+    	if (active){
+    		finished = false;
+        	numCharactersRendered = 0;
+        	numLinesRendered = 0;
+        	if (boxIndex < boxes.size()-1){
+        		boxIndex++;
+            	dialog = wrap(boxes.get(boxIndex),font,width);	
+        	}
+        	else{
+        		close();
+        	}
+        	System.out.println(boxIndex);
+    	}
+    	
+    }
+    public void open(String text){
+    	boxes = parseDialog(text, '-');
     	dialog = wrap(boxes.get(boxIndex),font,width);
-    	
-    	
-    	
+    	active = true;
+    }
+    private void close(){
+    	active = false;
+    	boxIndex = 0;
     }
     /**
      * Method that takes whatever input the container is currently receiving and compares 
@@ -239,7 +260,9 @@ public class DialogBox{
     		delay = QUICK_DELAY;
     	}
     	else if (key.isKeyPressed(proceedTextKey)){
-    		proceed();
+    		if (active){
+    			proceed();
+    		}
     	}
     	else{
     		delay = REGULAR_DELAY;
