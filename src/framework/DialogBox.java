@@ -53,6 +53,7 @@ public class DialogBox{
 	private boolean finished = false;
 	
 	private int proceedTextKey;
+	private boolean proceedStall;
 	
 	/**
 	 * Constructor for creating the dialog box.
@@ -71,6 +72,7 @@ public class DialogBox{
 		this.y = y;
 		this.font = font;
 		proceedTextKey = proceedKey;
+		proceedStall = false;
 	}
 	/**
 	 * Main function that renders the dialog box and displays the text
@@ -229,15 +231,14 @@ public class DialogBox{
     	if (active){
     		finished = false;
         	currChar = 0;
-        	currLine = 0;
-        	if (boxIndex < boxes.size()-1){
-        		boxIndex++;
-            	messages = wrap(boxes.get(boxIndex),font,width);	
-        	}
-        	else{
-        		close();
-        	}
-    	}
+			currLine = 0;
+			if (boxIndex < boxes.size() - 1) {
+				boxIndex++;
+				messages = wrap(boxes.get(boxIndex), font, width);
+			} else {
+				close();
+			}
+		}
     	
     }
     public void playMsg(ArrayList<String> text){
@@ -260,12 +261,15 @@ public class DialogBox{
     private void keyPressed(Input p){
     	if (p.isKeyDown(proceedTextKey)){
     		delay = QUICK_DELAY;
-    		if (finished) {
+    		if (finished && !proceedStall) {
         		proceed();
+    		} else {
+    			proceedStall = true;
     		}
     	}
-    	else{
+    	else {
     		delay = REGULAR_DELAY;
+    		proceedStall = false;
     	}	
     }
     
