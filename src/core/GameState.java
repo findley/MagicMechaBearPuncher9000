@@ -120,8 +120,6 @@ public class GameState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			container.exit();
 		}
-		dialogBoxes[0].update(container, delta);
-		dialogBoxes[1].update(container, delta);
 		
 		if (currentHubWindow.over()) {
 			hubWindows.remove(0);
@@ -139,7 +137,9 @@ public class GameState extends BasicGameState {
 		} else {
 			currentTransition.update(container, game, players, delta);
 		}
-
+		
+		dialogBoxes[0].update(container, delta);
+		dialogBoxes[1].update(container, delta);
 	}
 
 	@Override

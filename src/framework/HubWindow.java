@@ -76,8 +76,10 @@ public class HubWindow {
 						if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]]
 								.equals(miniNames[eventID])) {
 							if (!events[eventID].hasEntered[i]) {
-								triggerMinigame(container, game, i,
-										events[eventID]);
+								if (!events[eventID].inside[(i + 1) % 2]) {
+									triggerMinigame(container, game, i,
+											events[eventID]);
+								}
 							}
 						}
 					}

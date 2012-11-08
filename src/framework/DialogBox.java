@@ -268,4 +268,8 @@ public class DialogBox{
     		delay = REGULAR_DELAY;
     	}	
     }
+    
+    public boolean isActive() {
+    	return active;
+    }
 }
