@@ -15,9 +15,9 @@ import org.newdawn.slick.tiled.TiledMap;
 public class TownWindow extends HubWindow {
 	private Double timer;
 
-	public TownWindow(Player[] players, int[] locp1, int[] locp2)
+	public TownWindow(Player[] players, DialogBox[] dialogBoxes, int[] locp1, int[] locp2)
 			throws SlickException {
-		super(players, locp1, locp2);
+		super(players, dialogBoxes, locp1, locp2);
 
 	}
 

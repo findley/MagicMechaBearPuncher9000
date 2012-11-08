@@ -29,23 +29,22 @@ import org.newdawn.slick.SlickException;
  *
  */
 public class DialogBox{
-	//Commen
 	private final int x;
 	private final int y;
-	private int boxIndex = 0;
+	private int boxIndex;
 	private boolean active = false;
 	
-	private List<String> dialog;
+	private List<String> messages;
 	private List<String> boxes;
 	
 	private UnicodeFont font;
-	private int width = 600;
-	private int height = 200;
+	private int width;
+	private int height;
 	private int padding = 5;
 	private Color box = new Color(1f,1f,1f,0.45f);
 	
-	private int numLinesRendered = 0;
-	private int numCharactersRendered = 0;
+	private int currLine = 0;
+	private int currChar = 0;
 	   
 	private final static int REGULAR_DELAY = 50;
 	private final static int QUICK_DELAY = 10;
@@ -53,8 +52,7 @@ public class DialogBox{
 	private int time = delay;
 	private boolean finished = false;
 	
-	private int quickTextKey = Input.KEY_DOWN;
-	private int proceedTextKey = Input.KEY_SPACE;
+	private int proceedTextKey;
 	
 	/**
 	 * Constructor for creating the dialog box.
@@ -66,12 +64,12 @@ public class DialogBox{
 	 * @param font: Font that the dialog box will use to render the text.
 	 * @param key: Key that, when pressed will accelerate the text rendering.
 	 */
-	public DialogBox(int x, int y, UnicodeFont font, int speedKey, int proceedKey){
-		
+	public DialogBox(int x, int y, int width, int height, UnicodeFont font, int proceedKey){
+		this.width = width;
+		this.height = height;
 		this.x = x;
 		this.y = y;
 		this.font = font;
-		quickTextKey = speedKey;
 		proceedTextKey = proceedKey;
 	}
 	/**
@@ -93,18 +91,18 @@ public class DialogBox{
 	        
 	        int lineHeight = font.getLineHeight();
 	        int maxLines = height/lineHeight;
-	        int startRender = Math.max(0, numLinesRendered-maxLines+1);
+	        int startRender = Math.max(0, currLine-maxLines+1);
 	       
 	        //only render the rows we have typed out so far (renderRow = current row)
-	        for (int i=startRender; i<= numLinesRendered; i++) {
-	            String line = dialog.get(i);
+	        for (int i=startRender; i<= currLine; i++) {
+	            String line = messages.get(i);
 	            //render whole line if it's a previous one, otherwise render the column
 	            int len;
-	            if (i < numLinesRendered){
+	            if (i < currLine){
 	            	len = line.length();
 	            }
 	            else{
-	            	len = numCharactersRendered;
+	            	len = currChar;
 	            }
 	            String t = line.substring(0, len);
 	            if (t.length()!=0) {
@@ -126,23 +124,23 @@ public class DialogBox{
     public void update(GameContainer container, int delta) throws SlickException {
     	if (active){
     		time -= delta;
-            keyPressed(container);
+            keyPressed(container.getInput());
             if (time<=0 && !finished) {
                 time = delay;
             
     	        //Check to see if we should move down to next line. 
-    	        if (numCharactersRendered > dialog.get(numLinesRendered).length()-1){
+    	        if (currChar > messages.get(currLine).length()-1){
     	        	//Everything has been rendered
-    	        	if (numLinesRendered >= dialog.size()-1){
+    	        	if (currLine >= messages.size()-1){
     	        		finished = true;
     	        	}
     	        	else{//Move to next line
-    	        		numLinesRendered++;
-    	        		numCharactersRendered = 0;
+    	        		currLine++;
+    	        		currChar = 0;
     	        	}
     	        }
     	        else{//move to the next character
-    	        	numCharactersRendered++;
+    	        	currChar++;
     	        }
             }
     	}
@@ -211,6 +209,8 @@ public class DialogBox{
             list.add(str);
         return list;
     }
+    
+/* UNUSED CODE
     private List<String> parseDialog(String dialog, char demarcation){
     	List<String> boxes  = new ArrayList<String>();
     	int j = 0;
@@ -223,50 +223,49 @@ public class DialogBox{
     	}
     	return boxes;
     }
+*/
+    
     private void proceed(){
     	if (active){
     		finished = false;
-        	numCharactersRendered = 0;
-        	numLinesRendered = 0;
+        	currChar = 0;
+        	currLine = 0;
         	if (boxIndex < boxes.size()-1){
         		boxIndex++;
-            	dialog = wrap(boxes.get(boxIndex),font,width);	
+            	messages = wrap(boxes.get(boxIndex),font,width);	
         	}
         	else{
         		close();
         	}
-        	System.out.println(boxIndex);
     	}
     	
     }
-    public void open(String text){
-    	boxes = parseDialog(text, '-');
-    	dialog = wrap(boxes.get(boxIndex),font,width);
+    public void playMsg(ArrayList<String> text){
+    	boxes = text;
+    	messages = wrap(boxes.get(boxIndex),font,width);
     	active = true;
     }
+    
+    
     private void close(){
     	active = false;
-    	boxIndex = 0;
     }
+
     /**
      * Method that takes whatever input the container is currently receiving and compares 
      * it to the key that has been designated for speeding up text. 
      * 
      * @param c
      */
-    private void keyPressed(GameContainer c){
-    	Input key = c.getInput();
-    	if (key.isKeyDown(quickTextKey)){
+    private void keyPressed(Input p){
+    	if (p.isKeyDown(proceedTextKey)){
     		delay = QUICK_DELAY;
-    	}
-    	else if (key.isKeyPressed(proceedTextKey)){
-    		if (active){
-    			proceed();
+    		if (finished) {
+        		proceed();
     		}
     	}
     	else{
     		delay = REGULAR_DELAY;
-    	}
-    	
+    	}	
     }
 }

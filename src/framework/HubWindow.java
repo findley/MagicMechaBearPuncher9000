@@ -19,6 +19,7 @@ public class HubWindow {
 
 	protected boolean over = false;
 	protected Player[] players;
+	protected DialogBox[] dialogBoxes;
 	protected boolean[] inNode = { true, true };
 	protected int[] gridSize = { 32, 32 };
 	
@@ -35,8 +36,9 @@ public class HubWindow {
 	/*
 	 * Constructor that allows for providing of a stateID
 	 */
-	public HubWindow(Player[] players, int[] locp1, int[] locp2) {
+	public HubWindow(Player[] players, DialogBox[] dialogBoxes, int[] locp1, int[] locp2) {
 		this.players = players;
+		this.dialogBoxes = dialogBoxes;
 		this.players[0].gridLoc = locp1;
 		this.players[1].gridLoc = locp2;
 	}

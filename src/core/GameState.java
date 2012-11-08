@@ -1,26 +1,24 @@
 package core;
-import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-//import java.util.Random;
 import java.util.HashMap;
-import java.util.Stack;
-import java.util.TreeSet;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import transitions.TransitionWindowOne;
-
-import framework.EventWindow;
+import framework.DialogBox;
 import framework.HubWindow;
 import framework.Player;
 import framework.TownWindow;
 import framework.TransitionWindow;
+//import java.util.Random;
 
 public class GameState extends BasicGameState {
 	/*-has list of hubWindows
@@ -30,13 +28,15 @@ public class GameState extends BasicGameState {
 	 -queue of strings to be displayed - related to what dialogue/text is
 	 shown during a particular 'event' (also explained later)*/
 	public Player[] players;
+	public DialogBox[] dialogBoxes;
 	public ArrayList<HubWindow> hubWindows;
 	public ArrayList<TransitionWindow> transitionWindows;
 	public HubWindow currentHubWindow;
 	public TransitionWindow currentTransition;
 	public ArrayList<String> textBoxes;
 	public boolean started;
-
+	public UnicodeFont font;
+	
 	public GameState(int stateID) {
 		super();
 	}
@@ -78,9 +78,9 @@ public class GameState extends BasicGameState {
 	public void initHubs(GameContainer container, StateBasedGame game) {
 		hubWindows = new ArrayList<HubWindow>();
 		try {
-			hubWindows.add(new TownWindow(players, new int[] { 5, 12 },
+			hubWindows.add(new TownWindow(players, dialogBoxes, new int[] { 5, 12 },
 					new int[] { 10, 12 }));
-			hubWindows.add(new TownWindow(players, new int[] { 5, 12 },
+			hubWindows.add(new TownWindow(players, dialogBoxes, new int[] { 5, 12 },
 					new int[] { 10, 12 }));
 			currentHubWindow = hubWindows.get(0);
 			currentHubWindow.init(container, game, players);
@@ -92,7 +92,7 @@ public class GameState extends BasicGameState {
 	// TODO: ADD MORE TRANSITION SCREENS
 	public void initTransitions() {
 		transitionWindows = new ArrayList<TransitionWindow>();
-		transitionWindows.add(new TransitionWindowOne(players, new int[] {5,12}, new int[] {10,12}));
+		transitionWindows.add(new TransitionWindowOne(players, dialogBoxes, new int[] {5,12}, new int[] {10,12}));
 		currentTransition = transitionWindows.get(0);
 	}
 
@@ -118,7 +118,9 @@ public class GameState extends BasicGameState {
 		if (input.isKeyPressed(Input.KEY_ESCAPE)) {
 			container.exit();
 		}
-
+		dialogBoxes[0].update(container, delta);
+		dialogBoxes[1].update(container, delta);
+		
 		if (currentHubWindow.over()) {
 			hubWindows.remove(0);
 			currentHubWindow = hubWindows.get(0);
@@ -146,6 +148,12 @@ public class GameState extends BasicGameState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		
+        Font awtFont = new Font("Arial Monospaced", Font.BOLD, 18);
+	    font = new UnicodeFont(awtFont);
+	    font.getEffects().add(new ColorEffect(java.awt.Color.black));
+	    font.addAsciiGlyphs();
+	    font.loadGlyphs();
 
 		float[] p1WinSize = { container.getWidth() / 2 - 16,
 				container.getHeight() };
@@ -170,6 +178,11 @@ public class GameState extends BasicGameState {
 		players = new Player[2];
 		players[0] = new Player(p1WinPos, p1WinSize, p1Buttons, 1);
 		players[1] = new Player(p2WinPos, p2WinSize, p2Buttons, 2);
+		
+		dialogBoxes = new DialogBox[2];
+		dialogBoxes[0] = new DialogBox(0, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[0].getButton("action"));
+		dialogBoxes[1] = new DialogBox( container.getWidth() / 2 + 16, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[1].getButton("action"));
+		
 		started = false;
 
 		// levelUp = new Sound("resources/music/levelup.wav");

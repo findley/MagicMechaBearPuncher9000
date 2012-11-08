@@ -12,6 +12,7 @@ public class TransitionWindow {
 	
 	protected boolean over = false;
 	protected Player[] players;
+	protected DialogBox[] dialogBoxes;
 	protected boolean[] inNode = { true, true };
 	protected int[] gridSize = { 32, 32 };
 	
@@ -29,8 +30,9 @@ public class TransitionWindow {
 	protected int[] mylocp2;
 
 	
-	public TransitionWindow(Player[] players, int[] locp1, int[] locp2) {
+	public TransitionWindow(Player[] players, DialogBox[] dialogBoxes, int[] locp1, int[] locp2) {
 		this.players = players;
+		this.dialogBoxes = dialogBoxes;
 		this.mylocp1 = locp1;
 		this.mylocp2 = locp2;
 	}

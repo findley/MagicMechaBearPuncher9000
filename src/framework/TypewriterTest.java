@@ -51,33 +51,34 @@ public class TypewriterTest extends BasicGame {
         if (key == Input.KEY_ESCAPE) {
             System.exit(0);
         }  else if (key == Input.KEY_ENTER) {
-            String text = "Why hello there, young adventurer!-" +
-            		"What? \nYou say you're not an adventurer?-" +
+        	ArrayList<String> text= new ArrayList<String>();
+        	text.add("Why hello there, young adventurer!");
+        	text.add("What? \nYou say you're not an adventurer?");
+            text.add(
             		"Well of course you are! Just look how much you stand out " +
-            		"from us regular folk!- You probably just don't know how to be adventurer! " +
+            		"from us regular folk!"
+            		);
+            text.add(
+            		"You probably just don't know how to be adventurer! " +
             		"\nWhat? \nYou say could just read the instructions? \nNonsense I say! " +
             		"Here, let me explain how to move around! Just press the directional buttons! " +
             		"Okay, you probably figured that out on your own, so how about this? " +
             		"Did you know that while talking to people, you can press down to make them " +
-            		"talk faster? Quite a handy trick, I'd say. Though, it won’t work on me because I'm " +
+            		"talk faster? Quite a handy trick, I'd say. Though, it won't work on me because I'm " +
             		"too old, but try it out on our villagers to see what I mean. But be warned! " +
             		"In times of great peril such as these, people often ask for pointless favors " +
             		"in return for slightly relevant aid toward your cause. It is not in your " +
             		"nature to refuse such requests, so I must implore you, talk with caution! " +
-            		"T...time is...your most valua...ble ally...use it wise...zzz...zzz...-"; 
-            DialogBox dialog = new DialogBox(100,100, font, Input.KEY_DOWN, Input.KEY_SPACE);
+            		"T...time is...your most valua...ble ally...use it wise...zzz...zzz..."
+            		);
+            DialogBox dialog = new DialogBox(100,100, 300, 50, font, Input.KEY_DOWN);
             dialogBoxes[0] = dialog;
-            dialogBoxes[0].open(text);
+            dialogBoxes[0].playMsg(text);
         }
     }
    
     //initialize the game and dialog box
     public void init(GameContainer c) throws SlickException {
-        /*String text = "Lorem ipsum dolor sit amet, consectetur adipiscing "
-                + "elit. Mauris commodo erat lectus. \n\nNullam id magna erat, "
-                + "lacinia vulputate nulla. Lorem ipsum dolor sit amet, "
-                + "consectetur adipiscing elit.";*/
-        
         String text = "I want meat!";
 
         //create a list of lines based on the above text
