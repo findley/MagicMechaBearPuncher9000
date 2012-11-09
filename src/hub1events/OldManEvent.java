@@ -20,7 +20,7 @@ public class OldManEvent extends EventWindow {
 				"\nYou probably just don't know how to be an adventurer!");
 		text.add("What? You say could just read the instructions?");
 		text.add("Nonsense I say! Here, let me explain how to move around!");
-		text.add("Just press the directional buttons!");  
+		text.add("Just press the directional buttons!");
 		text.add("Okay, you probably figured that out on your own, so how about this? " +
 				"Did you know that while talking to people, you can press right to make them talk faster?");
 		text.add("Quite a handy trick, I'd say. Try it out on our villagers to see what I mean.");

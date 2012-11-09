@@ -21,7 +21,6 @@ public class ShopWindow extends EventWindow {
 	private int state; // -1, 0, 1, 2, 3, 4, 5. start, talking, waiting, too
 						// low, too high,
 						// just right, ERROR.
-	private ArrayList<String> text;
 	private UnicodeFont font;
 
 	public ShopWindow() {
@@ -32,6 +31,7 @@ public class ShopWindow extends EventWindow {
 	@SuppressWarnings("unchecked")
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		super.init(container, game);
 		bg = new Image("Assets/Hub 1/Images/shop_bg.png");
 		Font awtFont = new Font("Arial Monospaced", Font.BOLD, 24);
 		font = new UnicodeFont(awtFont);
