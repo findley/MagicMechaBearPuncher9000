@@ -55,6 +55,8 @@ public class Player {
 		this.playerNum = playerNum;
 		isMoving = false;
 		floatLoc = new float[] { 0, 0 };
+		eventLoc = new float[] {startWindowPos[0] + startWindowSize[0]/4,
+		        startWindowPos[1] + startWindowSize[1]/4};
 
 		try {
 			// later incorporating array of sprites

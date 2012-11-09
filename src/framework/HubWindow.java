@@ -52,17 +52,19 @@ public class HubWindow {
 		for (int i = 0; i < players.length; i++) {
 			cameras[i].drawMap();
 			cameras[i].translateGraphics();
-			players[i].render(container, game, g, players[i].gridLoc[0]
-					* 32 + players[i].floatLoc[0], players[i].gridLoc[1]
-					* 32 + players[i].floatLoc[1]);
-			if ((players[(i + 1) % 2].gridLoc[0] + 1) * 32
-					+ players[(i + 1) % 2].floatLoc[0] > cameras[i].cameraX) {
-				players[(i + 1) % 2].render(container, game, g,
-						players[(i + 1) % 2].gridLoc[0] * 32
-								+ players[(i + 1) % 2].floatLoc[0],
-						players[(i + 1) % 2].gridLoc[1] * 32
-								+ players[(i + 1) % 2].floatLoc[1]);
-			}
+            if (currentEvents[i] == null) {
+                players[i].render(container, game, g, players[i].gridLoc[0]
+                        * 32 + players[i].floatLoc[0], players[i].gridLoc[1]
+                        * 32 + players[i].floatLoc[1]);
+                if ((players[(i + 1) % 2].gridLoc[0] + 1) * 32
+                        + players[(i + 1) % 2].floatLoc[0] > cameras[i].cameraX) {
+                    players[(i + 1) % 2].render(container, game, g,
+                            players[(i + 1) % 2].gridLoc[0] * 32
+                                    + players[(i + 1) % 2].floatLoc[0],
+                            players[(i + 1) % 2].gridLoc[1] * 32
+                                    + players[(i + 1) % 2].floatLoc[1]);
+                }
+            }
 			cameras[i].untranslateGraphics();
 			
 		}
@@ -262,10 +264,11 @@ public class HubWindow {
 	protected void triggerMinigame(GameContainer container,
 			StateBasedGame game, int playerID, EventWindow minigame)
 			throws SlickException {
+	    
+	    minigame.player = players[playerID];
 		minigame.start();
 		minigame.hasEntered[playerID] = true;
 		minigame.inside[playerID] = true;
-		minigame.player = players[playerID];
 		minigame.dialogBox = dialogBoxes[playerID];
 		currentEvents[playerID] = minigame;
 	}

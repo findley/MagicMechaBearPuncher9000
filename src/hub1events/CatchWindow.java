@@ -2,6 +2,7 @@ package hub1events;
 
 
 import java.awt.Font;
+import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -10,9 +11,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
-
 import framework.*;
 
 public class CatchWindow extends EventWindow {
@@ -21,47 +22,29 @@ public class CatchWindow extends EventWindow {
     private boolean[] objVis = new boolean[10];
     private float[][] objSpd = new float[10][2];
     private int counter; 
-	private Image bgImage;
-    private UnicodeFont uFont;
-
+    private Image bg;
+    private ArrayList<String> text;
+    private UnicodeFont font;
 
     public CatchWindow() throws SlickException {
         objSprite = new Image("Assets/Hub 1/Images/sheep_1.png");
-        uFont = new UnicodeFont(new Font("Arial Monospace", Font.BOLD, 40));
-        // TODO Change objSprite
-    }
-
-    @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        this.displayMinigameBackground(g, player);
-        for (int i = 0; i < objPos.length; i++) {
-            if (objVis[i])
-                g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
-        }
-        player.render(container, game, g, player.eventLoc[0], player.eventLoc[1]);
-        g.drawString(Double.toString(Math.ceil(counter)), player.windowPos[0] + 350, player.windowPos[1]);
-
-        g.setColor(Color.white);
-        g.setFont(uFont);
-        g.drawString("Collect most objects", 100 + player.windowPos[0], 65);
-        g.setColor(Color.black);
     }
     
-	public void displayMinigameBackground(Graphics g, Player player) {
-//		g.drawImage(bgImage.getSubImage(1000, 1000, 24 * 32, 16 * 32)
-//				.getScaledCopy(590, 720), (int) (player.windowPos[0]),
-//				(int) (player.windowPos[1]));    	
-	}
-
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-        super.init(container, game);
-/*      //bg for each player... in case they're different?
-        Image tempImage = new Image("Assets/Hub 1/FinalImageRef.png");
-        bgImage = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
-        player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
-        player.eventLoc[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
+        //super.init(container, game);
+        //bgImage = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
+        bg = new Image("Assets/Hub 1/Images/shop_bg.png");
+        Font awtFont = new Font("Arial Monospaced", Font.BOLD, 24);
+        font = new UnicodeFont(awtFont);
+        font.getEffects().add(new ColorEffect(java.awt.Color.black));
+        font.addAsciiGlyphs();
+        font.loadGlyphs();
+    }
+    
+    public void start() {
         for (int i = 0; i < objPos.length; i++) {
+            objPos[i][0] = (float) 1.22;
             objPos[i][0] = player.windowPos[0] + (int) ((player.windowSize[0] - 100) * Math.random());
             objPos[i][1] = player.windowPos[1] + (int) (player.windowSize[1] * Math.random());
             objVis[i] = true;
@@ -74,7 +57,28 @@ public class CatchWindow extends EventWindow {
             objSpd[i] = new float[] { (float) x, (float) y };
         }
         counter = objVis.length;
-*/    }
+    }
+
+    @Override
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+        //this.displayMinigameBackground(g, player);
+        for (int i = 0; i < objPos.length; i++) {
+            if (objVis[i])
+                g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
+        }
+        player.render(container, game, g, player.eventLoc[0], player.eventLoc[1]);
+        g.setFont(font);
+        g.drawString(Double.toString(Math.ceil(counter)), player.windowPos[0] + 350, player.windowPos[1]);
+        g.setColor(Color.white);
+        g.drawString("Collect most objects", 100 + player.windowPos[0], 65);
+        g.setColor(Color.black);
+    }
+    
+	public void displayMinigameBackground(Graphics g, Player player) {
+		g.drawImage(bg, player.windowPos[0], 0);	
+	}
+
+
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
@@ -123,7 +127,8 @@ public class CatchWindow extends EventWindow {
             }
         }
         if (counter <= 2) {
-            //
+            inside[player.playerNum - 1] = false;
+            player.gridLoc[1]++;
         }
     }
 }
