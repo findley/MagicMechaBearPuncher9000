@@ -32,7 +32,7 @@ public class EventWindow {
 	}
 	
 	public void displayMinigameBackground(Graphics g) {
-	    Image toDraw = bg.getScaledCopy(640, 720);
+	    Image toDraw = bg.getScaledCopy((int) player.windowSize[0], (int) player.windowSize[1]);
 	    g.drawImage(toDraw, player.windowPos[0], 0);
 	}
 

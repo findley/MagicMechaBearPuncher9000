@@ -46,8 +46,8 @@ public class ShopWindow extends EventWindow {
 		displayMinigameBackground(g);
 
 		g.setFont(font);
-		g.drawString("" + guess[0], 473 + player.windowPos[0], 483);
-		g.drawString("" + guess[1], 516 + player.windowPos[0], 483);
+		g.drawString("" + guess[0], 473*player.windowSize[0]/640 + player.windowPos[0], 483*player.windowSize[1]/720);
+		g.drawString("" + guess[1], 516*player.windowSize[0]/640 + player.windowPos[0], 483*player.windowSize[1]/720);
 
 	}
 

@@ -13,8 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class MainGame extends StateBasedGame {
  
-	public static final int GAME_WIDTH = 1280;
-	public static final int GAME_HEIGHT = 720;
+	public static final int GAME_WIDTH = 900;
+	public static final int GAME_HEIGHT = 720*900/1280;
 	
 	@SuppressWarnings("unchecked")
     public static UnicodeFont loadFont(String name, int style, int size,
