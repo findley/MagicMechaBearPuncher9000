@@ -43,6 +43,8 @@ public class CatchWindow extends EventWindow {
     }
     
     public void start() {
+        player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] - player.pWidth;
+        player.eventLoc[1] = player.windowPos[1] + (int) player.windowSize[1] / 2;
         for (int i = 0; i < objPos.length; i++) {
             objPos[i][0] = (float) 1.22;
             objPos[i][0] = player.windowPos[0] + (int) ((player.windowSize[0] - 100) * Math.random());
