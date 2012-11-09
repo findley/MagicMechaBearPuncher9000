@@ -72,9 +72,6 @@ public class TownWindow extends HubWindow {
 		this.cameras = new Camera[2];
 		cameras[0] = new Camera(container, bgImage, this.players[0]);
 		cameras[1] = new Camera(container, bgImage, this.players[1]);
-
-		//Music loop = new Music("Assets/Hub 1/Sound/Town2.wav");
-		//loop.loop();
 	}
 
 	@Override

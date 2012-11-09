@@ -282,5 +282,4 @@ public class HubWindow {
 	public boolean over() {
 		return over;
 	}
-
 }

@@ -18,9 +18,9 @@ public class TransitionWindowZero extends TransitionWindow {
 	private ArrayList<String> text;
 	private int state;
 
-	public TransitionWindowZero(Player[] players, DialogBox[] dialogBoxes,
+	public TransitionWindowZero(Player[] players, DialogBox dialogBox,
 			int[] locp1, int[] locp2) {
-		super(players, dialogBoxes, locp1, locp2);
+		super(players, dialogBox, locp1, locp2);
 	}
 
 	public void displayHubBackground(Graphics g, Player player) {
@@ -30,7 +30,6 @@ public class TransitionWindowZero extends TransitionWindow {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		g.drawImage(bgIm, 0, 0);
-
 	}
 
 	public void init(GameContainer container, StateBasedGame game,
@@ -55,12 +54,11 @@ public class TransitionWindowZero extends TransitionWindow {
 	public void update(GameContainer container, StateBasedGame game,
 			Player[] players, int delta) throws SlickException {
 		if (state == 0) {
-			dialogBoxes[0].playMsg(text);
-			dialogBoxes[1].playMsg(text);
+			transBox.playMsg(text);
 			state = 1;
 		}
 		if (state == 1) {
-			if (!dialogBoxes[0].isActive()) {
+			if (!transBox.isActive()) {
 				over = true;
 			}
 		}

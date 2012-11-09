@@ -12,8 +12,8 @@ import framework.*;
 public class TransitionWindowOne extends TransitionWindow {
 	
 	
-	public TransitionWindowOne(Player[] players, DialogBox[] dialogBoxes, int[] locp1, int[] locp2) {
-		super(players, dialogBoxes, locp1, locp2);
+	public TransitionWindowOne(Player[] players, DialogBox dialogBox, int[] locp1, int[] locp2) {
+		super(players, dialogBox, locp1, locp2);
 	}
 
 	public void displayHubBackground(Graphics g, Player player) {
