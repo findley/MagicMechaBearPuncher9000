@@ -71,6 +71,7 @@ public class DodgeWindow extends EventWindow {
         timer = 6.0;
         state = -1;
         
+        text = new ArrayList<String>();
         text.add("Eek! What are you doing in my house?! Do you think you can just barge into a stranger's home just like that?! Get out! Get out! Get out!");
     }
     
@@ -139,7 +140,6 @@ public class DodgeWindow extends EventWindow {
 	        }
         }
         if (state == 2) {
-        	bg = new Image("Assets/Black.jpg");
         	text = new ArrayList<String>();
         	text.add("Phew... that was close!");
         	dialogBox.playMsg(text);

@@ -64,6 +64,7 @@ public class CatchWindow extends EventWindow {
         counter = objVis.length;
 		state = -1;
 		
+		text = new ArrayList<String>();
 		text.add("Ah, Hero! How do you fare on this day?");
 		text.add("Me? I'm actually in a pinch right now. My sheep seem to have lost all sense of, well, "
 				+ "what it means to be a sheep, and I'm having difficulty herding them back behind the fence.");
