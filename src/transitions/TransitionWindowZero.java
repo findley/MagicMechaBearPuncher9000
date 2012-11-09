@@ -47,7 +47,7 @@ public class TransitionWindowZero extends TransitionWindow {
 				"the farm. Speaking of which, do you remember my beautiful daughter? "+
 				"Many say she is the fairest maiden in all the lands. Stay away from her! "+
 				"Now go! Do obscenely boring things in the town where you will probably " +
-				"spend the rest of your life... ");
+				"spend the rest of your life... (Press d to continue)");
 		state = 0;
 	}
 
