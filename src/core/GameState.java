@@ -181,9 +181,11 @@ public class GameState extends BasicGameState {
 		players[0] = new Player(p1WinPos, p1WinSize, p1Buttons, 1);
 		players[1] = new Player(p2WinPos, p2WinSize, p2Buttons, 2);
 		
+		int dialogShrink = 10;
+		
 		dialogBoxes = new DialogBox[2];
-		dialogBoxes[0] = new DialogBox(0, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[0].getButton("right"));
-		dialogBoxes[1] = new DialogBox( container.getWidth() / 2 + 16, container.getHeight()-100, container.getWidth() / 2 - 16, 100, font, players[1].getButton("right"));
+		dialogBoxes[0] = new DialogBox(dialogShrink, container.getHeight()-100, container.getWidth() / 2 - 16 - dialogShrink, 100, font, players[0].getButton("right"));
+		dialogBoxes[1] = new DialogBox( container.getWidth() / 2 + 16 + dialogShrink, container.getHeight()-100, container.getWidth() / 2 - 16 - dialogShrink, 100, font, players[1].getButton("right"));
 		
 		started = false;
 

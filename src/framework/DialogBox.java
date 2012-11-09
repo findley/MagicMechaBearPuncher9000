@@ -108,7 +108,7 @@ public class DialogBox{
 	            }
 	            String t = line.substring(0, len);
 	            if (t.length()!=0) {
-	            	font.drawString(x + 20, lineLocation, t, Color.white);
+	            	font.drawString(x, lineLocation, t, Color.white);
 	            }
 	            lineLocation += lineHeight;
 	        }
@@ -256,6 +256,7 @@ public class DialogBox{
      */
     private void close(){
     	active = false;
+    	boxIndex = 0;
     }
 
     /**
