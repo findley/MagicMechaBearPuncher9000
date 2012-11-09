@@ -79,7 +79,7 @@ public class DodgeWindow extends EventWindow {
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         super.init(container, game);
-        this.bg = new TiledMap("Assets/TiledEditor/Hub1HouseMinigame.tmx").getTileImage(0,0,0);
+        this.bg = new Image("Assets/Hub 1/Images/dodge_bg.png");
         //bg = new Image("Assets/Hub 1/Images/shop_bg.png");
         Font awtFont = new Font("Arial Monospaced", Font.BOLD, 24);
         font = new UnicodeFont(awtFont);
