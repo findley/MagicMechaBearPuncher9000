@@ -29,7 +29,8 @@ public class CatchWindow extends EventWindow {
         objSprite = new Image("Assets/Hub 1/Images/sheep_1.png");
     }
     
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         //super.init(container, game);
         //bgImage = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
@@ -121,7 +122,7 @@ public class CatchWindow extends EventWindow {
                 objVis[i] = false;
             }
         }
-        if (counter <= 2) {
+        if (counter == 0) {
             inside[player.playerNum - 1] = false;
             player.gridLoc[1]++;
         }
