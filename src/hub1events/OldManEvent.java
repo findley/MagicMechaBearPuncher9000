@@ -17,7 +17,7 @@ public class OldManEvent extends EventWindow {
 		text.add("Why hello there, young adventurer!");
 		text.add("What? \nYou say you're not an adventurer?");
 		text.add("Well of course you are! \nJust look how much you stand out from us regular folk! " +
-				"\nYou probably just don't know how to be adventurer!");
+				"\nYou probably just don't know how to be an adventurer!");
 		text.add("What? You say could just read the instructions?");
 		text.add("Nonsense I say! Here, let me explain how to move around!");
 		text.add("Just press the directional buttons!");  
