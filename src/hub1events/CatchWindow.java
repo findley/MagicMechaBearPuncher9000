@@ -152,12 +152,12 @@ public class CatchWindow extends EventWindow {
         	text = new ArrayList<String>();
         	text.add("Thanks!");
         	dialogBox.playMsg(text);
+            player.gridLoc[1]++;
         	state = 3;
         }
         if (state == 3) {
         	if (!dialogBox.isActive()) {
 	        	inside[player.playerNum - 1] = false;
-	            player.gridLoc[1]++;
         	}
         }
     }
