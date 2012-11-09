@@ -18,18 +18,13 @@ public class EventWindow {
 	 * This is for minigame windows, not for the overall node structure.
 	 */
 	public Player player;
+	public String name;
 	public DialogBox dialogBox;
 	protected boolean[] hasEntered = {false, false};
 	protected boolean[] inside = {false, false};
-	protected HubWindow hub;
-	/*
-	 * Constructor that passes up the Hub (if necessary)
-	 */
-	public EventWindow(HubWindow hubTransfer) {
-		hub = hubTransfer;
-	}
+	
 	public EventWindow() {
-		hub = null;
+		
 	}
 	
 	public void displayMinigameBackground(Graphics g) {
