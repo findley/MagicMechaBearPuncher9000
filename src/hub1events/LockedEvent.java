@@ -14,7 +14,7 @@ public class LockedEvent extends EventWindow {
 	
 	public LockedEvent() {
 		text = new ArrayList<String>();
-		text.add("IT'S LOCKED FOOL");
+		text.add("The door won't budge.");
 		state = 0;
 	}
 	
