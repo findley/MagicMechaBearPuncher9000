@@ -50,47 +50,33 @@ public class HubWindow {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		for (int i = 0; i < players.length; i++) {
-			if (currentEvents[i] != null) {
-				currentEvents[i].render(container, game, g);
-			} else {
-				cameras[i].drawMap();
-				cameras[i].translateGraphics();
-				players[i].render(container, game, g, players[i].gridLoc[0]
-						* 32 + players[i].floatLoc[0], players[i].gridLoc[1]
-						* 32 + players[i].floatLoc[1]);
-				if ((players[(i + 1) % 2].gridLoc[0] + 1) * 32
-						+ players[(i + 1) % 2].floatLoc[0] > cameras[i].cameraX) {
-					players[(i + 1) % 2].render(container, game, g,
-							players[(i + 1) % 2].gridLoc[0] * 32
-									+ players[(i + 1) % 2].floatLoc[0],
-							players[(i + 1) % 2].gridLoc[1] * 32
-									+ players[(i + 1) % 2].floatLoc[1]);
-				}
-				cameras[i].untranslateGraphics();
-
-				// check to start a minigame
-				// list of TownWindow (Hub1) events:
-				// dodge, catch, oldman, locked, shop, inn
-				if (players[i].floatLoc[0] == 0 && players[i].floatLoc[1] == 0) {
-					for (int eventID = 0; eventID < miniNames.length; eventID++) {
-						if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]]
-								.equals(miniNames[eventID])) {
-							if (!events[eventID].hasEntered[i]) {
-								if (!events[eventID].inside[(i + 1) % 2]) {
-									triggerMinigame(container, game, i,
-											events[eventID]);
-								}
-							}
-						}
-					}
-				}
+			cameras[i].drawMap();
+			cameras[i].translateGraphics();
+			players[i].render(container, game, g, players[i].gridLoc[0]
+					* 32 + players[i].floatLoc[0], players[i].gridLoc[1]
+					* 32 + players[i].floatLoc[1]);
+			if ((players[(i + 1) % 2].gridLoc[0] + 1) * 32
+					+ players[(i + 1) % 2].floatLoc[0] > cameras[i].cameraX) {
+				players[(i + 1) % 2].render(container, game, g,
+						players[(i + 1) % 2].gridLoc[0] * 32
+								+ players[(i + 1) % 2].floatLoc[0],
+						players[(i + 1) % 2].gridLoc[1] * 32
+								+ players[(i + 1) % 2].floatLoc[1]);
 			}
+			cameras[i].untranslateGraphics();
+			
 		}
 		container.getGraphics().resetTransform();
 		float leftLoc = players[0].windowPos[0] + players[0].windowSize[0];
 		float rightLoc = players[1].windowPos[0] - players[0].windowSize[0];
 		g.setColor(Color.black);
 		g.fillRect(leftLoc, (float) 0, rightLoc, (float) container.getHeight());
+		
+		for (int i = 0; i < players.length; i++) {
+			if (currentEvents[i] != null) {
+				currentEvents[i].render(container, game, g);
+			}
+		}
 
 	}
 
@@ -100,8 +86,8 @@ public class HubWindow {
 
 	public void update(GameContainer container, StateBasedGame game,
 			Player[] players, int delta) throws SlickException {
+
 		Input input = container.getInput();
-		
 		
 		for (int i = 0; i < players.length; i++) {
 			if (currentEvents[i] != null) {
@@ -109,10 +95,6 @@ public class HubWindow {
 					currentEvents[i].update(container, game, delta);
 				} else {
 					currentEvents[i] = null;
-					movePlayer(input, 5, players[i], delta);
-					cameras[i].centerOn(players[i].gridLoc[0] * 32
-							+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
-							+ players[i].floatLoc[1]);
 				}
 			} else {
 				movePlayer(input, 5, players[i], delta);
@@ -120,10 +102,25 @@ public class HubWindow {
 						+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
 						+ players[i].floatLoc[1]);
 			}
+			
+			// check to start a minigame
+			// list of TownWindow (Hub1) events:
+			// dodge, catch, oldman, locked, shop, inn
+			if (players[i].floatLoc[0] == 0 && players[i].floatLoc[1] == 0) {
+				for (int eventID = 0; eventID < miniNames.length; eventID++) {
+					if (miniArray[players[i].gridLoc[0]][players[i].gridLoc[1]]
+							.equals(miniNames[eventID])) {
+						if (!events[eventID].hasEntered[i]) {
+							if (!events[eventID].inside[(i + 1) % 2]) {
+								triggerMinigame(container, game, i,
+										events[eventID]);
+							}
+						}
+					}
+				}
+			}
 		}
-		
-		
-		if (input.isKeyDown(input.KEY_M)){
+		if (input.isKeyDown(Input.KEY_M)){
 			this.over = true;
 		}
 		

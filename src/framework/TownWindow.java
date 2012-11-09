@@ -1,4 +1,6 @@
 package framework;
+import java.util.ArrayList;
+
 import hub1events.*;
 
 import org.newdawn.slick.Color;
@@ -14,6 +16,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class TownWindow extends HubWindow {
 	private Double timer;
+	private ArrayList<String> text;
 
 	public TownWindow(Player[] players, DialogBox[] dialogBoxes, int[] locp1, int[] locp2)
 			throws SlickException {
@@ -33,6 +36,7 @@ public class TownWindow extends HubWindow {
 		this.bgImage = new TiledMap("Assets/TiledEditor/DanielHub.tmx");
 		this.blocked = new boolean[bgImage.getWidth()][bgImage.getHeight()];
 		this.miniArray = new String[bgImage.getWidth()][bgImage.getHeight()];
+		text = new ArrayList<String>();
 		super.init(container, game, players);
 
 		for (int xAxis = 0; xAxis < bgImage.getWidth(); xAxis++) {
@@ -54,13 +58,16 @@ public class TownWindow extends HubWindow {
 		events[0] = new CatchWindow();
 		events[1] = new DodgeWindow();
 		events[2] = new InnWindow();
-		events[3] = new LockedEvent(this);
+		events[3] = new LockedEvent();
 		events[4] = new OldManEvent();
 		events[5] = new ShopWindow();
-		for (EventWindow event : events) {
-			event.init(container, game);
-		}
+		
 		miniNames = new String[] {"catch", "dodge", "inn", "locked", "oldman", "shop"};
+		
+		for (int e = 0; e < miniNames.length; e++) {
+			events[e].init(container, game);
+			events[e].name = miniNames[e];
+		}
 
 		this.cameras = new Camera[2];
 		cameras[0] = new Camera(container, bgImage, this.players[0]);

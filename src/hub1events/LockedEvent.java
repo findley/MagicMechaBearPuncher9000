@@ -12,10 +12,8 @@ import framework.*;
 public class LockedEvent extends EventWindow {
 	private ArrayList<String> text;
 	private int state;
-	private Camera camera;
 	
-	public LockedEvent(HubWindow hubTransfer) {
-		super(hubTransfer);
+	public LockedEvent() {
 		text = new ArrayList<String>();
 		text.add("IT'S LOCKED FOOL");
 		state = 0;
@@ -33,14 +31,5 @@ public class LockedEvent extends EventWindow {
 				inside[player.playerNum - 1] = false;
 			}
 		}
-	}
-
-	@Override
-	public void render(GameContainer container, StateBasedGame game, Graphics g)
-			throws SlickException {
-	}
-
-	public void start() {
-		state = 0;
 	}
 }

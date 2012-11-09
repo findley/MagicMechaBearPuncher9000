@@ -76,6 +76,7 @@ public class ShopWindow extends EventWindow {
 				if (guess[0] * 10 + guess[1] == mysteryVal) {
 					// YOU WIN
 					inside[player.playerNum - 1] = false;
+					player.gridLoc[1]++;
 				}
 				state = 1;
 			}
