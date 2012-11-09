@@ -33,7 +33,7 @@ public class CatchWindow extends EventWindow {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         //super.init(container, game);
         //bgImage = tempImage.getSubImage(1000, 1000, 24*32, 16*32).getScaledCopy(590, 720);
-        bg = new Image("Assets/Hub 1/Images/shop_bg.png");
+        bg = new Image("Assets/Hub 1/Images/catch_bg.png");
         Font awtFont = new Font("Arial Monospaced", Font.BOLD, 24);
         font = new UnicodeFont(awtFont);
         font.getEffects().add(new ColorEffect(java.awt.Color.black));
@@ -62,7 +62,7 @@ public class CatchWindow extends EventWindow {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        //this.displayMinigameBackground(g);
+        this.displayMinigameBackground(g);
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i])
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
