@@ -44,7 +44,7 @@ public class InnWindow extends EventWindow {
     @SuppressWarnings("unchecked")
 	@Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    	//TODO: INSERT BACKGROUND TO INN
+    /*	//TODO: INSERT BACKGROUND TO INN
     	//Player is in the middle of the screen
         player.eventLoc[0] = player.windowPos[0] + player.windowSize[0] / 2;
         player.eventLoc[1] = player.windowPos[1] + player.windowSize[1] / 2;
@@ -59,7 +59,7 @@ public class InnWindow extends EventWindow {
         broLoc[2][1] = player.windowPos[1] + player.windowSize[1] / 4;
         //Bro 3 is below the player;
         broLoc[3][0] = player.windowPos[0] + player.windowSize[0] / 2;
-        broLoc[3][1] = player.windowPos[1] + player.windowSize[1] * 3 / 4;
+        broLoc[3][1] = player.windowPos[1] + player.windowSize[1] * 3 / 4;*/
     }
     
     @Override
