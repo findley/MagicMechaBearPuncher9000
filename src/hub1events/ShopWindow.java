@@ -41,10 +41,6 @@ public class ShopWindow extends EventWindow {
 		font.loadGlyphs();
 	}
 
-	public void displayMinigameBackground(Graphics g) {
-		g.drawImage(bg, player.windowPos[0], 0);
-	}
-
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {

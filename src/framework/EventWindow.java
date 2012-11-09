@@ -22,13 +22,15 @@ public class EventWindow {
 	public DialogBox dialogBox;
 	protected boolean[] hasEntered = {false, false};
 	protected boolean[] inside = {false, false};
+	protected Image bg;
 	
 	public EventWindow() {
 		
 	}
 	
 	public void displayMinigameBackground(Graphics g) {
-
+	    Image toDraw = bg.getScaledCopy(640, 720);
+	    g.drawImage(toDraw, player.windowPos[0], 0);
 	}
 
 	public void render(GameContainer container, StateBasedGame game,

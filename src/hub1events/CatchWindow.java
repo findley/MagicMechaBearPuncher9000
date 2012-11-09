@@ -22,7 +22,6 @@ public class CatchWindow extends EventWindow {
     private boolean[] objVis = new boolean[10];
     private float[][] objSpd = new float[10][2];
     private int counter; 
-    private Image bg;
     private ArrayList<String> text;
     private UnicodeFont font;
 
@@ -63,7 +62,7 @@ public class CatchWindow extends EventWindow {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        //this.displayMinigameBackground(g, player);
+        //this.displayMinigameBackground(g);
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i])
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
@@ -72,16 +71,10 @@ public class CatchWindow extends EventWindow {
         g.setFont(font);
         g.drawString(Double.toString(Math.ceil(counter)), player.windowPos[0] + 350, player.windowPos[1]);
         g.setColor(Color.white);
-        g.drawString("Collect most objects", 100 + player.windowPos[0], 65);
+        g.drawString("Collect The Sheep!", 100 + player.windowPos[0], 65);
         g.setColor(Color.black);
     }
     
-	public void displayMinigameBackground(Graphics g, Player player) {
-		g.drawImage(bg, player.windowPos[0], 0);	
-	}
-
-
-
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         Input input = container.getInput();

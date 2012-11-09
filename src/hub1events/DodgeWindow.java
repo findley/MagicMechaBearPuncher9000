@@ -19,6 +19,7 @@ import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tiled.TiledMap;
 import org.newdawn.slick.util.ResourceLoader;
 
 
@@ -34,7 +35,6 @@ public class DodgeWindow extends EventWindow {
     private boolean[] objVis = new boolean[20];
     private float[][] objSpd = new float[20][2];
     private Double timer;
-    private Image bg;
     private UnicodeFont font;
 
 
@@ -44,7 +44,7 @@ public class DodgeWindow extends EventWindow {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        //this.displayMinigameBackground(g);
+        this.displayMinigameBackground(g);
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i])
                 g.drawImage(objSprite, objPos[i][0], objPos[i][1]);
@@ -54,7 +54,7 @@ public class DodgeWindow extends EventWindow {
         g.setColor(Color.black);
         g.drawString(Double.toString(Math.ceil(timer)), player.windowPos[0] + container.getWidth()/4, player.windowPos[1]);
         g.setColor(Color.white);        
-        g.drawString("Survive for 4 seconds!", 60 + player.windowPos[0], 65);
+        g.drawString("Survive for 6 seconds!", 60 + player.windowPos[0], 65);
         
     }
     
@@ -73,18 +73,14 @@ public class DodgeWindow extends EventWindow {
                 y *= -1;
             objSpd[i] = new float[] { (float) x, (float) y };
         }
-        timer = 4.0;
+        timer = 6.0;
     }
     
     @Override
-	public void displayMinigameBackground(Graphics g) {
-        g.drawImage(bg, player.windowPos[0], 0);
-	}
-
-    @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
         super.init(container, game);
-        bg = new Image("Assets/Hub 1/Images/shop_bg.png");
+        this.bg = new TiledMap("Assets/TiledEditor/Hub1HouseMinigame.tmx").getTileImage(0,0,0);
+        //bg = new Image("Assets/Hub 1/Images/shop_bg.png");
         Font awtFont = new Font("Arial Monospaced", Font.BOLD, 24);
         font = new UnicodeFont(awtFont);
         font.getEffects().add(new ColorEffect(java.awt.Color.black));
@@ -118,7 +114,7 @@ public class DodgeWindow extends EventWindow {
         //Rectangle playerShape = new Rectangle(player.eventLoc[0], player.eventLoc[1], 20, 20);
         for (int i = 0; i < objPos.length; i++) {
             if (objVis[i] && (new Rectangle(objPos[i][0], objPos[i][1], 40, 40)).intersects(player.collisionRect)) {
-                timer = 4.0;
+                timer = 6.0;
                 objVis[i] = false;
             }
         }
