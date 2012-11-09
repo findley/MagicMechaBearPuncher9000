@@ -21,7 +21,6 @@ public class ShopWindow extends EventWindow {
 	private int state; // -1, 0, 1, 2, 3, 4, 5. start, talking, waiting, too
 						// low, too high,
 						// just right, ERROR.
-	private Image bg;
 	private ArrayList<String> text;
 	private UnicodeFont font;
 
