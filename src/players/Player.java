@@ -22,6 +22,6 @@ public class Player {
 	}
 	
 	void pickup(){
-		// tries to pick up what might be nearby
+		// tries to pick up what might be nearby.
 	}
 }
