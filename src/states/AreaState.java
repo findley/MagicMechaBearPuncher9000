@@ -30,7 +30,7 @@ public class AreaState extends BasicGameState {
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		bgImage.render(-progression%32, 0, progression/32, 0, 33, 24);
+		bgImage.render(-progression%32, 0, progression/32, 0, 32 + 1, 24);
 		
 	}
 	@Override
