@@ -1,22 +1,27 @@
 package weapons;
 
+
 import org.newdawn.slick.Image;
-import players.Player;
+
+import dudes.Dude;
 
 /**
  * Class for a weapon. Keeps track of attack pattern, image, and damage.
  * @author msalvato
  *
  */
-public class Weapon {
-	Image sprite;
+public abstract class Weapon {
+	Image weaponSprite;
+	Image attackSprite;
 	int attackValue;
+	int attackWidth;
+	int attackHeight;
+	protected float attackDelay;
+	
 
 	// to start attack
-	public void attack(Player p){
+	public abstract Attack attack(Dude dude);
 		
-	}
-	
 	// method for the movement of an attack based on current info.
 	// kinda state machine-y
 	Attack updateAttack(Attack attack){
