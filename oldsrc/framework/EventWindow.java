@@ -1,4 +1,6 @@
 package framework;
+import java.util.ArrayList;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -20,15 +22,18 @@ public class EventWindow {
 	public Player player;
 	public String name;
 	public DialogBox dialogBox;
+    protected ArrayList<String> text;
 	protected boolean[] hasEntered = {false, false};
 	protected boolean[] inside = {false, false};
+	protected Image bg;
 	
 	public EventWindow() {
 		
 	}
 	
 	public void displayMinigameBackground(Graphics g) {
-
+	    Image toDraw = bg.getScaledCopy((int) player.windowSize[0], (int) player.windowSize[1]);
+	    g.drawImage(toDraw, player.windowPos[0], 0);
 	}
 
 	public void render(GameContainer container, StateBasedGame game,
@@ -38,6 +43,7 @@ public class EventWindow {
 
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
+		text = new ArrayList<String>();
 	}
 
 	public void start() {

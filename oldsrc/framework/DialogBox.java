@@ -65,16 +65,16 @@ public class DialogBox{
 	 * @param font: Font that the dialog box will use to render the text.
 	 * @param key: Key that, when pressed will accelerate the text rendering.
 	 */
-	public DialogBox(int x, int y, int width, int height, UnicodeFont font, int proceedKey){
-		this.width = width;
-		this.height = height;
+	public DialogBox(int x, int y, int width, int height, UnicodeFont font, int proceedKey) {
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
 		this.font = font;
 		proceedTextKey = proceedKey;
 		proceedStall = false;
 	}
-	/**
+	/** 
 	 * Main function that renders the dialog box and displays the text
 	 * in a typewriter-like fashion. The text box only renders as many lines
 	 * as can fit within the text box, and thus there is a scrolling effect for
@@ -256,6 +256,7 @@ public class DialogBox{
      */
     private void close(){
     	active = false;
+    	boxIndex = 0;
     }
 
     /**

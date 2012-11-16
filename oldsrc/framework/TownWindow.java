@@ -57,7 +57,7 @@ public class TownWindow extends HubWindow {
 		events = new EventWindow[6]; // this is the number of events in this hub
 		events[0] = new CatchWindow();
 		events[1] = new DodgeWindow();
-		events[2] = new InnWindow();
+		events[2] = new LockedEvent();
 		events[3] = new LockedEvent();
 		events[4] = new OldManEvent();
 		events[5] = new ShopWindow();
@@ -72,9 +72,6 @@ public class TownWindow extends HubWindow {
 		this.cameras = new Camera[2];
 		cameras[0] = new Camera(container, bgImage, this.players[0]);
 		cameras[1] = new Camera(container, bgImage, this.players[1]);
-
-		//Music loop = new Music("Assets/Hub 1/Sound/Town2.wav");
-		//loop.loop();
 	}
 
 	@Override

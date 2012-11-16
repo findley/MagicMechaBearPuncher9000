@@ -3,7 +3,6 @@ package hub1events;
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -14,9 +13,6 @@ public class LockedEvent extends EventWindow {
 	private int state;
 	
 	public LockedEvent() {
-		text = new ArrayList<String>();
-		text.add("IT'S LOCKED FOOL");
-		state = 0;
 	}
 	
 	@Override
@@ -31,5 +27,11 @@ public class LockedEvent extends EventWindow {
 				inside[player.playerNum - 1] = false;
 			}
 		}
+	}
+	
+	public void start() {
+		text = new ArrayList<String>();
+		text.add("The door won't budge.");
+		state = 0;
 	}
 }

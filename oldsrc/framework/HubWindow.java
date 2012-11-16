@@ -32,6 +32,7 @@ public class HubWindow {
 	protected TiledMap bgImage;
 	protected boolean[][] blocked;
 	protected String[][] miniArray;
+	private int timer;
 
 	/*
 	 * Constructor that allows for providing of a stateID
@@ -52,17 +53,19 @@ public class HubWindow {
 		for (int i = 0; i < players.length; i++) {
 			cameras[i].drawMap();
 			cameras[i].translateGraphics();
-			players[i].render(container, game, g, players[i].gridLoc[0]
-					* 32 + players[i].floatLoc[0], players[i].gridLoc[1]
-					* 32 + players[i].floatLoc[1]);
-			if ((players[(i + 1) % 2].gridLoc[0] + 1) * 32
-					+ players[(i + 1) % 2].floatLoc[0] > cameras[i].cameraX) {
-				players[(i + 1) % 2].render(container, game, g,
-						players[(i + 1) % 2].gridLoc[0] * 32
-								+ players[(i + 1) % 2].floatLoc[0],
-						players[(i + 1) % 2].gridLoc[1] * 32
-								+ players[(i + 1) % 2].floatLoc[1]);
-			}
+
+            players[i].render(container, game, g, players[i].gridLoc[0]
+                    * 32 + players[i].floatLoc[0], players[i].gridLoc[1]
+                    * 32 + players[i].floatLoc[1]);
+            if ((players[(i + 1) % 2].gridLoc[0] + 1) * 32
+                    + players[(i + 1) % 2].floatLoc[0] > cameras[i].cameraX) {
+                players[(i + 1) % 2].render(container, game, g,
+                        players[(i + 1) % 2].gridLoc[0] * 32
+                                + players[(i + 1) % 2].floatLoc[0],
+                        players[(i + 1) % 2].gridLoc[1] * 32
+                                + players[(i + 1) % 2].floatLoc[1]);
+            }
+                
 			cameras[i].untranslateGraphics();
 			
 		}
@@ -95,9 +98,14 @@ public class HubWindow {
 					currentEvents[i].update(container, game, delta);
 				} else {
 					currentEvents[i] = null;
+					timer = 20;
 				}
 			} else {
-				movePlayer(input, 5, players[i], delta);
+				if (timer == 0) {
+					movePlayer(input, 5, players[i], delta);
+				} else {
+					timer--;
+				}
 				cameras[i].centerOn(players[i].gridLoc[0] * 32
 						+ players[i].floatLoc[0], players[i].gridLoc[1] * 32
 						+ players[i].floatLoc[1]);
@@ -262,10 +270,11 @@ public class HubWindow {
 	protected void triggerMinigame(GameContainer container,
 			StateBasedGame game, int playerID, EventWindow minigame)
 			throws SlickException {
+	    
+	    minigame.player = players[playerID];
 		minigame.start();
 		minigame.hasEntered[playerID] = true;
 		minigame.inside[playerID] = true;
-		minigame.player = players[playerID];
 		minigame.dialogBox = dialogBoxes[playerID];
 		currentEvents[playerID] = minigame;
 	}
@@ -273,5 +282,4 @@ public class HubWindow {
 	public boolean over() {
 		return over;
 	}
-
 }

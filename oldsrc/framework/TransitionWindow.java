@@ -1,4 +1,4 @@
-package transitions;
+package framework;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -7,15 +7,34 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
-import framework.*;
 
-
-
-public class TransitionWindowOne extends TransitionWindow {
-
+public class TransitionWindow {
+	
+	protected boolean over = false;
+	protected Player[] players;
+	protected DialogBox transBox;
+	protected boolean[] inNode = { true, true };
+	protected int[] gridSize = { 32, 32 };
+	
+	protected String[] miniNames;
+	public EventWindow[] events;
+	public EventWindow[] currentEvents = {null, null};
+	
+	protected Camera camera;
 	private final int imageChange = 75;
-	public TransitionWindowOne(Player[] players, DialogBox[] dialogBoxes, int[] locp1, int[] locp2) {
-		super(players, dialogBoxes, locp1, locp2);
+	protected TiledMap bgImage;
+	protected boolean[][] blocked;
+	protected String[][] miniArray;
+	
+	protected int[] mylocp1;
+	protected int[] mylocp2;
+
+	
+	public TransitionWindow(Player[] players, DialogBox dialogBox, int[] locp1, int[] locp2) {
+		this.players = players;
+		this.transBox = dialogBox;
+		this.mylocp1 = locp1;
+		this.mylocp2 = locp2;
 	}
 
 	public void displayHubBackground(Graphics g, Player player) {
@@ -24,18 +43,44 @@ public class TransitionWindowOne extends TransitionWindow {
 
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
-		super.render(container, game, g);
+		for (int i = 0; i < players.length; i++) {
+			//camera.drawMap();
+			//camera.translateGraphics();
+			players[i].render(container, game, g, players[i].gridLoc[0]
+			* 32 + players[i].floatLoc[0], players[i].gridLoc[1]
+			* 32 + players[i].floatLoc[1]);
+			
+		}
 		
+		container.getGraphics().resetTransform();
+		//float leftLoc = players[0].windowPos[0] + players[0].windowSize[0];
+		//float rightLoc = players[1].windowPos[0] - players[0].windowSize[0];
+		//g.setColor(Color.black);
+		//g.fillRect(leftLoc, (float) 0, rightLoc, (float) container.getHeight());
 	}
 
 	public void init(GameContainer container, StateBasedGame game,
 			Player[] players) throws SlickException {
-		super.init(container, game, players);
-		this.bgImage = new TiledMap("Assets/TiledEditor/DanielHub.tmx");
+		this.players[0].gridLoc = this.mylocp1;
+		this.players[1].gridLoc = this.mylocp2;
 	}
 	
 	public void zoom(){
 		//fuck if I know how this will work
+	}
+
+	public void update(GameContainer container, StateBasedGame game,
+			Player[] players, int delta) throws SlickException {
+		
+		Input input = container.getInput();	
+		
+		for (int i = 0; i < players.length; i++) {
+			movePlayer(input, 5, players[i], delta);
+		}
+	}
+
+	public void enter(GameContainer container, StateBasedGame game,
+			Player[] players) {
 	}
 
 	public void movePlayer(Input input, float moveValue, Player player,
@@ -50,8 +95,7 @@ public class TransitionWindowOne extends TransitionWindow {
 					player.direction = Direction.LEFT;
 					
 				}
-			} 
-			if (input.isKeyDown(player.getButton("right"))) {
+			} else if (input.isKeyDown(player.getButton("right"))) {
 				int newPos = player.gridLoc[0] + 1;
 				if (newPos + player.pWidth < bgImage.getWidth()
 						* bgImage.getTileWidth()) {
@@ -61,8 +105,7 @@ public class TransitionWindowOne extends TransitionWindow {
 					player.direction = Direction.RIGHT;
 					
 				}
-			} 
-			if (input.isKeyDown(player.getButton("up"))) {
+			} else if (input.isKeyDown(player.getButton("up"))) {
 				int newPos = player.gridLoc[1] - 1;
 				if (newPos > 0) {
 					player.floatLoc[1] = 31;
@@ -70,8 +113,7 @@ public class TransitionWindowOne extends TransitionWindow {
 					player.isMoving = true;
 					player.direction = Direction.UP;
 				}
-			} 
-			if (input.isKeyDown(player.getButton("down"))) {
+			} else if (input.isKeyDown(player.getButton("down"))) {
 				int newPos = player.gridLoc[1] + 1;
 				if (newPos < bgImage.getHeight() * bgImage.getTileHeight()) {
 					player.floatLoc[1] = -31;
@@ -117,10 +159,10 @@ public class TransitionWindowOne extends TransitionWindow {
 				player.floatLoc[1] -= (float) (delta * gridSize[1] / player.moveDuration);
 				if (player.inMotion - imageChange > 0) {
 					player.inMotion -= imageChange;
-					if (player.playerSprite == player.right1) {
-						player.playerSprite = player.right2;
+					if (player.playerSprite == player.up1) {
+						player.playerSprite = player.up2;
 					} else {
-						player.playerSprite = player.right1;
+						player.playerSprite = player.up1;
 					}
 				}
 				if (player.floatLoc[1] < 0) {
@@ -132,10 +174,10 @@ public class TransitionWindowOne extends TransitionWindow {
 				player.floatLoc[1] += (float) (delta * gridSize[1] / player.moveDuration);
 				if (player.inMotion - imageChange > 0) {
 					player.inMotion -= imageChange;
-					if (player.playerSprite == player.right1) {
-						player.playerSprite = player.right2;
+					if (player.playerSprite == player.down1) {
+						player.playerSprite = player.down2;
 					} else {
-						player.playerSprite = player.right1;
+						player.playerSprite = player.down1;
 					}
 				}
 				if (player.floatLoc[1] > 0) {
@@ -154,11 +196,7 @@ public class TransitionWindowOne extends TransitionWindow {
 	}
 	
 	
-	public void update(GameContainer container, StateBasedGame game,
-			Player[] players, int delta) throws SlickException {
-		super.update(container, game, players, delta);
-		
+	public boolean over() {
+		return over;
 	}
-
-
 }
