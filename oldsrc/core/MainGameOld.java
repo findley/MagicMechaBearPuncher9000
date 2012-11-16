@@ -11,7 +11,7 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.font.effects.Effect;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class MainGame extends StateBasedGame {
+public class MainGameOld extends StateBasedGame {
  
 	public static final int GAME_WIDTH = 900;
 	public static final int GAME_HEIGHT = 720*900/1280;
@@ -26,7 +26,7 @@ public class MainGame extends StateBasedGame {
         return font;
     }
 	
-	public MainGame() {
+	public MainGameOld() {
         super("How to Save the World in 15 Minutes");
     }
 
