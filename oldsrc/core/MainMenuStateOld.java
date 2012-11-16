@@ -9,12 +9,12 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class MainMenuState extends BasicGameState {
+public class MainMenuStateOld extends BasicGameState {
 
     
     int stateID = -1;
     
-    MainMenuState( int stateID ) {
+    MainMenuStateOld( int stateID ) {
         this.stateID = stateID;
     }
     

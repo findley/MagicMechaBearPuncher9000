@@ -11,10 +11,12 @@ import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.font.effects.Effect;
 import org.newdawn.slick.state.StateBasedGame;
 
+import states.TownState;
+
 public class MainGame extends StateBasedGame {
  
-	public static final int GAME_WIDTH = 900;
-	public static final int GAME_HEIGHT = 720*900/1280;
+	public static final int GAME_WIDTH = 1024;
+	public static final int GAME_HEIGHT = 768;
 	
 	@SuppressWarnings("unchecked")
     public static UnicodeFont loadFont(String name, int style, int size,
@@ -39,7 +41,7 @@ public class MainGame extends StateBasedGame {
 			AppGameContainer app = new AppGameContainer(new MainGame());
 			app.setDisplayMode(GAME_WIDTH, GAME_HEIGHT, false);
 			app.setTargetFrameRate(60);
-			app.setShowFPS(false);
+			app.setShowFPS(true);
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
@@ -50,7 +52,7 @@ public class MainGame extends StateBasedGame {
     public void initStatesList(GameContainer container) throws SlickException {
         
         addState(new MainMenuState(0));
-        //addState(new GameState(1));
+        addState(new TownState(1));
         addState(new InstructionsState(2));
     }
 }
