@@ -14,7 +14,20 @@ import org.newdawn.slick.geom.Shape;
 public class Attack {
 	Weapon type;
 	Image image;
-	String direction;
+	boolean isRight;
 	Shape hitbox;
+	
+	// monster, player
+	String source;
 
+	public Attack(Weapon type, Image image, Boolean isRight, Shape hitbox,
+			String source) {
+		super();
+		this.type = type;
+		this.image = image;
+		this.isRight = isRight;
+		this.hitbox = hitbox;
+		this.source = source;
+	}
+	
 }

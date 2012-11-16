@@ -8,7 +8,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
-import players.Player;
+import dudes.Player;
+
 
 public class AreaState extends BasicGameState {
 	protected Player[] players;
