@@ -13,9 +13,12 @@ public abstract class Dude {
 	
 	public abstract float[] weaponLoc();
 	
+	public void Dude(float xPos, float yPos) {
+		
+	}
+	
 	void attack(){
 		this.weapon.attack(this);
 	}
 	
-
 }

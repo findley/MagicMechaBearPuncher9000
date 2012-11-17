@@ -2,8 +2,12 @@ package dudes;
 
 import java.util.HashMap;
 
-public abstract class Player extends Dude{
-	HashMap<String, Integer> buttons;
+public class Player extends Dude{
+	public HashMap<String, Integer> buttons;
+	
+	public Player(HashMap<String, Integer> buttons) {
+		this.buttons = buttons;
+	}
 	
 	void move(String button){
 		//something to do with modifying loc based on button

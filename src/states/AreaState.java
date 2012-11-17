@@ -8,6 +8,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import core.MainGame;
+
 import dudes.Player;
 
 
@@ -25,6 +27,7 @@ public class AreaState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		progression = 0;
+		players = MainGame.players;
 	}
 	
 	@Override
@@ -37,16 +40,14 @@ public class AreaState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 		progression++;
+		for (int i = 0; i < players.length; i ++) {
+			//players[i].move(delta);
+		}
 		
 	}
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 1;
-	}
-	
-	public void movePlayer(Input input, float moveValue, Player player,
-			int delta) {
-		
 	}
 }
