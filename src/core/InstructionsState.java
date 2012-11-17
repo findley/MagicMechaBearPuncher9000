@@ -26,9 +26,9 @@ public class InstructionsState extends BasicGameState{
 			throws SlickException {
         String Title = "Instructions";
         g.drawString(Title, container.getWidth()/2f-50, 15);
-        String leftPlay = "Player 1\na to move left\nw to move up\ns to move down\nd to move right\n";
+        String leftPlay = "Player 1\na to move left\nw to move up\ns to move down\nd to move right\nt to attack/pick up things";
         g.drawString(leftPlay,container.getWidth()/3f-50,container.getHeight()/2);
-        String rightPlay = "Player 2\nuse the arrow keys\nto move left, right, up, and down";
+        String rightPlay = "Player 2\nuse the arrow keys\nto move left, right, up, and down\n. to attack/pick up things";
         g.drawString(rightPlay,container.getWidth()*2/3f-50,container.getHeight()/2);
         String navKeys = "P for play\nM for menu\nEsc for Exit";
         g.drawString(navKeys, container.getWidth()/2f-50, container.getHeight()-75f);
