@@ -18,8 +18,12 @@ public class AreaState extends BasicGameState {
 	protected Player[] players;
 	protected TiledMap bgImage;
 	protected ArrayList<Monster> monsters;
+	
+	private boolean inBattle;
+	private boolean completed;
 
 	private int progression;
+	protected int[] battleStops;
 
 	public AreaState(int stateID) {
 		super();
@@ -31,6 +35,8 @@ public class AreaState extends BasicGameState {
 		progression = 0;
 		players = MainGame.players;
 		monsters = new ArrayList<Monster>();
+		inBattle = false;
+		completed = false;
 	}
 
 	@Override
@@ -40,12 +46,17 @@ public class AreaState extends BasicGameState {
 		for (int i = 0; i < players.length; i++) {
 			players[i].render(g);
 		}
+		
+		if (inBattle) {
+			g.drawString("FIGHT", 400, 200);
+		}
 	}
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 
+		System.out.println(progression);
 		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
 			container.exit();
 		}
@@ -57,12 +68,27 @@ public class AreaState extends BasicGameState {
 		}
 
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
-		if (progression < 32*(200 - 33)) {
-			if (backPlayerPos > MainGame.GAME_WIDTH/3) {
-				float shift = backPlayerPos - MainGame.GAME_WIDTH/3;
-				progression += shift;
-				players[0].pos[0] -= shift;
-				players[1].pos[0] -= shift;
+		if (progression > 32*(200 - 33)) {// don't scroll if you're at the end of the screen
+			completed = true;
+		} else {
+			if (backPlayerPos > MainGame.GAME_WIDTH/10) {// don't scroll unless both players are far right enough
+				if (!inBattle) {
+					//float shift = backPlayerPos - MainGame.GAME_WIDTH/3;
+					float shift = 4;
+					for (int stop : battleStops) {
+						if (progression < stop && progression + shift >= stop) {
+							progression = stop;
+							players[0].pos[0] -= shift;
+							players[1].pos[0] -= shift;
+							inBattle = true;
+						}
+					}
+					if (!inBattle) {
+						progression += shift;
+						players[0].pos[0] -= shift;
+						players[1].pos[0] -= shift;
+					}
+				}
 			}
 		}
 
@@ -84,6 +110,10 @@ public class AreaState extends BasicGameState {
 					}
 				}
 			}
+		}
+		
+		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
+			inBattle = false;
 		}
 	}
 
