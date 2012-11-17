@@ -18,6 +18,7 @@ import weapons.Fist;
 public class Player extends Dude {
 	public HashMap<String, Integer> buttons;
 	private int playerID;
+	private Animation[] anims = new Animation[4];
 	
 	public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
 		this.buttons = buttons;
@@ -38,6 +39,7 @@ public class Player extends Dude {
 		sprites = new SpriteSheet("Assets/players/player"+playerID+"Basic.png", 64, 64);
 		spriteIndex[0] = 0;
 		spriteIndex[1] = 3;
+		initAnimation();
 	}
 	
 	public void move(Input input, int delta){
@@ -71,61 +73,78 @@ public class Player extends Dude {
 				delayTime = 0;
 			}
 		}
+		
+		double moveDist = .1*delta*moveSpeed;
+		
 		if (input.isKeyPressed(buttons.get("action"))) {
 			this.isAttacking = true;
 			currentAnimation = handleAnimation("punch");
+			currentAnimation.start();
 			attackTime = 0;
 			this.weapon.attack();
 			return;
-		}
-		
-		double moveDist = .1*delta*moveSpeed;
-		if (input.isKeyDown(buttons.get("right"))) {
+		} else if (input.isKeyDown(buttons.get("right"))) {
 			isRight = true;
 			currentAnimation = handleAnimation("walk");
+			currentAnimation.start();
 			pos[0] += moveDist;
 			if (pos[0] > MainGame.GAME_WIDTH - 64) {
 				pos[0] = MainGame.GAME_WIDTH - 64;
 			}
-		}
-		if (input.isKeyDown(buttons.get("left"))) {
+		} else if (input.isKeyDown(buttons.get("left"))) {
 			isRight = false;
 			currentAnimation = handleAnimation("walk");
+			currentAnimation.start();
 			pos[0] -= moveDist;
 			if (pos[0] < 0) {
 				pos[0] = 0;
 			}
-		}
-		if (input.isKeyDown(buttons.get("down"))) {
+		} else if (input.isKeyDown(buttons.get("down"))) {
 			currentAnimation = handleAnimation("walk");
+			currentAnimation.start();
 			pos[1] += moveDist;
 			if (pos[1] > MainGame.GAME_HEIGHT - 32*3 - 5) {
 				pos[1] = MainGame.GAME_HEIGHT - 32*3 - 5;
 			}
-		}
-		if (input.isKeyDown(buttons.get("up"))) {			
+		} else if (input.isKeyDown(buttons.get("up"))) {			
 			currentAnimation = handleAnimation("walk");
+			currentAnimation.start();
 			pos[1] -= moveDist;
 			if (pos[1] < MainGame.GAME_HEIGHT - 32*10 + 5) {
 				pos[1] = MainGame.GAME_HEIGHT - 32*10 + 5;
 			}
+		} else{
+			if(currentAnimation!=null){
+				currentAnimation.stop();
+			}
 		}
+	}
+	
+	public void initAnimation(){
+		//punch right
+		anims[0] = new Animation(sprites,0,1,3,1,true,125,true);
+		//walk right
+		anims[1] = new Animation(sprites,0,3,3,3,true,10,true);
+		//punch left
+		anims[2] = new Animation(sprites,0,0,3,0,true,125,true);
+		//walk left
+		anims[3] = new Animation(sprites,0,2,3,2,true,10,true);
 	}
 	
 	public Animation handleAnimation(String whichAnim){
 		if(isRight){
 			if(whichAnim.equals("punch")){
-				return new Animation(sprites,0,1,3,1,true,100,true);
+				return anims[0];
 			} else {
 				//else, the walk animation for now
-				return new Animation(sprites,0,3,3,3,true,100,true);
+				return anims[1];
 			}
 		} else{
 			if(whichAnim.equals("punch")){
-				return new Animation(sprites,0,0,3,0,true,100,true);
+				return anims[2];
 			} else {
 				//else, the walk animation for now
-				return new Animation(sprites,0,2,3,2,true,100,true);
+				return anims[3];
 			} 
 		}
 	}
