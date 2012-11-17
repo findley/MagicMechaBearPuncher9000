@@ -22,6 +22,9 @@ public abstract class Weapon {
 	ArrayList<Attack> attacks;
 	Dude owner;
 	
+	Weapon(){
+		attacks = new ArrayList<Attack>();
+	}
 
 	// to start attack
 	public abstract Attack attack();

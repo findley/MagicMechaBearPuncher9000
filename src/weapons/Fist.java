@@ -7,6 +7,7 @@ import dudes.Dude;
 public class Fist extends Weapon {
 	
 	public Fist(Dude owner) {
+		super();
 		this.owner = owner;
 		weaponSprite = null;
 		attackSprite = null;
