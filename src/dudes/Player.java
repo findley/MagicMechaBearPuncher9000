@@ -78,12 +78,14 @@ public class Player extends Dude {
 		
 		double moveDist = .1*delta*moveSpeed;
 		if (input.isKeyDown(buttons.get("right"))) {
+			isRight = true;
 			pos[0] += moveDist;
 			if (pos[0] > MainGame.GAME_WIDTH - 64) {
 				pos[0] = MainGame.GAME_WIDTH - 64;
 			}
 		}
 		if (input.isKeyDown(buttons.get("left"))) {
+			isRight = false;
 			pos[0] -= moveDist;
 			if (pos[0] < 0) {
 				pos[0] = 0;
