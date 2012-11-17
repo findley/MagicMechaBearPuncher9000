@@ -5,6 +5,8 @@ import java.util.HashMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -14,6 +16,7 @@ import weapons.Fist;
 
 public class Player extends Dude {
 	public HashMap<String, Integer> buttons;
+	private int playerID;
 	
 	public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
 		this.buttons = buttons;
@@ -27,6 +30,13 @@ public class Player extends Dude {
 		attackTime = 0;
 		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		this.weapon = new Fist(this);
+	}
+	
+	public void init(int playerID) throws SlickException {
+		this.playerID = playerID;
+		sprites = new SpriteSheet("Assets/players/walkingSpriteSheet.png", 64, 64);
+		spriteIndex[0] = 0;
+		spriteIndex[1] = playerID*2 + 1;
 	}
 	
 	public void move(Input input, int delta){
