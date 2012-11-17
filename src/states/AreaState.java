@@ -76,8 +76,6 @@ public class AreaState extends BasicGameState {
 					for (int stop : battleStops) {
 						if (progression < stop && progression + shift >= stop) {
 							progression = stop;
-							players[0].pos[0] -= shift;
-							players[1].pos[0] -= shift;
 							inBattle = true;
 						}
 					}
