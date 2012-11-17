@@ -113,15 +113,12 @@ public class AreaState extends BasicGameState {
 				}
 			}
 		}
-<<<<<<< HEAD
 		for(Player player : players){
 			player.hitbox.setX(player.pos[0]);
 			player.hitbox.setY(player.pos[1]);
-=======
-		
+		}
 		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
 			inBattle = false;
->>>>>>> 54d802221934018d51f0e24fea69fc49c654085f
 		}
 	}
 
