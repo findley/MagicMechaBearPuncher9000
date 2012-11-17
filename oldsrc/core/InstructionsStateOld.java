@@ -21,11 +21,11 @@ import framework.Player;
 import framework.TownWindow;
 import framework.TransitionWindow;
 
-public class InstructionsState extends BasicGameState{
+public class InstructionsStateOld extends BasicGameState{
 
 	Image background = null;
 	
-	public InstructionsState(int stateID) {
+	public InstructionsStateOld(int stateID) {
 		super();
 	}
 	@Override
