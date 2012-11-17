@@ -30,6 +30,7 @@ public class AreaState extends BasicGameState {
 			throws SlickException {
 		progression = 0;
 		players = MainGame.players;
+		monsters = new ArrayList<Monster>();
 	}
 
 	@Override
