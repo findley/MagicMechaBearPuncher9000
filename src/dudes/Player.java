@@ -2,7 +2,11 @@ package dudes;
 
 import java.util.HashMap;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.state.StateBasedGame;
+
+import core.MainGame;
 
 public class Player extends Dude {
 	public HashMap<String, Integer> buttons;
@@ -11,21 +15,29 @@ public class Player extends Dude {
 		this.buttons = buttons;
 		pos[0] = xPos;
 		pos[1] = yPos;
-		moveSpeed = 5;
+		moveSpeed = 3;
 	}
 	
-	public void move(Input input, int delta){
+	public void move(Input input, int delta) {
 		if (input.isKeyDown(buttons.get("right"))) {
-			pos[0] += .1*delta*moveSpeed;
+			if (pos[0] < MainGame.GAME_WIDTH - 64) {
+				pos[0] += .1*delta*moveSpeed;
+			}
 		}
 		if (input.isKeyDown(buttons.get("left"))) {
-			pos[0] -= .1*delta*moveSpeed;
+			if (pos[0] > 0) {
+				pos[0] -= .1*delta*moveSpeed;
+			}
 		}
 		if (input.isKeyDown(buttons.get("down"))) {
-			pos[1] += .1*delta*moveSpeed;
+			if (pos[1] < MainGame.GAME_HEIGHT - 32*3 - 5) {
+				pos[1] += .1*delta*moveSpeed;
+			}
 		}
 		if (input.isKeyDown(buttons.get("up"))) {
-			pos[1] -= .1*delta*moveSpeed;
+			if (pos[1] > MainGame.GAME_HEIGHT - 32*10 + 10) {
+				pos[1] -= .1*delta*moveSpeed;
+			}
 		}
 	}
 	

@@ -51,8 +51,8 @@ public class AreaState extends BasicGameState {
 		}
 		
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
-		if (backPlayerPos > MainGame.GAME_WIDTH/2) {
-			float shift = backPlayerPos - MainGame.GAME_WIDTH/2;
+		if (backPlayerPos > MainGame.GAME_WIDTH/3) {
+			float shift = backPlayerPos - MainGame.GAME_WIDTH/3;
 			progression += shift;
 			players[0].pos[0] -= shift;
 			players[1].pos[0] -= shift;

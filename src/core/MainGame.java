@@ -63,8 +63,8 @@ public class MainGame extends StateBasedGame {
 			p1Buttons.put("action", Input.KEY_PERIOD);
 			
 			// set up players
-			players[0] = new Player(p0Buttons, 100f, 100f);
-			players[1] = new Player(p1Buttons, 100f, 200f);
+			players[0] = new Player(p0Buttons, 100f, 650f);
+			players[1] = new Player(p1Buttons, 150f, 600f);
 			
 			app.start();
 		} catch (SlickException e) {

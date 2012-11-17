@@ -26,6 +26,6 @@ public abstract class Dude {
 	}
 	
 	public void render(Graphics g) throws SlickException {
-		g.drawImage(new Image("Assets/npcs/daughterFront.png"), pos[0], pos[1]);
+		new Image("Assets/npcs/daughterFront.png").draw(pos[0], pos[1], 2);
 	}
 }
