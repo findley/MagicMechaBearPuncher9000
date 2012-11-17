@@ -2,6 +2,7 @@ package dudes;
 
 import java.util.HashMap;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.StateBasedGame;
@@ -18,6 +19,9 @@ public class Player extends Dude {
 		pos[0] = xPos;
 		pos[1] = yPos;
 		moveSpeed = 5;
+		maxHealth = 100;
+		health = maxHealth;
+		healthFill = new Color(0f, 1f, 0f, 1f);
 		this.weapon = new Fist(this);
 	}
 	
