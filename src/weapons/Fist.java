@@ -15,6 +15,7 @@ public class Fist extends Weapon {
 		attackWidth = 6;
 		attackHeight = 6;
 		attackTime = 1000;
+		delayTime = 500;
 	}
 
 	@Override

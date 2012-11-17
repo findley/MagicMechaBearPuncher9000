@@ -19,6 +19,7 @@ public abstract class Weapon {
 	int attackWidth;
 	int attackHeight;
 	public float attackTime;
+	public int delayTime;
 	public ArrayList<Attack> attacks;
 	Dude owner;
 	

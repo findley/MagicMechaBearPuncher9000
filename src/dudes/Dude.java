@@ -25,7 +25,15 @@ public abstract class Dude {
 	public boolean invincible;
 	public int invincibleDuration;
 	public int invincibleTimer;
-
+	
+	public boolean flinching;
+	public int flinchDur;
+	public int flinchTime;
+	
+	public boolean delayed;
+	public int delayDur;
+	public int delayTime;
+	
 	public abstract float[] weaponLoc();
 
 	public Dude() {
@@ -37,6 +45,13 @@ public abstract class Dude {
 	}
 
 	public void flinch(int milliseconds) {
+		if (!flinching){
+			this.flinchTime = 0;
+			this.flinchDur = milliseconds;
+			this.flinching = true;
+			isAttacking = false;
+			delayed = false;
+		}
 
 	}
 
@@ -45,11 +60,13 @@ public abstract class Dude {
 			this.health = Math.max(0, this.health - damage);
 			invincible = true;
 			invincibleTimer = 0;
+			flinch(flinch);
 		}
 		else{
 			if (invincibleTimer > invincibleDuration){
 				invincible = false;
 				this.health = Math.max(0, this.health - damage);
+				flinch(flinch);
 			}
 		}
 	}

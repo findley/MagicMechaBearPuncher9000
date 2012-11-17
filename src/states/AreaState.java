@@ -55,8 +55,6 @@ public class AreaState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-
-		System.out.println(progression);
 		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
 			container.exit();
 		}
@@ -95,12 +93,12 @@ public class AreaState extends BasicGameState {
 			for (Attack attack : player.weapon.attacks) {
 				for (Monster monster : this.monsters) {
 					if (attack.hitbox.intersects(monster.hitbox)) {
-						monster.hurt(player.weapon.damage, 0);
+						monster.hurt(player.weapon.damage, 500);
 					}
 				}
 				if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
 					// players[(i + 1) % 2].flinch(0);
-					players[(i + 1) % 2].hurt(players[i].weapon.damage, 0);
+					players[(i + 1) % 2].hurt(players[i].weapon.damage, 500);
 				}
 			}
 		}
@@ -108,7 +106,7 @@ public class AreaState extends BasicGameState {
 			for (Attack attack : monster.weapon.attacks) {
 				for (Player player : players) {
 					if (attack.hitbox.intersects(player.hitbox)) {
-						player.hurt(monster.weapon.damage, 0);
+						player.hurt(monster.weapon.damage, 500);
 					}
 				}
 			}

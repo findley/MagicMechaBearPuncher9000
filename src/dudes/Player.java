@@ -30,6 +30,24 @@ public class Player extends Dude {
 	}
 	
 	public void move(Input input, int delta){
+		if(flinching){
+			flinchTime += delta;
+			if(flinchTime < flinchDur){
+				return;
+			}
+			else{
+				flinching = false;
+			}
+		}
+		if (delayed){
+			delayTime += delta;
+			if(delayTime < this.weapon.delayTime){
+				return;
+			}
+			else{
+				delayed = false;
+			}
+		}
 		if(isAttacking){
 			attackTime+=delta;
 			if(attackTime < this.weapon.attackTime){
@@ -37,11 +55,13 @@ public class Player extends Dude {
 			}
 			else{
 				isAttacking = false;
-				attackTime = 0;
+				delayed = true;
+				delayTime = 0;
 			}
 		}
 		if (input.isKeyPressed(buttons.get("action"))) {
 			this.isAttacking = true;
+			attackTime = 0;
 			this.weapon.attack();
 			return;
 		}
