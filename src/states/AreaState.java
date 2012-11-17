@@ -34,14 +34,16 @@ public class AreaState extends BasicGameState {
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		bgImage.render(-progression%32, 0, progression/32, 0, 32 + 1, 24);
-		
+		for (int i = 0; i < players.length; i++) {
+			players[i].render(g);
+		}
 	}
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		progression++;
-		for (int i = 0; i < players.length; i ++) {
-			//players[i].move(delta);
+		//progression++;
+		for (int i = 0; i < players.length; i++) {
+			players[i].move(container.getInput(), delta);
 		}
 		
 	}
