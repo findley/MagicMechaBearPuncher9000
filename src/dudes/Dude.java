@@ -13,6 +13,7 @@ public abstract class Dude {
 	public SpriteSheet sprite;
 	public float[] pos = new float[2];
 	public boolean isRight;
+	public float moveSpeed;
 	
 	public abstract float[] weaponLoc();
 	

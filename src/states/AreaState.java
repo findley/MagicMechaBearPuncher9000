@@ -41,11 +41,22 @@ public class AreaState extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
+		
+		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+			container.exit();
+		}
 		//progression++;
 		for (int i = 0; i < players.length; i++) {
 			players[i].move(container.getInput(), delta);
 		}
 		
+		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
+		if (backPlayerPos > MainGame.GAME_WIDTH/2) {
+			float shift = backPlayerPos - MainGame.GAME_WIDTH/2;
+			progression += shift;
+			players[0].pos[0] -= shift;
+			players[1].pos[0] -= shift;
+		}
 	}
 	@Override
 	public int getID() {
