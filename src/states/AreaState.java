@@ -10,7 +10,11 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+<<<<<<< HEAD
 import weapons.Attack;
+=======
+import core.MainGame;
+>>>>>>> 1700c53bcf8a1a3248230345e1d42e4e52b8df14
 
 import dudes.Player;
 
@@ -29,28 +33,40 @@ public class AreaState extends BasicGameState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		progression = 0;
+		players = MainGame.players;
 	}
 	
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		bgImage.render(-progression%32, 0, progression/32, 0, 32 + 1, 24);
-		
+		for (int i = 0; i < players.length; i++) {
+			players[i].render(g);
+		}
 	}
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
-		progression++;
 		
+		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
+			container.exit();
+		}
+		//progression++;
+		for (int i = 0; i < players.length; i++) {
+			players[i].move(container.getInput(), delta);
+		}
+		
+		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
+		if (backPlayerPos > MainGame.GAME_WIDTH/2) {
+			float shift = backPlayerPos - MainGame.GAME_WIDTH/2;
+			progression += shift;
+			players[0].pos[0] -= shift;
+			players[1].pos[0] -= shift;
+		}
 	}
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
 		return 1;
-	}
-	
-	public void movePlayer(Input input, float moveValue, Player player,
-			int delta) {
-		
 	}
 }
