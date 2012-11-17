@@ -15,5 +15,10 @@ public class TownState extends AreaState {
 			throws SlickException {
 		super.init(container, game);
 		bgImage = new TiledMap("Assets/Transition 1/Map.tmx");
+		
+		battleStops = new int[3];
+		battleStops[0] = 1000;
+		battleStops[1] = 2000;
+		battleStops[2] = 3000;
 	}
 }
