@@ -18,7 +18,7 @@ public abstract class Weapon {
 	public int damage;
 	int attackWidth;
 	int attackHeight;
-	protected float attackDelay;
+	public float attackTime;
 	public ArrayList<Attack> attacks;
 	Dude owner;
 	
@@ -27,17 +27,21 @@ public abstract class Weapon {
 	}
 
 	// to start attack
-	public abstract Attack attack();
+	public abstract void attack();
 		
 	// method for the movement of an attack based on current info.
 	// kinda state machine-y
 	protected abstract boolean updateAttack(Attack attack);
 	
 	public void updateAttacks(){
-		for(Attack attack: attacks){
-			if(!updateAttack(attack)){
-				attacks.remove(attack);
+		ArrayList<Attack> removals = new ArrayList<Attack>();
+		for(int i = 0; i < attacks.size(); i++){
+			if(!updateAttack(attacks.get(i))){
+				removals.add(attacks.get(i));
 			}
+		}
+		for(Attack attack:removals){
+			attacks.remove(attack);
 		}
 	}
 	

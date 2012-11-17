@@ -16,17 +16,30 @@ public class Player extends Dude {
 	
 	public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
 		this.buttons = buttons;
+		this.isRight = true;
 		pos[0] = xPos;
 		pos[1] = yPos;
 		moveSpeed = 5;
 		maxHealth = 100;
 		health = maxHealth;
 		healthFill = new Color(0f, 1f, 0f, 1f);
+		attackTime = 0;
 		this.weapon = new Fist(this);
 	}
 	
 	public void move(Input input, int delta){
-		if (input.isKeyDown(buttons.get("action"))) {
+		if(isAttacking){
+			attackTime+=delta;
+			if(attackTime < this.weapon.attackTime){
+				return;
+			}
+			else{
+				isAttacking = false;
+				attackTime = 0;
+			}
+		}
+		if (input.isKeyPressed(buttons.get("action"))) {
+			this.isAttacking = true;
 			this.weapon.attack();
 			return;
 		}
@@ -64,10 +77,10 @@ public class Player extends Dude {
 	
 	public float[] weaponLoc(){
 		if(this.isRight){
-			return new float[] {pos[0] + 16, pos[1] + 6};
+			return new float[] {pos[0] + 64 + 16, pos[1] + 30};
 		}
 		else {
-			return new float[] {pos[0] - 16, pos[1] - 6};
+			return new float[] {pos[0] - 16, pos[1] +30};
 		}
 	}
 }
