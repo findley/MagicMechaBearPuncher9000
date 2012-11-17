@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import core.MainGame;
@@ -24,6 +25,7 @@ public class Player extends Dude {
 		health = maxHealth;
 		healthFill = new Color(0f, 1f, 0f, 1f);
 		attackTime = 0;
+		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		this.weapon = new Fist(this);
 	}
 	

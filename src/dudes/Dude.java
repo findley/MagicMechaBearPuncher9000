@@ -22,11 +22,14 @@ public abstract class Dude {
 	public int maxHealth;
 	public Color healthFill;
 	public int attackTime;
+	public boolean invincible;
+	public int invincibleDuration;
+	public int invincibleTimer;
 
 	public abstract float[] weaponLoc();
 
 	public Dude() {
-
+		invincibleDuration = 2000;
 	}
 
 	public void attack() {
@@ -35,6 +38,20 @@ public abstract class Dude {
 
 	public void flinch(int milliseconds) {
 
+	}
+
+	public void hurt(int damage, int flinch) {
+		if (!invincible) {
+			this.health = Math.max(0, this.health - damage);
+			invincible = true;
+			invincibleTimer = 0;
+		}
+		else{
+			if (invincibleTimer > invincibleDuration){
+				invincible = false;
+				this.health = Math.max(0, this.health - damage);
+			}
+		}
 	}
 
 	public void render(Graphics g) throws SlickException {
@@ -52,7 +69,8 @@ public abstract class Dude {
 				+ padding * 2, height + padding * 2);
 		g.setColor(healthFill);
 		g.fillRect(x - width / 2, y - height / 2, healthRemaining, height);
-		for(Attack attack : this.weapon.attacks){
+		g.draw(this.hitbox);
+		for (Attack attack : this.weapon.attacks) {
 			g.draw(attack.hitbox);
 		}
 	}

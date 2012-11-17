@@ -55,9 +55,9 @@ public class AreaState extends BasicGameState {
 		}
 
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
-		if (progression < 32*(200 - 31)) {
-			if (backPlayerPos > MainGame.GAME_WIDTH/3) {
-				float shift = backPlayerPos - MainGame.GAME_WIDTH/3;
+		if (progression < 32 * (200 - 31)) {
+			if (backPlayerPos > MainGame.GAME_WIDTH / 3) {
+				float shift = backPlayerPos - MainGame.GAME_WIDTH / 3;
 				progression += shift;
 				players[0].pos[0] -= shift;
 				players[1].pos[0] -= shift;
@@ -66,23 +66,32 @@ public class AreaState extends BasicGameState {
 
 		for (int i = 0; i < players.length; i++) {
 			Player player = players[i];
+			player.invincibleTimer+=delta;
 			player.weapon.updateAttacks();
-			for (Monster monster : this.monsters) {
-				for (Attack attack : player.weapon.attacks) {
-					System.out.println("There's an attack");
+			for (Attack attack : player.weapon.attacks) {
+				for (Monster monster : this.monsters) {
 					if (attack.hitbox.intersects(monster.hitbox)) {
-						monster.health -= player.weapon.damage;
-					}
-					if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
-						players[(i + 1) % 2].flinch(0);
+						monster.hurt(player.weapon.damage, 0);
 					}
 				}
-				for(Attack attack : monster.weapon.attacks){
-					if (attack.hitbox.intersects(player.hitbox)){
-						player.health -= monster.weapon.damage;
+				if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
+					// players[(i + 1) % 2].flinch(0);
+					players[(i + 1) % 2].hurt(players[i].weapon.damage, 0);
+				}
+			}
+		}
+		for (Monster monster : this.monsters) {
+			for (Attack attack : monster.weapon.attacks) {
+				for (Player player : players) {
+					if (attack.hitbox.intersects(player.hitbox)) {
+						player.hurt(monster.weapon.damage, 0);
 					}
 				}
 			}
+		}
+		for(Player player : players){
+			player.hitbox.setX(player.pos[0]);
+			player.hitbox.setY(player.pos[1]);
 		}
 	}
 
