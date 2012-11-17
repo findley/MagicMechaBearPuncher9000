@@ -56,7 +56,6 @@ public class AreaState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int delta)
 			throws SlickException {
 
-		System.out.println(progression);
 		if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
 			container.exit();
 		}
