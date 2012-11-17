@@ -14,7 +14,6 @@ public class TownState extends AreaState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.init(container, game);
-		//bgImage = new TiledMap("Assets/TiledEditor/DanielHub.tmx");
 		bgImage = new TiledMap("Assets/Transition 1/Map.tmx");
 	}
 }
