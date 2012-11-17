@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.newdawn.slick.Input;
 
+import weapons.Fist;
+
 public class Player extends Dude {
 	public HashMap<String, Integer> buttons;
 	
@@ -12,9 +14,14 @@ public class Player extends Dude {
 		pos[0] = xPos;
 		pos[1] = yPos;
 		moveSpeed = 5;
+		this.weapon = new Fist(this);
 	}
 	
 	public void move(Input input, int delta){
+		if (input.isKeyDown(buttons.get("action"))) {
+			this.weapon.attack();
+			return;
+		}
 		if (input.isKeyDown(buttons.get("right"))) {
 			pos[0] += .1*delta*moveSpeed;
 		}

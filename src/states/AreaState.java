@@ -10,11 +10,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
-<<<<<<< HEAD
+
 import weapons.Attack;
-=======
 import core.MainGame;
->>>>>>> 1700c53bcf8a1a3248230345e1d42e4e52b8df14
+
 
 import dudes.Player;
 
@@ -53,7 +52,9 @@ public class AreaState extends BasicGameState {
 		}
 		//progression++;
 		for (int i = 0; i < players.length; i++) {
-			players[i].move(container.getInput(), delta);
+			if (!players[i].isAttacking) {
+				players[i].move(container.getInput(), delta);
+			}
 		}
 		
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
@@ -62,6 +63,10 @@ public class AreaState extends BasicGameState {
 			progression += shift;
 			players[0].pos[0] -= shift;
 			players[1].pos[0] -= shift;
+		}
+		
+		for(Player player : players){
+			player.weapon.updateAttacks();
 		}
 	}
 	@Override

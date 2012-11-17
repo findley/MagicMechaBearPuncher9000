@@ -6,7 +6,7 @@ import dudes.Dude;
 
 public class Fist extends Weapon {
 	
-	Fist(Dude owner) {
+	public Fist(Dude owner) {
 		this.owner = owner;
 		weaponSprite = null;
 		attackSprite = null;
@@ -17,10 +17,10 @@ public class Fist extends Weapon {
 
 	@Override
 	public Attack attack() {
-		float[] center = owner.weaponLoc();
-		center[0] -= attackWidth / 2;
-		center[1] -= attackHeight / 2;
-		Rectangle hitbox = new Rectangle(center[0], center[1], attackWidth,
+		float[] corner = owner.weaponLoc();
+		corner[0] -= attackWidth / 2;
+		corner[1] -= attackHeight / 2;
+		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
 				attackHeight);
 		return new Attack(attackSprite, owner.isRight, hitbox, "player");
 	}
