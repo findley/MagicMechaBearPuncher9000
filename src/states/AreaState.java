@@ -10,11 +10,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
-<<<<<<< HEAD
 import weapons.Attack;
-=======
 import core.MainGame;
->>>>>>> 1700c53bcf8a1a3248230345e1d42e4e52b8df14
 
 import dudes.Player;
 
