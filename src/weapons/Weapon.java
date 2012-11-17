@@ -15,11 +15,11 @@ import dudes.Dude;
 public abstract class Weapon {
 	Image weaponSprite;
 	Image attackSprite;
-	int attackValue;
+	public int damage;
 	int attackWidth;
 	int attackHeight;
 	protected float attackDelay;
-	ArrayList<Attack> attacks;
+	public ArrayList<Attack> attacks;
 	Dude owner;
 	
 	Weapon(){

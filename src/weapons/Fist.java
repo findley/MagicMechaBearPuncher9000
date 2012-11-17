@@ -11,7 +11,7 @@ public class Fist extends Weapon {
 		this.owner = owner;
 		weaponSprite = null;
 		attackSprite = null;
-		attackValue = 5;
+		damage = 5;
 		attackWidth = 6;
 		attackHeight = 6;
 	}
