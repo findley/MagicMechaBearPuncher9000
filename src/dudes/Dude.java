@@ -21,6 +21,7 @@ public abstract class Dude {
 	public float moveSpeed;
 	public int maxHealth;
 	public Color healthFill;
+	public int attackTime;
 
 	public abstract float[] weaponLoc();
 

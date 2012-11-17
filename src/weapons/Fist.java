@@ -14,16 +14,17 @@ public class Fist extends Weapon {
 		damage = 5;
 		attackWidth = 6;
 		attackHeight = 6;
+		attackTime = 1000;
 	}
 
 	@Override
-	public Attack attack() {
+	public void attack() {
 		float[] corner = owner.weaponLoc();
 		corner[0] -= attackWidth / 2;
 		corner[1] -= attackHeight / 2;
 		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
 				attackHeight);
-		return new Attack(attackSprite, owner.isRight, hitbox, "player");
+		attacks.add(new Attack(attackSprite, owner.isRight, hitbox, "player"));
 	}
 
 	@Override

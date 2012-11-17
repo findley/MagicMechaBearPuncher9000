@@ -51,9 +51,7 @@ public class AreaState extends BasicGameState {
 		}
 		// progression++;
 		for (int i = 0; i < players.length; i++) {
-			if (!players[i].isAttacking) {
-				players[i].move(container.getInput(), delta);
-			}
+			players[i].move(container.getInput(), delta);
 		}
 
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
@@ -71,6 +69,7 @@ public class AreaState extends BasicGameState {
 			player.weapon.updateAttacks();
 			for (Monster monster : this.monsters) {
 				for (Attack attack : player.weapon.attacks) {
+					System.out.println("There's an attack");
 					if (attack.hitbox.intersects(monster.hitbox)) {
 						monster.health -= player.weapon.damage;
 					}
