@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
-<map version="1.0" orientation="orthogonal" width="60" height="24" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="200" height="24" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
   <image source="Tilesets/tileset_rough_1.png" width="192" height="96"/>
  </tileset>
- <layer name="Tile Layer 1" width="60" height="24" opacity="0.9">
+ <layer name="Background" width="200" height="24" opacity="0.84">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3MOQrAMAwEQJHaufz/xwZ3IpigMuApBnRui4gGAADAcu6kv/rjYzeT7/fCfS/kVzNn/2N2pn7UFwD8wLaYB+YQ4IaAFgAA
+   H4sIAAAAAAAAC+3PMQqAMAwF0OJcrXr/w4pbkSqxHUR4wxvS5ickp5QyAAAAAAAAAAAAAAB8bKvsl3p5+Gup++dA/x6YH53Zyp9vparLQ74lckOkp8dceZt9e2evnj1lINuze3TPCgAAAADAL03ArQMUxpaKAEsAAA==
   </data>
  </layer>
 </map>
