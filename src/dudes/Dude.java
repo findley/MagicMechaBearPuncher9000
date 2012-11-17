@@ -13,6 +13,7 @@ public abstract class Dude {
 	public SpriteSheet sprite;
 	public float[] pos = new float[2];
 	public boolean isRight;
+	public boolean isAttacking;
 	public float moveSpeed;
 	
 	public abstract float[] weaponLoc();
@@ -22,7 +23,7 @@ public abstract class Dude {
 	}
 	
 	public void attack(){
-		this.weapon.attack(this);
+		this.weapon.attack();
 	}
 	
 	public void render(Graphics g) throws SlickException {

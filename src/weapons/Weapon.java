@@ -1,6 +1,8 @@
 package weapons;
 
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Image;
 
 import dudes.Dude;
@@ -17,15 +19,23 @@ public abstract class Weapon {
 	int attackWidth;
 	int attackHeight;
 	protected float attackDelay;
+	ArrayList<Attack> attacks;
+	Dude owner;
 	
 
 	// to start attack
-	public abstract Attack attack(Dude dude);
+	public abstract Attack attack();
 		
 	// method for the movement of an attack based on current info.
 	// kinda state machine-y
-	Attack updateAttack(Attack attack){
-		return null;
+	protected abstract boolean updateAttack(Attack attack);
+	
+	public void updateAttacks(){
+		for(Attack attack: attacks){
+			if(!updateAttack(attack)){
+				attacks.remove(attack);
+			}
+		}
 	}
 	
 	
