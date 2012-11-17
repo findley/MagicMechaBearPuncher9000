@@ -14,6 +14,11 @@ public abstract class Player extends Dude{
 	}
 	
 	public float[] weaponLoc(){
-		return new float[] {pos[0]+16, pos[1] + 6};
+		if(this.isRight){
+			return new float[] {pos[0] + 16, pos[1] + 6};
+		}
+		else {
+			return new float[] {pos[0] - 16, pos[1] - 6};
+		}
 	}
 }

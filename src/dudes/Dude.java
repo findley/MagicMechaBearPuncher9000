@@ -10,6 +10,7 @@ public abstract class Dude {
 	SpriteSheet sprite;
 	float[] pos;
 	public boolean isRight;
+	public boolean isAttacking;
 	
 	public abstract float[] weaponLoc();
 	
