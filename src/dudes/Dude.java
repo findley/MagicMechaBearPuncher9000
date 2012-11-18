@@ -93,7 +93,7 @@ public abstract class Dude {
 				+ padding * 2, height + padding * 2);
 		g.setColor(healthFill);
 		g.fillRect(x - width / 2, y - height / 2, healthRemaining, height);
-		g.draw(this.hitbox);
+		//g.draw(this.hitbox);
 		for (Attack attack : this.weapon.attacks) {
 			g.draw(attack.hitbox);
 		}

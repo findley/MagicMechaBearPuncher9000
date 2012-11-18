@@ -25,7 +25,7 @@ public class Player extends Dude {
 		this.isRight = true;
 		pos[0] = xPos;
 		pos[1] = yPos;
-		moveSpeed = 5;
+		moveSpeed = 3;
 		maxHealth = 100;
 		health = maxHealth;
 		healthFill = new Color(0f, 1f, 0f, 1f);
@@ -124,11 +124,11 @@ public class Player extends Dude {
 		//punch right
 		anims[0] = new Animation(sprites,0,1,3,1,true,125,true);
 		//walk right
-		anims[1] = new Animation(sprites,0,3,3,3,true,10,true);
+		anims[1] = new Animation(sprites,0,3,3,3,true,80,true);
 		//punch left
 		anims[2] = new Animation(sprites,0,0,3,0,true,125,true);
 		//walk left
-		anims[3] = new Animation(sprites,0,2,3,2,true,10,true);
+		anims[3] = new Animation(sprites,0,2,3,2,true,80,true);
 	}
 	
 	public Animation handleAnimation(String whichAnim){
