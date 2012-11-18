@@ -1,5 +1,6 @@
 package dudes;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,6 +16,7 @@ public abstract class Dude {
 	public Weapon weapon;
 	public SpriteSheet sprites;
 	public int[] spriteIndex = new int[2];
+	public Animation currentAnimation;
 	public float[] pos = new float[2];
 	public Shape hitbox;
 	public boolean isRight;
@@ -73,7 +75,11 @@ public abstract class Dude {
 	}
 
 	public void render(Graphics g) throws SlickException {
-		sprites.getSprite(spriteIndex[0], spriteIndex[1]).draw(pos[0], pos[1]);
+		if(currentAnimation!=null){
+			currentAnimation.draw(pos[0],pos[1]);
+		} else{
+			sprites.getSprite(spriteIndex[0], spriteIndex[1]).draw(pos[0], pos[1]);
+		}
 
 		// Render a health bar for the Dude
 		int offset = -10;
@@ -87,7 +93,7 @@ public abstract class Dude {
 				+ padding * 2, height + padding * 2);
 		g.setColor(healthFill);
 		g.fillRect(x - width / 2, y - height / 2, healthRemaining, height);
-		g.draw(this.hitbox);
+		//g.draw(this.hitbox);
 		for (Attack attack : this.weapon.attacks) {
 			g.draw(attack.hitbox);
 		}
