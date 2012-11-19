@@ -78,6 +78,12 @@ public class AreaState extends BasicGameState {
 		for (int i = 0; i < players.length; i++) {
 			players[i].move(container.getInput(), delta);
 		}
+		
+		if (inBattle) {
+			for (Monster m: currBattle) {
+				m.move(container.getInput(), delta);
+			}
+		}
 
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
 		
@@ -134,6 +140,7 @@ public class AreaState extends BasicGameState {
 			}
 		}
 		for (Monster monster : this.currBattle) {
+			monster.invincibleTimer+=delta;
 			for (Attack attack : monster.weapon.attacks) {
 				for (Player player : players) {
 					if (attack.hitbox.intersects(player.hitbox)) {
