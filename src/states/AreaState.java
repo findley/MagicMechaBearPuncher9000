@@ -100,6 +100,7 @@ public class AreaState extends BasicGameState {
 							progression = stop;
 							inBattle = true;
 							currBattle = monsters.remove(0);
+							System.out.println(currBattle.size());
 						}
 					}
 					if (!inBattle) {

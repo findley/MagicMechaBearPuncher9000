@@ -40,7 +40,31 @@ public class TownState extends AreaState {
 		group_1.add(g1_knight2);
 		group_1.add(g1_knight3);
 
+		ArrayList<Monster> group_2 = new ArrayList<Monster>();
+		Knight g2_knight1 = new Knight(950, 512);
+		Knight g2_knight2 = new Knight(950, 544);
+		Knight g2_knight3 = new Knight(950, 576);
+		g2_knight1.init();
+		g2_knight2.init();
+		g2_knight3.init();
+		group_2.add(g2_knight1);
+		group_2.add(g2_knight2);
+		group_2.add(g2_knight3);
+		
+		ArrayList<Monster> group_3 = new ArrayList<Monster>();
+		Knight g3_knight1 = new Knight(950, 512);
+		Knight g3_knight2 = new Knight(950, 544);
+		Knight g3_knight3 = new Knight(950, 576);
+		g3_knight1.init();
+		g3_knight2.init();
+		g3_knight3.init();
+		group_3.add(g3_knight1);
+		group_3.add(g3_knight2);
+		group_3.add(g3_knight3);
+		
 		monsters.add(group_1);
+		monsters.add(group_2);
+		monsters.add(group_3);
 		
 		battleStops = new int[3];
 		battleStops[0] = 1000;
