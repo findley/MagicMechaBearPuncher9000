@@ -22,14 +22,35 @@ public abstract class Weapon {
 	public int delayTime;
 	public ArrayList<Attack> attacks;
 	Dude owner;
+	public float x;
+	public float y;
 	
 	Weapon(){
 		attacks = new ArrayList<Attack>();
 	}
 
 	// to start attack
+	
 	public abstract void attack();
 		
+	public void assignOwner(Dude owner) {
+		this.owner = owner;
+	}
+	
+	public void drop() {
+		this.x = owner.pos[0];
+		this.y = owner.pos[1];
+		this.owner = null;
+		
+	}
+	
+	public void Draw() {
+		if (this.owner == null) {
+			System.out.println("asas");
+			weaponSprite.draw(x, y);
+		} else {
+		}
+	}
 	// method for the movement of an attack based on current info.
 	// kinda state machine-y
 	protected abstract boolean updateAttack(Attack attack);

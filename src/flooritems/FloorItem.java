@@ -4,7 +4,6 @@ import org.newdawn.slick.Image;
 
 public class FloorItem {
 
-	public Image weaponSprite;
 	public float x;
 	public float y;
 	public FloorItem(float x, float y) {

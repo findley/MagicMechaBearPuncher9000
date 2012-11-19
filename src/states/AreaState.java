@@ -11,17 +11,17 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 import weapons.Attack;
+import weapons.KnightKnife;
+import weapons.Weapon;
 import core.MainGame;
 import dudes.Monster;
 import dudes.Player;
-import flooritems.FloorItem;
-import flooritems.KnightKnifeFloor;
 
 public class AreaState extends BasicGameState {
 	protected Player[] players;
 	protected TiledMap bgImage;
 	protected ArrayList<Monster> monsters;
-	private ArrayList<FloorItem> flooritems;
+	private ArrayList<Weapon> floorweapons;
 	private boolean inBattle;
 	private boolean completed;
 	private int progression;
@@ -37,7 +37,7 @@ public class AreaState extends BasicGameState {
 		progression = 0;
 		players = MainGame.players;
 		monsters = new ArrayList<Monster>();
-		flooritems = makeInitItems();
+		floorweapons = makeInitItems();
 		inBattle = false;
 		completed = false;
 	}
@@ -54,7 +54,8 @@ public class AreaState extends BasicGameState {
 			g.drawString("FIGHT", 400, 200);
 		}
 		
-		for (FloorItem i : flooritems) {
+		for (Weapon i : floorweapons) {
+			System.out.println("y");
 			i.Draw();
 		}
 	}
@@ -92,16 +93,16 @@ public class AreaState extends BasicGameState {
 						players[0].pos[0] -= shift;
 						players[1].pos[0] -= shift;
 						
-						ArrayList<FloorItem> remove = new ArrayList<FloorItem>();
-						for(FloorItem i : flooritems) {
+						ArrayList<Weapon> remove = new ArrayList<Weapon>();
+						for(Weapon i : floorweapons) {
 							i.x -=shift;
 							if (i.x < 0) {
 								remove.add(i);
 							}
 						}
 						
-						for (FloorItem i : remove){
-							flooritems.remove(i);
+						for (Weapon i : remove){
+							floorweapons.remove(i);
 						}
 						
 					}
@@ -143,10 +144,10 @@ public class AreaState extends BasicGameState {
 		}
 	}
 
-	public ArrayList<FloorItem> makeInitItems() {
-		ArrayList<FloorItem> o = new ArrayList<FloorItem>();
-		FloorItem k1 = new KnightKnifeFloor( 1200, 550);
-		FloorItem k2 = new KnightKnifeFloor( 1300f, 550f);
+	public ArrayList<Weapon> makeInitItems() {
+		ArrayList<Weapon> o = new ArrayList<Weapon>();
+		Weapon k1 = new KnightKnife( 1200, 550);
+		Weapon k2 = new KnightKnife( 1300f, 550f);
 		o.add(k1);
 		o.add(k2);
 		return o;
