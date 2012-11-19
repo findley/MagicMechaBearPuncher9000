@@ -8,6 +8,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
 
+import core.MainGame;
+
 import weapons.Attack;
 import weapons.Weapon;
 
@@ -57,6 +59,44 @@ public abstract class Dude {
 		}
 
 	}
+	
+	public void moveLeft(float moveDist) {
+		isRight = false;
+		currentAnimation = handleAnimation("walk");
+		currentAnimation.start();
+		pos[0] -= moveDist;
+		if (pos[0] < 0) {
+			pos[0] = 0;
+		}
+	}
+	
+	public void moveRight(float moveDist){
+		isRight = true;
+		currentAnimation = handleAnimation("walk");
+		currentAnimation.start();
+		pos[0] += moveDist;
+		if (pos[0] > MainGame.GAME_WIDTH - 64) {
+			pos[0] = MainGame.GAME_WIDTH - 64;
+		}
+	}
+	
+	public void moveUp(float moveDist){
+		currentAnimation = handleAnimation("walk");
+		currentAnimation.start();
+		pos[1] -= moveDist;
+		if (pos[1] < MainGame.GAME_HEIGHT - 32*10 + 5) {
+			pos[1] = MainGame.GAME_HEIGHT - 32*10 + 5;
+		}
+	}
+	
+	public void moveDown(float moveDist){
+		currentAnimation = handleAnimation("walk");
+		currentAnimation.start();
+		pos[1] += moveDist;
+		if (pos[1] > MainGame.GAME_HEIGHT - 32*3 - 5) {
+			pos[1] = MainGame.GAME_HEIGHT - 32*3 - 5;
+		}
+	}
 
 	public void hurt(int damage, int flinch) {
 		if (!invincible) {
@@ -73,6 +113,8 @@ public abstract class Dude {
 			}
 		}
 	}
+	
+	public abstract Animation handleAnimation(String whichAnim);
 
 	public void render(Graphics g) throws SlickException {
 		if(currentAnimation!=null){

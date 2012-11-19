@@ -36,6 +36,7 @@ public class Knight extends Monster {
 		sprites = new SpriteSheet("Assets/Enemies/enemy_1_sheet.png", 64, 64);
 		spriteIndex[0] = 0;
 		spriteIndex[1] = 0;
+		aiDelay = 2000;
 		initAnimation();
 	}
 
@@ -67,21 +68,62 @@ public class Knight extends Monster {
 	}
 
 	@Override
-	public void aiLoop(Player[] players) {
-		Player locked;
-		if (Math.abs(players[0].pos[0] - this.pos[0]) < Math
-				.abs(players[1].pos[0] - this.pos[0])) {
-			locked = players[0];
-		} else {
-			locked = players[1];
-		}
-		for (int i = 0; i < this.pos.length; i++) {
-			if (locked.pos[i] - this.pos[i] > 0) {
-				this.pos[i] += 5;
+	public void aiLoop(Player[] players, int delta) {
+		if (aiCurTime > aiDelay || aiCurTime == 0) {
+			aiCurTime = delta;
+			if (locked == null || Math.random() > .8) {
+				if (Math.abs(players[0].pos[0] - this.pos[0]) < Math
+						.abs(players[1].pos[0] - this.pos[0])) {
+					locked = players[0];
+				} else {
+					locked = players[1];
+				}
+			}
+			if (locked.pos[0] - this.pos[0] > 0 && Math.random() > .2) {
+				this.isRight = false;
 			} else {
-				this.pos[i] -= 5;
+				this.isRight = true;
+			}
+			if (locked.pos[1] - this.pos[1] > 0 && Math.random() > .2) {
+				this.moveUp = true;
+			} else {
+				this.moveUp = false;
 			}
 		}
+		else{
+			aiCurTime += delta;
+			if(this.moveRight){
+				this.moveRight(1);
+			}
+			else {
+				this.moveLeft(1);
+			}
+			if(this.moveUp){
+				this.moveUp(1);
+			}
+			else {
+				this.moveDown(1);
+			}
+		}
+		
 	}
 
+	@Override
+	public Animation handleAnimation(String whichAnim) {
+		if(isRight){
+			if(whichAnim.equals("punch")){
+				return anims[0];
+			} else {
+				//else, the walk animation for now
+				return anims[1];
+			}
+		} else{
+			if(whichAnim.equals("punch")){
+				return anims[2];
+			} else {
+				//else, the walk animation for now
+				return anims[3];
+			} 
+		}
+	}
 }

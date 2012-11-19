@@ -67,7 +67,7 @@ public class Player extends Dude {
 			}
 		}
 		
-		double moveDist = .1*delta*moveSpeed;
+		float moveDist = (float) .1*delta*moveSpeed;
 		
 		if (input.isKeyPressed(buttons.get("action"))) {
 			this.isAttacking = true;
@@ -77,35 +77,13 @@ public class Player extends Dude {
 			this.weapon.attack();
 			return;
 		} else if (input.isKeyDown(buttons.get("right"))) {
-			isRight = true;
-			currentAnimation = handleAnimation("walk");
-			currentAnimation.start();
-			pos[0] += moveDist;
-			if (pos[0] > MainGame.GAME_WIDTH - 64) {
-				pos[0] = MainGame.GAME_WIDTH - 64;
-			}
+			this.moveRight(moveDist);
 		} else if (input.isKeyDown(buttons.get("left"))) {
-			isRight = false;
-			currentAnimation = handleAnimation("walk");
-			currentAnimation.start();
-			pos[0] -= moveDist;
-			if (pos[0] < 0) {
-				pos[0] = 0;
-			}
+			this.moveLeft(moveDist);
 		} else if (input.isKeyDown(buttons.get("down"))) {
-			currentAnimation = handleAnimation("walk");
-			currentAnimation.start();
-			pos[1] += moveDist;
-			if (pos[1] > MainGame.GAME_HEIGHT - 32*3 - 5) {
-				pos[1] = MainGame.GAME_HEIGHT - 32*3 - 5;
-			}
+			this.moveDown(moveDist);
 		} else if (input.isKeyDown(buttons.get("up"))) {			
-			currentAnimation = handleAnimation("walk");
-			currentAnimation.start();
-			pos[1] -= moveDist;
-			if (pos[1] < MainGame.GAME_HEIGHT - 32*10 + 5) {
-				pos[1] = MainGame.GAME_HEIGHT - 32*10 + 5;
-			}
+			this.moveUp(moveDist);
 		} else{
 			if(currentAnimation!=null){
 				currentAnimation.stop();
