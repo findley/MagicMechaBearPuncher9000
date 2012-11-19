@@ -17,7 +17,8 @@ import dudes.Player;
 public class AreaState extends BasicGameState {
 	protected Player[] players;
 	protected TiledMap bgImage;
-	protected ArrayList<Monster> monsters;
+	protected ArrayList<ArrayList<Monster>> monsters;
+	protected ArrayList<Monster> currBattle;
 	
 	private boolean inBattle;
 	private boolean completed;
@@ -34,7 +35,8 @@ public class AreaState extends BasicGameState {
 			throws SlickException {
 		progression = 0;
 		players = MainGame.players;
-		monsters = new ArrayList<Monster>();
+		monsters = new ArrayList<ArrayList<Monster>>();
+		currBattle = new ArrayList<Monster>();
 		inBattle = false;
 		completed = false;
 	}
@@ -49,6 +51,10 @@ public class AreaState extends BasicGameState {
 		
 		if (inBattle) {
 			g.drawString("FIGHT", 400, 200);
+			
+			for (Monster m: currBattle) {
+				m.render(g);
+			}
 		}
 	}
 
@@ -78,6 +84,7 @@ public class AreaState extends BasicGameState {
 						if (progression < stop && progression + shift >= stop) {
 							progression = stop;
 							inBattle = true;
+							currBattle = monsters.remove(0);
 						}
 					}
 					if (!inBattle) {
@@ -94,7 +101,7 @@ public class AreaState extends BasicGameState {
 			player.invincibleTimer+=delta;
 			player.weapon.updateAttacks();
 			for (Attack attack : player.weapon.attacks) {
-				for (Monster monster : this.monsters) {
+				for (Monster monster : this.currBattle) {
 					if (attack.hitbox.intersects(monster.hitbox)) {
 						monster.hurt(player.weapon.damage, 500);
 					}
@@ -105,7 +112,7 @@ public class AreaState extends BasicGameState {
 				}
 			}
 		}
-		for (Monster monster : this.monsters) {
+		for (Monster monster : this.currBattle) {
 			for (Attack attack : monster.weapon.attacks) {
 				for (Player player : players) {
 					if (attack.hitbox.intersects(player.hitbox)) {

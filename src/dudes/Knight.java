@@ -24,9 +24,15 @@ public class Knight extends Monster{
 		attackTime = 0;
 		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		this.weapon = new KnightKnife(this);
+		try {
+			this.init();
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
-	public void init(int playerID) throws SlickException {
+	public void init() throws SlickException {
 		sprites = new SpriteSheet("Assets/Enemies/enemy_1_sheet.png",64,64);
 		spriteIndex[0] = 0;
 		spriteIndex[1] = 0;
