@@ -1,9 +1,11 @@
 package weapons;
 
 
+import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.geom.Rectangle;
 
 import dudes.Dude;
 
@@ -13,7 +15,7 @@ import dudes.Dude;
  *
  */
 public abstract class Weapon {
-	Image weaponSprite;
+	public Image weaponSprite;
 	Image attackSprite;
 	public int damage;
 	int attackWidth;
@@ -44,9 +46,12 @@ public abstract class Weapon {
 		
 	}
 	
+	public Shape getHitBox() {
+		return new Rectangle(x, y, weaponSprite.getWidth(), weaponSprite.getHeight());
+	}
+	
 	public void Draw() {
 		if (this.owner == null) {
-			System.out.println("asas");
 			weaponSprite.draw(x, y);
 		} else {
 		}
