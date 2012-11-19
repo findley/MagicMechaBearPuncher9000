@@ -175,6 +175,17 @@ public class AreaState extends BasicGameState {
 			}
 		}
 		
+		ArrayList<Monster> removeMonster = new ArrayList<Monster>();
+		for (Monster m : this.currBattle){
+			if (m.health <= 0) {
+				removeMonster.add(m);
+			}
+		}
+		
+		for (Monster m : removeMonster) {
+			this.currBattle.remove(m);
+		}
+		
 		for (Weapon r : remove) {
 			floorweapons.remove(r);
 		}

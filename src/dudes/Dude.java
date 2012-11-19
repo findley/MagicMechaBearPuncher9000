@@ -40,7 +40,7 @@ public abstract class Dude {
 	public abstract float[] weaponLoc();
 
 	public Dude() {
-		invincibleDuration = 2000;
+		invincibleDuration = 500;
 	}
 
 	public void attack() {
