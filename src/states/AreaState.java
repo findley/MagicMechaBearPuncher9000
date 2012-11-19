@@ -27,6 +27,7 @@ public class AreaState extends BasicGameState {
 	private boolean completed;
 	private int progression;
 	protected int[] battleStops;
+	protected int areaLength;
 
 	public AreaState(int stateID) {
 		super();
@@ -42,6 +43,7 @@ public class AreaState extends BasicGameState {
 		floorweapons = makeInitItems();
 		inBattle = false;
 		completed = false;
+		areaLength = 0;
 	}
 
 	@Override
@@ -86,7 +88,7 @@ public class AreaState extends BasicGameState {
 
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
 		
-		if (progression > 32*(200 - 33)) {// don't scroll if you're at the end of the screen
+		if (progression > 32*(areaLength - 32)) {// don't scroll if you're at the end of the screen
 			completed = true;
 		} else {
 			if (backPlayerPos > MainGame.GAME_WIDTH/10) {// don't scroll unless both players are far right enough
@@ -200,13 +202,7 @@ public class AreaState extends BasicGameState {
 	}
 
 	public ArrayList<Weapon> makeInitItems() {
-		ArrayList<Weapon> o = new ArrayList<Weapon>();
-		Weapon k1 = new KnightKnife( 1200, 550);
-		Weapon k2 = new KnightKnife( 1300f, 550f);
-		o.add(k1);
-		o.add(k2);
-		return o;
-		
+		return new ArrayList<Weapon>();
 	}
 	
 	public void addNewItem() {

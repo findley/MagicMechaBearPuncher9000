@@ -7,6 +7,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import weapons.KnightKnife;
+import weapons.Weapon;
+
 import dudes.Knight;
 import dudes.Monster;
 
@@ -20,6 +23,9 @@ public class TownState extends AreaState {
 			throws SlickException {
 		super.init(container, game);
 		bgImage = new TiledMap("Assets/Transition 1/Map.tmx");
+		areaLength = 200;
+		
+		//note: players are initialized ONLY in the first area
 		players[0].init(0);
 		players[1].init(1);
 		
@@ -40,5 +46,17 @@ public class TownState extends AreaState {
 		battleStops[0] = 1000;
 		battleStops[1] = 2000;
 		battleStops[2] = 3000;
+		
+	}
+	
+	@Override
+	public ArrayList<Weapon> makeInitItems() {
+		ArrayList<Weapon> o = new ArrayList<Weapon>();
+		Weapon k1 = new KnightKnife( 1200f, 550f);
+		Weapon k2 = new KnightKnife( 1300f, 550f);
+		o.add(k1);
+		o.add(k2);
+		return o;
+		
 	}
 }
