@@ -61,7 +61,6 @@ public class AreaState extends BasicGameState {
 		}
 		
 		for (Weapon i : floorweapons) {
-			System.out.println("y");
 			i.Draw();
 		}
 	}
@@ -153,6 +152,37 @@ public class AreaState extends BasicGameState {
 			player.hitbox.setX(player.pos[0]);
 			player.hitbox.setY(player.pos[1]);
 		}
+		
+		
+		ArrayList<Weapon> remove = new ArrayList<Weapon>();
+		ArrayList<Weapon> add = new ArrayList<Weapon>();
+		for (Player p : players) {
+			if (container.getInput().isKeyPressed(p.buttons.get("pickup"))) {
+				for (Weapon w: floorweapons) {
+					if (p.hitbox.intersects(w.getHitBox())) {
+						p.weapon.drop();
+						if (p.weapon.weaponSprite == null ) {
+							
+						} else {
+							add.add(p.weapon);
+						}
+						p.weapon = w;
+						w.assignOwner(p);
+						remove.add(w);
+												
+					} 
+				}
+			}
+		}
+		
+		for (Weapon r : remove) {
+			floorweapons.remove(r);
+		}
+		
+		for (Weapon a : add) {
+			floorweapons.add(a);
+		}
+		
 		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
 			inBattle = false;
 		}

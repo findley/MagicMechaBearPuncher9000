@@ -26,9 +26,9 @@ public class KnightKnife extends Weapon{
 		this.y = y;
 		attackSprite = null;
 		damage = 5;
-		attackWidth = 6;
+		attackWidth = 100;
 		attackHeight = 6;
-		attackTime = 1000;
+		//attackTime = 1000;
 		delayTime = 500;
 	}
 	
