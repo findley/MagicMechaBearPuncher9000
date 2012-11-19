@@ -29,6 +29,7 @@ public abstract class Weapon {
 	
 	Weapon(){
 		attacks = new ArrayList<Attack>();
+		attackTime = 200;
 	}
 
 	// to start attack

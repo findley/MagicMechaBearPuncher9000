@@ -28,7 +28,7 @@ public class KnightKnife extends Weapon{
 		damage = 5;
 		attackWidth = 100;
 		attackHeight = 6;
-		attackTime = 1000;
+		//attackTime = 1000;
 		delayTime = 500;
 	}
 	
