@@ -194,7 +194,7 @@ public class AreaState extends BasicGameState {
 			floorweapons.add(a);
 		}
 		
-		if (container.getInput().isKeyPressed(Input.KEY_SPACE)) {
+		if (currBattle.size() == 0 && inBattle) {
 			inBattle = false;
 		}
 	}
