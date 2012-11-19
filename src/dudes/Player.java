@@ -62,6 +62,7 @@ public class Player extends Dude {
 			else{
 				isAttacking = false;
 				delayed = true;
+				currentAnimation.restart();
 				delayTime = 0;
 			}
 		}
@@ -115,10 +116,12 @@ public class Player extends Dude {
 	public void initAnimation(){
 		//punch right
 		anims[0] = new Animation(sprites,0,1,3,1,true,40,true);
+		anims[0].setLooping(false);
 		//walk right
 		anims[1] = new Animation(sprites,0,3,3,3,true,80,true);
 		//punch left
 		anims[2] = new Animation(sprites,0,0,3,0,true,40,true);
+		anims[2].setLooping(false);
 		//walk left
 		anims[3] = new Animation(sprites,0,2,3,2,true,80,true);
 	}

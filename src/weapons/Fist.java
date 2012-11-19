@@ -12,7 +12,7 @@ public class Fist extends Weapon {
 		weaponSprite = null;
 		attackSprite = null;
 		damage = 5;
-		attackWidth = 6;
+		attackWidth = 60;
 		attackHeight = 6;
 		attackTime = 200;
 		delayTime = 500;
