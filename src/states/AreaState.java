@@ -60,11 +60,13 @@ public class AreaState extends BasicGameState {
 			container.exit();
 		}
 		// progression++;
+		
 		for (int i = 0; i < players.length; i++) {
 			players[i].move(container.getInput(), delta);
 		}
 
 		float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
+		
 		if (progression > 32*(200 - 33)) {// don't scroll if you're at the end of the screen
 			completed = true;
 		} else {

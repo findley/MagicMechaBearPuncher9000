@@ -14,7 +14,7 @@ public class Fist extends Weapon {
 		damage = 5;
 		attackWidth = 6;
 		attackHeight = 6;
-		attackTime = 1000;
+		attackTime = 500;
 		delayTime = 500;
 	}
 
