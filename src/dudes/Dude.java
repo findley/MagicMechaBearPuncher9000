@@ -33,7 +33,9 @@ public abstract class Dude {
 	public int flinchDur;
 	public int flinchTime;
 	
+	public boolean delayed;
 	public int delayDur;
+	public int delayTime;
 	
 	public abstract float[] weaponLoc();
 
@@ -47,11 +49,11 @@ public abstract class Dude {
 
 	public void flinch(int milliseconds) {
 		if (!flinching){
-			System.out.println("flinching");
 			this.flinchTime = 0;
 			this.flinchDur = milliseconds;
 			this.flinching = true;
 			isAttacking = false;
+			delayed = false;
 		}
 
 	}

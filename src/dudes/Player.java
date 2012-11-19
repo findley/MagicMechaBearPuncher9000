@@ -20,7 +20,6 @@ public class Player extends Dude {
 	private int playerID;
 	private Animation[] anims = new Animation[4];
 	
-	
 	public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
 		this.buttons = buttons;
 		this.isRight = true;
@@ -38,7 +37,6 @@ public class Player extends Dude {
 	public void init(int playerID) throws SlickException {
 		this.playerID = playerID;
 		sprites = new SpriteSheet("Assets/players/player"+playerID+"Basic.png", 64, 64);
-		
 		spriteIndex[0] = 0;
 		spriteIndex[1] = 3;
 		initAnimation();
@@ -54,15 +52,18 @@ public class Player extends Dude {
 				flinching = false;
 			}
 		}
-				
+		
 		if(isAttacking){
-			//currentAnimation = handleAnimation("punch");
-			if (currentAnimation.isStopped()) {
-				isAttacking = false;				
-				//System.out.println("done");
-				currentAnimation.restart();
-			} 			
-			return;
+			attackTime+=delta;
+			if(attackTime < this.weapon.attackTime){
+				currentAnimation = handleAnimation("punch");
+				return;
+			}
+			else{
+				isAttacking = false;
+				delayed = true;
+				delayTime = 0;
+			}
 		}
 		
 		double moveDist = .1*delta*moveSpeed;
@@ -113,23 +114,18 @@ public class Player extends Dude {
 	
 	public void initAnimation(){
 		//punch right
-		anims[0] = new Animation(sprites,0,1,3,1,true,400,true);
-		anims[0].setLooping(false);
+		anims[0] = new Animation(sprites,0,1,3,1,true,40,true);
 		//walk right
 		anims[1] = new Animation(sprites,0,3,3,3,true,80,true);
-		anims[1].setLooping(false);
 		//punch left
-		//anims[2] = new Animation(sprites,0,0,3,0,true,125,true);
 		anims[2] = new Animation(sprites,0,0,3,0,true,40,true);
-		anims[2].setLooping(false);
 		//walk left
 		anims[3] = new Animation(sprites,0,2,3,2,true,80,true);
-		anims[3].setLooping(false);
 	}
 	
 	public Animation handleAnimation(String whichAnim){
 		if(isRight){
-			if(whichAnim.equals("punch")){				
+			if(whichAnim.equals("punch")){
 				return anims[0];
 			} else {
 				//else, the walk animation for now
@@ -138,7 +134,6 @@ public class Player extends Dude {
 		} else{
 			if(whichAnim.equals("punch")){
 				return anims[2];
-				
 			} else {
 				//else, the walk animation for now
 				return anims[3];
