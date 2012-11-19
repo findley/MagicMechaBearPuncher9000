@@ -17,7 +17,7 @@ public class KnightKnife extends Weapon{
 	public KnightKnife(float x, float y) {
 		super();
 		try {
-			weaponSprite = new Image("Assets/FloorItems/sword.png");
+			weaponSprite = new Image("Assets/Weapons/Sword/sword.png");
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

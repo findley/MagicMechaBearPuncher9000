@@ -69,6 +69,10 @@ public class Player extends Dude {
 		
 		float moveDist = (float) .1*delta*moveSpeed;
 		
+		for (String key : buttons.keySet()) {
+			
+		}
+		
 		if (input.isKeyPressed(buttons.get("action"))) {
 			this.isAttacking = true;
 			currentAnimation = handleAnimation("punch");
