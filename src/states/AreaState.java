@@ -1,6 +1,7 @@
 package states;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,15 +14,16 @@ import weapons.Attack;
 import core.MainGame;
 import dudes.Monster;
 import dudes.Player;
+import flooritems.FloorItem;
+import flooritems.KnightKnifeFloor;
 
 public class AreaState extends BasicGameState {
 	protected Player[] players;
 	protected TiledMap bgImage;
 	protected ArrayList<Monster> monsters;
-	
+	private ArrayList<FloorItem> flooritems;
 	private boolean inBattle;
 	private boolean completed;
-
 	private int progression;
 	protected int[] battleStops;
 
@@ -35,6 +37,7 @@ public class AreaState extends BasicGameState {
 		progression = 0;
 		players = MainGame.players;
 		monsters = new ArrayList<Monster>();
+		flooritems = makeInitItems();
 		inBattle = false;
 		completed = false;
 	}
@@ -49,6 +52,10 @@ public class AreaState extends BasicGameState {
 		
 		if (inBattle) {
 			g.drawString("FIGHT", 400, 200);
+		}
+		
+		for (FloorItem i : flooritems) {
+			i.Draw();
 		}
 	}
 
@@ -84,6 +91,19 @@ public class AreaState extends BasicGameState {
 						progression += shift;
 						players[0].pos[0] -= shift;
 						players[1].pos[0] -= shift;
+						
+						ArrayList<FloorItem> remove = new ArrayList<FloorItem>();
+						for(FloorItem i : flooritems) {
+							i.x -=shift;
+							if (i.x < 0) {
+								remove.add(i);
+							}
+						}
+						
+						for (FloorItem i : remove){
+							flooritems.remove(i);
+						}
+						
 					}
 				}
 			}
@@ -123,6 +143,19 @@ public class AreaState extends BasicGameState {
 		}
 	}
 
+	public ArrayList<FloorItem> makeInitItems() {
+		ArrayList<FloorItem> o = new ArrayList<FloorItem>();
+		FloorItem k1 = new KnightKnifeFloor( 1200, 550);
+		FloorItem k2 = new KnightKnifeFloor( 1300f, 550f);
+		o.add(k1);
+		o.add(k2);
+		return o;
+		
+	}
+	
+	public void addNewItem() {
+	}
+	
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub
