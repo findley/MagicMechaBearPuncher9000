@@ -7,9 +7,7 @@ import org.newdawn.slick.SpriteSheet;
 public abstract class Monster extends Dude{
 	
 	// dunno the fuck this is gonna do yet.
-	void aiLoop(){
-		
-	}
+	abstract void aiLoop(Player[] players);
 
 	public void move(Input input, int delta){
 		if(flinching){

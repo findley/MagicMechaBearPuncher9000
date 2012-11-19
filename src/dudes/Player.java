@@ -56,7 +56,7 @@ public class Player extends Dude {
 		if(isAttacking){
 			attackTime+=delta;
 			if(attackTime < this.weapon.attackTime){
-				currentAnimation = handleAnimation("punch");
+				//currentAnimation = handleAnimation("punch");
 				return;
 			}
 			else{

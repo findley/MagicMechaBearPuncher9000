@@ -137,7 +137,7 @@ public class AreaState extends BasicGameState {
 				}
 				if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
 					// players[(i + 1) % 2].flinch(0);
-					players[(i + 1) % 2].hurt(players[i].weapon.damage, 500);
+					players[(i + 1) % 2].hurt(0, 1000);
 				}
 			}
 		}

@@ -67,4 +67,9 @@ public class Knight extends Monster{
 		}
 	}
 
+	@Override
+	void aiLoop(Player[] players) {
+		
+	}
+
 }
