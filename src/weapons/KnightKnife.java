@@ -1,15 +1,29 @@
 package weapons;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 import dudes.Dude;
 
 public class KnightKnife extends Weapon{
 	
+	
 	public KnightKnife(Dude owner) {
+		this(owner.pos[0], owner.pos[1]);
+		assignOwner(owner);
+	}
+
+	public KnightKnife(float x, float y) {
 		super();
-		this.owner = owner;
-		weaponSprite = null;
+		try {
+			weaponSprite = new Image("Assets/FloorItems/sword.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		this.x = x;
+		this.y = y;
 		attackSprite = null;
 		damage = 5;
 		attackWidth = 6;
@@ -17,7 +31,8 @@ public class KnightKnife extends Weapon{
 		attackTime = 1000;
 		delayTime = 500;
 	}
-
+	
+	
 	@Override
 	public void attack() {
 		float[] corner = owner.weaponLoc();

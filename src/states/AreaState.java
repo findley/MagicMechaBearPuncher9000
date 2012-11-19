@@ -1,6 +1,7 @@
 package states;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,6 +11,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 import weapons.Attack;
+import weapons.KnightKnife;
+import weapons.Weapon;
 import core.MainGame;
 import dudes.Monster;
 import dudes.Player;
@@ -19,10 +22,9 @@ public class AreaState extends BasicGameState {
 	protected TiledMap bgImage;
 	protected ArrayList<ArrayList<Monster>> monsters;
 	protected ArrayList<Monster> currBattle;
-	
+	private ArrayList<Weapon> floorweapons;
 	private boolean inBattle;
 	private boolean completed;
-
 	private int progression;
 	protected int[] battleStops;
 
@@ -37,6 +39,7 @@ public class AreaState extends BasicGameState {
 		players = MainGame.players;
 		monsters = new ArrayList<ArrayList<Monster>>();
 		currBattle = new ArrayList<Monster>();
+		floorweapons = makeInitItems();
 		inBattle = false;
 		completed = false;
 	}
@@ -55,6 +58,11 @@ public class AreaState extends BasicGameState {
 			for (Monster m: currBattle) {
 				m.render(g);
 			}
+		}
+		
+		for (Weapon i : floorweapons) {
+			System.out.println("y");
+			i.Draw();
 		}
 	}
 
@@ -91,6 +99,19 @@ public class AreaState extends BasicGameState {
 						progression += shift;
 						players[0].pos[0] -= shift;
 						players[1].pos[0] -= shift;
+						
+						ArrayList<Weapon> remove = new ArrayList<Weapon>();
+						for(Weapon i : floorweapons) {
+							i.x -=shift;
+							if (i.x < 0) {
+								remove.add(i);
+							}
+						}
+						
+						for (Weapon i : remove){
+							floorweapons.remove(i);
+						}
+						
 					}
 				}
 			}
@@ -130,6 +151,19 @@ public class AreaState extends BasicGameState {
 		}
 	}
 
+	public ArrayList<Weapon> makeInitItems() {
+		ArrayList<Weapon> o = new ArrayList<Weapon>();
+		Weapon k1 = new KnightKnife( 1200, 550);
+		Weapon k2 = new KnightKnife( 1300f, 550f);
+		o.add(k1);
+		o.add(k2);
+		return o;
+		
+	}
+	
+	public void addNewItem() {
+	}
+	
 	@Override
 	public int getID() {
 		// TODO Auto-generated method stub

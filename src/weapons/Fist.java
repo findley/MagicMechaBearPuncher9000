@@ -7,6 +7,11 @@ import dudes.Dude;
 public class Fist extends Weapon {
 	
 	public Fist(Dude owner) {
+		this(owner.pos[0], owner.pos[1]);
+		assignOwner(owner);
+	}
+	
+	public Fist(float x, float y) {
 		super();
 		this.owner = owner;
 		weaponSprite = null;
