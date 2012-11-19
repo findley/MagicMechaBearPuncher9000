@@ -151,6 +151,8 @@ public class AreaState extends BasicGameState {
 				}
 			}
 			monster.aiLoop(players);
+			monster.hitbox.setX(monster.pos[0]);
+			monster.hitbox.setY(monster.pos[1]);
 		}
 		for(Player player : players){
 			player.hitbox.setX(player.pos[0]);
