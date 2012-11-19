@@ -79,15 +79,15 @@ public class Knight extends Monster {
 					locked = players[1];
 				}
 			}
-			if (locked.pos[0] - this.pos[0] > 0 && Math.random() > .2) {
-				this.isRight = false;
+			if (locked.pos[0] > this.pos[0] && Math.random() > .2) {
+				this.moveRight = true;
 			} else {
-				this.isRight = true;
+				this.moveRight = false;
 			}
-			if (locked.pos[1] - this.pos[1] > 0 && Math.random() > .2) {
-				this.moveUp = true;
-			} else {
+			if (locked.pos[1] > this.pos[1] && Math.random() > .2) {
 				this.moveUp = false;
+			} else {
+				this.moveUp = true;;
 			}
 		}
 		else{
