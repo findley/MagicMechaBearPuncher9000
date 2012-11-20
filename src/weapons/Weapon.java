@@ -45,17 +45,17 @@ public abstract class Weapon {
 	
 	public void initAnimations() {
 		// flinch left
-		anims[0] = new Animation(weaponSheet, 0, 0, 3, 0, true, 40, true);
+		anims[0] = new Animation(weaponSheet, 0, 0, 3, 0, true, 500, true);
 		anims[0].setLooping(false);
 		// flinch right
-		anims[1] = new Animation(weaponSheet, 0, 1, 3, 1, true, 40, true);
+		anims[1] = new Animation(weaponSheet, 0, 1, 3, 1, true, 500, true);
 		anims[1].setLooping(false);
 
 		// punch left
-		anims[2] = new Animation(weaponSheet, 0, 2, 3, 2, true, 40, true);
+		anims[2] = new Animation(weaponSheet, 0, 2, 3, 2, true, 60, true);
 		anims[2].setLooping(false);
 		// punch right
-		anims[3] = new Animation(weaponSheet, 0, 3, 3, 3, true, 40, true);
+		anims[3] = new Animation(weaponSheet, 0, 3, 3, 3, true, 60, true);
 		anims[3].setLooping(false);
 
 		// walk right
@@ -85,8 +85,6 @@ public abstract class Weapon {
 	
 	public void Draw() {
 		if (this.owner == null) {
-			System.out.println(x);
-			System.out.println(y);
 			groundSprite.draw(x, y);
 		} else {
 		}

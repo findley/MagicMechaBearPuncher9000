@@ -111,9 +111,15 @@ public abstract class Dude {
 	public abstract Animation handleAnimation(String whichAnim);
 
 	public void render(Graphics g) throws SlickException {
-		if(currentAnimation!=null){
-			currentAnimation.draw(pos[0],pos[1]);
-		} else{
+		if (currentAnimation != null) {
+			if (flinching) {
+				if ((flinchTime % (flinchDur / 3)) < flinchDur / 6) {
+					currentAnimation.draw(pos[0], pos[1]);
+				}
+			} else {
+				currentAnimation.draw(pos[0], pos[1]);
+			}
+		} else {
 			if (isRight) {
 				weapon.defaultSprite[0].draw(pos[0], pos[1]);
 			} else {
@@ -133,7 +139,6 @@ public abstract class Dude {
 				+ padding * 2, height + padding * 2);
 		g.setColor(healthFill);
 		g.fillRect(x - width / 2, y - height / 2, healthRemaining, height);
-		//g.draw(this.hitbox);
 		for (Attack attack : this.weapon.attacks) {
 			g.draw(attack.hitbox);
 		}

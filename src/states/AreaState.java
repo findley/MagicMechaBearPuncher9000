@@ -28,6 +28,8 @@ public class AreaState extends BasicGameState {
 	private int progression;
 	protected int[] battleStops;
 	protected int areaLength;
+	
+	private final int PLAYER_STUN_LENGTH = 500;
 
 	public AreaState(int stateID) {
 		super();
@@ -100,7 +102,6 @@ public class AreaState extends BasicGameState {
 							progression = stop;
 							inBattle = true;
 							currBattle = monsters.remove(0);
-							System.out.println(currBattle.size());
 						}
 					}
 					if (!inBattle) {
@@ -136,8 +137,7 @@ public class AreaState extends BasicGameState {
 					}
 				}
 				if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
-					// players[(i + 1) % 2].flinch(0);
-					players[(i + 1) % 2].hurt(0, 1000);
+					players[(i + 1) % 2].hurt(0, PLAYER_STUN_LENGTH);
 				}
 			}
 		}
