@@ -23,6 +23,10 @@ public class Sword extends Weapon {
 		//weaponSheet = new SpriteSheet("Assets/Weapons/Sword/sheet.png", 64, 64);
 		//defaultSprite = weaponSheet.getSprite(0, 0);		
 		//initAnimations();
+		weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player0Fist.png", 64, 64);
+		defaultSprite[0] = weaponSheet.getSprite(0, 5);
+		defaultSprite[1] = weaponSheet.getSprite(0, 4);
+		initAnimations();
 		groundSprite = new Image("Assets/Weapons/Sword/sword.png");
 	}
 	
