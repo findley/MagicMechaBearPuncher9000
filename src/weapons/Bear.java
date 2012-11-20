@@ -5,34 +5,32 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Sword extends Weapon {
+public class Bear extends Weapon {
 
-	public Sword(float x, float y) {
+	public Bear(float x, float y) {
 		super();
 		this.x = x;
 		this.y = y;
 		damage = 5;
 		attackWidth = 100;
 		attackHeight = 6;
-		attackTime = 200;
+		attackTime = 1000;
 		delayTime = 500;
 	}
 	
 	@Override
 	public void init() throws SlickException {
 		super.init();
-		//weaponSheet = new SpriteSheet("Assets/Weapons/Sword/sheet.png", 64, 64);
-		//defaultSprite = weaponSheet.getSprite(0, 0);		
-		//initAnimations();
-		weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player0Fist.png", 64, 64);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Bear/bearwalk.png", 64, 64);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
-		defaultSprite[1] = weaponSheet.getSprite(0, 4);
+		defaultSprite[1] = weaponSheet.getSprite(0, 4);	
 		initAnimations();
-		groundSprite = new Image("Assets/Weapons/Sword/sword.png");
+		groundSprite = new Image("Assets/Weapons/Bear/bearclaw.png");
 	}
 	
 	@Override
 	public void attack() {
+		// TODO Auto-generated method stub
 		float[] corner = owner.weaponLoc();
 		corner[0] -= attackWidth / 2;
 		corner[1] -= attackHeight / 2;
@@ -50,4 +48,5 @@ public class Sword extends Weapon {
 			return false;
 		}
 	}
+
 }

@@ -16,7 +16,7 @@ public class Fist extends Weapon {
 	public Fist(float x, float y) {
 		super();
 		damage = 5;
-		attackWidth = 60;
+		attackWidth = 30;
 		attackHeight = 6;
 		attackTime = 200;
 		delayTime = 500;
@@ -25,7 +25,6 @@ public class Fist extends Weapon {
 	@Override
 	public void init() throws SlickException {
 		super.init();
-		//TODO: make for player 1
 		//weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player" + ((Player)owner).playerID + "Fist.png", 64, 64);
 		weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player0Fist.png", 64, 64);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);

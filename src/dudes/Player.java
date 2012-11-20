@@ -130,4 +130,5 @@ public class Player extends Dude {
 			return new float[] {pos[0] - 16, pos[1] +30};
 		}
 	}
+
 }

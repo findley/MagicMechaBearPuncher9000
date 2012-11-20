@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import weapons.Bear;
 import weapons.Sword;
 import weapons.Weapon;
 
@@ -77,7 +78,7 @@ public class TownState extends AreaState {
 	public ArrayList<Weapon> makeInitItems() throws SlickException {
 		ArrayList<Weapon> o = new ArrayList<Weapon>();
 		Weapon k1 = new Sword(1200f, 550f);
-		Weapon k2 = new Sword(1300f, 550f);
+		Weapon k2 = new Bear(1300f, 550f);
 		k1.init();
 		k2.init();
 		o.add(k1);
