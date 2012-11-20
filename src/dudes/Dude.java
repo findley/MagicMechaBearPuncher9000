@@ -16,8 +16,6 @@ import weapons.Weapon;
 public abstract class Dude {
 	public int health;
 	public Weapon weapon;
-	public SpriteSheet sprites;
-	public int[] spriteIndex = new int[2];
 	public Animation currentAnimation;
 	public float[] pos = new float[2];
 	public Shape hitbox;
@@ -38,6 +36,10 @@ public abstract class Dude {
 	public boolean delayed;
 	public int delayDur;
 	public int delayTime;
+	
+	// only for enemies
+	public SpriteSheet sprites;
+	public int[] spriteIndex = new int[2];
 	
 	public abstract float[] weaponLoc();
 
@@ -120,7 +122,7 @@ public abstract class Dude {
 		if(currentAnimation!=null){
 			currentAnimation.draw(pos[0],pos[1]);
 		} else{
-			sprites.getSprite(spriteIndex[0], spriteIndex[1]).draw(pos[0], pos[1]);
+			weapon.defaultSprite.draw(pos[0], pos[1]);
 		}
 
 		// Render a health bar for the Dude

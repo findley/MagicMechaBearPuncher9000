@@ -11,8 +11,6 @@ import weapons.KnightKnife;
 
 public class Knight extends Monster {
 
-	private Animation[] anims = new Animation[8];
-
 	public Knight(float xPos, float yPos) {
 		maxHealth = 37;
 		health = maxHealth;
@@ -33,30 +31,9 @@ public class Knight extends Monster {
 	}
 
 	public void init() throws SlickException {
-		sprites = new SpriteSheet("Assets/Enemies/enemy_1_sheet.png", 64, 64);
-		spriteIndex[0] = 0;
-		spriteIndex[1] = 0;
+		//create spritesheets for the weapon:
+		this.weapon.init();
 		aiDelay = 2000;
-		initAnimation();
-	}
-
-	public void initAnimation() {
-		// walk left
-		anims[0] = new Animation(sprites, 0, 0, 3, 0, true, 10, true);
-		// attack left
-		anims[1] = new Animation(sprites, 0, 1, 2, 1, true, 10, true);
-		// flinch left
-		anims[2] = new Animation(sprites, 0, 2, 3, 2, true, 10, true);
-		// die left
-		anims[3] = new Animation(sprites, 0, 3, 2, 3, true, 10, true);
-		// walk right
-		anims[4] = new Animation(sprites, 0, 4, 3, 4, true, 10, true);
-		// attack right
-		anims[5] = new Animation(sprites, 0, 5, 2, 5, true, 10, true);
-		// flinch right
-		anims[6] = new Animation(sprites, 0, 6, 3, 6, true, 10, true);
-		// die right
-		anims[7] = new Animation(sprites, 0, 7, 2, 7, true, 10, true);
 	}
 
 	public float[] weaponLoc() {
@@ -112,17 +89,17 @@ public class Knight extends Monster {
 	public Animation handleAnimation(String whichAnim) {
 		if(isRight){
 			if(whichAnim.equals("punch")){
-				return anims[0];
+				return weapon.anims[0];
 			} else {
 				//else, the walk animation for now
-				return anims[1];
+				return weapon.anims[1];
 			}
 		} else{
 			if(whichAnim.equals("punch")){
-				return anims[2];
+				return weapon.anims[2];
 			} else {
 				//else, the walk animation for now
-				return anims[3];
+				return weapon.anims[3];
 			} 
 		}
 	}

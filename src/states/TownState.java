@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import weapons.KnightKnife;
+import weapons.Sword;
 import weapons.Weapon;
 
 import dudes.Knight;
@@ -72,15 +73,17 @@ public class TownState extends AreaState {
 		battleStops[2] = 3000;
 		
 	}
-	
+
 	@Override
-	public ArrayList<Weapon> makeInitItems() {
+	public ArrayList<Weapon> makeInitItems() throws SlickException {
 		ArrayList<Weapon> o = new ArrayList<Weapon>();
-		Weapon k1 = new KnightKnife( 1200f, 550f);
-		Weapon k2 = new KnightKnife( 1300f, 550f);
+		Weapon k1 = new Sword(1200f, 550f);
+		Weapon k2 = new Sword(1300f, 550f);
+		k1.init();
+		k2.init();
 		o.add(k1);
 		o.add(k2);
 		return o;
-		
+
 	}
 }

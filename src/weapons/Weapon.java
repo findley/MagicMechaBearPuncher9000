@@ -4,7 +4,10 @@ package weapons;
 import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
 import dudes.Dude;
@@ -15,8 +18,12 @@ import dudes.Dude;
  *
  */
 public abstract class Weapon {
-	public Image weaponSprite;
-	Image attackSprite;
+	public Image groundSprite;
+	public SpriteSheet weaponSheet;
+	public Animation[] anims = new Animation[6];
+	// animations are flinch L, flinch R, punch L, punch R, walk L, walk R
+	public Image defaultSprite;
+	
 	public int damage;
 	int attackWidth;
 	int attackHeight;
@@ -27,9 +34,33 @@ public abstract class Weapon {
 	public float x;
 	public float y;
 	
-	Weapon(){
+	public Weapon() {
 		attacks = new ArrayList<Attack>();
-		attackTime = 200;
+	}
+	
+	public void init() throws SlickException {
+		
+	}
+	
+	public void initAnimations() {
+		// flinch left
+		anims[0] = new Animation(weaponSheet, 0, 0, 3, 0, true, 40, true);
+		anims[0].setLooping(false);
+		// flinch right
+		anims[1] = new Animation(weaponSheet, 0, 1, 3, 1, true, 40, true);
+		anims[1].setLooping(false);
+
+		// punch left
+		anims[2] = new Animation(weaponSheet, 0, 2, 3, 2, true, 40, true);
+		anims[2].setLooping(false);
+		// punch right
+		anims[3] = new Animation(weaponSheet, 0, 3, 3, 3, true, 40, true);
+		anims[3].setLooping(false);
+
+		// walk right
+		anims[4] = new Animation(weaponSheet, 0, 4, 3, 4, true, 80, true);
+		// walk left
+		anims[5] = new Animation(weaponSheet, 0, 5, 3, 5, true, 80, true);
 	}
 
 	// to start attack
@@ -48,12 +79,14 @@ public abstract class Weapon {
 	}
 	
 	public Shape getHitBox() {
-		return new Rectangle(x, y, weaponSprite.getWidth(), weaponSprite.getHeight());
+		return new Rectangle(x, y, groundSprite.getWidth(), groundSprite.getHeight());
 	}
 	
 	public void Draw() {
 		if (this.owner == null) {
-			weaponSprite.draw(x, y);
+			System.out.println(x);
+			System.out.println(y);
+			groundSprite.draw(x, y);
 		} else {
 		}
 	}
@@ -72,6 +105,4 @@ public abstract class Weapon {
 			attacks.remove(attack);
 		}
 	}
-	
-	
 }
