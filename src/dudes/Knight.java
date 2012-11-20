@@ -8,6 +8,8 @@ import org.newdawn.slick.geom.Rectangle;
 import weapons.KnightKnife;
 
 public class Knight extends Monster {
+	float homeToleranceX;
+	float homeToleranceY;
 
 	public Knight(float xPos, float yPos) {
 		maxHealth = 37;
@@ -19,6 +21,8 @@ public class Knight extends Monster {
 		healthFill = new Color(Color.red);
 		attackTime = 0;
 		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
+		homeToleranceX = 100;
+		homeToleranceY = 75;
 		this.weapon = new KnightKnife(this);
 		try {
 			this.init();
@@ -31,7 +35,7 @@ public class Knight extends Monster {
 	public void init() throws SlickException {
 		//create spritesheets for the weapon:
 		this.weapon.init();
-		aiDelay = 2000;
+		aiDelay = 500;
 	}
 
 	// return leftmost point of weapon
@@ -60,12 +64,12 @@ public class Knight extends Monster {
 					locked = players[1];
 				}
 			}
-			if (locked.pos[0] > this.pos[0] && Math.random() > .2) {
+			if (locked.pos[0] > this.pos[0] && Math.random() > .15) {
 				this.moveRight = true;
 			} else {
 				this.moveRight = false;
 			}
-			if (locked.pos[1] > this.pos[1] && Math.random() > .2) {
+			if (locked.pos[1] > this.pos[1] && Math.random() > .15) {
 				this.moveUp = false;
 			} else {
 				this.moveUp = true;;
@@ -86,7 +90,8 @@ public class Knight extends Monster {
 				this.moveDown(1);
 			}
 		}
-		if (Math.random() > .99){
+		if (Math.random() > .99 && Math.abs(this.pos[0] - locked.pos[0]) < homeToleranceX && 
+				Math.abs(this.pos[1] - locked.pos[1]) < homeToleranceY){
 			homing = true;
 		}
 		
