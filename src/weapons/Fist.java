@@ -5,7 +5,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
 import dudes.Dude;
-import dudes.Player;
 
 public class Fist extends Weapon {
 	
@@ -16,7 +15,6 @@ public class Fist extends Weapon {
 	
 	public Fist(float x, float y) {
 		super();
-		groundSprite = null;
 		damage = 5;
 		attackWidth = 60;
 		attackHeight = 6;
@@ -30,7 +28,8 @@ public class Fist extends Weapon {
 		//TODO: make for player 1
 		//weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player" + ((Player)owner).playerID + "Fist.png", 64, 64);
 		weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player0Fist.png", 64, 64);
-		defaultSprite = weaponSheet.getSprite(0, 5);
+		defaultSprite[0] = weaponSheet.getSprite(0, 5);
+		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();
 	}
 	

@@ -4,15 +4,9 @@ import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.state.StateBasedGame;
-
-import core.MainGame;
-
 import weapons.*;
 
 public class Player extends Dude {
@@ -39,14 +33,19 @@ public class Player extends Dude {
 		//create spritesheets for the weapon:
 		this.weapon.init();
 	}
-	
-	public void move(Input input, int delta){
-		if(flinching){
-			flinchTime += delta;
-			if(flinchTime < flinchDur){
-				return;
+
+	public void move(Input input, int delta) {
+		if (currentAnimation!=null) {
+			if (currentAnimation.isStopped()) {
+				currentAnimation.restart();
+				currentAnimation = null;
 			}
-			else{
+		}
+		if (flinching) {
+			flinchTime += delta;
+			if (flinchTime < flinchDur) {
+				return;
+			} else {
 				flinching = false;
 			}
 		}
@@ -54,13 +53,11 @@ public class Player extends Dude {
 		if(isAttacking){
 			attackTime+=delta;
 			if(attackTime < this.weapon.attackTime){
-				//currentAnimation = handleAnimation("punch");
 				return;
 			}
 			else{
 				isAttacking = false;
 				delayed = true;
-				currentAnimation.restart();
 				delayTime = 0;
 			}
 		}
@@ -70,7 +67,7 @@ public class Player extends Dude {
 		for (String key : buttons.keySet()) {
 			//TODO: fix diagonally
 		}
-		
+
 		if (input.isKeyPressed(buttons.get("action"))) {
 			this.isAttacking = true;
 			currentAnimation = handleAnimation("punch");
@@ -78,16 +75,22 @@ public class Player extends Dude {
 			attackTime = 0;
 			this.weapon.attack();
 			return;
-		} else if (input.isKeyDown(buttons.get("right"))) {
-			this.moveRight(moveDist);
-		} else if (input.isKeyDown(buttons.get("left"))) {
-			this.moveLeft(moveDist);
-		} else if (input.isKeyDown(buttons.get("down"))) {
-			this.moveDown(moveDist);
-		} else if (input.isKeyDown(buttons.get("up"))) {			
-			this.moveUp(moveDist);
-		} else{
-			if(currentAnimation!=null){
+		} else if (input.isKeyDown(buttons.get("right"))
+				|| input.isKeyDown(buttons.get("left"))
+				|| input.isKeyDown(buttons.get("down"))
+				|| input.isKeyDown(buttons.get("up"))) {
+			currentAnimation = handleAnimation("walk");
+			currentAnimation.start();
+			if (input.isKeyDown(buttons.get("right")))
+				this.moveRight(moveDist);
+			if (input.isKeyDown(buttons.get("left")))
+				this.moveLeft(moveDist);
+			if (input.isKeyDown(buttons.get("down")))
+				this.moveDown(moveDist);
+			if (input.isKeyDown(buttons.get("up")))
+				this.moveUp(moveDist);
+		} else {
+			if (currentAnimation != null) {
 				currentAnimation.stop();
 			}
 		}

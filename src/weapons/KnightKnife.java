@@ -1,6 +1,5 @@
 package weapons;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
@@ -31,7 +30,8 @@ public class KnightKnife extends Weapon{
 	public void init() throws SlickException {
 		super.init();
 		weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/sheet.png", 64, 64);
-		defaultSprite = weaponSheet.getSprite(0, 0);
+		defaultSprite[0] = weaponSheet.getSprite(0, 0);
+		defaultSprite[1] = weaponSheet.getSprite(0, 1);
 		initAnimations();
 	}
 	
