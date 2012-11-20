@@ -3,6 +3,7 @@ package weapons;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
 
 public class Sword extends Weapon {
 
@@ -13,7 +14,7 @@ public class Sword extends Weapon {
 		damage = 5;
 		attackWidth = 100;
 		attackHeight = 6;
-		attackTime = 1000;
+		attackTime = 200;
 		delayTime = 500;
 	}
 	
@@ -32,14 +33,21 @@ public class Sword extends Weapon {
 	
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
-		
+		float[] corner = owner.weaponLoc();
+		corner[0] -= attackWidth / 2;
+		corner[1] -= attackHeight / 2;
+		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
+				attackHeight);
+		attacks.add(new Attack(owner.isRight, hitbox, "player"));
 	}
 
 	@Override
 	protected boolean updateAttack(Attack attack) {
-		// TODO Auto-generated method stub
-		return false;
+		if(owner.isAttacking) {
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
-
 }
