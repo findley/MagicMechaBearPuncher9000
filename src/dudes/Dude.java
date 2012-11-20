@@ -3,7 +3,6 @@ package dudes;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Shape;
@@ -53,6 +52,7 @@ public abstract class Dude {
 
 	public void flinch(int milliseconds) {
 		if (!flinching){
+			currentAnimation = handleAnimation("flinch");
 			this.flinchTime = 0;
 			this.flinchDur = milliseconds;
 			this.flinching = true;
@@ -64,8 +64,6 @@ public abstract class Dude {
 	
 	public void moveLeft(float moveDist) {
 		isRight = false;
-		currentAnimation = handleAnimation("walk");
-		currentAnimation.start();
 		pos[0] -= moveDist;
 		if (pos[0] < 0) {
 			pos[0] = 0;
@@ -74,8 +72,6 @@ public abstract class Dude {
 	
 	public void moveRight(float moveDist){
 		isRight = true;
-		currentAnimation = handleAnimation("walk");
-		currentAnimation.start();
 		pos[0] += moveDist;
 		if (pos[0] > MainGame.GAME_WIDTH - 64) {
 			pos[0] = MainGame.GAME_WIDTH - 64;
@@ -83,8 +79,6 @@ public abstract class Dude {
 	}
 	
 	public void moveUp(float moveDist){
-		currentAnimation = handleAnimation("walk");
-		currentAnimation.start();
 		pos[1] -= moveDist;
 		if (pos[1] < MainGame.GAME_HEIGHT - 32*10 + 5) {
 			pos[1] = MainGame.GAME_HEIGHT - 32*10 + 5;
@@ -92,8 +86,6 @@ public abstract class Dude {
 	}
 	
 	public void moveDown(float moveDist){
-		currentAnimation = handleAnimation("walk");
-		currentAnimation.start();
 		pos[1] += moveDist;
 		if (pos[1] > MainGame.GAME_HEIGHT - 32*3 - 5) {
 			pos[1] = MainGame.GAME_HEIGHT - 32*3 - 5;
@@ -122,7 +114,11 @@ public abstract class Dude {
 		if(currentAnimation!=null){
 			currentAnimation.draw(pos[0],pos[1]);
 		} else{
-			weapon.defaultSprite.draw(pos[0], pos[1]);
+			if (isRight) {
+				weapon.defaultSprite[0].draw(pos[0], pos[1]);
+			} else {
+				weapon.defaultSprite[1].draw(pos[0], pos[1]);
+			}
 		}
 
 		// Render a health bar for the Dude

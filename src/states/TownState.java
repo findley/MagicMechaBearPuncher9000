@@ -7,7 +7,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
-import weapons.KnightKnife;
 import weapons.Sword;
 import weapons.Weapon;
 

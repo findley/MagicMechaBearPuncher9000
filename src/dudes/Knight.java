@@ -3,10 +3,8 @@ package dudes;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
-import weapons.Fist;
 import weapons.KnightKnife;
 
 public class Knight extends Monster {

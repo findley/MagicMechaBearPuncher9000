@@ -22,7 +22,8 @@ public abstract class Weapon {
 	public SpriteSheet weaponSheet;
 	public Animation[] anims = new Animation[6];
 	// animations are flinch L, flinch R, punch L, punch R, walk L, walk R
-	public Image defaultSprite;
+	public Image[] defaultSprite = new Image[2];
+	// for left and right
 	
 	public int damage;
 	int attackWidth;
