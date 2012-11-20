@@ -10,6 +10,7 @@ public abstract class Monster extends Dude{
 	boolean moveUp;
 	int aiDelay;
 	int aiCurTime = 0;
+	int moveSpeed;
 	// dunno the fuck this is gonna do yet.
 	abstract public void aiLoop(Player[] players, int delta);
 
@@ -36,5 +37,9 @@ public abstract class Monster extends Dude{
 				delayTime = 0;
 			}
 		}
+	}
+	
+	public void home(Player target){
+		
 	}
 }

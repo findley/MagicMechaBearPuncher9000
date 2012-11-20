@@ -124,10 +124,10 @@ public class Player extends Dude {
 	
 	public float[] weaponLoc(){
 		if(this.isRight){
-			return new float[] {pos[0] + 64 + 16, pos[1] + 30};
+			return new float[] {pos[0] + 64 + 4, pos[1]+ 40};
 		}
 		else {
-			return new float[] {pos[0] - 16, pos[1] +30};
+			return new float[] {pos[0] - 4, pos[1]+40};
 		}
 	}
 

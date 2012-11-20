@@ -35,10 +35,17 @@ public class Fist extends Weapon {
 	@Override
 	public void attack() {
 		float[] corner = owner.weaponLoc();
-		corner[0] -= attackWidth / 2;
-		corner[1] -= attackHeight / 2;
-		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
+		//corner[0] -= attackWidth / 2;
+		//corner[1] -= attackHeight / 2;
+		Rectangle hitbox;
+		if (owner.isRight){
+			hitbox = new Rectangle(corner[0], corner[1], attackWidth,
 				attackHeight);
+		}
+		else {
+			hitbox = new Rectangle(corner[0]-attackWidth, corner[1], attackWidth,
+					attackHeight);
+		}
 		attacks.add(new Attack(owner.isRight, hitbox, "player"));
 	}
 

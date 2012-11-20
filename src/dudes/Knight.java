@@ -34,6 +34,7 @@ public class Knight extends Monster {
 		aiDelay = 2000;
 	}
 
+	// return leftmost point of weapon
 	public float[] weaponLoc() {
 		if (this.isRight) {
 			return new float[] { pos[0] + 64 + 16, pos[1] + 30 };
