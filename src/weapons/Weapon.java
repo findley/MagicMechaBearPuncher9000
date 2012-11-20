@@ -26,8 +26,8 @@ public abstract class Weapon {
 	// for left and right
 	
 	public int damage;
-	int attackWidth;
-	int attackHeight;
+	public int attackWidth;
+	public int attackHeight;
 	public float attackTime;
 	public int delayTime;
 	public ArrayList<Attack> attacks;

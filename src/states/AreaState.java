@@ -154,6 +154,8 @@ public class AreaState extends BasicGameState {
 		}
 		for (Monster monster : this.currBattle) {
 			monster.invincibleTimer+=delta;
+			monster.weapon.updateAttacks();
+			monster.aiLoop(players, delta);
 			for (Attack attack : monster.weapon.attacks) {
 				for (Player player : players) {
 					if (attack.hitbox.intersects(player.hitbox)) {
@@ -161,7 +163,6 @@ public class AreaState extends BasicGameState {
 					}
 				}
 			}
-			monster.aiLoop(players, delta);
 			monster.hitbox.setX(monster.pos[0]);
 			monster.hitbox.setY(monster.pos[1]);
 		}

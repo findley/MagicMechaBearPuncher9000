@@ -36,15 +36,20 @@ public class Knight extends Monster {
 
 	// return leftmost point of weapon
 	public float[] weaponLoc() {
-		if (this.isRight) {
-			return new float[] { pos[0] + 64 + 16, pos[1] + 30 };
-		} else {
-			return new float[] { pos[0] - 16, pos[1] + 30 };
+		if(this.isRight){
+			return new float[] {pos[0] + 64 + 4, pos[1]+ 40};
+		}
+		else {
+			return new float[] {pos[0] - 4, pos[1]+40};
 		}
 	}
 
 	@Override
 	public void aiLoop(Player[] players, int delta) {
+		if(true){
+			home(players[0]);
+			return;
+		}
 		if (aiCurTime > aiDelay || aiCurTime == 0) {
 			aiCurTime = delta;
 			if (locked == null || Math.random() > .8) {
