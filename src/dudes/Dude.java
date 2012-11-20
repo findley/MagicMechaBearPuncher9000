@@ -12,7 +12,7 @@ import core.MainGame;
 import weapons.Attack;
 import weapons.Weapon;
 
-public abstract class Dude {
+public abstract class Dude implements Comparable<Dude>{
 	public int health;
 	public Weapon weapon;
 	public Animation currentAnimation;
@@ -142,5 +142,9 @@ public abstract class Dude {
 		for (Attack attack : this.weapon.attacks) {
 			g.draw(attack.hitbox);
 		}
+	}
+	
+	public int compareTo(Dude other) {
+		return (int) (pos[1] - other.pos[1]);
 	}
 }

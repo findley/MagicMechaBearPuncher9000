@@ -14,6 +14,7 @@ import weapons.Attack;
 import weapons.KnightKnife;
 import weapons.Weapon;
 import core.MainGame;
+import dudes.Dude;
 import dudes.Monster;
 import dudes.Player;
 
@@ -28,7 +29,7 @@ public class AreaState extends BasicGameState {
 	private int progression;
 	protected int[] battleStops;
 	protected int areaLength;
-	
+	private ArrayList<Player> sPlayers;
 	private final int PLAYER_STUN_LENGTH = 500;
 
 	public AreaState(int stateID) {
@@ -46,19 +47,29 @@ public class AreaState extends BasicGameState {
 		inBattle = false;
 		completed = false;
 		areaLength = 0;
+		
+		sPlayers = new ArrayList<Player>();
+		sPlayers.add(players[0]);
+		sPlayers.add(players[1]);
 	}
 
 	@Override
 	public void render(GameContainer container, StateBasedGame game, Graphics g)
 			throws SlickException {
 		bgImage.render(-progression % 32, 0, progression / 32, 0, 32 + 1, 24);
-		for (int i = 0; i < players.length; i++) {
-			players[i].render(g);
+		
+		Collections.sort(sPlayers);		
+		for (Player p : sPlayers) {
+			p.render(g);
 		}
+		//for (int i = 0; i < players.length; i++) {
+		//	players[i].render(g);
+		//}
 		
 		if (inBattle) {
 			g.drawString("FIGHT", 400, 200);
 			
+			Collections.sort(currBattle);
 			for (Monster m: currBattle) {
 				m.render(g);
 			}
