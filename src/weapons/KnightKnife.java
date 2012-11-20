@@ -2,6 +2,7 @@ package weapons;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
 import dudes.Dude;
@@ -16,22 +17,23 @@ public class KnightKnife extends Weapon{
 
 	public KnightKnife(float x, float y) {
 		super();
-		try {
-			weaponSprite = new Image("Assets/Weapons/Sword/sword.png");
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+		groundSprite = null;
 		this.x = x;
 		this.y = y;
-		attackSprite = null;
 		damage = 5;
 		attackWidth = 100;
 		attackHeight = 6;
-		//attackTime = 1000;
+		attackTime = 1000;
 		delayTime = 500;
 	}
 	
+	@Override
+	public void init() throws SlickException {
+		super.init();
+		weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/sheet.png", 64, 64);
+		defaultSprite = weaponSheet.getSprite(0, 0);
+		initAnimations();
+	}
 	
 	@Override
 	public void attack() {
@@ -40,7 +42,7 @@ public class KnightKnife extends Weapon{
 		corner[1] -= attackHeight / 2;
 		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
 				attackHeight);
-		attacks.add(new Attack(attackSprite, owner.isRight, hitbox, "player"));
+		attacks.add(new Attack(owner.isRight, hitbox, "player"));
 	}
 
 	@Override

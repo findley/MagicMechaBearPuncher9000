@@ -167,7 +167,7 @@ public class AreaState extends BasicGameState {
 				for (Weapon w: floorweapons) {
 					if (p.hitbox.intersects(w.getHitBox())) {
 						p.weapon.drop();
-						if (p.weapon.weaponSprite == null ) {
+						if (p.weapon.groundSprite == null ) {
 							
 						} else {
 							add.add(p.weapon);
@@ -205,7 +205,7 @@ public class AreaState extends BasicGameState {
 		}
 	}
 
-	public ArrayList<Weapon> makeInitItems() {
+	public ArrayList<Weapon> makeInitItems() throws SlickException {
 		return new ArrayList<Weapon>();
 	}
 	

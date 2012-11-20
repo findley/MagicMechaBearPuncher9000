@@ -13,12 +13,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import core.MainGame;
 
-import weapons.Fist;
+import weapons.*;
 
 public class Player extends Dude {
 	public HashMap<String, Integer> buttons;
-	private int playerID;
-	private Animation[] anims = new Animation[4];
+	public int playerID;
 	
 	public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
 		this.buttons = buttons;
@@ -36,10 +35,9 @@ public class Player extends Dude {
 	
 	public void init(int playerID) throws SlickException {
 		this.playerID = playerID;
-		sprites = new SpriteSheet("Assets/players/player"+playerID+"Basic.png", 64, 64);
-		spriteIndex[0] = 0;
-		spriteIndex[1] = 3;
-		initAnimation();
+		
+		//create spritesheets for the weapon:
+		this.weapon.init();
 	}
 	
 	public void move(Input input, int delta){
@@ -70,7 +68,7 @@ public class Player extends Dude {
 		float moveDist = (float) .1*delta*moveSpeed;
 		
 		for (String key : buttons.keySet()) {
-			
+			//TODO: fix diagonally
 		}
 		
 		if (input.isKeyPressed(buttons.get("action"))) {
@@ -94,35 +92,26 @@ public class Player extends Dude {
 			}
 		}
 	}
-	
-	public void initAnimation(){
-		//punch right
-		anims[0] = new Animation(sprites,0,1,3,1,true,40,true);
-		anims[0].setLooping(false);
-		//walk right
-		anims[1] = new Animation(sprites,0,3,3,3,true,80,true);
-		//punch left
-		anims[2] = new Animation(sprites,0,0,3,0,true,40,true);
-		anims[2].setLooping(false);
-		//walk left
-		anims[3] = new Animation(sprites,0,2,3,2,true,80,true);
-	}
-	
-	public Animation handleAnimation(String whichAnim){
-		if(isRight){
-			if(whichAnim.equals("punch")){
-				return anims[0];
+
+	public Animation handleAnimation(String whichAnim) {
+		if (isRight) {
+			if (whichAnim.equals("flinch")) {
+				return weapon.anims[1];
+			} else if (whichAnim.equals("punch")) {
+				return weapon.anims[3];
 			} else {
-				//else, the walk animation for now
-				return anims[1];
+				// else, the walk animation for now
+				return weapon.anims[5];
 			}
-		} else{
-			if(whichAnim.equals("punch")){
-				return anims[2];
+		} else {
+			if (whichAnim.equals("flinch")) {
+				return weapon.anims[0];
+			} else if (whichAnim.equals("punch")) {
+				return weapon.anims[2];
 			} else {
-				//else, the walk animation for now
-				return anims[3];
-			} 
+				// else, the walk animation for now
+				return weapon.anims[4];
+			}
 		}
 	}
 	

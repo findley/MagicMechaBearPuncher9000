@@ -18,10 +18,9 @@ public class Attack {
 	// monster, player
 	String source;
 
-	public Attack(Image image, Boolean isRight, Shape hitbox,
+	public Attack(Boolean isRight, Shape hitbox,
 			String source) {
 		super();
-		this.image = image;
 		this.isRight = isRight;
 		this.hitbox = hitbox;
 		this.source = source;
