@@ -46,13 +46,13 @@ public class Knight extends Monster {
 
 	@Override
 	public void aiLoop(Player[] players, int delta) {
-		if(true){
-			home(players[0]);
+		if (homing) {
+			homing = home(locked);
 			return;
 		}
 		if (aiCurTime > aiDelay || aiCurTime == 0) {
 			aiCurTime = delta;
-			if (locked == null || Math.random() > .8) {
+			if (locked == null || Math.random() > .3) {
 				if (Math.abs(players[0].pos[0] - this.pos[0]) < Math
 						.abs(players[1].pos[0] - this.pos[0])) {
 					locked = players[0];
@@ -85,6 +85,9 @@ public class Knight extends Monster {
 			else {
 				this.moveDown(1);
 			}
+		}
+		if (Math.random() > .99){
+			homing = true;
 		}
 		
 	}

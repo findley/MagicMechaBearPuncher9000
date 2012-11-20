@@ -8,6 +8,7 @@ public abstract class Monster extends Dude {
 	Player locked = null;
 	boolean moveRight;
 	boolean moveUp;
+	boolean homing = false;
 	int aiDelay;
 	int aiCurTime = 0;
 	int moveSpeed;
@@ -38,7 +39,7 @@ public abstract class Monster extends Dude {
 		}
 	}
 
-	public void home(Player target) {
+	public boolean home(Player target) {
 		boolean xFlag = false;
 		boolean yFlag = false;
 		if (target.pos[0] - this.pos[0] > this.weapon.attackWidth) {
@@ -65,6 +66,8 @@ public abstract class Monster extends Dude {
 		
 		if (yFlag && xFlag){
 			this.attack();
+			return false;
 		}
+		return true;
 	}
 }
