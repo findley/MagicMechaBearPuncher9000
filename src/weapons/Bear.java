@@ -25,7 +25,6 @@ public class Bear extends Weapon {
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);	
 		initAnimations();
-		groundSprite = new Image("Assets/Weapons/Bear/bearclaw.png");
 	}
 	
 	@Override
@@ -48,5 +47,9 @@ public class Bear extends Weapon {
 			return false;
 		}
 	}
-
+	
+	@Override
+	public void createGroundSprite() throws SlickException {
+		groundSprite = new Image("Assets/Weapons/Bear/bearclaw.png");
+	}
 }

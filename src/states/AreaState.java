@@ -186,6 +186,7 @@ public class AreaState extends BasicGameState {
 						}
 						p.weapon = w;
 						w.assignOwner(p);
+						w.init();
 						remove.add(w);
 												
 					} 

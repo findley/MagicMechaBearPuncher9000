@@ -104,4 +104,8 @@ public abstract class Weapon {
 			attacks.remove(attack);
 		}
 	}
+	
+	public void createGroundSprite() throws SlickException {
+		groundSprite = null;
+	}
 }
