@@ -35,7 +35,7 @@ public class MainGame extends StateBasedGame {
     }
 	
 	public MainGame() {
-        super("How to Save the World in 15 Minutes");
+        super("WHO IS BETTER AT SAVING THE PRINCESS");
     }
 
     /**
