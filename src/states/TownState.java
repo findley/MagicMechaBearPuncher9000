@@ -3,6 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -79,8 +80,8 @@ public class TownState extends AreaState {
 		ArrayList<Weapon> o = new ArrayList<Weapon>();
 		Weapon k1 = new Sword(1200f, 550f);
 		Weapon k2 = new Bear(1300f, 550f);
-		k1.init();
-		k2.init();
+		k1.createGroundSprite();
+		k2.createGroundSprite();
 		o.add(k1);
 		o.add(k2);
 		return o;
