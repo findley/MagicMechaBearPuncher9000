@@ -1,5 +1,6 @@
 package states;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -53,20 +54,22 @@ public class AreaState extends BasicGameState {
     
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        bgImage.render(-progression % 32, 0, progression / 32, 0, 32 + 1, 24);
+    	int top = 24-container.getHeight()*24/768;
+        bgImage.render(-progression % 32, top, progression / 32, top, 32 + 1, 24);
+    	
         
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
             p.render(g);
-            g.drawString("PLAYER " + (p.playerID + 1), 25 + 775 * p.playerID, 50);
-            g.drawString("MANLINESS: " + p.score, 25 + 775 * p.playerID, 100);
+            g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
+            g.drawString("MANLINESS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
         }
         // for (int i = 0; i < players.length; i++) {
         // players[i].render(g);
         // }
         
         if (inBattle) {
-            g.drawString("FIGHT", 400, 200);
+            g.drawString("FIGHT", container.getWidth()/2, 170);
             
             Collections.sort(currBattle);
             for (Monster m : currBattle) {

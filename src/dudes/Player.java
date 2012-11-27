@@ -9,6 +9,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import core.MainGame;
+
 import weapons.Fist;
 
 public class Player extends Dude {
@@ -130,7 +132,7 @@ public class Player extends Dude {
     
     @Override
     public void renderHealthBar(Graphics g) {
-        float x = 25 + 775 * playerID;
+        float x = 25 + (MainGame.GAME_WIDTH - 200) * playerID;
         float y = 75;
         int width = 150;
         int height = 10;
