@@ -7,6 +7,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
 import core.MainGame;
@@ -35,7 +36,7 @@ public class Player extends Dude {
     
     public void init(int playerID) throws SlickException {
         this.playerID = playerID;
-        
+        this.sprites = new SpriteSheet("Assets/players/player"+playerID+"Death.png",64,64);
         // create spritesheets for the weapon:
         this.weapon.init();
     }

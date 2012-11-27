@@ -67,10 +67,13 @@ public class KnightKnife extends Weapon{
 		// walk right
 		anims[5] = new Animation(weaponSheet, 0, 3, 3, 3, true, 200, true);
 		
-		/* die left
-		anims[6] = new Animation(weaponSheet, 0, 6, 2, 6, true, 80, true);
+		// die left
+		anims[6] = new Animation(weaponSheet, 0, 6, 2, 6, true, 2000, true);
+		anims[6].setLooping(false);
 		// die right
-		anims[7] = new Animation(weaponSheet, 0, 7, 2, 7, true, 80, true);		*/
+		anims[7] = new Animation(weaponSheet, 0, 7, 2, 7, true, 2000, true);
+		anims[7].setLooping(false);
+
 	}
 	
 	@Override

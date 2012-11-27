@@ -69,6 +69,16 @@ public abstract class Monster extends Dude {
         return true;
     }
     
+    public void renderDeath(){
+    	if(isRight){
+    		currentAnimation = weapon.anims[7];
+    	} else{
+    		currentAnimation = weapon.anims[6];
+    	}
+    	currentAnimation.start();
+	    currentAnimation.draw(pos[0], pos[1]);
+    }
+    
     public void setLastHit(Player player) {
         this.lastHit = player;
     }

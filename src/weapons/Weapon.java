@@ -20,7 +20,9 @@ import dudes.Dude;
 public abstract class Weapon {
 	public Image groundSprite;
 	public SpriteSheet weaponSheet;
-	public Animation[] anims = new Animation[6];
+	public SpriteSheet playerSheet;
+	public Animation[] anims = new Animation[8];
+	public Animation[] dieanims = new Animation[2];
 	// animations are flinch L, flinch R, punch L, punch R, walk L, walk R
 	public Image[] defaultSprite = new Image[2];
 	// for left and right
@@ -58,10 +60,15 @@ public abstract class Weapon {
 		anims[3] = new Animation(weaponSheet, 0, 3, 3, 3, true, 60, true);
 		anims[3].setLooping(false);
 
-		// walk right
-		anims[4] = new Animation(weaponSheet, 0, 4, 3, 4, true, 80, true);
 		// walk left
+		anims[4] = new Animation(weaponSheet, 0, 4, 3, 4, true, 80, true);
+		// walk right
 		anims[5] = new Animation(weaponSheet, 0, 5, 3, 5, true, 80, true);
+		
+		/*//die left
+		dieanims[0] = new Animation(playerSheet, 3, 0, 5, 0, true, 2000, true);
+		// die right
+		dieanims[1] = new Animation(playerSheet, 0, 0, 2, 0, true, 2000, true);*/
 	}
 
 	// to start attack

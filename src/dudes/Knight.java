@@ -98,6 +98,8 @@ public class Knight extends Monster {
 			currentAnimation = handleAnimation("flinch");
 		} else if(isAttacking){
 			currentAnimation = handleAnimation("punch");
+		} else if (health <= 0){
+			currentAnimation = handleAnimation("die");
 		} else{
 			currentAnimation = handleAnimation("walk");
 		}
@@ -111,6 +113,8 @@ public class Knight extends Monster {
                 return weapon.anims[1];
             } else if (whichAnim.equals("punch")) {
                 return weapon.anims[3];
+            } else if (whichAnim.equals("die")){
+            	return weapon.anims[7];
             } else {
                 // else, the walk animation for now
                 return weapon.anims[5];
@@ -120,6 +124,8 @@ public class Knight extends Monster {
                 return weapon.anims[0];
             } else if (whichAnim.equals("punch")) {
                 return weapon.anims[2];
+            } else if (whichAnim.equals("die")){
+            	return weapon.anims[6];
             } else {
                 // else, the walk animation for now
                 return weapon.anims[4];
