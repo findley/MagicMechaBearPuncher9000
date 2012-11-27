@@ -35,7 +35,7 @@ public class Knight extends Monster {
 	public void init() throws SlickException {
 		//create spritesheets for the weapon:
 		this.weapon.init();
-		aiDelay = 500;
+		aiDelay = 1000;
 	}
 
 	// return leftmost point of weapon
@@ -94,25 +94,36 @@ public class Knight extends Monster {
 				Math.abs(this.pos[1] - locked.pos[1]) < homeToleranceY){
 			homing = true;
 		}
-		
+		if(flinching){
+			currentAnimation = handleAnimation("flinch");
+		} else if(isAttacking){
+			currentAnimation = handleAnimation("punch");
+		} else{
+			currentAnimation = handleAnimation("walk");
+		}
+		currentAnimation.start();
 	}
 
 	@Override
 	public Animation handleAnimation(String whichAnim) {
-		if(isRight){
-			if(whichAnim.equals("punch")){
-				return weapon.anims[0];
-			} else {
-				//else, the walk animation for now
-				return weapon.anims[1];
-			}
-		} else{
-			if(whichAnim.equals("punch")){
-				return weapon.anims[2];
-			} else {
-				//else, the walk animation for now
-				return weapon.anims[3];
-			} 
-		}
+        if (isRight) {
+            if (whichAnim.equals("flinch")) {
+                return weapon.anims[1];
+            } else if (whichAnim.equals("punch")) {
+                return weapon.anims[3];
+            } else {
+                // else, the walk animation for now
+                return weapon.anims[5];
+            }
+        } else {
+            if (whichAnim.equals("flinch")) {
+                return weapon.anims[0];
+            } else if (whichAnim.equals("punch")) {
+                return weapon.anims[2];
+            } else {
+                // else, the walk animation for now
+                return weapon.anims[4];
+            }
+        }
 	}
 }

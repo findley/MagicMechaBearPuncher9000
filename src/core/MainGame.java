@@ -19,8 +19,8 @@ import states.TownState;
 
 public class MainGame extends StateBasedGame {
  
-	public static final int GAME_WIDTH = 1024;
-	public static final int GAME_HEIGHT = 768;
+	public static final int GAME_WIDTH = 1024*4/5;
+	public static final int GAME_HEIGHT = 768*4/5;
 	
 	public static Player[] players = new Player[2];
 
