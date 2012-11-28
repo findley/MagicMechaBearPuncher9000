@@ -173,8 +173,12 @@ public class AreaState extends BasicGameState {
         			if (p.owner == player){
         				
         			} else {
-        				player.hurt(50, PLAYER_STUN_LENGTH);
-        				p.hasHit = true;        				
+        				if (player.isRespawning) {
+        					
+        				} else {
+        					player.hurt(50, PLAYER_STUN_LENGTH);
+        					p.hasHit = true; 
+        				}
         			}
         		}
         	}

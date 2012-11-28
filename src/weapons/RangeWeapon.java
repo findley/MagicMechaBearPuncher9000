@@ -10,10 +10,19 @@ import projectiles.Projectile;
 
 import dudes.Player;
 
-public class Fireball extends RangeWeapon {
+public class RangeWeapon extends Weapon {
 
-	public Fireball(float x, float y) {
-		super(x, y);
+	public RangeWeapon(float x, float y) {
+		super();
+		this.x = x;
+		this.y = y;
+		damage = 0;
+		attackWidth = 100;
+		attackHeight = 6;
+		attackTime = 200;
+		delayTime = 500;
+		playerSize = 64;
+		this.ranged = true;
 	}
 	
 	@Override
@@ -29,6 +38,23 @@ public class Fireball extends RangeWeapon {
 	public void attack() throws SlickException {
 		if (this.ranged){
 			projectiles.add(new FireballProjectile(owner.pos, (Player) owner, owner.isRight));
+		}
+		
+		float[] corner = owner.weaponLoc();
+		corner[0] -= attackWidth / 2;
+		corner[1] -= attackHeight / 2;
+		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
+				attackHeight);
+		attacks.add(new Attack(owner.isRight, hitbox, "player"));
+	}
+
+	@Override
+	protected boolean updateAttack(Attack attack) {
+		if(owner.isAttacking) {
+			return true;
+		}
+		else{
+			return false;
 		}
 	}
 	
