@@ -86,7 +86,7 @@ public class TownState extends AreaState {
 
 	}
 
-	@Override
+	/*@Override
 	public ArrayList<Weapon> makeInitItems() throws SlickException {
 		ArrayList<Weapon> o = new ArrayList<Weapon>();
 		Weapon k1 = new Sword(1200f, MainGame.GAME_HEIGHT - 100);
@@ -97,5 +97,5 @@ public class TownState extends AreaState {
 		o.add(k2);
 		return o;
 
-	}
+	}*/
 }
