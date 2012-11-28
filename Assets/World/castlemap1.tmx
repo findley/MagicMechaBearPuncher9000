@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="200" height="24" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
-  <image source="Tilesets/castle_tile_sheet.png" trans="ffffff" width="192" height="64"/>
+  <image source="Tilesets/castle_tile_sheet_1.png" trans="ffffff" width="192" height="64"/>
  </tileset>
  <tileset firstgid="13" name="tileset" tilewidth="32" tileheight="32">
-  <image source="../../../../School/CMS.611/Assignment 4/Transition 1/Tilesets/castle_tile_sheet.png" trans="ffffff" width="192" height="64"/>
+  <image source="Tilesets/castle_tile_sheet_1.png" trans="ffffff" width="192" height="64"/>
  </tileset>
  <layer name="Tile Layer 1" width="200" height="24">
   <data encoding="base64" compression="gzip">
