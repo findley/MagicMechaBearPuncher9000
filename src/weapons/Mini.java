@@ -5,25 +5,32 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import dudes.Dude;
 import dudes.Player;
 
-public class Sword extends Weapon {
+public class Mini extends Weapon {
 
-	public Sword(float x, float y) {
+	public Mini(Dude owner) {
+		this(owner.pos[0], owner.pos[1]);
+		assignOwner(owner);
+	}
+	
+	public Mini(float x, float y) {
 		super();
 		this.x = x;
 		this.y = y;
 		damage = 5;
-		attackWidth = 100;
+		attackWidth = 30;
 		attackHeight = 6;
 		attackTime = 200;
 		delayTime = 500;
-		playerSize = 64;
+		playerSize = 32;
 	}
-	
+
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/Sword/player" + ((Player)owner).playerID + "Sword.png", playerSize, playerSize);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Mini/player" + ((Player)owner).playerID + "Mini.png", playerSize, playerSize);
+		playerSheet = ((Player)owner).sprites;
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();
@@ -51,6 +58,6 @@ public class Sword extends Weapon {
 	
 	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Sword/sword.png");
+		groundSprite = new Image("Assets/Weapons/Mini/miniSprite.png");
 	}
 }

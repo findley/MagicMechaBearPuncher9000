@@ -47,9 +47,7 @@ public abstract class Weapon {
 		projectiles = new ArrayList<Projectile>();
 	}
 	
-	public void init() throws SlickException {
-		
-	}
+	public abstract void init() throws SlickException;
 	
 	public void initAnimations() {
 		// flinch left

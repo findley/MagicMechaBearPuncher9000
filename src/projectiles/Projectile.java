@@ -20,6 +20,7 @@ public abstract class Projectile {
 	public boolean hasHit;
 	public Player owner;
 	public boolean isRight;
+	
 	public Projectile(float[] pos, Player owner, boolean isRight) {
 		this.pos[0] = pos[0]+32;
 		this.pos[1] = pos[1] + 32;

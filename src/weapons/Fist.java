@@ -27,7 +27,6 @@ public class Fist extends Weapon {
 
 	@Override
 	public void init() throws SlickException {
-		super.init();
 		weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player" + ((Player)owner).playerID + "Fist.png", playerSize, playerSize);
 		playerSheet = ((Player)owner).sprites;
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
