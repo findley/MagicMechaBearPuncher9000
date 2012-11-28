@@ -13,6 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import weapons.Attack;
+import weapons.Bear;
+import weapons.Sword;
 import weapons.Weapon;
 import core.MainGame;
 import dudes.Monster;
@@ -42,7 +44,8 @@ public class AreaState extends BasicGameState {
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
         currBattle = new ArrayList<Monster>();
-        floorweapons = makeInitItems();
+        //floorweapons = makeInitItems();
+        floorweapons = new ArrayList<Weapon>();
         inBattle = false;
         completed = false;
         areaLength = 0;
@@ -205,7 +208,20 @@ public class AreaState extends BasicGameState {
         
         for (Monster m : removeMonster) {
         	m.renderDeath();
+        	float[] pos = m.pos;
             this.currBattle.remove(m);
+            double rand = Math.random();
+            Weapon k1;
+            if(rand < 0.5){
+            	if(rand < 0.25){
+            		k1 = new Sword(pos[0],pos[1]);
+            	} else{
+                	k1 = new Bear(pos[0],pos[1]);
+            	}
+            	
+        		k1.createGroundSprite();
+        		floorweapons.add(k1);
+            }
         }
         
         for (Weapon r : remove) {
