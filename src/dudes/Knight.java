@@ -16,7 +16,7 @@ public class Knight extends Monster {
 	float homeToleranceX;
 	float homeToleranceY;
 
-	public Knight(float xPos, float yPos) {
+	public Knight(float xPos, float yPos, int k) {
 		maxHealth = 37;
 		health = maxHealth;
 		pos[0] = xPos;
@@ -28,6 +28,7 @@ public class Knight extends Monster {
 		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		homeToleranceX = 100;
 		homeToleranceY = 75;
+		kind = k;
 		this.weapon = new KnightKnife(this);
 		try {
 			this.init();

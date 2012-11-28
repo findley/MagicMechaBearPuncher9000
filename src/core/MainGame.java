@@ -15,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import dudes.Player;
 
+import states.CastleState;
 import states.TownState;
 
 public class MainGame extends StateBasedGame {

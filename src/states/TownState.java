@@ -35,11 +35,11 @@ public class TownState extends AreaState {
 
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		Knight g1_knight1 = new Knight(container.getWidth(),
-				container.getHeight() - 80);
+				container.getHeight() - 80, 0);
 		Knight g1_knight2 = new Knight(container.getWidth(),
-				container.getHeight() - 160);
+				container.getHeight() - 160, 0);
 		Knight g1_knight3 = new Knight(container.getWidth(),
-				container.getHeight() - 240);
+				container.getHeight() - 240, 0);
 		g1_knight1.init();
 		g1_knight2.init();
 		g1_knight3.init();
@@ -49,11 +49,11 @@ public class TownState extends AreaState {
 
 		ArrayList<Monster> group_2 = new ArrayList<Monster>();
 		Knight g2_knight1 = new Knight(container.getWidth(),
-				container.getHeight() - 80);
+				container.getHeight() - 80, 0);
 		Knight g2_knight2 = new Knight(container.getWidth(),
-				container.getHeight() - 160);
+				container.getHeight() - 160, 0);
 		Knight g2_knight3 = new Knight(container.getWidth(),
-				container.getHeight() - 240);
+				container.getHeight() - 240, 0);
 		g2_knight1.init();
 		g2_knight2.init();
 		g2_knight3.init();
@@ -63,11 +63,11 @@ public class TownState extends AreaState {
 
 		ArrayList<Monster> group_3 = new ArrayList<Monster>();
 		Knight g3_knight1 = new Knight(container.getWidth(),
-				container.getHeight() - 80);
+				container.getHeight() - 80, 0);
 		Knight g3_knight2 = new Knight(container.getWidth(),
-				container.getHeight() - 160);
+				container.getHeight() - 160, 0);
 		Knight g3_knight3 = new Knight(container.getWidth(),
-				container.getHeight() - 240);
+				container.getHeight() - 240, 0);
 		g3_knight1.init();
 		g3_knight2.init();
 		g3_knight3.init();
