@@ -27,25 +27,11 @@ public class RangeWeapon extends Weapon {
 	
 	@Override
 	public void init() throws SlickException {
-		super.init();
-		weaponSheet = new SpriteSheet("Assets/Weapons/Fireball/player" + ((Player)owner).playerID + "Fireball.png", playerSize, playerSize);
-		defaultSprite[0] = weaponSheet.getSprite(0, 5);
-		defaultSprite[1] = weaponSheet.getSprite(0, 4);
-		initAnimations();
 	}
 	
 	@Override
 	public void attack() throws SlickException {
-		if (this.ranged){
-			projectiles.add(new FireballProjectile(owner.pos, (Player) owner, owner.isRight));
-		}
 		
-		float[] corner = owner.weaponLoc();
-		corner[0] -= attackWidth / 2;
-		corner[1] -= attackHeight / 2;
-		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
-				attackHeight);
-		attacks.add(new Attack(owner.isRight, hitbox, "player"));
 	}
 
 	@Override
@@ -60,6 +46,6 @@ public class RangeWeapon extends Weapon {
 	
 	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Fireball/GroundFireBall.png");
+		groundSprite = null;
 	}
 }
