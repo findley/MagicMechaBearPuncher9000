@@ -17,7 +17,7 @@ public class Fist extends Weapon {
 	
 	public Fist(float x, float y) {
 		super();
-		damage = 5;
+		damage = 10;
 		attackWidth = 30;
 		attackHeight = 6;
 		attackTime = 200;
