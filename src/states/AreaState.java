@@ -12,6 +12,8 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import projectiles.Projectile;
+
 import weapons.Attack;
 import weapons.Bear;
 import weapons.Coin;
@@ -35,7 +37,7 @@ public class AreaState extends BasicGameState {
     protected int                           areaLength;
     private ArrayList<Player>               sPlayers;
     private final int                       PLAYER_STUN_LENGTH = 500;
-    
+    private ArrayList<Projectile> liveProjectiles;
     public AreaState(int stateID) {
         super();
     }
@@ -48,6 +50,7 @@ public class AreaState extends BasicGameState {
         currBattle = new ArrayList<Monster>();
         //floorweapons = makeInitItems();
         floorweapons = new ArrayList<Weapon>();
+        liveProjectiles = new ArrayList<Projectile>();
         floorcoins = new ArrayList<Coin>();
         inBattle = false;
         completed = false;
@@ -90,6 +93,10 @@ public class AreaState extends BasicGameState {
         for (Coin c : floorcoins){
         	c.Draw();
         }
+        
+        for (Projectile p : liveProjectiles) {
+        	p.render(g);
+        }
     }
     
     @Override
@@ -103,6 +110,10 @@ public class AreaState extends BasicGameState {
         for (int i = 0; i < players.length; i++) {
             players[i].move(container.getInput(), delta);
             runOverCoins(players[i]);
+        }
+        
+        for (Projectile p : liveProjectiles) {
+        	p.move();
         }
         
         if (inBattle) {
@@ -139,6 +150,36 @@ public class AreaState extends BasicGameState {
             }
         }
         
+        for (Player p : players) {
+        	while (p.weapon.projectiles.size() > 0) {
+        		liveProjectiles.add(p.weapon.projectiles.get(0));
+        		p.weapon.projectiles.remove(0);
+        	}
+        }
+        
+        removeProjectiles();
+        for (Projectile p: liveProjectiles) {
+        	for (Monster monster : this.currBattle) {
+        		if (p.getHitbox().intersects(monster.hitbox) && p.hasHit == false) {
+        			monster.hurt(p.damage, 500);
+        			monster.setLastHit(p.owner);
+        			p.hasHit = true;
+        		}
+        	}
+        	
+        	 
+        	for (Player player : players) {
+        		if (p.getHitbox().intersects(player.hitbox) && p.hasHit == false) {
+        			if (p.owner == player){
+        				
+        			} else {
+        				player.hurt(50, PLAYER_STUN_LENGTH);
+        				p.hasHit = true;        				
+        			}
+        		}
+        	}
+        }
+        
         for (int i = 0; i < players.length; i++) {
             Player player = players[i];
             player.invincibleTimer += delta;
@@ -157,6 +198,7 @@ public class AreaState extends BasicGameState {
                 }
             }
         }
+        
         for (Monster monster : this.currBattle) {
             monster.invincibleTimer += delta;
             monster.weapon.updateAttacks();
@@ -262,6 +304,23 @@ public class AreaState extends BasicGameState {
         }
     }
     
+    public void removeProjectiles() {
+    	ArrayList<Projectile> removeProjectiles = new ArrayList<Projectile>();
+    	for (Projectile p : liveProjectiles) {
+    		if (p.hasHit) {
+    			removeProjectiles.add(p);
+    		} else if (p.pos[0] > MainGame.GAME_WIDTH + 200) {
+    			removeProjectiles.add(p);
+    		}    		
+    		
+    	}
+    	
+    	for (Projectile p : removeProjectiles) {
+    		liveProjectiles.remove(p);
+    	}
+    	
+    }
+
     public void checkIfMonsterDead() throws SlickException{
         ArrayList<Monster> removeMonster = new ArrayList<Monster>();
         for (Monster m : this.currBattle) {

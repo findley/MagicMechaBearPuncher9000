@@ -52,7 +52,7 @@ public class Player extends Dude {
         playerDeath[1].setLooping(false);
     }
     
-    public void move(Input input, int delta) {
+    public void move(Input input, int delta) throws SlickException{
     	if (isRespawning) {
     		return;
     	}

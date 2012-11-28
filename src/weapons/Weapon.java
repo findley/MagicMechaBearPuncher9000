@@ -10,6 +10,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import projectiles.Projectile;
+
 import dudes.Dude;
 
 /**
@@ -38,9 +40,11 @@ public abstract class Weapon {
 	public Dude owner;
 	public float x;
 	public float y;
-	
+	public boolean ranged;
+	public ArrayList<Projectile> projectiles;
 	public Weapon() {
 		attacks = new ArrayList<Attack>();
+		projectiles = new ArrayList<Projectile>();
 	}
 	
 	public abstract void init() throws SlickException;
@@ -68,7 +72,7 @@ public abstract class Weapon {
 
 	// to start attack
 	
-	public abstract void attack();
+	public abstract void attack() throws SlickException;
 		
 	public void assignOwner(Dude owner) {
 		this.owner = owner;
