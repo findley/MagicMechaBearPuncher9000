@@ -64,7 +64,7 @@ public class AreaState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
     	int top = 24-container.getHeight()*24/768;
-        bgImage.render(-progression % 32, top, progression / 32, top, 32 + 1, 24);
+        bgImage.render(-progression % 32, 0, progression / 32, top, 32 + 1, 24);
     	
         
         Collections.sort(sPlayers);
