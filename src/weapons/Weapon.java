@@ -27,13 +27,15 @@ public abstract class Weapon {
 	public Image[] defaultSprite = new Image[2];
 	// for left and right
 	
+	public int playerSize;
+	
 	public int damage;
 	public int attackWidth;
 	public int attackHeight;
 	public float attackTime;
 	public int delayTime;
 	public ArrayList<Attack> attacks;
-	Dude owner;
+	public Dude owner;
 	public float x;
 	public float y;
 	
