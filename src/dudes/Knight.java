@@ -5,11 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import weapons.Bear;
-import weapons.Coin;
-import weapons.KnightKnife;
-import weapons.Sword;
-import weapons.Weapon;
+import weapons.*;
 
 public class Knight extends Monster {
 	float homeToleranceX;
@@ -149,7 +145,7 @@ public class Knight extends Monster {
         	} else{
             	w = new Bear(pos[0],pos[1]);
         	}
-        	
+        	w = new Mini(pos[0], pos[1]);
     		w.createGroundSprite();
     		return w;
         }

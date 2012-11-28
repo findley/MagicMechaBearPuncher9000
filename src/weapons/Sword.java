@@ -23,7 +23,6 @@ public class Sword extends Weapon {
 	
 	@Override
 	public void init() throws SlickException {
-		super.init();
 		weaponSheet = new SpriteSheet("Assets/Weapons/Sword/player" + ((Player)owner).playerID + "Sword.png", playerSize, playerSize);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);

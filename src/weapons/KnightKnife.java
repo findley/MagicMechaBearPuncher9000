@@ -30,7 +30,6 @@ public class KnightKnife extends Weapon{
 	
 	@Override
 	public void init() throws SlickException {
-		super.init();
 		weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/new_sheet.png", playerSize, playerSize);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
