@@ -14,6 +14,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import weapons.Attack;
 import weapons.Bear;
+import weapons.Coin;
 import weapons.Sword;
 import weapons.Weapon;
 import core.MainGame;
@@ -26,6 +27,7 @@ public class AreaState extends BasicGameState {
     protected ArrayList<ArrayList<Monster>> monsters;
     protected ArrayList<Monster>            currBattle;
     private ArrayList<Weapon>               floorweapons;
+    private ArrayList<Coin>					floorcoins;
     private boolean                         inBattle;
     private boolean                         completed;
     private int                             progression;
@@ -46,6 +48,7 @@ public class AreaState extends BasicGameState {
         currBattle = new ArrayList<Monster>();
         //floorweapons = makeInitItems();
         floorweapons = new ArrayList<Weapon>();
+        floorcoins = new ArrayList<Coin>();
         inBattle = false;
         completed = false;
         areaLength = 0;
@@ -82,6 +85,10 @@ public class AreaState extends BasicGameState {
         
         for (Weapon i : floorweapons) {
             i.Draw();
+        }
+        
+        for (Coin c : floorcoins){
+        	c.Draw();
         }
     }
     
@@ -131,9 +138,21 @@ public class AreaState extends BasicGameState {
                                 remove.add(i);
                             }
                         }
-                        
+
                         for (Weapon i : remove) {
                             floorweapons.remove(i);
+                        }
+                        
+                        ArrayList<Coin> rid = new ArrayList<Coin>();
+                        for (Coin c : floorcoins) {
+                            c.pos[0] -= shift;
+                            if (c.pos[0] < 0) {
+                                rid.add(c);
+                            }
+                        }
+                        
+                        for (Coin i : rid) {
+                            floorcoins.remove(i);
                         }
                         
                     }
@@ -195,6 +214,15 @@ public class AreaState extends BasicGameState {
                         
                     }
                 }
+                ArrayList<Coin> out = new ArrayList<Coin>();
+                for (Coin c : floorcoins){
+                    if (p.hitbox.intersects(c.getHitBox())) {
+                    	out.add(c);
+                    }
+                }
+                for (Coin c : out){
+                	floorcoins.remove(c);
+                }
             }
         }
         
@@ -211,17 +239,31 @@ public class AreaState extends BasicGameState {
         	float[] pos = m.pos;
             this.currBattle.remove(m);
             double rand = Math.random();
-            Weapon k1;
+            Weapon w;
             if(rand < 0.5){
             	if(rand < 0.25){
-            		k1 = new Sword(pos[0],pos[1]);
+            		w = new Sword(pos[0],pos[1]);
             	} else{
-                	k1 = new Bear(pos[0],pos[1]);
+                	w = new Bear(pos[0],pos[1]);
             	}
             	
-        		k1.createGroundSprite();
-        		floorweapons.add(k1);
+        		w.createGroundSprite();
+        		floorweapons.add(w);
             }
+            double rand2 = Math.random();
+            Coin c;
+            if(rand2<0.5){
+            	c = new Coin("yellow",pos);
+            } else if(rand2<0.7){
+            	c = new Coin("red",pos);
+            } else if(rand2<0.85){
+            	c = new Coin("blue",pos);
+            } else if(rand2<0.95){
+            	c = new Coin("green",pos);
+            } else{
+            	c = new Coin("purple",pos);
+            }
+            floorcoins.add(c);
         }
         
         for (Weapon r : remove) {
