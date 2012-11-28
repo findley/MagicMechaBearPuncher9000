@@ -177,7 +177,7 @@ public class AreaState extends BasicGameState {
         					
         				} else {
         					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
-        					p.hasHit = true; 
+        					p.hasHit = true;
         				}
         			}
         		}
@@ -197,7 +197,7 @@ public class AreaState extends BasicGameState {
                 }
                 if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
                 	if (!players[(i + 1) % 2].isRespawning) {
-                		players[(i + 1) % 2].hurt(50, PLAYER_STUN_LENGTH);
+                		players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
                 	}
                 }
             }
