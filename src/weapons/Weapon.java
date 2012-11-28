@@ -70,11 +70,6 @@ public abstract class Weapon {
 		anims[4] = new Animation(weaponSheet, 0, 4, 3, 4, true, 80, true);
 		// walk right
 		anims[5] = new Animation(weaponSheet, 0, 5, 3, 5, true, 80, true);
-		
-		/*//die left
-		dieanims[0] = new Animation(playerSheet, 3, 0, 5, 0, true, 2000, true);
-		// die right
-		dieanims[1] = new Animation(playerSheet, 0, 0, 2, 0, true, 2000, true);*/
 	}
 
 	// to start attack

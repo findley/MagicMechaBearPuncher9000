@@ -151,7 +151,9 @@ public class AreaState extends BasicGameState {
                     }
                 }
                 if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
-                    players[(i + 1) % 2].hurt(0, PLAYER_STUN_LENGTH);
+                	if (!players[(i + 1) % 2].isRespawning) {
+                		players[(i + 1) % 2].hurt(50, PLAYER_STUN_LENGTH);
+                	}
                 }
             }
         }
@@ -162,7 +164,9 @@ public class AreaState extends BasicGameState {
             for (Attack attack : monster.weapon.attacks) {
                 for (Player player : players) {
                     if (attack.hitbox.intersects(player.hitbox)) {
-                        player.hurt(monster.weapon.damage, 500);
+                    	if (!player.isRespawning) {
+                    		player.hurt(monster.weapon.damage, 500);
+                    	}
                     }
                 }
             }
@@ -198,6 +202,9 @@ public class AreaState extends BasicGameState {
         }
         
         checkIfMonsterDead();
+        for (Player p : players) {
+        	p.deathCheck(delta);
+        }
         
         for (Weapon r : remove) {
             floorweapons.remove(r);
