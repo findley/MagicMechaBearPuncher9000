@@ -102,7 +102,7 @@ public class AreaState extends BasicGameState {
         
         for (int i = 0; i < players.length; i++) {
             players[i].move(container.getInput(), delta);
-            //runOverCoins(players[i]);
+            runOverCoins(players[i]);
         }
         
         if (inBattle) {
@@ -193,7 +193,7 @@ public class AreaState extends BasicGameState {
                         
                     }
                 }
-                runOverCoins(p);
+                //runOverCoins(p);
             }
         }
         
