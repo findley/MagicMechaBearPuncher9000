@@ -277,8 +277,7 @@ public class AreaState extends BasicGameState {
             	
             } else {
          		floorweapons.add(w);	
-            }
-            
+            }            
             
             Coin c = m.getDropCoin();
             if (c == null) {
