@@ -21,7 +21,7 @@ public class Player extends Dude {
     public int                      deathTimer;
     private final int               RESPAWN_TIMER = 5000;
     public boolean                  isRespawning;
-    public static Animation[]       playerDeath = new Animation[2];
+    public Animation[]       playerDeath = new Animation[2];
     
     public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
         this.buttons = buttons;
@@ -167,7 +167,10 @@ public class Player extends Dude {
     	if ((health <= 0) && (deathTimer == 0)) {
     		deathTimer = RESPAWN_TIMER;
     		isRespawning = true;
-    		currentAnimation = playerDeath[0];
+    		if (isRight)
+    			currentAnimation = playerDeath[0];
+    		if (!isRight)
+    			currentAnimation = playerDeath[1];
     		currentAnimation.start();
     	} else if (deathTimer > 0) {
     		deathTimer = Math.max(deathTimer-delta, 0);
