@@ -149,7 +149,7 @@ public class Knight extends Monster {
         		w = new Sword(pos[0], pos[1]);
         		//w = new Sword(pos[0],pos[1]);
         	} else if (rand < .35){
-            	w = new Bear(pos[0],pos[1]);
+        		w = new Bear(pos[0],pos[1]);
         	} else {
         		w = new Fireball(pos[0], pos[1]);
         	}

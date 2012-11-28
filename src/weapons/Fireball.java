@@ -60,6 +60,6 @@ public class Fireball extends Weapon {
 	
 	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Fireball/GroundFireball.png");
+		groundSprite = new Image("Assets/Weapons/Fireball/GroundFireBall.png");
 	}
 }
