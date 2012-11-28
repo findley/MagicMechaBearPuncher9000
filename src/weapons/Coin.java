@@ -11,7 +11,7 @@ public class Coin {
 	
 	HashMap<String,Integer> points = new HashMap<String,Integer>();
 	Image sprite;
-	int value;
+	public int value;
 	public float[] pos;
 	
 	public Coin(String color, float[] position) throws SlickException{
@@ -22,11 +22,11 @@ public class Coin {
 	}
 	
 	private void initPoints(){
-		points.put("yellow", 100);
-		points.put("red", 200);
-		points.put("blue", 300);
-		points.put("green", 400);
-		points.put("purple", 500);
+		points.put("yellow", 10);
+		points.put("red", 20);
+		points.put("blue", 30);
+		points.put("green", 40);
+		points.put("purple", 50);
 	}
 
 	public void Draw() {

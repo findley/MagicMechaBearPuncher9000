@@ -102,6 +102,7 @@ public class AreaState extends BasicGameState {
         
         for (int i = 0; i < players.length; i++) {
             players[i].move(container.getInput(), delta);
+            //runOverCoins(players[i]);
         }
         
         if (inBattle) {
@@ -131,29 +132,7 @@ public class AreaState extends BasicGameState {
                         players[0].pos[0] -= shift;
                         players[1].pos[0] -= shift;
                         
-                        ArrayList<Weapon> remove = new ArrayList<Weapon>();
-                        for (Weapon i : floorweapons) {
-                            i.x -= shift;
-                            if (i.x < 0) {
-                                remove.add(i);
-                            }
-                        }
-
-                        for (Weapon i : remove) {
-                            floorweapons.remove(i);
-                        }
-                        
-                        ArrayList<Coin> rid = new ArrayList<Coin>();
-                        for (Coin c : floorcoins) {
-                            c.pos[0] -= shift;
-                            if (c.pos[0] < 0) {
-                                rid.add(c);
-                            }
-                        }
-                        
-                        for (Coin i : rid) {
-                            floorcoins.remove(i);
-                        }
+                        floorItemsMove(shift);
                         
                     }
                 }
@@ -214,18 +193,69 @@ public class AreaState extends BasicGameState {
                         
                     }
                 }
-                ArrayList<Coin> out = new ArrayList<Coin>();
-                for (Coin c : floorcoins){
-                    if (p.hitbox.intersects(c.getHitBox())) {
-                    	out.add(c);
-                    }
-                }
-                for (Coin c : out){
-                	floorcoins.remove(c);
-                }
+                runOverCoins(p);
             }
         }
         
+        checkIfMonsterDead();
+        
+        for (Weapon r : remove) {
+            floorweapons.remove(r);
+        }
+        
+        for (Weapon a : add) {
+            floorweapons.add(a);
+        }
+        
+        if (currBattle.size() == 0 && inBattle) {
+            inBattle = false;
+        }
+    }
+    
+    public ArrayList<Weapon> makeInitItems() throws SlickException {
+        return new ArrayList<Weapon>();
+    }
+    
+    public void runOverCoins(Player p){
+        ArrayList<Coin> out = new ArrayList<Coin>();
+        for (Coin c : floorcoins){
+            if (p.hitbox.intersects(c.getHitBox())) {
+            	p.score += c.value;
+            	out.add(c);
+            }
+        }
+        for (Coin c : out){
+        	floorcoins.remove(c);
+        }
+    }
+    
+    public void floorItemsMove(float shift){
+        ArrayList<Weapon> remove = new ArrayList<Weapon>();
+        for (Weapon i : floorweapons) {
+            i.x -= shift;
+            if (i.x < 0) {
+                remove.add(i);
+            }
+        }
+
+        for (Weapon i : remove) {
+            floorweapons.remove(i);
+        }
+        
+        ArrayList<Coin> rid = new ArrayList<Coin>();
+        for (Coin c : floorcoins) {
+            c.pos[0] -= shift;
+            if (c.pos[0] < 0) {
+                rid.add(c);
+            }
+        }
+        
+        for (Coin i : rid) {
+            floorcoins.remove(i);
+        }
+    }
+    
+    public void checkIfMonsterDead() throws SlickException{
         ArrayList<Monster> removeMonster = new ArrayList<Monster>();
         for (Monster m : this.currBattle) {
             if (m.health <= 0) {
@@ -233,9 +263,14 @@ public class AreaState extends BasicGameState {
                 m.getLastHit().incrementScore(100);
             }
         }
-        
+
+        monsterDrop(removeMonster);
+    }
+    
+    public void monsterDrop(ArrayList<Monster> removeMonster) throws SlickException{
         for (Monster m : removeMonster) {
         	m.renderDeath();
+        	//float[] pos = {m.pos[0]+90,m.pos[1]};
         	float[] pos = m.pos;
             this.currBattle.remove(m);
             double rand = Math.random();
@@ -265,25 +300,6 @@ public class AreaState extends BasicGameState {
             }
             floorcoins.add(c);
         }
-        
-        for (Weapon r : remove) {
-            floorweapons.remove(r);
-        }
-        
-        for (Weapon a : add) {
-            floorweapons.add(a);
-        }
-        
-        if (currBattle.size() == 0 && inBattle) {
-            inBattle = false;
-        }
-    }
-    
-    public ArrayList<Weapon> makeInitItems() throws SlickException {
-        return new ArrayList<Weapon>();
-    }
-    
-    public void addNewItem() {
     }
     
     @Override
