@@ -35,10 +35,10 @@ public class MainMenuState extends BasicGameState {
             throws SlickException {
         // TODO Auto-generated method stub
         //background.draw(0,0);
-        String Title = "Main Menu";
-        g.drawString(Title, container.getWidth()/2f, 15);
+        String Title = "WHO IS BETTER AT SAVING THE PRINCESS?";
+        g.drawString(Title, container.getWidth()/2f - 170, container.getHeight()/3f);
         String navKeys = "P for play\nI for instructions\nEsc for Exit";
-        g.drawString(navKeys, container.getWidth()/2f-50, container.getHeight()-75f);
+        g.drawString(navKeys, container.getWidth()/2f-50, container.getHeight()-100f);
     }
 
     @Override

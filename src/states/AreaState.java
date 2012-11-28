@@ -1,5 +1,6 @@
 package states;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,6 +13,9 @@ import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
 import weapons.Attack;
+import weapons.Bear;
+import weapons.Coin;
+import weapons.Sword;
 import weapons.Weapon;
 import core.MainGame;
 import dudes.Monster;
@@ -23,6 +27,7 @@ public class AreaState extends BasicGameState {
     protected ArrayList<ArrayList<Monster>> monsters;
     protected ArrayList<Monster>            currBattle;
     private ArrayList<Weapon>               floorweapons;
+    private ArrayList<Coin>					floorcoins;
     private boolean                         inBattle;
     private boolean                         completed;
     private int                             progression;
@@ -41,7 +46,9 @@ public class AreaState extends BasicGameState {
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
         currBattle = new ArrayList<Monster>();
-        floorweapons = makeInitItems();
+        //floorweapons = makeInitItems();
+        floorweapons = new ArrayList<Weapon>();
+        floorcoins = new ArrayList<Coin>();
         inBattle = false;
         completed = false;
         areaLength = 0;
@@ -53,20 +60,22 @@ public class AreaState extends BasicGameState {
     
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-        bgImage.render(-progression % 32, 0, progression / 32, 0, 32 + 1, 24);
+    	int top = 24-container.getHeight()*24/768;
+        bgImage.render(-progression % 32, top, progression / 32, top, 32 + 1, 24);
+    	
         
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
             p.render(g);
-            g.drawString("PLAYER " + (p.playerID + 1), 25 + 775 * p.playerID, 50);
-            g.drawString("MANLINESS: " + p.score, 25 + 775 * p.playerID, 100);
+            g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
+            g.drawString("MANLINESS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
         }
         // for (int i = 0; i < players.length; i++) {
         // players[i].render(g);
         // }
         
         if (inBattle) {
-            g.drawString("FIGHT", 400, 200);
+            g.drawString("FIGHT", container.getWidth()/2, 170);
             
             Collections.sort(currBattle);
             for (Monster m : currBattle) {
@@ -76,6 +85,10 @@ public class AreaState extends BasicGameState {
         
         for (Weapon i : floorweapons) {
             i.Draw();
+        }
+        
+        for (Coin c : floorcoins){
+        	c.Draw();
         }
     }
     
@@ -89,6 +102,7 @@ public class AreaState extends BasicGameState {
         
         for (int i = 0; i < players.length; i++) {
             players[i].move(container.getInput(), delta);
+            //runOverCoins(players[i]);
         }
         
         if (inBattle) {
@@ -118,17 +132,7 @@ public class AreaState extends BasicGameState {
                         players[0].pos[0] -= shift;
                         players[1].pos[0] -= shift;
                         
-                        ArrayList<Weapon> remove = new ArrayList<Weapon>();
-                        for (Weapon i : floorweapons) {
-                            i.x -= shift;
-                            if (i.x < 0) {
-                                remove.add(i);
-                            }
-                        }
-                        
-                        for (Weapon i : remove) {
-                            floorweapons.remove(i);
-                        }
+                        floorItemsMove(shift);
                         
                     }
                 }
@@ -189,20 +193,11 @@ public class AreaState extends BasicGameState {
                         
                     }
                 }
+                runOverCoins(p);
             }
         }
         
-        ArrayList<Monster> removeMonster = new ArrayList<Monster>();
-        for (Monster m : this.currBattle) {
-            if (m.health <= 0) {
-                removeMonster.add(m);
-                m.getLastHit().incrementScore(100);
-            }
-        }
-        
-        for (Monster m : removeMonster) {
-            this.currBattle.remove(m);
-        }
+        checkIfMonsterDead();
         
         for (Weapon r : remove) {
             floorweapons.remove(r);
@@ -221,7 +216,90 @@ public class AreaState extends BasicGameState {
         return new ArrayList<Weapon>();
     }
     
-    public void addNewItem() {
+    public void runOverCoins(Player p){
+        ArrayList<Coin> out = new ArrayList<Coin>();
+        for (Coin c : floorcoins){
+            if (p.hitbox.intersects(c.getHitBox())) {
+            	p.score += c.value;
+            	out.add(c);
+            }
+        }
+        for (Coin c : out){
+        	floorcoins.remove(c);
+        }
+    }
+    
+    public void floorItemsMove(float shift){
+        ArrayList<Weapon> remove = new ArrayList<Weapon>();
+        for (Weapon i : floorweapons) {
+            i.x -= shift;
+            if (i.x < 0) {
+                remove.add(i);
+            }
+        }
+
+        for (Weapon i : remove) {
+            floorweapons.remove(i);
+        }
+        
+        ArrayList<Coin> rid = new ArrayList<Coin>();
+        for (Coin c : floorcoins) {
+            c.pos[0] -= shift;
+            if (c.pos[0] < 0) {
+                rid.add(c);
+            }
+        }
+        
+        for (Coin i : rid) {
+            floorcoins.remove(i);
+        }
+    }
+    
+    public void checkIfMonsterDead() throws SlickException{
+        ArrayList<Monster> removeMonster = new ArrayList<Monster>();
+        for (Monster m : this.currBattle) {
+            if (m.health <= 0) {
+        		removeMonster.add(m);
+                m.getLastHit().incrementScore(100);
+            }
+        }
+
+        monsterDrop(removeMonster);
+    }
+    
+    public void monsterDrop(ArrayList<Monster> removeMonster) throws SlickException{
+        for (Monster m : removeMonster) {
+        	m.renderDeath();
+        	//float[] pos = {m.pos[0]+90,m.pos[1]};
+        	float[] pos = m.pos;
+            this.currBattle.remove(m);
+            double rand = Math.random();
+            Weapon w;
+            if(rand < 0.5){
+            	if(rand < 0.25){
+            		w = new Sword(pos[0],pos[1]);
+            	} else{
+                	w = new Bear(pos[0],pos[1]);
+            	}
+            	
+        		w.createGroundSprite();
+        		floorweapons.add(w);
+            }
+            double rand2 = Math.random();
+            Coin c;
+            if(rand2<0.5){
+            	c = new Coin("yellow",pos);
+            } else if(rand2<0.7){
+            	c = new Coin("red",pos);
+            } else if(rand2<0.85){
+            	c = new Coin("blue",pos);
+            } else if(rand2<0.95){
+            	c = new Coin("green",pos);
+            } else{
+            	c = new Coin("purple",pos);
+            }
+            floorcoins.add(c);
+        }
     }
     
     @Override

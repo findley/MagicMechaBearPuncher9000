@@ -19,8 +19,8 @@ import states.TownState;
 
 public class MainGame extends StateBasedGame {
  
-	public static final int GAME_WIDTH = 1024;
-	public static final int GAME_HEIGHT = 768;
+	public static final int GAME_WIDTH = 1024*4/5;
+	public static final int GAME_HEIGHT = 768*4/5;
 	
 	public static Player[] players = new Player[2];
 
@@ -65,8 +65,8 @@ public class MainGame extends StateBasedGame {
 			p1Buttons.put("pickup", Input.KEY_COMMA);
 			
 			// set up players
-			players[0] = new Player(p0Buttons, 100f, 650f);
-			players[1] = new Player(p1Buttons, 150f, 600f);
+			players[0] = new Player(p0Buttons, 100f, GAME_HEIGHT*5/6);
+			players[1] = new Player(p1Buttons, 150f, GAME_HEIGHT*4/6);
 			
 			app.start();
 		} catch (SlickException e) {
