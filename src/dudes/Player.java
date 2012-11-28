@@ -18,6 +18,10 @@ public class Player extends Dude {
     public HashMap<String, Integer> buttons;
     public int                      playerID;
     public int                      score;
+    public int                      deathTimer;
+    private final int               RESPAWN_TIMER = 5000;
+    public boolean                  isRespawning;
+    public static Animation[]       playerDeath = new Animation[2];
     
     public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
         this.buttons = buttons;
@@ -32,6 +36,7 @@ public class Player extends Dude {
         attackTime = 0;
         this.weapon = new Fist(this);
         hitbox = new Rectangle(pos[0], pos[1], weapon.playerSize, weapon.playerSize);
+        deathTimer = 0;
     }
     
     public void init(int playerID) throws SlickException {
@@ -39,9 +44,18 @@ public class Player extends Dude {
         this.sprites = new SpriteSheet("Assets/players/player"+playerID+"Death.png",64,64);
         // create spritesheets for the weapon:
         this.weapon.init();
+        
+        SpriteSheet deathSprites = new SpriteSheet("Assets/players/player" + playerID + "Death.png", 64, 64);
+        playerDeath[0] = new Animation(deathSprites, 0, 0, 2, 0, true, 100, true);
+        playerDeath[0].setLooping(false);
+        playerDeath[1] = new Animation(deathSprites, 3, 0, 5, 0, true, 100, true);
+        playerDeath[1].setLooping(false);
     }
     
     public void move(Input input, int delta) {
+    	if (isRespawning) {
+    		return;
+    	}
         if (currentAnimation != null) {
             if (currentAnimation.isStopped()) {
                 currentAnimation.restart();
@@ -69,10 +83,6 @@ public class Player extends Dude {
         }
         
         float moveDist = (float) .1 * delta * moveSpeed;
-        
-        for (String key : buttons.keySet()) {
-            // TODO: fix diagonally
-        }
         
         if (input.isKeyPressed(buttons.get("action"))) {
             this.isAttacking = true;
@@ -138,10 +148,10 @@ public class Player extends Dude {
         int width = 150;
         int height = 10;
         int padding = 2;
-        int healthRemaining = width * health / maxHealth;
+        double healthRemaining = width * health / maxHealth;
         g.drawRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
         g.setColor(healthFill);
-        g.fillRect(x, y, healthRemaining, height);
+        g.fillRect(x, y, (float) healthRemaining, height);
     }
     
     @Override
@@ -153,4 +163,19 @@ public class Player extends Dude {
         }
     }
     
+    public void deathCheck(int delta) {
+    	if ((health <= 0) && (deathTimer == 0)) {
+    		deathTimer = RESPAWN_TIMER;
+    		isRespawning = true;
+    		currentAnimation = playerDeath[0];
+    		currentAnimation.start();
+    	} else if (deathTimer > 0) {
+    		deathTimer = Math.max(deathTimer-delta, 0);
+    		health = health + (double)delta / RESPAWN_TIMER * maxHealth;
+    		if (health >= maxHealth) {
+    			health = maxHealth;
+    			isRespawning = false;
+    		}
+    	}
+    }
 }

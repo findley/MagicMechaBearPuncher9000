@@ -12,7 +12,7 @@ import weapons.Weapon;
 import core.MainGame;
 
 public abstract class Dude implements Comparable<Dude> {
-    public int         health;
+    public double      health;
     public Weapon      weapon;
     public Animation   currentAnimation;
     public float[]     pos         = new float[2];
@@ -139,10 +139,10 @@ public abstract class Dude implements Comparable<Dude> {
         int width = 100;
         int height = 10;
         int padding = 2;
-        int healthRemaining = width * health / maxHealth;
+        double healthRemaining = width * health / maxHealth;
         g.drawRect(x - padding - width / 2, y - padding - height / 2, width + padding * 2, height + padding * 2);
         g.setColor(healthFill);
-        g.fillRect(x - width / 2, y - height / 2, healthRemaining, height);
+        g.fillRect(x - width / 2, y - height / 2, (float) healthRemaining, height);
     }
     
     @Override
