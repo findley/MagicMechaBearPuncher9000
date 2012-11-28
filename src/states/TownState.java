@@ -26,7 +26,7 @@ public class TownState extends AreaState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.init(container, game);
-		bgImage = new TiledMap("Assets/Transition 1/Map.tmx");
+		bgImage = new TiledMap("Assets/World/Map2.tmx");
 		areaLength = 200;
 
 		// note: players are initialized ONLY in the first area
