@@ -5,48 +5,45 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
-import dudes.Dude;
+import projectiles.FireballProjectile;
+import projectiles.Projectile;
+
 import dudes.Player;
 
-public class Fist extends Weapon {
-	
-	public Fist(Dude owner) {
-		this(owner.pos[0], owner.pos[1]);
-		assignOwner(owner);
-	}
-	
-	public Fist(float x, float y) {
+public class Fireball extends Weapon {
+
+	public Fireball(float x, float y) {
 		super();
+		this.x = x;
+		this.y = y;
 		damage = 5;
-		attackWidth = 30;
+		attackWidth = 100;
 		attackHeight = 6;
 		attackTime = 200;
 		delayTime = 500;
 		playerSize = 64;
 	}
-
+	
 	@Override
 	public void init() throws SlickException {
 		super.init();
-		weaponSheet = new SpriteSheet("Assets/Weapons/Fist/player" + ((Player)owner).playerID + "Fist.png", playerSize, playerSize);
-		playerSheet = ((Player)owner).sprites;
+		weaponSheet = new SpriteSheet("Assets/Weapons/Fireball/player" + ((Player)owner).playerID + "Fireball.png", playerSize, playerSize);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();
 	}
 	
 	@Override
-	public void attack() {
+	public void attack() throws SlickException {
+		if (this.ranged){
+			projectiles.add(new FireballProjectile(owner.pos));
+		}
+		
 		float[] corner = owner.weaponLoc();
-		Rectangle hitbox;
-		if (owner.isRight){
-			hitbox = new Rectangle(corner[0], corner[1], attackWidth,
+		corner[0] -= attackWidth / 2;
+		corner[1] -= attackHeight / 2;
+		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
 				attackHeight);
-		}
-		else {
-			hitbox = new Rectangle(corner[0]-attackWidth, corner[1], attackWidth,
-					attackHeight);
-		}
 		attacks.add(new Attack(owner.isRight, hitbox, "player"));
 	}
 
@@ -60,4 +57,8 @@ public class Fist extends Weapon {
 		}
 	}
 	
+	@Override
+	public void createGroundSprite() throws SlickException {
+		groundSprite = new Image("Assets/Weapons/Fireball/GroundFireball.png");
+	}
 }

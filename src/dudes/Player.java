@@ -41,7 +41,7 @@ public class Player extends Dude {
         this.weapon.init();
     }
     
-    public void move(Input input, int delta) {
+    public void move(Input input, int delta) throws SlickException {
         if (currentAnimation != null) {
             if (currentAnimation.isStopped()) {
                 currentAnimation.restart();

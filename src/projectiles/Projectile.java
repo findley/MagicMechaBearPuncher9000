@@ -18,8 +18,7 @@ public abstract class Projectile {
 	public Projectile(float[] pos) {
 		this.pos = pos;
 		hitbox = new Rectangle(pos[0], pos[1], sprite.getWidth(), sprite.getHeight());
-		this.hasHit = false;
-		
+		this.hasHit = false;		
 	}
 	
 	 public void render(Graphics g) throws SlickException {

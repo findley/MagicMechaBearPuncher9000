@@ -45,7 +45,7 @@ public abstract class Dude implements Comparable<Dude> {
         invincibleDuration = 500;
     }
     
-    public void attack() {
+    public void attack() throws SlickException {
         this.weapon.attack();
     }
     

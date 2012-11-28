@@ -7,6 +7,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 import weapons.Bear;
 import weapons.Coin;
+import weapons.Fireball;
 import weapons.KnightKnife;
 import weapons.Sword;
 import weapons.Weapon;
@@ -53,7 +54,7 @@ public class Knight extends Monster {
 	}
 
 	@Override
-	public void aiLoop(Player[] players, int delta) {
+	public void aiLoop(Player[] players, int delta) throws SlickException {
 		if (homing) {
 			homing = home(locked);
 			return;
@@ -143,9 +144,10 @@ public class Knight extends Monster {
     	float[] pos = this.pos;
         double rand = Math.random();
         Weapon w;
-        if(rand < 0.5){
-        	if(rand < 0.25){
-        		w = new Sword(pos[0],pos[1]);
+        if(rand < 0.5 || rand < 1){
+        	if(rand < 0.25 || rand < 1){
+        		w = new Fireball(pos[0], pos[1]);
+        		//w = new Sword(pos[0],pos[1]);
         	} else{
             	w = new Bear(pos[0],pos[1]);
         	}

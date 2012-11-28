@@ -17,7 +17,7 @@ public abstract class Monster extends Dude {
     Player  lastHit;
     
     // dunno the fuck this is gonna do yet.
-    abstract public void aiLoop(Player[] players, int delta);
+    abstract public void aiLoop(Player[] players, int delta) throws SlickException;
     
     public void move(Input input, int delta) {
         if (flinching) {
@@ -42,7 +42,7 @@ public abstract class Monster extends Dude {
         }
     }
     
-    public boolean home(Player target) {
+    public boolean home(Player target) throws SlickException {
         boolean xFlag = false;
         boolean yFlag = false;
         if (target.pos[0] - this.pos[0] > this.weapon.attackWidth) {
