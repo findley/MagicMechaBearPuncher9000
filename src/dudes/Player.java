@@ -30,8 +30,8 @@ public class Player extends Dude {
         score = 0;
         healthFill = new Color(0f, 1f, 0f, 1f);
         attackTime = 0;
-        hitbox = new Rectangle(pos[0], pos[1], weapon.playerSize, weapon.playerSize);
         this.weapon = new Fist(this);
+        hitbox = new Rectangle(pos[0], pos[1], weapon.playerSize, weapon.playerSize);
     }
     
     public void init(int playerID) throws SlickException {
