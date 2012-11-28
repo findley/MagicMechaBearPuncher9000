@@ -176,7 +176,7 @@ public class AreaState extends BasicGameState {
         				if (player.isRespawning) {
         					
         				} else {
-        					player.hurt(50, PLAYER_STUN_LENGTH);
+        					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
         					p.hasHit = true; 
         				}
         			}
