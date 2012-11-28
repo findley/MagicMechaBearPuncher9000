@@ -6,6 +6,9 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
+import dudes.Dude;
+import dudes.Player;
+
 import weapons.Attack;
 
 public abstract class Projectile {
@@ -15,10 +18,14 @@ public abstract class Projectile {
     public Shape hitbox;
     public float moveSpeed;
 	public boolean hasHit;
-	public Projectile(float[] pos) {
-		this.pos = pos;
-		hitbox = new Rectangle(pos[0], pos[1], sprite.getWidth(), sprite.getHeight());
+	public Player owner;
+	public boolean isRight;
+	public Projectile(float[] pos, Player owner, boolean isRight) {
+		this.pos[0] = pos[0]+32;
+		this.pos[1] = pos[1] + 32;
 		this.hasHit = false;		
+		this.owner = owner;
+		this.isRight = isRight;
 	}
 	
 	 public void render(Graphics g) throws SlickException {
@@ -26,6 +33,14 @@ public abstract class Projectile {
 	 }
 	 
 	 public void move() {
-		 this.pos[0] += this.moveSpeed;		 
+		 if (isRight) {
+			 this.pos[0] += this.moveSpeed;		 
+		 } else {
+			 this.pos[0] -= this.moveSpeed;
+		 }
+	 }
+	 
+	 public Shape getHitbox() {
+			return new Rectangle(pos[0], pos[1], sprite.getWidth(), sprite.getHeight());
 	 }
 }

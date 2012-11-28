@@ -144,12 +144,14 @@ public class Knight extends Monster {
     	float[] pos = this.pos;
         double rand = Math.random();
         Weapon w;
-        if(rand < 0.5 || rand < 1){
-        	if(rand < 0.25 || rand < 1){
-        		w = new Fireball(pos[0], pos[1]);
+        if(rand < 0.5){
+        	if(rand < 0.15){
+        		w = new Sword(pos[0], pos[1]);
         		//w = new Sword(pos[0],pos[1]);
-        	} else{
+        	} else if (rand < .35){
             	w = new Bear(pos[0],pos[1]);
+        	} else {
+        		w = new Fireball(pos[0], pos[1]);
         	}
         	
     		w.createGroundSprite();

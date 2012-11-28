@@ -22,6 +22,7 @@ public class Fireball extends Weapon {
 		attackTime = 200;
 		delayTime = 500;
 		playerSize = 64;
+		this.ranged = true;
 	}
 	
 	@Override
@@ -36,7 +37,7 @@ public class Fireball extends Weapon {
 	@Override
 	public void attack() throws SlickException {
 		if (this.ranged){
-			projectiles.add(new FireballProjectile(owner.pos));
+			projectiles.add(new FireballProjectile(owner.pos, (Player) owner, owner.isRight));
 		}
 		
 		float[] corner = owner.weaponLoc();
