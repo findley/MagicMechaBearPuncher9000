@@ -270,35 +270,23 @@ public class AreaState extends BasicGameState {
     public void monsterDrop(ArrayList<Monster> removeMonster) throws SlickException{
         for (Monster m : removeMonster) {
         	m.renderDeath();
-        	//float[] pos = {m.pos[0]+90,m.pos[1]};
-        	float[] pos = m.pos;
             this.currBattle.remove(m);
             double rand = Math.random();
-            Weapon w;
-            if(rand < 0.5){
-            	if(rand < 0.25){
-            		w = new Sword(pos[0],pos[1]);
-            	} else{
-                	w = new Bear(pos[0],pos[1]);
-            	}
+            Weapon w = m.getDropWeapon();
+            if (w == null) {
             	
-        		w.createGroundSprite();
-        		floorweapons.add(w);
+            } else {
+         		floorweapons.add(w);	
             }
-            double rand2 = Math.random();
-            Coin c;
-            if(rand2<0.5){
-            	c = new Coin("yellow",pos);
-            } else if(rand2<0.7){
-            	c = new Coin("red",pos);
-            } else if(rand2<0.85){
-            	c = new Coin("blue",pos);
-            } else if(rand2<0.95){
-            	c = new Coin("green",pos);
-            } else{
-            	c = new Coin("purple",pos);
+            
+            
+            Coin c = m.getDropCoin();
+            if (c == null) {
+            	
+            } else {
+                floorcoins.add(c);	
             }
-            floorcoins.add(c);
+            
         }
     }
     

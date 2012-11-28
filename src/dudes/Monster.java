@@ -1,6 +1,10 @@
 package dudes;
 
 import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
+import weapons.Coin;
+import weapons.Weapon;
 
 public abstract class Monster extends Dude {
     Player  locked    = null;
@@ -86,4 +90,9 @@ public abstract class Monster extends Dude {
     public Player getLastHit() {
         return this.lastHit;
     }
+    
+    abstract public Weapon getDropWeapon() throws SlickException;
+    
+    abstract public Coin getDropCoin() throws SlickException;
+    
 }

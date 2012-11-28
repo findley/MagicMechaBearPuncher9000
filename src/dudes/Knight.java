@@ -5,7 +5,11 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import weapons.Bear;
+import weapons.Coin;
 import weapons.KnightKnife;
+import weapons.Sword;
+import weapons.Weapon;
 
 public class Knight extends Monster {
 	float homeToleranceX;
@@ -131,5 +135,43 @@ public class Knight extends Monster {
                 return weapon.anims[4];
             }
         }
+	}
+	
+	@Override
+	public Weapon getDropWeapon() throws SlickException {
+		//float[] pos = {m.pos[0]+90,m.pos[1]};
+    	float[] pos = this.pos;
+        double rand = Math.random();
+        Weapon w;
+        if(rand < 0.5){
+        	if(rand < 0.25){
+        		w = new Sword(pos[0],pos[1]);
+        	} else{
+            	w = new Bear(pos[0],pos[1]);
+        	}
+        	
+    		w.createGroundSprite();
+    		return w;
+        }
+        
+        return null;
+	}
+	
+	@Override
+	public Coin getDropCoin() throws SlickException {
+		double rand2 = Math.random();
+        if(rand2<0.5){
+        	return new Coin("yellow",pos);
+        } else if(rand2<0.7){
+        	return new Coin("red",pos);
+        } else if(rand2<0.85){
+        	return new Coin("blue",pos);
+        } else if(rand2<0.95){
+        	return new Coin("green",pos);
+        } else if (rand2 < 1){
+        	return new Coin("purple",pos);
+        } 
+        
+        return null;
 	}
 }
