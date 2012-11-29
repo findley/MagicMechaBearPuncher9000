@@ -5,6 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import weapons.Axe;
 import weapons.Bear;
 import weapons.Bow;
 import weapons.Coin;
@@ -12,6 +13,7 @@ import weapons.Crossbow;
 import weapons.Fireball;
 import weapons.KnightKnife;
 import weapons.Mini;
+import weapons.Spear;
 import weapons.Sword;
 import weapons.Weapon;
 
@@ -148,8 +150,8 @@ public class Knight extends Monster {
     	float[] pos = this.pos;
         double rand = Math.random();
         Weapon w;
-        if(rand < 0.5 || rand < 1){
-        	if(rand < 0.1 || rand < 1){
+        if(rand < 0.5){
+        	if(rand < 0.1){
         		w = new Crossbow(pos[0], pos[1]);
         		//w = new Sword(pos[0], pos[1]);
         	} else if (rand < .2){
@@ -158,7 +160,11 @@ public class Knight extends Monster {
         		w = new Bow(pos[0], pos[1]);	
         	} else if (rand < .4){
         		w = new Fireball(pos[0], pos[1]);
-        	} else {
+        	} /*else if (rand < .5){
+        		w = new Spear(pos[0],pos[1]);
+        	} else if (rand < .6){
+        		w = new Axe(pos[0],pos[1]);
+        	}*/ else {
             	w = new Mini(pos[0], pos[1]);
         	}
         	
