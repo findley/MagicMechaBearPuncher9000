@@ -48,7 +48,6 @@ public class AreaState extends BasicGameState {
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
         currBattle = new ArrayList<Monster>();
-        //floorweapons = makeInitItems();
         floorweapons = new ArrayList<Weapon>();
         liveProjectiles = new ArrayList<Projectile>();
         floorcoins = new ArrayList<Coin>();
@@ -73,9 +72,6 @@ public class AreaState extends BasicGameState {
             g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
             g.drawString("MANLINESS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
         }
-        // for (int i = 0; i < players.length; i++) {
-        // players[i].render(g);
-        // }
         
         if (inBattle) {
             g.drawString("FIGHT", container.getWidth()/2, 170);
@@ -143,8 +139,7 @@ public class AreaState extends BasicGameState {
                         players[0].pos[0] -= shift;
                         players[1].pos[0] -= shift;
                         
-                        floorItemsMove(shift);
-                        
+                        floorItemsMove(shift);                        
                     }
                 }
             }
