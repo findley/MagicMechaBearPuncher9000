@@ -98,4 +98,8 @@ public class CastleState extends AreaState {
 		return o;
 
 	}*/
+	@Override
+	public int getID(){
+		return 3;
+	}
 }

@@ -44,7 +44,7 @@ public class InstructionsState extends BasicGameState{
             game.enterState(0);
         }
         if (container.getInput().isKeyPressed(Input.KEY_P)){
-            game.enterState(1);
+            game.enterState(2);
         }
 	}
 	
@@ -56,7 +56,7 @@ public class InstructionsState extends BasicGameState{
 
 	@Override
 	public int getID() {
-		return 2;
+		return 1;
 	}
 
 }

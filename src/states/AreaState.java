@@ -263,6 +263,10 @@ public class AreaState extends BasicGameState {
         if (currBattle.size() == 0 && inBattle) {
             inBattle = false;
         }
+        
+        if (completed){
+        	game.enterState(3);
+        }
     }
     
     public ArrayList<Weapon> makeInitItems() throws SlickException {
@@ -360,8 +364,11 @@ public class AreaState extends BasicGameState {
     }
     
     @Override
+    public int getID(){return 0;}
+    /*
+    @Override
     public int getID() {
         // TODO Auto-generated method stub
         return 1;
-    }
+    }*/
 }
