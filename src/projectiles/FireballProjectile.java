@@ -12,8 +12,8 @@ public class FireballProjectile extends Projectile{
 
 	public FireballProjectile(float[] pos, Player owner, boolean isRight) throws SlickException {
 		super(pos, owner, isRight);
-		this.moveSpeed = 5.0f;
-		this.damage = 10;
+		this.moveSpeed = 7.0f;
+		this.damage = 4;
 		if (isRight) {
 			this.sprite = new Image("Assets/Weapons/Fireball/RightFireball2.png");
 		} else {
