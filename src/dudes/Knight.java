@@ -146,28 +146,15 @@ public class Knight extends Monster {
 	
 	@Override
 	public Weapon getDropWeapon() throws SlickException {
+		Weapon[] lootItems = new Weapon[]{ new Sword(pos[0], pos[1]), new Crossbow(pos[0], pos[1]), new Bear(pos[0],pos[1]), new Bow(pos[0], pos[1]), new Fireball(pos[0], pos[1]), new Mini(pos[0], pos[1]) } ; 
 		//float[] pos = {m.pos[0]+90,m.pos[1]};
     	float[] pos = this.pos;
         double rand = Math.random();
         Weapon w;
+                
         if(rand < 0.5){
-        	if(rand < 0.1){
-        		w = new Crossbow(pos[0], pos[1]);
-        		//w = new Sword(pos[0], pos[1]);
-        	} else if (rand < .2){
-        		w = new Bear(pos[0],pos[1]);
-        	} else if (rand < .3) {
-        		w = new Bow(pos[0], pos[1]);	
-        	} else if (rand < .4){
-        		w = new Fireball(pos[0], pos[1]);
-        	} /*else if (rand < .5){
-        		w = new Spear(pos[0],pos[1]);
-        	} else if (rand < .6){
-        		w = new Axe(pos[0],pos[1]);
-        	}*/ else {
-            	w = new Mini(pos[0], pos[1]);
-        	}
-        	
+        	int index = (int) ((int) 2*rand*lootItems.length);
+        	w = lootItems[index];
     		w.createGroundSprite();
     		return w;
         }

@@ -36,6 +36,8 @@ public abstract class Weapon {
 	public boolean isFist = false;
 	public int damage;
 	public int attackWidth;
+	
+	public float cooldown;
 	public int attackHeight;
 	public float attackTime;
 	public int delayTime;
@@ -48,6 +50,7 @@ public abstract class Weapon {
 	public Weapon() {
 		attacks = new ArrayList<Attack>();
 		projectiles = new ArrayList<Projectile>();
+		cooldown = 0;
 	}
 	
 	public abstract void init() throws SlickException;
