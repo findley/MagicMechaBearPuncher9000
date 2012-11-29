@@ -23,6 +23,7 @@ public class Fist extends Weapon {
 		attackTime = 200;
 		delayTime = 500;
 		playerSize = 64;
+		isFist = true;
 	}
 
 	@Override

@@ -33,6 +33,7 @@ public abstract class Weapon {
 	
 	public int kind; //0 for town, 1 for forest, 2 for castle
 	
+	public boolean isFist = false;
 	public int damage;
 	public int attackWidth;
 	public int attackHeight;
