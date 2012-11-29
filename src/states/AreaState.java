@@ -21,6 +21,7 @@ import weapons.Fist;
 import weapons.Sword;
 import weapons.Weapon;
 import core.MainGame;
+import core.Text;
 import dudes.Monster;
 import dudes.Player;
 
@@ -39,6 +40,7 @@ public class AreaState extends BasicGameState {
     private ArrayList<Player>               sPlayers;
     private final int                       PLAYER_STUN_LENGTH = 500;
     private ArrayList<Projectile> liveProjectiles;
+    private ArrayList<Text> screenTexts;
     public AreaState(int stateID) {
         super();
     }
@@ -59,6 +61,8 @@ public class AreaState extends BasicGameState {
         sPlayers = new ArrayList<Player>();
         sPlayers.add(players[0]);
         sPlayers.add(players[1]);
+        
+        screenTexts = new ArrayList<Text>();
     }
     
     @Override
@@ -72,6 +76,10 @@ public class AreaState extends BasicGameState {
             p.render(g);
             g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
             g.drawString("MANLINESS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
+        }
+        
+        for (Text t : screenTexts) {
+        	t.render(g);
         }
         
         if (inBattle) {
@@ -101,7 +109,6 @@ public class AreaState extends BasicGameState {
         if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
-        // progression++;
         
         for (int i = 0; i < players.length; i++) {
             players[i].move(container.getInput(), delta);
@@ -110,6 +117,10 @@ public class AreaState extends BasicGameState {
         
         for (Projectile p : liveProjectiles) {
         	p.move();
+        }
+        
+        for (Text t : screenTexts) {
+        	t.update();
         }
         
         if (inBattle) {
@@ -286,7 +297,8 @@ public class AreaState extends BasicGameState {
         for (Coin c : floorcoins){
             if (p.hitbox.intersects(c.getHitBox())) {
             	p.score += c.value;
-            	out.add(c);
+            	this.screenTexts.add(new Text(p.pos, Integer.toString(c.value)));
+                out.add(c);
             }
         }
         for (Coin c : out){
