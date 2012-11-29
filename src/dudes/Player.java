@@ -176,7 +176,6 @@ public class Player extends Dude {
     
     public void deathCheck(int delta) {
     	if ((health <= 0) && (deathTimer == 0)) {
-    		weapon.drop();
     		deathTimer = RESPAWN_TIMER;
     		isRespawning = true;
     		if (isRight)
