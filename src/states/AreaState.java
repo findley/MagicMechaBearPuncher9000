@@ -1,6 +1,6 @@
 package states;
 
-import java.awt.Color;
+import org.newdawn.slick.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -74,6 +74,7 @@ public class AreaState extends BasicGameState {
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
             p.render(g);
+            g.setColor(Color.green);
             g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
             g.drawString("MANLINESS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
         }
@@ -83,6 +84,7 @@ public class AreaState extends BasicGameState {
         }
         
         if (inBattle) {
+        	g.setColor(Color.green);
             g.drawString("FIGHT", container.getWidth()/2, 170);
             
             Collections.sort(currBattle);
@@ -118,7 +120,8 @@ public class AreaState extends BasicGameState {
         for (Projectile p : liveProjectiles) {
         	p.move();
         }
-        
+
+        removeTexts();
         for (Text t : screenTexts) {
         	t.update();
         }
@@ -330,6 +333,20 @@ public class AreaState extends BasicGameState {
         for (Coin i : rid) {
             floorcoins.remove(i);
         }
+    }
+    
+    public void removeTexts() {
+    	ArrayList<Text> removeTexts = new ArrayList<Text>();
+    	for (Text t : screenTexts) {
+    		if (t.duration < 0) {
+    			removeTexts.add(t);
+    		}
+    		
+    	}
+    	
+    	for (Text t : removeTexts) {
+    		screenTexts.remove(t);
+    	}
     }
     
     public void removeProjectiles() {

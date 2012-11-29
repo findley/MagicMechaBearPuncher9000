@@ -159,8 +159,8 @@ public class Player extends Dude {
         int height = 10;
         int padding = 2;
         double healthRemaining = width * health / maxHealth;
-        g.drawRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
         g.setColor(healthFill);
+        g.drawRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
         g.fillRect(x, y, (float) healthRemaining, height);
     }
     

@@ -145,8 +145,8 @@ public abstract class Dude implements Comparable<Dude> {
         int height = 10;
         int padding = 2;
         double healthRemaining = width * health / maxHealth;
-        g.drawRect(x - padding - width / 2, y - padding - height / 2, width + padding * 2, height + padding * 2);
         g.setColor(healthFill);
+        g.drawRect(x - padding - width / 2, y - padding - height / 2, width + padding * 2, height + padding * 2);
         g.fillRect(x - width / 2, y - height / 2, (float) healthRemaining, height);
     }
     
