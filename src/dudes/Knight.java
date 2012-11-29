@@ -9,6 +9,7 @@ import weapons.Bear;
 import weapons.Coin;
 import weapons.Fireball;
 import weapons.KnightKnife;
+import weapons.Mini;
 import weapons.Sword;
 import weapons.Weapon;
 
@@ -146,12 +147,14 @@ public class Knight extends Monster {
         double rand = Math.random();
         Weapon w;
         if(rand < 0.5){
-        	if(rand < 0.15){
+        	if(rand < 0.1){
         		w = new Sword(pos[0], pos[1]);
-        	} else if (rand < .35){
+        	} else if (rand < .25){
         		w = new Bear(pos[0],pos[1]);
-        	} else {
+        	} else if (rand < .4){
         		w = new Fireball(pos[0], pos[1]);
+        	} else {
+            	w = new Mini(pos[0], pos[1]);
         	}
         	
     		w.createGroundSprite();

@@ -58,6 +58,6 @@ public class Mini extends Weapon {
 	
 	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Mini/miniSprite.png");
+		groundSprite = new Image("Assets/Weapons/Mini/potionBottle.png");
 	}
 }
