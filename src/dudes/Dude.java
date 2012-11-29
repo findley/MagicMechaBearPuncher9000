@@ -26,6 +26,8 @@ public abstract class Dude implements Comparable<Dude> {
     public boolean     invincible;
     public int         invincibleDuration;
     public int         invincibleTimer;
+
+    public int         deathTimer;
     
     public boolean     flinching;
     public int         flinchDur;

@@ -16,6 +16,8 @@ public abstract class Monster extends Dude {
     int     moveSpeed;
     Player  lastHit;
     
+    public static int DEATH_TIMER = 2000;
+    
     // dunno the fuck this is gonna do yet.
     abstract public void aiLoop(Player[] players, int delta) throws SlickException;
     

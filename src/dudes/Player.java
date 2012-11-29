@@ -20,7 +20,6 @@ public class Player extends Dude {
     public HashMap<String, Integer> buttons;
     public int                      playerID;
     public int                      score;
-    public int                      deathTimer;
     private final int               RESPAWN_TIMER = 5000;
     public boolean                  isRespawning;
     public Animation[]       playerDeath = new Animation[2];

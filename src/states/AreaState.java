@@ -365,7 +365,7 @@ public class AreaState extends BasicGameState {
     public void monsterDrop(ArrayList<Monster> removeMonster) throws SlickException{
         for (Monster m : removeMonster) {
         	m.renderDeath();
-            //this.currBattle.remove(m);
+            this.currBattle.remove(m);
             double rand = Math.random();
             Weapon w = m.getDropWeapon();
             if (w == null) {
