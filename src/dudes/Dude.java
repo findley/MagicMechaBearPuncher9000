@@ -34,6 +34,7 @@ public abstract class Dude implements Comparable<Dude> {
     public boolean     delayed;
     public int         delayDur;
     public int         delayTime;
+    public float cooldown;
     
     // only for enemies
     public SpriteSheet sprites;
@@ -44,6 +45,7 @@ public abstract class Dude implements Comparable<Dude> {
     
     public Dude() {
         invincibleDuration = 500;
+        cooldown = 0;
     }
     
     public void attack() throws SlickException {

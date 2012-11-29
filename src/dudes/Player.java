@@ -86,13 +86,22 @@ public class Player extends Dude {
         
         float moveDist = (float) .1 * delta * moveSpeed;
         
+        if (cooldown > 0) {
+        	cooldown-= 1;
+        }
         if (input.isKeyPressed(buttons.get("action"))) {
-            this.isAttacking = true;
-            currentAnimation = handleAnimation("punch");
-            currentAnimation.start();
-            attackTime = 0;
-            this.weapon.attack();
-            return;
+        	if (cooldown > 0) {
+        		return;
+        	} else {
+        		this.isAttacking = true;
+                currentAnimation = handleAnimation("punch");
+                currentAnimation.start();
+                cooldown = this.weapon.cooldown;
+                attackTime = 0;
+                this.weapon.attack();
+                return;
+        	}
+            
         } else if (input.isKeyDown(buttons.get("right")) || input.isKeyDown(buttons.get("left")) || input.isKeyDown(buttons.get("down"))
                 || input.isKeyDown(buttons.get("up"))) {
             currentAnimation = handleAnimation("walk");

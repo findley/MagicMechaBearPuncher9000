@@ -14,6 +14,7 @@ public class Fireball extends RangeWeapon {
 
 	public Fireball(float x, float y) {
 		super(x, y);
+		cooldown = 50.0f;
 	}
 	
 	@Override
