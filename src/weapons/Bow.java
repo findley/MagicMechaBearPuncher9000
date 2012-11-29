@@ -34,6 +34,6 @@ public class Bow extends RangeWeapon {
 	
 	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Bow/GroundBow.png");
+		groundSprite = new Image("Assets/Weapons/Bow/groundbow.png");
 	}
 }
