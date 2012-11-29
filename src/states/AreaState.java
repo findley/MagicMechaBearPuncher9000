@@ -17,6 +17,7 @@ import projectiles.Projectile;
 import weapons.Attack;
 import weapons.Bear;
 import weapons.Coin;
+import weapons.Fist;
 import weapons.Sword;
 import weapons.Weapon;
 import core.MainGame;
@@ -245,6 +246,19 @@ public class AreaState extends BasicGameState {
         checkIfMonsterDead();
         for (Player p : players) {
         	p.deathCheck(delta);
+        	if(p.isRespawning && !p.weapon.isFist){
+        		Weapon w = new Fist(p.pos[0],p.pos[1]);
+        		p.weapon.drop();
+                if (p.weapon.groundSprite == null) {
+                    
+                } else {
+                    add.add(p.weapon);
+                }
+                p.weapon = w;
+                w.assignOwner(p);
+                w.init();
+                remove.add(w);
+        	}
         }
         
         for (Weapon r : remove) {
@@ -257,6 +271,10 @@ public class AreaState extends BasicGameState {
         
         if (currBattle.size() == 0 && inBattle) {
             inBattle = false;
+        }
+        
+        if (completed){
+        	game.enterState(3);
         }
     }
     
@@ -331,6 +349,7 @@ public class AreaState extends BasicGameState {
 
         monsterDrop(removeMonster);
     }
+   
     
     public void monsterDrop(ArrayList<Monster> removeMonster) throws SlickException{
         for (Monster m : removeMonster) {
@@ -355,8 +374,11 @@ public class AreaState extends BasicGameState {
     }
     
     @Override
+    public int getID(){return 0;}
+    /*
+    @Override
     public int getID() {
         // TODO Auto-generated method stub
         return 1;
-    }
+    }*/
 }

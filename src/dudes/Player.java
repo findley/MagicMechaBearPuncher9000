@@ -1,5 +1,6 @@
 package dudes;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
@@ -13,6 +14,7 @@ import org.newdawn.slick.geom.Rectangle;
 import core.MainGame;
 
 import weapons.Fist;
+import weapons.Weapon;
 
 public class Player extends Dude {
     public HashMap<String, Integer> buttons;

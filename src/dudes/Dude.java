@@ -38,6 +38,7 @@ public abstract class Dude implements Comparable<Dude> {
     // only for enemies
     public SpriteSheet sprites;
     public int[]       spriteIndex = new int[2];
+    public int		   kind; //0 for town, 1 for forest, 2 for castle
     
     public abstract float[] weaponLoc();
     

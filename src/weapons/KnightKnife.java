@@ -9,13 +9,12 @@ import dudes.Dude;
 
 public class KnightKnife extends Weapon{
 	
-	
 	public KnightKnife(Dude owner) {
-		this(owner.pos[0], owner.pos[1]);
+		this(owner.pos[0], owner.pos[1], owner.kind);
 		assignOwner(owner);
 	}
 
-	public KnightKnife(float x, float y) {
+	public KnightKnife(float x, float y, int k) {
 		super();
 		groundSprite = null;
 		this.x = x;
@@ -26,11 +25,18 @@ public class KnightKnife extends Weapon{
 		attackTime = 1000;
 		delayTime = 500;
 		playerSize = 64;
+		kind = k;
 	}
 	
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/new_sheet.png", playerSize, playerSize);
+		if(kind==0){
+			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/new_sheet.png", playerSize, playerSize);
+		} else if(kind==1){
+			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/camoKnightSheet.png", playerSize, playerSize);
+		} else{
+			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/darkKnightSheet.png", playerSize, playerSize);
+		}
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();

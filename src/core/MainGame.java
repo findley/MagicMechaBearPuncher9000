@@ -15,6 +15,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import dudes.Player;
 
+import states.CastleState;
 import states.TownState;
 
 public class MainGame extends StateBasedGame {
@@ -78,7 +79,8 @@ public class MainGame extends StateBasedGame {
     public void initStatesList(GameContainer container) throws SlickException {
         
         addState(new MainMenuState(0));
-        addState(new TownState(1));
-        addState(new InstructionsState(2));
+        addState(new InstructionsState(1));
+        addState(new TownState(2));
+        addState(new CastleState(3));
     }
 }
