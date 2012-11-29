@@ -150,8 +150,8 @@ public class Knight extends Monster {
     	float[] pos = this.pos;
         double rand = Math.random();
         Weapon w;
-        if(rand < 0.5 || rand < 1){
-        	if(rand < 0.1 || rand < 1){
+        if(rand < 0.5){
+        	if(rand < 0.1){
         		w = new Crossbow(pos[0], pos[1]);
         		//w = new Sword(pos[0], pos[1]);
         	} else if (rand < .2){
