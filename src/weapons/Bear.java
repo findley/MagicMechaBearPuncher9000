@@ -16,10 +16,11 @@ public class Bear extends Weapon {
 		damage = 5;
 		attackWidth = 100;
 		attackHeight = 6;
-		attackTime = 1000;
+		attackTime = 200;
 		delayTime = 500;
 		playerSizeX = 128;
 		playerSizeY = 128;
+		cooldown = 50;
 	}
 	
 	@Override
