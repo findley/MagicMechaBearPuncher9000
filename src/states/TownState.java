@@ -17,6 +17,7 @@ import weapons.Bear;
 import weapons.Sword;
 import weapons.Weapon;
 
+import dudes.GoblinArcher;
 import dudes.Knight;
 import dudes.Monster;
 
@@ -40,7 +41,7 @@ public class TownState extends AreaState {
 		obstacles.add(sw1);
 
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
-		Knight g1_knight1 = new Knight(container.getWidth(),
+		GoblinArcher g1_knight1 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 80, 0);
 		Knight g1_knight2 = new Knight(container.getWidth(),
 				container.getHeight() - 160, 0);

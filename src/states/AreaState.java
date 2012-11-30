@@ -43,6 +43,7 @@ public class AreaState extends BasicGameState {
     private ArrayList<Player>               sPlayers;
     private final int                       PLAYER_STUN_LENGTH = 500;
     private ArrayList<Projectile> liveProjectiles;
+    private ArrayList<Projectile> monsterProjectiles;
     private ArrayList<Text> screenTexts;
     public AreaState(int stateID) {
         super();
@@ -57,6 +58,7 @@ public class AreaState extends BasicGameState {
         currBattle = new ArrayList<Monster>();
         floorweapons = new ArrayList<Weapon>();
         liveProjectiles = new ArrayList<Projectile>();
+        monsterProjectiles = new ArrayList<Projectile>();
         floorcoins = new ArrayList<Coin>();
         inBattle = false;
         completed = false;
@@ -112,6 +114,10 @@ public class AreaState extends BasicGameState {
         for (Projectile p : liveProjectiles) {
         	p.render(g);
         }
+        
+        for (Projectile p : monsterProjectiles) {
+        	p.render(g);
+        }
     }
     
     @Override
@@ -129,6 +135,10 @@ public class AreaState extends BasicGameState {
         	p.move();
         }
 
+        for (Projectile p : monsterProjectiles) {
+        	p.move();
+        }
+        
         for (Obstacle o : obstacles){
         	for (Player p : players){
         		if(o.getHitbox().intersects(p.hitbox)){
@@ -183,6 +193,12 @@ public class AreaState extends BasicGameState {
         	}
         }
         
+        for (Monster m : currBattle) {
+        	while (m.weapon.projectiles.size() > 0) {
+        		monsterProjectiles.add(m.weapon.projectiles.get(0));
+        		m.weapon.projectiles.remove(0);
+        	}
+        }
         removeProjectiles();
         for (Projectile p: liveProjectiles) {
         	for (Monster monster : this.currBattle) {
@@ -196,12 +212,21 @@ public class AreaState extends BasicGameState {
         	 
         	for (Player player : players) {
         		if (p.getHitbox().intersects(player.hitbox) && p.hasHit == false) {
-        			if (p.owner == player){
-        				
-        			} else {
-        				if (player.isRespawning) {
-        					
-        				} else {
+        			if (p.owner != player){
+        				if (!player.isRespawning) {
+        					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
+        					p.hasHit = true;
+        				}
+        			}
+        		}
+        	}
+        }
+        
+        for (Projectile p : monsterProjectiles) {
+        	for (Player player : players) {
+        		if (p.getHitbox().intersects(player.hitbox) && p.hasHit == false) {
+        			if (p.owner != player){
+        				if (!player.isRespawning) {
         					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
         					p.hasHit = true;
         				}
@@ -389,10 +414,26 @@ public class AreaState extends BasicGameState {
     		
     	}
     	
+    	
     	for (Projectile p : removeProjectiles) {
     		liveProjectiles.remove(p);
     	}
     	
+    	
+    	removeProjectiles = new ArrayList<Projectile>();
+    	for (Projectile p : monsterProjectiles) {
+    		if (p.hasHit) {
+    			removeProjectiles.add(p);
+    		} else if (p.pos[0] > MainGame.GAME_WIDTH + 200) {
+    			removeProjectiles.add(p);
+    		}    		
+    		
+    	}
+    	
+    	
+    	for (Projectile p : removeProjectiles) {
+    		monsterProjectiles.remove(p);
+    	}
     }
 
     public void checkIfMonsterDead() throws SlickException{
