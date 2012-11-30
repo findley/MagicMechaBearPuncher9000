@@ -24,12 +24,13 @@ public class Mini extends Weapon {
 		attackHeight = 6;
 		attackTime = 200;
 		delayTime = 500;
-		playerSize = 32;
+		playerSizeX = 32;
+		playerSizeY = 32;
 	}
 
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/Mini/player" + ((Player)owner).playerID + "Mini.png", playerSize, playerSize);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Mini/player" + ((Player)owner).playerID + "Mini.png", playerSizeX, playerSizeY);
 		playerSheet = ((Player)owner).sprites;
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);

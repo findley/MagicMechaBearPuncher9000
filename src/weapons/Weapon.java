@@ -29,8 +29,9 @@ public abstract class Weapon {
 	public Image[] defaultSprite = new Image[2];
 	// for left and right
 	
-	public int playerSize;
-	
+	//public int playerSize;
+	public int playerSizeX;
+	public int playerSizeY;
 	public int kind; //0 for town, 1 for forest, 2 for castle
 	
 	public boolean isFist = false;

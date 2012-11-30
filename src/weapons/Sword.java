@@ -18,12 +18,13 @@ public class Sword extends Weapon {
 		attackHeight = 6;
 		attackTime = 200;
 		delayTime = 500;
-		playerSize = 64;
+		playerSizeX = 64;
+		playerSizeY = 64;
 	}
 	
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/Sword/player" + ((Player)owner).playerID + "Sword.png", playerSize, playerSize);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Sword/player" + ((Player)owner).playerID + "Sword.png", playerSizeX, playerSizeY);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();

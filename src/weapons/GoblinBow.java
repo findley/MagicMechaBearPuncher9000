@@ -27,7 +27,8 @@ public class GoblinBow extends Weapon{
 		attackHeight = 6;
 		attackTime = 1000;
 		delayTime = 500;
-		playerSize = 64;
+		playerSizeX = 64;
+		playerSizeY = 64;
 		kind = 0;
 		ranged = true;
 	}
@@ -35,11 +36,11 @@ public class GoblinBow extends Weapon{
 	@Override
 	public void init() throws SlickException {
 		if(kind==0){
-			weaponSheet = new SpriteSheet("Assets/Weapons/GoblinArcher/goblinarcher.png", playerSize, playerSize);
+			weaponSheet = new SpriteSheet("Assets/Weapons/GoblinArcher/goblinarcher.png", playerSizeX, playerSizeY);
 		} else if(kind==1){
-			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/camoKnightSheet.png", playerSize, playerSize);
+			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/camoKnightSheet.png", playerSizeX, playerSizeY);
 		} else{
-			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/darkKnightSheet.png", playerSize, playerSize);
+			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/darkKnightSheet.png", playerSizeX, playerSizeY);
 		}
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);

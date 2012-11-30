@@ -26,7 +26,8 @@ public class RangeWeapon extends Weapon {
 		attackHeight = 6;
 		attackTime = 200;
 		delayTime = 500;
-		playerSize = 64;
+		playerSizeX = 64;
+		playerSizeY = 64;
 		this.ranged = true;
 	}
 	

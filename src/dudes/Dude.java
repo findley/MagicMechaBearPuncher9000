@@ -77,22 +77,22 @@ public abstract class Dude implements Comparable<Dude> {
     public void moveRight(float moveDist) {
         isRight = true;
         pos[0] += moveDist;
-        if (pos[0] > MainGame.GAME_WIDTH - weapon.playerSize) {
-            pos[0] = MainGame.GAME_WIDTH - weapon.playerSize;
+        if (pos[0] > MainGame.GAME_WIDTH - weapon.playerSizeX) {
+            pos[0] = MainGame.GAME_WIDTH - weapon.playerSizeX;
         }
     }
     
     public void moveUp(float moveDist) {
         pos[1] -= moveDist;
-        if (pos[1] < MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSize + 5) {
-            pos[1] = MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSize + 5;
+        if (pos[1] < MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSizeY + 5) {
+            pos[1] = MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSizeY + 5;
         }
     }
     
     public void moveDown(float moveDist) {
         pos[1] += moveDist;
-        if (pos[1] > MainGame.GAME_HEIGHT - 32 - weapon.playerSize - 5) {
-            pos[1] = MainGame.GAME_HEIGHT - 32 - weapon.playerSize - 5;
+        if (pos[1] > MainGame.GAME_HEIGHT - 32 - weapon.playerSizeY - 5) {
+            pos[1] = MainGame.GAME_HEIGHT - 32 - weapon.playerSizeY - 5;
         }
     }
     

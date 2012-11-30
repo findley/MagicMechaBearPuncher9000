@@ -18,13 +18,14 @@ public class Bear extends Weapon {
 		attackHeight = 6;
 		attackTime = 1000;
 		delayTime = 500;
-		playerSize = 64;
+		playerSizeX = 128;
+		playerSizeY = 128;
 	}
 	
 	@Override
 	public void init() throws SlickException {
 		//weaponSheet = new SpriteSheet("Assets/Weapons/Bear/bearwalk.png", playerSize, playerSize);
-		weaponSheet = new SpriteSheet("Assets/Weapons/Bear/player" + ((Player)owner).playerID + "bear.png", playerSize, playerSize);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Bear/player" + ((Player)owner).playerID + "bigbear.png", playerSizeX, playerSizeY);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);	
 		initAnimations();
