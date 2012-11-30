@@ -84,7 +84,9 @@ public class CastleState extends AreaState {
 		battleStops[0] = 1000;
 		battleStops[1] = 2000;
 		battleStops[2] = 3000;
-
+		
+		princess = new Image("Assets/Outdated/npcs/daughterFront.png");
+		//princess.draw(container.getWidth(), container.getHeight() - 80);
 	}
 
 	/*@Override
