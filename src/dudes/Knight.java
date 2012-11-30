@@ -1,5 +1,7 @@
 package dudes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
@@ -61,9 +63,14 @@ public class Knight extends Monster {
 	}
 
 	@Override
-	public void aiLoop(Player[] players, int delta) throws SlickException {
+	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
+		float rightProb = 0;
+		float upProb = 0;
 		if (homing) {
 			homing = home(locked);
+			return;
+		}
+		if(this.flinching == true){
 			return;
 		}
 		if (aiCurTime > aiDelay || aiCurTime == 0) {

@@ -1,5 +1,7 @@
 package dudes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -20,7 +22,7 @@ public abstract class Monster extends Dude {
     public static int DEATH_TIMER = 2000;
     
     // dunno the fuck this is gonna do yet.
-    abstract public void aiLoop(Player[] players, int delta) throws SlickException;
+    abstract public void aiLoop(Player[] players, ArrayList<Monster> currBattle, int delta) throws SlickException;
     
     public void move(Input input, int delta) {
         if (flinching) {
