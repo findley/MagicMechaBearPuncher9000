@@ -29,7 +29,7 @@ public class Knight extends Monster {
 		pos[0] = xPos;
 		pos[1] = yPos;
 		isRight = false;
-		moveSpeed = 4;
+		moveSpeed = 1;
 		healthFill = new Color(Color.red);
 		attackTime = 0;
 		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
@@ -55,10 +55,10 @@ public class Knight extends Monster {
 	// return leftmost point of weapon
 	public float[] weaponLoc() {
 		if(this.isRight){
-			return new float[] {pos[0] + 64 + 4, pos[1]+ 40};
+			return new float[] {pos[0] + 64 + 15, pos[1]+ 40};
 		}
 		else {
-			return new float[] {pos[0] - 4, pos[1]+40};
+			return new float[] {pos[0] - 15, pos[1]+40};
 		}
 	}
 
@@ -66,11 +66,41 @@ public class Knight extends Monster {
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
 		float rightProb = 0;
 		float upProb = 0;
-		if (homing) {
-			homing = home(locked);
+		if (doingNothing){
+			doingNothing = this.doNothing(300, delta);
+			if(locked.pos[0] > this.pos[0]){
+				this.moveRight(0);
+			}
+			else{
+				this.moveLeft(0);
+			}
+			if (!doingNothing){	
+				currentAnimation = handleAnimation("attack");
+				this.attack();
+			}
+			else{
+				currentAnimation = handleAnimation("walk");
+			}
+			currentAnimation.start();
 			return;
 		}
-		if(this.flinching == true){
+		if (homing) {
+			homing = home(locked.pos);
+			if(!homing) {
+				this.doNothing(300,delta);
+				doingNothing = true;
+			}
+			return;
+		}
+		/*
+		if (attackNow){
+			attackNow = false;
+			this.attack();
+		}
+		*/
+		if(this.flinching){
+			currentAnimation = handleAnimation("flinch");
+			currentAnimation.start();
 			return;
 		}
 		if (aiCurTime > aiDelay || aiCurTime == 0) {
@@ -113,9 +143,7 @@ public class Knight extends Monster {
 				Math.abs(this.pos[1] - locked.pos[1]) < homeToleranceY){
 			homing = true;
 		}
-		if(flinching){
-			currentAnimation = handleAnimation("flinch");
-		} else if(isAttacking){
+		if(isAttacking){
 			currentAnimation = handleAnimation("punch");
 		} else if (health <= 0){
 			currentAnimation = handleAnimation("die");

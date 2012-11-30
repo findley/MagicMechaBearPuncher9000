@@ -15,7 +15,10 @@ public abstract class Monster extends Dude {
     boolean homing    = false;
     int     aiDelay;
     int     aiCurTime = 0;
+    int		nothingTime = 0;
+    boolean doingNothing = false;
     int     moveSpeed;
+    boolean attackNow = false;
     Player  lastHit;
     public int value;
     
@@ -47,35 +50,61 @@ public abstract class Monster extends Dude {
         }
     }
     
-    public boolean home(Player target) throws SlickException {
-        boolean xFlag = false;
+    public boolean home(float[] targetpos) throws SlickException {
+        boolean xFlag = true;
         boolean yFlag = false;
-        if (target.pos[0] - this.pos[0] > this.weapon.attackWidth) {
-            this.moveRight(this.moveSpeed);
-        } else if (this.pos[0] - target.pos[0] > this.weapon.attackWidth) {
-            this.moveLeft(this.moveSpeed);
-        } else {
-            xFlag = true;
-            if (this.pos[0] > target.pos[0]) {
-                this.moveLeft(0);
-            } else {
-                this.moveRight(0);
-            }
+        float actualDist = Math.abs(targetpos[0] - this.pos[0]);
+        if(this.isRight){
+        	if (targetpos[0] > this.weaponLoc()[0] + this.weapon.attackWidth) {
+        		this.moveRight(this.moveSpeed);
+        		xFlag = false;
+        	}
+        	else if (targetpos[0] < this.weaponLoc()[0] && actualDist > 64){
+        		this.moveLeft(this.moveSpeed);
+        		xFlag = false;
+        	}
+        	else{
+        		return false;
+        	}
+
         }
+        else{
+        	if (targetpos[0] < this.weaponLoc()[0] - this.weapon.attackWidth) {
+        		this.moveLeft(this.moveSpeed);
+        		xFlag = false;
+        	}
+        	else if (targetpos[0] > this.weaponLoc()[0]&& actualDist > 64){
+        		this.moveRight(this.moveSpeed);
+        		xFlag = false;
+        	}
+        	else {
+        		return false;
+        	}
+        } 
         
-        if (target.pos[1] - this.pos[1] > this.weapon.attackHeight) {
+        if (targetpos[1] - this.pos[1] > this.weapon.attackHeight) {
             this.moveDown(this.moveSpeed);
-        } else if (this.pos[1] - target.pos[1] > this.weapon.attackHeight) {
+        } else if (this.pos[1] - targetpos[1] > this.weapon.attackHeight) {
             this.moveUp(this.moveSpeed);
         } else {
             yFlag = true;
         }
         
         if (yFlag && xFlag) {
-            this.attack();
             return false;
         }
         return true;
+    }
+    
+    public boolean doNothing(int time, int delta){
+    	if (nothingTime > time){
+    		nothingTime = 0;
+    		return false;
+    	}
+    	else {
+    		nothingTime += delta;
+    		return true;
+    	}
     }
     
     public void renderDeath(){

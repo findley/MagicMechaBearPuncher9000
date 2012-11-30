@@ -108,6 +108,9 @@ public class AreaState extends BasicGameState {
             Collections.sort(currBattle);
             for (Monster m : currBattle) {
                 m.render(g);
+                if (m.weapon.attacks.size() > 0){
+                	//g.draw(m.weapon.attacks.get(0).hitbox);
+                }
             }
         }
         

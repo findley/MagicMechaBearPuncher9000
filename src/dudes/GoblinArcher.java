@@ -67,7 +67,7 @@ public class GoblinArcher extends Monster {
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
 		if (homing) {
-			homing = home(locked);
+			homing = home(locked.pos);
 			return;
 		}
 		if (aiCurTime > aiDelay || aiCurTime == 0) {
