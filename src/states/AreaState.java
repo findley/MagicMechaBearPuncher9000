@@ -12,6 +12,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.FadeInTransition;
+import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
 import projectiles.Projectile;
@@ -329,10 +331,10 @@ public class AreaState extends BasicGameState {
         }
         
         if (completed && game.getCurrentStateID()==2){
-        	game.enterState(3);
+        	game.enterState(3, new FadeOutTransition(), new FadeInTransition());
         } 
         if (completed && game.getCurrentStateID()==3){
-        	game.enterState(4);
+        	game.enterState(4, new FadeOutTransition(), new FadeInTransition());
         }
     }
     
