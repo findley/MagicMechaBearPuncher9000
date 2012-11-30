@@ -7,6 +7,7 @@ import java.util.List;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
@@ -69,6 +70,9 @@ public class MainGame extends StateBasedGame {
 			// set up players
 			players[0] = new Player(p0Buttons, 100f, GAME_HEIGHT*5/6);
 			players[1] = new Player(p1Buttons, 150f, GAME_HEIGHT*4/6);
+			
+			Music loop = new Music("Assets/Sound/Town2.wav");
+			loop.loop();
 			
 			app.start();
 		} catch (SlickException e) {

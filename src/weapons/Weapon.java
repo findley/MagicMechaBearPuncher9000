@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -28,6 +29,8 @@ public abstract class Weapon {
 	// animations are flinch L, flinch R, punch L, punch R, walk L, walk R
 	public Image[] defaultSprite = new Image[2];
 	// for left and right
+	
+	public Sound attackSound;
 	
 	//public int playerSize;
 	public int spriteSizeX;
