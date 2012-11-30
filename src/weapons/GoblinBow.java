@@ -35,7 +35,7 @@ public class GoblinBow extends Weapon{
 	@Override
 	public void init() throws SlickException {
 		if(kind==0){
-			weaponSheet = new SpriteSheet("Assets/Weapons/GoblinArcher/GoblinArcher.png", playerSize, playerSize);
+			weaponSheet = new SpriteSheet("Assets/Weapons/GoblinArcher/goblinarcher.png", playerSize, playerSize);
 		} else if(kind==1){
 			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/camoKnightSheet.png", playerSize, playerSize);
 		} else{
