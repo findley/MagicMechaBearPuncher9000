@@ -38,28 +38,31 @@ public class TownState extends AreaState {
 		players[1].init(1);
 		
 		SpiderWeb sw1 = new SpiderWeb(new float[] {container.getWidth()-200f, container.getHeight()-200f});
-		obstacles.add(sw1);
+		SpiderWeb sw2 = new SpiderWeb(new float[] {container.getWidth()-300f, container.getHeight()-150f});
 
+		obstacles.add(sw1);
+		obstacles.add(sw2);
+		
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		Knight g1_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 0);
 		Knight g1_knight2 = new Knight(container.getWidth(),
 				container.getHeight() - 160, 0);
-		Knight g1_knight3 = new Knight(container.getWidth(),
-				container.getHeight() - 240, 0);
+		/*Knight g1_knight3 = new Knight(container.getWidth(),
+				container.getHeight() - 240, 0);*/
 		g1_knight1.init();
 		g1_knight2.init();
-		g1_knight3.init();
+		//g1_knight3.init();
 		group_1.add(g1_knight1);
 		group_1.add(g1_knight2);
-		group_1.add(g1_knight3);
+		//group_1.add(g1_knight3);
 
 		ArrayList<Monster> group_2 = new ArrayList<Monster>();
-		GoblinArcher g2_knight1 = new GoblinArcher(container.getWidth(),
+		Knight g2_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 0);
-		GoblinArcher g2_knight2 = new GoblinArcher(container.getWidth(),
+		Knight g2_knight2 = new Knight(container.getWidth(),
 				container.getHeight() - 160, 0);
-		GoblinArcher g2_knight3 = new GoblinArcher(container.getWidth(),
+		Knight g2_knight3 = new Knight(container.getWidth(),
 				container.getHeight() - 240, 0);
 		g2_knight1.init();
 		g2_knight2.init();
@@ -71,16 +74,20 @@ public class TownState extends AreaState {
 		ArrayList<Monster> group_3 = new ArrayList<Monster>();
 		Knight g3_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 0);
-		GoblinArcher g3_knight2 = new GoblinArcher(container.getWidth(),
+		Knight g3_knight2 = new Knight(container.getWidth(),
 				container.getHeight() - 160, 0);
-		Knight g3_knight3 = new Knight(container.getWidth(),
+		Knight g3_knight3 = new Knight(0,
 				container.getHeight() - 240, 0);
+		Knight g3_knight4 = new Knight(0,
+				container.getHeight() - 80, 0);
 		g3_knight1.init();
 		g3_knight2.init();
 		g3_knight3.init();
+		g3_knight4.init();
 		group_3.add(g3_knight1);
 		group_3.add(g3_knight2);
 		group_3.add(g3_knight3);
+		group_3.add(g3_knight4);
 		
 		monsters.add(group_1);
 		monsters.add(group_2);
