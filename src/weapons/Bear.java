@@ -5,6 +5,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import dudes.Player;
+
 public class Bear extends Weapon {
 
 	public Bear(float x, float y) {
@@ -21,7 +23,8 @@ public class Bear extends Weapon {
 	
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/Bear/bearwalk.png", playerSize, playerSize);
+		//weaponSheet = new SpriteSheet("Assets/Weapons/Bear/bearwalk.png", playerSize, playerSize);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Bear/player" + ((Player)owner).playerID + "bear.png", playerSize, playerSize);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);	
 		initAnimations();

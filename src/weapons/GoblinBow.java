@@ -49,7 +49,6 @@ public class GoblinBow extends Weapon{
 	@Override
 	public void attack() throws SlickException {
 		if (this.ranged){
-			System.out.println("asas");
 			projectiles.add(new Arrow(owner.pos, null, owner.isRight));
 		}
 	}
