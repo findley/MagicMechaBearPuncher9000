@@ -23,6 +23,8 @@ public class Player extends Dude {
     private final int               RESPAWN_TIMER = 5000;
     public boolean                  isRespawning;
     public Animation[]       playerDeath = new Animation[2];
+    public boolean					webbed = false;
+    public float					constSpeed;
     
     public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
         this.buttons = buttons;
@@ -30,6 +32,7 @@ public class Player extends Dude {
         pos[0] = xPos;
         pos[1] = yPos;
         moveSpeed = 3;
+        constSpeed = moveSpeed;
         maxHealth = 100;
         health = maxHealth;
         score = 0;

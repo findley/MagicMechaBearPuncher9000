@@ -14,4 +14,7 @@ public class Hole extends Obstacle{
 		this.hitbox = new Rectangle(pos[0], pos[1], sprite.getWidth(), sprite.getHeight());
 		this.speedEffect = 0;
 	}
+	
+	public void effect(Player p){
+	}
 }

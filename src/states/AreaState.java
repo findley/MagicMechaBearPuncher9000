@@ -1,5 +1,7 @@
 package states;
 
+import obstacles.Obstacle;
+
 import org.newdawn.slick.Color;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,6 +31,7 @@ public class AreaState extends BasicGameState {
     protected Player[]                      players;
     protected TiledMap                      bgImage;
     protected ArrayList<ArrayList<Monster>> monsters;
+    protected ArrayList<Obstacle>			obstacles;
     protected ArrayList<Monster>            currBattle;
     private ArrayList<Weapon>               floorweapons;
     private ArrayList<Coin>					floorcoins;
@@ -50,6 +53,7 @@ public class AreaState extends BasicGameState {
         progression = 0;
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
+        obstacles = new ArrayList<Obstacle>();
         currBattle = new ArrayList<Monster>();
         floorweapons = new ArrayList<Weapon>();
         liveProjectiles = new ArrayList<Projectile>();
@@ -93,6 +97,10 @@ public class AreaState extends BasicGameState {
             }
         }
         
+        for (Obstacle o : obstacles) {
+        	o.render(g);
+        }
+        
         for (Weapon i : floorweapons) {
             i.Draw();
         }
@@ -121,6 +129,15 @@ public class AreaState extends BasicGameState {
         	p.move();
         }
 
+        for (Obstacle o : obstacles){
+        	for (Player p : players){
+        		if(o.getHitbox().intersects(p.hitbox)){
+        			o.effect(p);
+        		}
+        		o.endEffect(p);
+        	}
+        }
+        
         removeTexts();
         for (Text t : screenTexts) {
         	t.update();
@@ -332,6 +349,18 @@ public class AreaState extends BasicGameState {
         
         for (Coin i : rid) {
             floorcoins.remove(i);
+        }
+        
+        ArrayList<Obstacle> getRidOf = new ArrayList<Obstacle>();
+        for (Obstacle i : obstacles) {
+            i.pos[0] -= shift;
+            if (i.pos[0] < 0) {
+                getRidOf.add(i);
+            }
+        }
+
+        for (Obstacle i : getRidOf) {
+           // obstacles.remove(i);
         }
     }
     
