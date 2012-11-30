@@ -328,8 +328,11 @@ public class AreaState extends BasicGameState {
             inBattle = false;
         }
         
-        if (completed){
+        if (completed && game.getCurrentStateID()==2){
         	game.enterState(3);
+        } 
+        if (completed && game.getCurrentStateID()==3){
+        	game.enterState(4);
         }
     }
     
