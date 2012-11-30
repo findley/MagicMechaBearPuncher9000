@@ -1,5 +1,7 @@
 package dudes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
@@ -63,7 +65,7 @@ public class GoblinArcher extends Monster {
 	}
 
 	@Override
-	public void aiLoop(Player[] players, int delta) throws SlickException {
+	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
 		if (homing) {
 			homing = home(locked);
 			return;

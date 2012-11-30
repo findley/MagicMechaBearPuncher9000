@@ -48,6 +48,7 @@ public class AreaState extends BasicGameState {
     protected int                           areaLength;
     private ArrayList<Player>               sPlayers;
     private final int                       PLAYER_STUN_LENGTH = 500;
+    private final int						MONSTER_STUN_LENGTH = 200;
     private ArrayList<Projectile>           liveProjectiles;
     private ArrayList<Projectile>           monsterProjectiles;
     private ArrayList<Text>                 screenTexts;
@@ -269,7 +270,7 @@ public class AreaState extends BasicGameState {
                     if (attack.hitbox.intersects(monster.hitbox)) {
                     	tryPunchNoise();
                     	
-                        monster.hurt(player.weapon.damage, 500);
+                        monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
                         monster.setLastHit(player);
                     }
                 }
@@ -286,12 +287,12 @@ public class AreaState extends BasicGameState {
         for (Monster monster : this.currBattle) {
             monster.invincibleTimer += delta;
             monster.weapon.updateAttacks();
-            monster.aiLoop(players, delta);
+            monster.aiLoop(players, this.currBattle, delta);
             for (Attack attack : monster.weapon.attacks) {
                 for (Player player : players) {
                     if (attack.hitbox.intersects(player.hitbox)) {
                     	if (!player.isRespawning) {
-                    		player.hurt(monster.weapon.damage, 500);
+                    		player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
                     	}
                     }
                 }
