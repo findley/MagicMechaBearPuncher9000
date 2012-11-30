@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import dudes.GoblinArcher;
 import dudes.Knight;
 import dudes.Monster;
 
@@ -27,11 +28,11 @@ public class ForestState extends AreaState {
 		players[1].init(1);
 
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
-		Knight g1_knight1 = new Knight(container.getWidth(),
+		GoblinArcher g1_knight1 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 80, 1);
-		Knight g1_knight2 = new Knight(container.getWidth(),
+		GoblinArcher g1_knight2 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 160, 1);
-		Knight g1_knight3 = new Knight(container.getWidth(),
+		GoblinArcher g1_knight3 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 240, 1);
 		g1_knight1.init();
 		g1_knight2.init();
@@ -57,7 +58,7 @@ public class ForestState extends AreaState {
 		ArrayList<Monster> group_3 = new ArrayList<Monster>();
 		Knight g3_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 1);
-		Knight g3_knight2 = new Knight(container.getWidth(),
+		GoblinArcher g3_knight2 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 160, 1);
 		Knight g3_knight3 = new Knight(container.getWidth(),
 				container.getHeight() - 240, 1);
