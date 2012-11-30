@@ -442,6 +442,8 @@ public class AreaState extends BasicGameState {
             if (m.health <= 0) {
         		removeMonster.add(m);
                 m.getLastHit().incrementScore(100);
+
+            	this.screenTexts.add(new Text(m.getLastHit().pos, Integer.toString(m.value)));
             }
         }
 

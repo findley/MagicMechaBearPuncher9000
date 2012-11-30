@@ -34,6 +34,7 @@ public class Knight extends Monster {
 		homeToleranceX = 100;
 		homeToleranceY = 75;
 		kind = k;
+		value = 100;
 		this.weapon = new KnightKnife(this);
 		try {
 			this.init();

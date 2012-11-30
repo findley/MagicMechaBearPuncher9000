@@ -15,6 +15,7 @@ public abstract class Monster extends Dude {
     int     aiCurTime = 0;
     int     moveSpeed;
     Player  lastHit;
+    public int value;
     
     public static int DEATH_TIMER = 2000;
     

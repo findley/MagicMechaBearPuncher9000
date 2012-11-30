@@ -36,6 +36,7 @@ public class GoblinArcher extends Monster {
 		homeToleranceX = 100;
 		homeToleranceY = 75;
 		kind = k;
+		value = 80;
 		this.weapon = new GoblinBow(this);
 		try {
 			this.init();
