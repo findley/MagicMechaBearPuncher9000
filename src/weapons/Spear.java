@@ -23,7 +23,6 @@ public class Spear extends RangeWeapon {
 		spriteSizeX = 134;
 		spriteSizeY = 134;
 		cooldown = 80.0f;
-		offsetX = 32;
 	}
 	
 	@Override

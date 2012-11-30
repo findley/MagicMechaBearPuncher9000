@@ -156,7 +156,6 @@ public class Knight extends Monster {
         if(rand < 0.5){
         	int index = (int) ((int) 2*rand*lootItems.length);
         	w = lootItems[index];
-        	w = new Bow(pos[0], pos[1]);
     		w.createGroundSprite();
     		return w;
         }

@@ -105,6 +105,7 @@ public abstract class Weapon {
 	}
 	
 	public Shape getPlayerHitBox(float ownerX, float ownerY) {
+		System.out.println(offsetX);
 		return new Rectangle(ownerX + offsetX, ownerY + offsetY, playerSizeX, playerSizeY);
 	}
 	

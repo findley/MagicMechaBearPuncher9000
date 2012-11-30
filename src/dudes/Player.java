@@ -41,7 +41,7 @@ public class Player extends Dude {
         score = 0;
         healthFill = new Color(0f, 1f, 0f, 1f);
         attackTime = 0;
-        this.weapon = new Axe(this);
+        this.weapon = new Fist(this);
         hitbox = weapon.getPlayerHitBox(pos[0], pos[1]);
         //hitbox = new Rectangle(pos[0], pos[1], weapon.playerSizeX, weapon.playerSizeY);
         deathTimer = 0;
