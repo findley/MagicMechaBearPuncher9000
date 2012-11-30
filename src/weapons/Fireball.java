@@ -2,6 +2,7 @@ package weapons;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -23,12 +24,15 @@ public class Fireball extends RangeWeapon {
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();
+		
+		attackSound = new Sound("Assets/Sound/Fireball.wav");
 	}
 	
 	@Override
 	public void attack() throws SlickException {
 		if (this.ranged){
 			projectiles.add(new FireballProjectile(owner.pos, (Player) owner, owner.isRight));
+			attackSound.play();
 		}
 	}
 	

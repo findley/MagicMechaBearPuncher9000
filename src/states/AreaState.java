@@ -10,7 +10,9 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.state.transition.FadeInTransition;
@@ -46,9 +48,11 @@ public class AreaState extends BasicGameState {
     protected int                           areaLength;
     private ArrayList<Player>               sPlayers;
     private final int                       PLAYER_STUN_LENGTH = 500;
-    private ArrayList<Projectile> liveProjectiles;
-    private ArrayList<Projectile> monsterProjectiles;
-    private ArrayList<Text> screenTexts;
+    private ArrayList<Projectile>           liveProjectiles;
+    private ArrayList<Projectile>           monsterProjectiles;
+    private ArrayList<Text>                 screenTexts;
+    protected Sound                         attackNoise;
+    protected int                           noiseCooldown;
     public AreaState(int stateID) {
         super();
     }
@@ -73,6 +77,9 @@ public class AreaState extends BasicGameState {
         sPlayers.add(players[1]);
         
         screenTexts = new ArrayList<Text>();
+        
+        attackNoise = new Sound("Assets/Sound/punch.wav");
+        noiseCooldown = 0;
     }
     
     @Override
@@ -260,12 +267,16 @@ public class AreaState extends BasicGameState {
             for (Attack attack : player.weapon.attacks) {
                 for (Monster monster : this.currBattle) {
                     if (attack.hitbox.intersects(monster.hitbox)) {
+                    	tryPunchNoise();
+                    	
                         monster.hurt(player.weapon.damage, 500);
                         monster.setLastHit(player);
                     }
                 }
                 if (attack.hitbox.intersects(players[(i + 1) % 2].hitbox)) {
                 	if (!players[(i + 1) % 2].isRespawning) {
+                    	tryPunchNoise();
+                    	
                 		players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
                 	}
                 }
@@ -351,6 +362,12 @@ public class AreaState extends BasicGameState {
         } 
         if (completed && game.getCurrentStateID()==3){
         	game.enterState(4, new FadeOutTransition(), new FadeInTransition());
+        }
+        
+        if (noiseCooldown <= 0) {
+        	noiseCooldown = 0;
+        } else {
+        	noiseCooldown -= delta;
         }
     }
     
@@ -492,6 +509,13 @@ public class AreaState extends BasicGameState {
             }
             
         }
+    }
+    
+    public void tryPunchNoise() {
+    	if (noiseCooldown == 0) {
+    		attackNoise.play();
+    		noiseCooldown = 500;
+    	}
     }
     
     @Override
