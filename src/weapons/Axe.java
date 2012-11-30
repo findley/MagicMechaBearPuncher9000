@@ -24,7 +24,7 @@ public class Axe extends Weapon {
 		
 		@Override
 		public void init() throws SlickException {
-			weaponSheet = new SpriteSheet("Assets/Weapons/Axe/p" + ((Player)owner).playerID + ".png", playerSizeX, playerSizeY);
+			weaponSheet = new SpriteSheet("Assets/Weapons/Axe/player" + ((Player)owner).playerID + "Axe.png", playerSizeX, playerSizeY);
 			defaultSprite[0] = weaponSheet.getSprite(0, 5);
 			defaultSprite[1] = weaponSheet.getSprite(0, 4);
 			initAnimations();

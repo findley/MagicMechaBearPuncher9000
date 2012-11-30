@@ -14,6 +14,7 @@ import org.newdawn.slick.geom.Rectangle;
 import core.MainGame;
 
 import weapons.Fist;
+import weapons.Spear;
 import weapons.Weapon;
 
 public class Player extends Dude {
