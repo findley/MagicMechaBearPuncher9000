@@ -2,6 +2,8 @@ package states;
 
 import java.util.ArrayList;
 
+import obstacles.SpiderWeb;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -30,9 +32,11 @@ public class CastleState extends AreaState {
 		bgImage = new TiledMap("Assets/World/castlemap1.tmx");
 		areaLength = 200;
 
-		// note: players are initialized ONLY in the first area
-		players[0].init(0);
-		players[1].init(1);
+		SpiderWeb sw1 = new SpiderWeb(new float[] {container.getWidth()-200f, container.getHeight()-200f});
+		SpiderWeb sw2 = new SpiderWeb(new float[] {container.getWidth()-300f, container.getHeight()-150f});
+
+		obstacles.add(sw1);
+		obstacles.add(sw2);
 
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		Knight g1_knight1 = new Knight(container.getWidth(),

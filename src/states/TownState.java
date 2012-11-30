@@ -38,8 +38,11 @@ public class TownState extends AreaState {
 		players[1].init(1);
 		
 		SpiderWeb sw1 = new SpiderWeb(new float[] {container.getWidth()-200f, container.getHeight()-200f});
-		obstacles.add(sw1);
+		SpiderWeb sw2 = new SpiderWeb(new float[] {container.getWidth()-300f, container.getHeight()-150f});
 
+		obstacles.add(sw1);
+		obstacles.add(sw2);
+		
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		Knight g1_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 0);
