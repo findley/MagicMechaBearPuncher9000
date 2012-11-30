@@ -16,6 +16,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import dudes.Player;
 
 import states.CastleState;
+import states.ForestState;
 import states.TownState;
 
 public class MainGame extends StateBasedGame {
@@ -81,6 +82,7 @@ public class MainGame extends StateBasedGame {
         addState(new MainMenuState(0));
         addState(new InstructionsState(1));
         addState(new TownState(2));
-        addState(new CastleState(3));
+        addState(new ForestState(3));
+        addState(new CastleState(4));
     }
 }

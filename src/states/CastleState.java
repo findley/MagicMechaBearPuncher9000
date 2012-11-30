@@ -100,6 +100,6 @@ public class CastleState extends AreaState {
 	}*/
 	@Override
 	public int getID(){
-		return 3;
+		return 4;
 	}
 }
