@@ -147,7 +147,7 @@ public class Knight extends Monster {
 	
 	@Override
 	public Weapon getDropWeapon() throws SlickException {
-		Weapon[] lootItems = new Weapon[]{ new Sword(pos[0], pos[1]), new Bear(pos[0],pos[1]), new Bow(pos[0], pos[1]), new Fireball(pos[0], pos[1]), new Mini(pos[0], pos[1]) } ; 
+		Weapon[] lootItems = new Weapon[]{ new Sword(pos[0], pos[1]), new Bear(pos[0],pos[1]), new Bow(pos[0], pos[1]), new Fireball(pos[0], pos[1]), new Mini(pos[0], pos[1]), new Spear(pos[0], pos[1]) } ; 
 		//float[] pos = {m.pos[0]+90,m.pos[1]};
     	float[] pos = this.pos;
         double rand = Math.random();
@@ -156,6 +156,7 @@ public class Knight extends Monster {
         if(rand < 0.5){
         	int index = (int) ((int) 2*rand*lootItems.length);
         	w = lootItems[index];
+        	w = new Bow(pos[0], pos[1]);
     		w.createGroundSprite();
     		return w;
         }

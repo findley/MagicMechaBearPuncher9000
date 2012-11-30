@@ -20,7 +20,7 @@ public class Crossbow extends RangeWeapon {
 	
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/Crossbow/player" + ((Player)owner).playerID + "Crossbow.png", playerSizeX, playerSizeY);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Crossbow/player" + ((Player)owner).playerID + "Crossbow.png", spriteSizeX, spriteSizeY);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();

@@ -30,8 +30,13 @@ public abstract class Weapon {
 	// for left and right
 	
 	//public int playerSize;
+	public int spriteSizeX;
+	public int spriteSizeY;
 	public int playerSizeX;
 	public int playerSizeY;
+	public int offsetX;
+	public int offsetY;
+	
 	public int kind; //0 for town, 1 for forest, 2 for castle
 	
 	public boolean isFist = false;
@@ -48,10 +53,17 @@ public abstract class Weapon {
 	public float y;
 	public boolean ranged;
 	public ArrayList<Projectile> projectiles;
+	
 	public Weapon() {
 		attacks = new ArrayList<Attack>();
 		projectiles = new ArrayList<Projectile>();
 		cooldown = 0;
+		spriteSizeX = 64;
+		spriteSizeY = 64;
+		playerSizeX = 64;
+		playerSizeY = 64;
+		offsetX = 0;
+		offsetY = 0;
 	}
 	
 	public abstract void init() throws SlickException;
@@ -90,6 +102,10 @@ public abstract class Weapon {
 		this.y = owner.pos[1];
 		this.owner = null;
 		
+	}
+	
+	public Shape getPlayerHitBox(float ownerX, float ownerY) {
+		return new Rectangle(ownerX + offsetX, ownerY + offsetY, playerSizeX, playerSizeY);
 	}
 	
 	public Shape getHitBox() {

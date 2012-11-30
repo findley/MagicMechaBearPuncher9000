@@ -5,10 +5,15 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
+import dudes.Dude;
 import dudes.Player;
 
 public class Axe extends Weapon {
-
+	
+		public Axe(Dude owner) {
+			this(owner.pos[0], owner.pos[1]);
+			assignOwner(owner);
+		}
 		public Axe(float x, float y) {
 			super();
 			this.x = x;
@@ -18,13 +23,13 @@ public class Axe extends Weapon {
 			attackHeight = 6;
 			attackTime = 200;
 			delayTime = 500;
-			playerSizeX = 64;
-			playerSizeY = 64;
+			spriteSizeX = 154;
+			spriteSizeY = 154;
 		}
 		
 		@Override
 		public void init() throws SlickException {
-			weaponSheet = new SpriteSheet("Assets/Weapons/Axe/player" + ((Player)owner).playerID + "Axe.png", playerSizeX, playerSizeY);
+			weaponSheet = new SpriteSheet("Assets/Weapons/Axe/player" + ((Player)owner).playerID + "Axe.png", spriteSizeX, spriteSizeY);
 			defaultSprite[0] = weaponSheet.getSprite(0, 5);
 			defaultSprite[1] = weaponSheet.getSprite(0, 4);
 			initAnimations();

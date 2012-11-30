@@ -13,6 +13,8 @@ import org.newdawn.slick.geom.Rectangle;
 
 import core.MainGame;
 
+import weapons.Axe;
+import weapons.Bear;
 import weapons.Fist;
 import weapons.Spear;
 import weapons.Weapon;
@@ -39,8 +41,9 @@ public class Player extends Dude {
         score = 0;
         healthFill = new Color(0f, 1f, 0f, 1f);
         attackTime = 0;
-        this.weapon = new Fist(this);
-        hitbox = new Rectangle(pos[0], pos[1], weapon.playerSizeX, weapon.playerSizeY);
+        this.weapon = new Axe(this);
+        hitbox = weapon.getPlayerHitBox(pos[0], pos[1]);
+        //hitbox = new Rectangle(pos[0], pos[1], weapon.playerSizeX, weapon.playerSizeY);
         deathTimer = 0;
     }
     
