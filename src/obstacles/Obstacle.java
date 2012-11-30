@@ -26,4 +26,9 @@ public abstract class Obstacle {
 	 public Shape getHitbox() {
 			return new Rectangle(pos[0], pos[1], sprite.getWidth(), sprite.getHeight());
 	 }
+	 
+	 public void effect(Player p){}
+	 
+	 public void endEffect(Player p){}
+	 
 }
