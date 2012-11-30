@@ -9,6 +9,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
 
+import core.MainGame;
+
 import dudes.GoblinArcher;
 import dudes.Knight;
 import dudes.Monster;
@@ -34,8 +36,10 @@ public class ForestState extends AreaState {
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		GoblinArcher g1_knight1 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 80, 1);
+		g1_knight1.setScreenWidth(MainGame.GAME_WIDTH);
 		GoblinArcher g1_knight2 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 160, 1);
+		g1_knight2.setScreenWidth(MainGame.GAME_WIDTH);
 		//GoblinArcher g1_knight3 = new GoblinArcher(container.getWidth(),
 			//	container.getHeight() - 240, 1);
 		g1_knight1.init();

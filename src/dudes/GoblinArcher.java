@@ -23,7 +23,9 @@ import weapons.Weapon;
 public class GoblinArcher extends Monster {
 	float homeToleranceX;
 	float homeToleranceY;
-
+	boolean canMove;
+	float range;
+	float screenWidth;
 	
 	public GoblinArcher(float xPos, float yPos, int k) {
 		maxHealth = 37;
@@ -39,6 +41,10 @@ public class GoblinArcher extends Monster {
 		homeToleranceY = 75;
 		kind = k;
 		value = 80;
+		canMove = false;
+		cooldown = 200.0f;
+		range = 200;
+		screenWidth = 700;
 		this.weapon = new GoblinBow(this);
 		try {
 			this.init();
@@ -53,7 +59,6 @@ public class GoblinArcher extends Monster {
 		this.weapon.init();
 		aiDelay = 1000;
 	}
-
 	// return leftmost point of weapon
 	public float[] weaponLoc() {
 		if(this.isRight){
@@ -70,7 +75,10 @@ public class GoblinArcher extends Monster {
 			homing = home(locked);
 			return;
 		}
+
+		
 		if (aiCurTime > aiDelay || aiCurTime == 0) {
+			canMove = true;
 			aiCurTime = delta;
 			if (locked == null || Math.random() > .3) {
 				if (Math.abs(players[0].pos[0] - this.pos[0]) < Math
@@ -80,11 +88,42 @@ public class GoblinArcher extends Monster {
 					locked = players[1];
 				}
 			}
-			if (locked.pos[0] > this.pos[0] && Math.random() > .15) {
-				this.moveRight = true;
-			} else {
-				this.moveRight = false;
+			float diff;
+			if (Math.random() > .15) {
+				if (locked.pos[0] > this.pos[0]) {
+					diff = locked.pos[0] - this.pos[0];
+					if (diff > range) {
+						this.moveRight = true;
+						this.isRight = true;
+						this.attack();
+					} else {
+						if (this.pos[0] < 10) {
+							canMove = false;
+							this.attack();
+							this.isRight = true;
+						} else {
+							this.moveRight = false;
+							
+						}
+					}
+				} else { 
+					diff = this.pos[0] - locked.pos[0];
+					if (diff > range) {
+						this.moveRight = false;
+						this.isRight = false;
+						this.attack();
+					} else {
+						if (this.pos[0] > screenWidth - 100 ) {
+							canMove = false;
+							this.attack();
+							this.isRight = false;
+						} else {
+							this.moveRight = true;							
+						}
+					}
+				}
 			}
+			
 			if (locked.pos[1] > this.pos[1] && Math.random() > .15) {
 				this.moveUp = false;
 			} else {
@@ -93,12 +132,16 @@ public class GoblinArcher extends Monster {
 		}
 		else{
 			aiCurTime += delta;
-			if(this.moveRight){
-				this.moveRight(1);
+			if (canMove) {
+				if(this.moveRight){
+					this.moveRight(1);
+				}
+				else {
+					this.moveLeft(1);
+				}
+			} else {
 			}
-			else {
-				this.moveLeft(1);
-			}
+			
 			if(this.moveUp){
 				this.moveUp(1);
 			}
@@ -122,6 +165,7 @@ public class GoblinArcher extends Monster {
 		currentAnimation.start();
 	}
 
+	
 	@Override
 	public Animation handleAnimation(String whichAnim) {
         if (isRight) {
@@ -182,5 +226,9 @@ public class GoblinArcher extends Monster {
         } 
         
         return null;
+	}
+	
+	public void setScreenWidth(float x) {
+		this.screenWidth = x;
 	}
 }
