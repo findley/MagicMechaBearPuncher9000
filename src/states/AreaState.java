@@ -342,7 +342,7 @@ public class AreaState extends BasicGameState {
         for (Coin c : floorcoins){
             if (p.hitbox.intersects(c.getHitBox())) {
             	p.score += c.value;
-            	this.screenTexts.add(new Text(p.pos, Integer.toString(c.value)));
+            	this.screenTexts.add(new Text(p.pos, Integer.toString(c.value), c.color));
                 out.add(c);
             }
         }
@@ -443,7 +443,7 @@ public class AreaState extends BasicGameState {
         		removeMonster.add(m);
                 m.getLastHit().incrementScore(100);
 
-            	this.screenTexts.add(new Text(m.getLastHit().pos, Integer.toString(m.value)));
+            	this.screenTexts.add(new Text(m.getLastHit().pos, Integer.toString(m.value), Color.red));
             }
         }
 
