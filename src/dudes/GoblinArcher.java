@@ -23,6 +23,7 @@ public class GoblinArcher extends Monster {
 	float homeToleranceY;
 	boolean canMove;
 	float range;
+	float screenWidth;
 	
 	public GoblinArcher(float xPos, float yPos, int k) {
 		maxHealth = 37;
@@ -41,6 +42,7 @@ public class GoblinArcher extends Monster {
 		canMove = false;
 		cooldown = 200.0f;
 		range = 200;
+		screenWidth = 700;
 		this.weapon = new GoblinBow(this);
 		try {
 			this.init();
@@ -90,6 +92,7 @@ public class GoblinArcher extends Monster {
 					diff = locked.pos[0] - this.pos[0];
 					if (diff > range) {
 						this.moveRight = true;
+						this.isRight = true;
 						this.attack();
 					} else {
 						if (this.pos[0] < 10) {
@@ -105,9 +108,10 @@ public class GoblinArcher extends Monster {
 					diff = this.pos[0] - locked.pos[0];
 					if (diff > range) {
 						this.moveRight = false;
+						this.isRight = false;
 						this.attack();
 					} else {
-						if (this.pos[0] > 700 ) {
+						if (this.pos[0] > screenWidth - 100 ) {
 							canMove = false;
 							this.attack();
 							this.isRight = false;
@@ -134,7 +138,6 @@ public class GoblinArcher extends Monster {
 					this.moveLeft(1);
 				}
 			} else {
-				System.out.println("not moving");
 			}
 			
 			if(this.moveUp){
@@ -221,5 +224,9 @@ public class GoblinArcher extends Monster {
         } 
         
         return null;
+	}
+	
+	public void setScreenWidth(float x) {
+		this.screenWidth = x;
 	}
 }
