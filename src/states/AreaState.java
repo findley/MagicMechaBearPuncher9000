@@ -84,7 +84,7 @@ public class AreaState extends BasicGameState {
             p.render(g);
             g.setColor(Color.green);
             g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
-            g.drawString("MANLINESS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
+            g.drawString("POINTS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
         }
         
         for (Text t : screenTexts) {
@@ -119,6 +119,19 @@ public class AreaState extends BasicGameState {
         
         for (Projectile p : monsterProjectiles) {
         	p.render(g);
+        }
+        
+        if (completed && game.getCurrentStateID()==4){
+        	if(players[0].score > players[1].score){
+            	g.setColor(Color.green);
+                container.getGraphics().drawString("PLAYER 1 WINS", container.getWidth()/2-100, 170);
+        	} else if(players[1].score > players[0].score){
+            	g.setColor(Color.green);
+                g.drawString("PLAYER 2 WINS", container.getWidth()/2-100, 170);
+        	} else{
+            	g.setColor(Color.green);
+                g.drawString("IT'S A TIE", container.getWidth()/2-100, 170);
+        	}
         }
     }
     
