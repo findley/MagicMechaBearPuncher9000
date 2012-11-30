@@ -152,6 +152,6 @@ public abstract class Dude implements Comparable<Dude> {
     
     @Override
     public int compareTo(Dude other) {
-        return (int) (pos[1] - other.pos[1]);
+        return (int) ((pos[1]+weapon.spriteSizeY) - (other.pos[1]+other.weapon.spriteSizeY));
     }
 }

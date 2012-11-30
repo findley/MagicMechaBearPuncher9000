@@ -20,7 +20,7 @@ public class Bear extends Weapon {
 		this.y = y;
 		damage = 15;
 		attackWidth = 100;
-		attackHeight = 6;
+		attackHeight = 30;
 		attackTime = 200;
 		delayTime = 500;
 		spriteSizeX = 128;
