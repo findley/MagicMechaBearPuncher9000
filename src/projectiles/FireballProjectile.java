@@ -15,9 +15,9 @@ public class FireballProjectile extends Projectile{
 		this.moveSpeed = 7.0f;
 		this.damage = 4;
 		if (isRight) {
-			this.sprite = new Image("Assets/Weapons/Fireball/RightFireball2.png");
+			this.sprite = new Image("Assets/Weapons/Fireball/RightFireball.png");
 		} else {
-			this.sprite = new Image("Assets/Weapons/Fireball/LeftFireball2.png");
+			this.sprite = new Image("Assets/Weapons/Fireball/LeftFireball.png");
 		}
 		this.hitbox = new Rectangle(pos[0], pos[1], sprite.getWidth(), sprite.getHeight());
 	}
