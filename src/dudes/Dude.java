@@ -133,7 +133,7 @@ public abstract class Dude implements Comparable<Dude> {
         // Render a health bar for the Dude
         this.renderHealthBar(g);
         for (Attack attack : this.weapon.attacks) {
-            //g.draw(attack.hitbox);
+            g.draw(attack.hitbox);
         }
     }
     

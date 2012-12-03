@@ -22,8 +22,8 @@ import states.TownState;
 
 public class MainGame extends StateBasedGame {
  
-	public static final int GAME_WIDTH = 1024*4/5;
-	public static final int GAME_HEIGHT = 768*4/5;
+	public static final int GAME_WIDTH = 1024;
+	public static final int GAME_HEIGHT = 768;
 	
 	public static Player[] players = new Player[2];
 
@@ -71,7 +71,7 @@ public class MainGame extends StateBasedGame {
 			players[0] = new Player(p0Buttons, 100f, GAME_HEIGHT*5/6);
 			players[1] = new Player(p1Buttons, 150f, GAME_HEIGHT*4/6);
 			
-			Music loop = new Music("Assets/Sound/Town2.wav");
+			Music loop = new Music("Assets/Sound/CastleState.wav");
 			loop.loop();
 			
 			app.start();
