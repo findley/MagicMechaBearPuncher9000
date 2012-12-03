@@ -16,7 +16,7 @@ public abstract class Dude implements Comparable<Dude> {
     public Weapon      weapon;
     public Animation   currentAnimation;
     public float[]     pos         = new float[2];
-    public Shape       hitbox;
+    //public Shape       hitbox;
     public boolean     isRight;
     public boolean     isAttacking;
     public float       moveSpeed;

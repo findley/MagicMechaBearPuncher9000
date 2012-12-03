@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 
 import core.MainGame;
 
@@ -140,6 +141,11 @@ public abstract class Monster extends Dude {
     
 	public enum enemyState {
 		ALIVE, DYING, DEAD
+	}
+
+	public Shape getHitbox() {
+		// TODO Auto-generated method stub
+		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
 	}
 
 }
