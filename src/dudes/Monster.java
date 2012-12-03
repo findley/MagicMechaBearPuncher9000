@@ -2,8 +2,11 @@ package dudes;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import core.MainGame;
 
 import weapons.Coin;
 import weapons.Weapon;
@@ -127,6 +130,13 @@ public abstract class Monster extends Dude {
     abstract public Weapon getDropWeapon() throws SlickException;
     
     abstract public Coin getDropCoin() throws SlickException;
+
+    @Override
+    public void renderHealthBar(Graphics g) {
+    	if (this.state == enemyState.ALIVE) {
+    		super.renderHealthBar(g);
+    	}
+    }
     
 	public enum enemyState {
 		ALIVE, DYING, DEAD
