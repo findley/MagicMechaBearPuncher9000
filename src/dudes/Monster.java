@@ -21,9 +21,8 @@ public abstract class Monster extends Dude {
     boolean attackNow = false;
     Player  lastHit;
     public int value;
-    
-    public static int DEATH_TIMER = 2000;
-    
+    public enemyState state = enemyState.ALIVE;
+        
     // dunno the fuck this is gonna do yet.
     abstract public void aiLoop(Player[] players, ArrayList<Monster> currBattle, int delta) throws SlickException;
     
@@ -129,4 +128,8 @@ public abstract class Monster extends Dude {
     
     abstract public Coin getDropCoin() throws SlickException;
     
+	public enum enemyState {
+		ALIVE, DYING, DEAD
+	}
+
 }

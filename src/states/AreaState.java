@@ -1,16 +1,15 @@
 package states;
 
-import obstacles.Obstacle;
-
-import org.newdawn.slick.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import obstacles.Obstacle;
+
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.BasicGameState;
@@ -20,16 +19,14 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
 import projectiles.Projectile;
-
 import weapons.Attack;
-import weapons.Bear;
 import weapons.Coin;
 import weapons.Fist;
-import weapons.Sword;
 import weapons.Weapon;
 import core.MainGame;
 import core.Text;
 import dudes.Monster;
+import dudes.Monster.enemyState;
 import dudes.Player;
 
 public class AreaState extends BasicGameState {
@@ -290,18 +287,20 @@ public class AreaState extends BasicGameState {
         for (Monster monster : this.currBattle) {
             monster.invincibleTimer += delta;
             monster.weapon.updateAttacks();
-            monster.aiLoop(players, this.currBattle, delta);
-            for (Attack attack : monster.weapon.attacks) {
-                for (Player player : players) {
-                    if (attack.hitbox.intersects(player.hitbox)) {
-                    	if (!player.isRespawning) {
-                    		player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
-                    	}
+            if (monster.state == enemyState.ALIVE) {
+            	monster.aiLoop(players, this.currBattle, delta);
+                for (Attack attack : monster.weapon.attacks) {
+                    for (Player player : players) {
+                        if (attack.hitbox.intersects(player.hitbox)) {
+                        	if (!player.isRespawning) {
+                        		player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
+                        	}
+                        }
                     }
                 }
+                monster.hitbox.setX(monster.pos[0]);
+                monster.hitbox.setY(monster.pos[1]);
             }
-            monster.hitbox.setX(monster.pos[0]);
-            monster.hitbox.setY(monster.pos[1]);
         }
         for (Player player : players) {
             player.hitbox.setX(player.pos[0]);
@@ -481,14 +480,21 @@ public class AreaState extends BasicGameState {
     public void checkIfMonsterDead() throws SlickException{
         ArrayList<Monster> removeMonster = new ArrayList<Monster>();
         for (Monster m : this.currBattle) {
-            if (m.health <= 0) {
-        		removeMonster.add(m);
+            if (m.state == enemyState.ALIVE && m.health <= 0) {
+        		m.state = enemyState.DYING;
+        		m.renderDeath();
                 m.getLastHit().incrementScore(100);
 
             	this.screenTexts.add(new Text(m.getLastHit().pos, Integer.toString(m.value), Color.red));
             }
+            else if (m.state == enemyState.DYING && m.currentAnimation.isStopped()) {
+            	m.state = enemyState.DEAD;
+            }
+            else if (m.state == enemyState.DEAD) {
+        		removeMonster.add(m);
+            }
         }
-
+        
         monsterDrop(removeMonster);
     }
    

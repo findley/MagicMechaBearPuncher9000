@@ -61,29 +61,29 @@ public class KnightKnife extends Weapon{
 	@Override
 	public void initAnimations(){
 		// flinch left
-		anims[0] = new Animation(weaponSheet, 0, 4, 3, 4, true, 1000, true);
+		anims[0] = new Animation(weaponSheet, 0, 4, 3, 4, true, 80, true);
 		anims[0].setLooping(false);
 		// flinch right
-		anims[1] = new Animation(weaponSheet, 0, 5, 3, 5, true, 1000, true);
+		anims[1] = new Animation(weaponSheet, 0, 5, 3, 5, true, 80, true);
 		anims[1].setLooping(false);
 
 		// punch left
-		anims[2] = new Animation(weaponSheet, 0, 0, 2, 0, true, 1000, true);
+		anims[2] = new Animation(weaponSheet, 0, 0, 2, 0, true, 80, true);
 		anims[2].setLooping(false);
 		// punch right
-		anims[3] = new Animation(weaponSheet, 0, 1, 2, 1, true, 1000, true);
+		anims[3] = new Animation(weaponSheet, 0, 1, 2, 1, true, 80, true);
 		anims[3].setLooping(false);
 
 		// walk left
-		anims[4] = new Animation(weaponSheet, 0, 2, 3, 2, true, 200, true);
+		anims[4] = new Animation(weaponSheet, 0, 2, 3, 2, true, 80, true);
 		// walk right
-		anims[5] = new Animation(weaponSheet, 0, 3, 3, 3, true, 200, true);
+		anims[5] = new Animation(weaponSheet, 0, 3, 3, 3, true, 80, true);
 		
 		// die left
-		anims[6] = new Animation(weaponSheet, 0, 6, 2, 6, true, 2000, true);
+		anims[6] = new Animation(weaponSheet, 0, 6, 2, 6, true, 200, true);
 		anims[6].setLooping(false);
 		// die right
-		anims[7] = new Animation(weaponSheet, 0, 7, 2, 7, true, 2000, true);
+		anims[7] = new Animation(weaponSheet, 0, 7, 2, 7, true, 200, true);
 		anims[7].setLooping(false);
 
 	}
