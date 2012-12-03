@@ -8,8 +8,10 @@ import obstacles.SpiderWeb;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.MusicListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tests.MusicListenerTest;
 import org.newdawn.slick.tiled.TiledMap;
 
 import core.MainGame;
@@ -109,6 +111,6 @@ public class TownState extends AreaState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		Music loop = new Music("Assets/Sound/Town2.wav");
-		loop.loop();
+		loop.play();
 	}
 }
