@@ -6,6 +6,7 @@ import obstacles.SpiderWeb;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -32,11 +33,11 @@ public class CastleState extends AreaState {
 		bgImage = new TiledMap("Assets/World/castlemap1.tmx");
 		areaLength = 200;
 
-		SpiderWeb sw1 = new SpiderWeb(new float[] {container.getWidth()-200f, container.getHeight()-200f});
-		SpiderWeb sw2 = new SpiderWeb(new float[] {container.getWidth()-300f, container.getHeight()-150f});
-
-		obstacles.add(sw1);
-		obstacles.add(sw2);
+//		SpiderWeb sw1 = new SpiderWeb(new float[] {container.getWidth()-200f, container.getHeight()-200f});
+//		SpiderWeb sw2 = new SpiderWeb(new float[] {container.getWidth()-300f, container.getHeight()-150f});
+//
+//		obstacles.add(sw1);
+//		obstacles.add(sw2);
 
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		Knight g1_knight1 = new Knight(container.getWidth(),
@@ -112,5 +113,11 @@ public class CastleState extends AreaState {
 	@Override
 	public int getID(){
 		return 4;
+	}
+	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		Music loop = new Music("Assets/Sound/CastleState.wav");
+		loop.loop();
 	}
 }

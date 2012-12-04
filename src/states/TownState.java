@@ -7,8 +7,11 @@ import obstacles.SpiderWeb;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
+import org.newdawn.slick.MusicListener;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.tests.MusicListenerTest;
 import org.newdawn.slick.tiled.TiledMap;
 
 import core.MainGame;
@@ -37,12 +40,12 @@ public class TownState extends AreaState {
 		players[0].init(0);
 		players[1].init(1);
 		
-		SpiderWeb sw1 = new SpiderWeb(new float[] {container.getWidth()-200f, container.getHeight()-200f});
-		SpiderWeb sw2 = new SpiderWeb(new float[] {container.getWidth()-300f, container.getHeight()-150f});
-
-		obstacles.add(sw1);
-		obstacles.add(sw2);
-		
+//		SpiderWeb sw1 = new SpiderWeb(new float[] {container.getWidth()-200f, container.getHeight()-200f});
+//		SpiderWeb sw2 = new SpiderWeb(new float[] {container.getWidth()-300f, container.getHeight()-150f});
+//
+//		obstacles.add(sw1);
+//		obstacles.add(sw2);
+	
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		Knight g1_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 0, container);
@@ -99,22 +102,15 @@ public class TownState extends AreaState {
 		battleStops[2] = 3000;
 
 	}
-
-	/*@Override
-	public ArrayList<Weapon> makeInitItems() throws SlickException {
-		ArrayList<Weapon> o = new ArrayList<Weapon>();
-		Weapon k1 = new Sword(1200f, MainGame.GAME_HEIGHT - 100);
-		Weapon k2 = new Bear(1300f, MainGame.GAME_HEIGHT - 100);
-		k1.createGroundSprite();
-		k2.createGroundSprite();
-		o.add(k1);
-		o.add(k2);
-		return o;
-
-	}*/
 	
 	@Override
 	public int getID(){
 		return 2;
+	}
+	
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		Music loop = new Music("Assets/Sound/Town2.wav");
+		loop.play();
 	}
 }

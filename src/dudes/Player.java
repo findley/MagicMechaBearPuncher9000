@@ -10,6 +10,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import core.MainGame;
 
@@ -42,7 +43,7 @@ public class Player extends Dude {
         healthFill = new Color(0f, 1f, 0f, 1f);
         attackTime = 0;
         this.weapon = new Fist(this);
-        hitbox = weapon.getPlayerHitBox(pos[0], pos[1]);
+        //hitbox = weapon.getPlayerHitBox(pos[0], pos[1]);
         //hitbox = new Rectangle(pos[0], pos[1], weapon.playerSizeX, weapon.playerSizeY);
         deathTimer = 0;
     }
@@ -198,4 +199,9 @@ public class Player extends Dude {
     		}
     	}
     }
+
+	public Shape getHitbox() {
+		// TODO Auto-generated method stub
+		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
+	}
 }

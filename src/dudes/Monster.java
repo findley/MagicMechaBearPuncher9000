@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 
 import core.MainGame;
 
@@ -56,6 +57,13 @@ public abstract class Monster extends Dude {
         boolean xFlag = true;
         boolean yFlag = false;
         float actualDist = Math.abs(targetpos[0] - this.pos[0]);
+        if (targetpos[1] - this.pos[1] > this.weapon.attackHeight) {
+            this.moveDown(this.moveSpeed);
+        } else if (this.pos[1] - targetpos[1] > this.weapon.attackHeight) {
+            this.moveUp(this.moveSpeed);
+        } else {
+            yFlag = true;
+        }
         if(this.isRight){
         	if (targetpos[0] > this.weaponLoc()[0] + this.weapon.attackWidth) {
         		this.moveRight(this.moveSpeed);
@@ -65,10 +73,6 @@ public abstract class Monster extends Dude {
         		this.moveLeft(this.moveSpeed);
         		xFlag = false;
         	}
-        	else{
-        		return false;
-        	}
-
         }
         else{
         	if (targetpos[0] < this.weaponLoc()[0] - this.weapon.attackWidth) {
@@ -79,18 +83,7 @@ public abstract class Monster extends Dude {
         		this.moveRight(this.moveSpeed);
         		xFlag = false;
         	}
-        	else {
-        		return false;
-        	}
         } 
-        
-        if (targetpos[1] - this.pos[1] > this.weapon.attackHeight) {
-            this.moveDown(this.moveSpeed);
-        } else if (this.pos[1] - targetpos[1] > this.weapon.attackHeight) {
-            this.moveUp(this.moveSpeed);
-        } else {
-            yFlag = true;
-        }
         
         if (yFlag && xFlag) {
             return false;
@@ -140,6 +133,11 @@ public abstract class Monster extends Dude {
     
 	public enum enemyState {
 		ALIVE, DYING, DEAD
+	}
+
+	public Shape getHitbox() {
+		// TODO Auto-generated method stub
+		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
 	}
 
 }

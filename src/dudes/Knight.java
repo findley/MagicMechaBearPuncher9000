@@ -40,7 +40,7 @@ public class Knight extends Monster {
 		moveSpeed = 1;
 		healthFill = new Color(Color.red);
 		attackTime = 0;
-		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
+		//hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		kind = k;
 		value = 100;
 		
