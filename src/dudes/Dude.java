@@ -37,7 +37,7 @@ public abstract class Dude implements Comparable<Dude> {
     public int         delayDur;
     public int         delayTime;
     public float cooldown;
-    
+        
     // only for enemies
     public SpriteSheet sprites;
     public int[]       spriteIndex = new int[2];

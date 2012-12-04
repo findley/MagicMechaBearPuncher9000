@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -22,8 +23,15 @@ import weapons.Weapon;
 public class Knight extends Monster {
 	float homeToleranceX;
 	float homeToleranceY;
+	GameContainer container;
+	boolean movingUp;
+	boolean movingDown;
+	boolean movingLeft;
+	boolean movingRight;
 
-	public Knight(float xPos, float yPos, int k) {
+	public Knight(float xPos, float yPos, int k, GameContainer container) {
+		super();
+		this.container = container;
 		maxHealth = 37;
 		health = maxHealth;
 		pos[0] = xPos;
@@ -33,10 +41,9 @@ public class Knight extends Monster {
 		healthFill = new Color(Color.red);
 		attackTime = 0;
 		hitbox = new Rectangle(pos[0], pos[1], 64, 64);
-		homeToleranceX = 100;
-		homeToleranceY = 75;
 		kind = k;
 		value = 100;
+		
 		this.weapon = new KnightKnife(this);
 		try {
 			this.init();
@@ -48,6 +55,7 @@ public class Knight extends Monster {
 
 	public void init() throws SlickException {
 		//create spritesheets for the weapon:
+		homeToleranceX = container.getWidth()/3;
 		this.weapon.init();
 		aiDelay = 1000;
 	}
@@ -63,9 +71,95 @@ public class Knight extends Monster {
 	}
 
 	@Override
-	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
+	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
+			throws SlickException {
 		float rightProb = 0;
 		float upProb = 0;
+		System.out.println("locked: "+locked);
+		System.out.println("homing:" +homing);
+		System.out.println("nothing: "+doingNothing);
+		if (doingNothing) {
+			if (locked == null) {
+				doingNothing = this.doNothing(700, delta);
+				if(this.movingLeft){
+					this.moveLeft(1);
+				}
+				if(this.movingRight){
+					this.moveRight(1);
+				}
+				if(this.movingUp){
+					this.moveUp(1);
+				}
+				if(this.movingDown){
+					this.moveDown(1);
+				}
+				if(!doingNothing){
+					this.movingLeft = false;
+					this.movingRight = false;
+					this.movingDown = false;
+					this.movingUp = false;
+				}
+
+			} else {
+				doingNothing = this.doNothing(300, delta);
+				if (locked.pos[0] > this.pos[0]) {
+					this.moveRight(0);
+				} else {
+					this.moveLeft(0);
+				}
+				if (!doingNothing && Math.random() < .4) {
+					currentAnimation = handleAnimation("attack");
+					this.attack();
+				} else {
+					currentAnimation = handleAnimation("walk");
+				}
+				currentAnimation.start();
+			}
+			return;
+		}
+		if (locked == null) {
+			if (Math.abs(players[0].pos[0] - this.pos[0]) < homeToleranceX) {
+				locked = players[0];
+			} else if (Math.abs(players[1].pos[0] - this.pos[0]) < homeToleranceX) {
+				locked = players[1];
+			}
+			else {
+				if (Math.random() < .5) {
+					this.movingLeft = true;
+				}
+				else if (Math.random() < .5) {
+					this.movingRight = true;
+				}
+				if (Math.random() < .5) {
+					this.movingUp = true;
+				}
+				else if (Math.random() < .5) {
+					this.movingDown = true;
+				}
+				doingNothing = true;
+			}
+
+		} else {
+			if (Math.abs(locked.pos[0] - this.pos[0]) > 1.5 * homeToleranceX) {
+				locked = null;
+				homing = false;
+			} else {
+				if (!homing) {
+					homing = true;
+				} else {
+					homing = home(locked.pos);
+					if (!homing) {
+						this.doNothing(300, delta);
+						doingNothing = true;
+					}
+					return;
+				}
+			}
+
+			return;
+		}
+
+		/*
 		if (doingNothing){
 			doingNothing = this.doNothing(300, delta);
 			if(locked.pos[0] > this.pos[0]){
@@ -92,12 +186,6 @@ public class Knight extends Monster {
 			}
 			return;
 		}
-		/*
-		if (attackNow){
-			attackNow = false;
-			this.attack();
-		}
-		*/
 		if(this.flinching){
 			currentAnimation = handleAnimation("flinch");
 			currentAnimation.start();
@@ -151,6 +239,7 @@ public class Knight extends Monster {
 			currentAnimation = handleAnimation("walk");
 		}
 		currentAnimation.start();
+		*/
 	}
 
 	@Override
