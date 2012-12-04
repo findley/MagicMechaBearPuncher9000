@@ -1,5 +1,7 @@
 package dudes;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -66,31 +68,88 @@ public abstract class Dude implements Comparable<Dude> {
         
     }
     
-    public void moveLeft(float moveDist) {
+    public void moveLeft(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         isRight = false;
         pos[0] -= moveDist;
+        
+        for(int i = 0; i < players.length; i++){
+        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        		pos[0]+=moveDist;
+        	}
+        }
+        for(int i = 0; i < monsters.size(); i++){
+        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        		pos[0]+=moveDist;
+        	}
+        }
+        
         if (pos[0] < 0) {
             pos[0] = 0;
         }
     }
     
-    public void moveRight(float moveDist) {
+    public void moveRight(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         isRight = true;
         pos[0] += moveDist;
+        
+        for(int i = 0; i < players.length; i++){
+        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        		pos[0]-=moveDist;
+        	}
+        }
+        for(int i = 0; i < monsters.size(); i++){
+        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        		pos[0]-=moveDist;
+        	}
+        }
+        
+        if (pos[0] < 0) {
+            pos[0] = 0;
+        }
         if (pos[0] > MainGame.GAME_WIDTH - weapon.playerSizeX) {
             pos[0] = MainGame.GAME_WIDTH - weapon.playerSizeX;
         }
     }
     
-    public void moveUp(float moveDist) {
+    public void moveUp(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         pos[1] -= moveDist;
+        
+        for(int i = 0; i < players.length; i++){
+        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        		pos[1]+=moveDist;
+        	}
+        }
+        for(int i = 0; i < monsters.size(); i++){
+        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        		pos[1]+=moveDist;
+        	}
+        }
+        
+        if (pos[0] < 0) {
+            pos[0] = 0;
+        }
         if (pos[1] < MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSizeY + 5) {
             pos[1] = MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSizeY + 5;
         }
     }
     
-    public void moveDown(float moveDist) {
+    public void moveDown(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         pos[1] += moveDist;
+        
+        for(int i = 0; i < players.length; i++){
+        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        		pos[1]-=moveDist;
+        	}
+        }
+        for(int i = 0; i < monsters.size(); i++){
+        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        		pos[1]-=moveDist;
+        	}
+        }
+        
+        if (pos[0] < 0) {
+            pos[0] = 0;
+        }
         if (pos[1] > MainGame.GAME_HEIGHT - 32 - weapon.playerSizeY - 5) {
             pos[1] = MainGame.GAME_HEIGHT - 32 - weapon.playerSizeY - 5;
         }
@@ -154,4 +213,9 @@ public abstract class Dude implements Comparable<Dude> {
     public int compareTo(Dude other) {
         return (int) ((pos[1]+weapon.spriteSizeY) - (other.pos[1]+other.weapon.spriteSizeY));
     }
+    
+    public Shape getHitBox() {
+		// TODO Auto-generated method stub
+		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
+	}
 }

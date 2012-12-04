@@ -1,6 +1,7 @@
 package dudes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -71,8 +72,13 @@ public class GoblinArcher extends Monster {
 
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
+		ArrayList<Dude> dudeAr = new ArrayList<Dude>();
+		dudeAr.addAll(monsters);
+		dudeAr.addAll(Arrays.asList(players));
+		Dude[] dudes = new Dude[dudeAr.size()];
+		dudeAr.toArray(dudes);
 		if (homing) {
-			homing = home(locked.pos);
+			homing = home(locked.pos, players, monsters);
 			return;
 		}
 
@@ -134,19 +140,19 @@ public class GoblinArcher extends Monster {
 			aiCurTime += delta;
 			if (canMove) {
 				if(this.moveRight){
-					this.moveRight(1);
+					this.moveRight(1, players, monsters);
 				}
 				else {
-					this.moveLeft(1);
+					this.moveLeft(1, players, monsters);
 				}
 			} else {
 			}
 			
 			if(this.moveUp){
-				this.moveUp(1);
+				this.moveUp(1, players, monsters);
 			}
 			else {
-				this.moveDown(1);
+				this.moveDown(1, players, monsters);
 			}
 		}
 		if (Math.random() > .99 && Math.abs(this.pos[0] - locked.pos[0]) < homeToleranceX && 

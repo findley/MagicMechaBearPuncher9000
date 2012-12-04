@@ -1,6 +1,7 @@
 package dudes;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -82,16 +83,16 @@ public class Knight extends Monster {
 			if (locked == null) {
 				doingNothing = this.doNothing(700, delta);
 				if(this.movingLeft){
-					this.moveLeft(1);
+					this.moveLeft(1, players, monsters);
 				}
 				if(this.movingRight){
-					this.moveRight(1);
+					this.moveRight(1, players, monsters);
 				}
 				if(this.movingUp){
-					this.moveUp(1);
+					this.moveUp(1, players, monsters);
 				}
 				if(this.movingDown){
-					this.moveDown(1);
+					this.moveDown(1, players, monsters);
 				}
 				if(!doingNothing){
 					this.movingLeft = false;
@@ -103,9 +104,9 @@ public class Knight extends Monster {
 			} else {
 				doingNothing = this.doNothing(300, delta);
 				if (locked.pos[0] > this.pos[0]) {
-					this.moveRight(0);
+					this.moveRight(0, players, monsters);
 				} else {
-					this.moveLeft(0);
+					this.moveLeft(0, players, monsters);
 				}
 				if (!doingNothing && Math.random() < .4) {
 					currentAnimation = handleAnimation("attack");
@@ -147,7 +148,7 @@ public class Knight extends Monster {
 				if (!homing) {
 					homing = true;
 				} else {
-					homing = home(locked.pos);
+					homing = home(locked.pos, players, monsters);
 					if (!homing) {
 						this.doNothing(300, delta);
 						doingNothing = true;

@@ -61,7 +61,7 @@ public class Player extends Dude {
         playerDeath[1].setLooping(false);
     }
     
-    public void move(Input input, int delta) throws SlickException{
+    public void move(Input input, int delta, Player[] players, ArrayList<Monster> monsters) throws SlickException{
     	if (isRespawning) {
     		return;
     	}
@@ -114,13 +114,13 @@ public class Player extends Dude {
             currentAnimation = handleAnimation("walk");
             currentAnimation.start();
             if (input.isKeyDown(buttons.get("right")))
-                this.moveRight(moveDist);
+                this.moveRight(moveDist, players, monsters);
             if (input.isKeyDown(buttons.get("left")))
-                this.moveLeft(moveDist);
+                this.moveLeft(moveDist, players, monsters);
             if (input.isKeyDown(buttons.get("down")))
-                this.moveDown(moveDist);
+                this.moveDown(moveDist, players, monsters);
             if (input.isKeyDown(buttons.get("up")))
-                this.moveUp(moveDist);
+                this.moveUp(moveDist, players, monsters);
         } else {
             if (currentAnimation != null) {
                 currentAnimation.stop();
@@ -199,9 +199,4 @@ public class Player extends Dude {
     		}
     	}
     }
-
-	public Shape getHitbox() {
-		// TODO Auto-generated method stub
-		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
-	}
 }

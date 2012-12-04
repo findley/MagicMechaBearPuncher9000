@@ -53,34 +53,34 @@ public abstract class Monster extends Dude {
         }
     }
     
-    public boolean home(float[] targetpos) throws SlickException {
+    public boolean home(float[] targetpos, Player[] players, ArrayList<Monster> monsters) throws SlickException {
         boolean xFlag = true;
         boolean yFlag = false;
         float actualDist = Math.abs(targetpos[0] - this.pos[0]);
         if (targetpos[1] - this.pos[1] > this.weapon.attackHeight) {
-            this.moveDown(this.moveSpeed);
+            this.moveDown(this.moveSpeed, players, monsters);
         } else if (this.pos[1] - targetpos[1] > this.weapon.attackHeight) {
-            this.moveUp(this.moveSpeed);
+            this.moveUp(this.moveSpeed, players, monsters);
         } else {
             yFlag = true;
         }
         if(this.isRight){
         	if (targetpos[0] > this.weaponLoc()[0] + this.weapon.attackWidth) {
-        		this.moveRight(this.moveSpeed);
+        		this.moveRight(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
         	else if (targetpos[0] < this.weaponLoc()[0] && actualDist > 64){
-        		this.moveLeft(this.moveSpeed);
+        		this.moveLeft(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
         }
         else{
         	if (targetpos[0] < this.weaponLoc()[0] - this.weapon.attackWidth) {
-        		this.moveLeft(this.moveSpeed);
+        		this.moveLeft(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
         	else if (targetpos[0] > this.weaponLoc()[0]&& actualDist > 64){
-        		this.moveRight(this.moveSpeed);
+        		this.moveRight(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
         } 
@@ -134,10 +134,4 @@ public abstract class Monster extends Dude {
 	public enum enemyState {
 		ALIVE, DYING, DEAD
 	}
-
-	public Shape getHitbox() {
-		// TODO Auto-generated method stub
-		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
-	}
-
 }

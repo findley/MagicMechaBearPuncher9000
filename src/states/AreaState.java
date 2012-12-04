@@ -1,6 +1,7 @@
 package states;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 import obstacles.Obstacle;
@@ -25,6 +26,7 @@ import weapons.Fist;
 import weapons.Weapon;
 import core.MainGame;
 import core.Text;
+import dudes.Dude;
 import dudes.Monster;
 import dudes.Monster.enemyState;
 import dudes.Player;
@@ -153,7 +155,7 @@ public class AreaState extends BasicGameState {
         }
         
         for (int i = 0; i < players.length; i++) {
-            players[i].move(container.getInput(), delta);
+            players[i].move(container.getInput(), delta, players, currBattle);
             runOverCoins(players[i]);
         }
         
@@ -167,7 +169,7 @@ public class AreaState extends BasicGameState {
         
         for (Obstacle o : obstacles){
         	for (Player p : players){
-        		if(o.getHitbox().intersects(p.getHitbox())){
+        		if(o.getHitbox().intersects(p.getHitBox())){
         			o.effect(p);
         		}
         		o.endEffect(p);
@@ -228,7 +230,7 @@ public class AreaState extends BasicGameState {
         removeProjectiles();
         for (Projectile p: liveProjectiles) {
         	for (Monster monster : this.currBattle) {
-        		if (p.getHitbox().intersects(monster.getHitbox()) && p.hasHit == false) {
+        		if (p.getHitbox().intersects(monster.getHitBox()) && p.hasHit == false) {
         			monster.hurt(p.damage, 500);
         			monster.setLastHit(p.owner);
         			p.hasHit = true;
@@ -237,7 +239,7 @@ public class AreaState extends BasicGameState {
         	
         	 
         	for (Player player : players) {
-        		if (p.getHitbox().intersects(player.getHitbox()) && p.hasHit == false) {
+        		if (p.getHitbox().intersects(player.getHitBox()) && p.hasHit == false) {
         			if (p.owner != player){
         				if (!player.isRespawning) {
         					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
@@ -250,7 +252,7 @@ public class AreaState extends BasicGameState {
         
         for (Projectile p : monsterProjectiles) {
         	for (Player player : players) {
-        		if (p.getHitbox().intersects(player.getHitbox()) && p.hasHit == false) {
+        		if (p.getHitbox().intersects(player.getHitBox()) && p.hasHit == false) {
         			if (p.owner != player){
         				if (!player.isRespawning) {
         					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
@@ -267,14 +269,14 @@ public class AreaState extends BasicGameState {
             player.weapon.updateAttacks();
             for (Attack attack : player.weapon.attacks) {
                 for (Monster monster : this.currBattle) {
-                    if (attack.hitbox.intersects(monster.getHitbox())) {
+                    if (attack.hitbox.intersects(monster.getHitBox())) {
                     	tryPunchNoise();
                     	
                         monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
                         monster.setLastHit(player);
                     }
                 }
-                if (attack.hitbox.intersects(players[(i + 1) % 2].getHitbox())) {
+                if (attack.hitbox.intersects(players[(i + 1) % 2].getHitBox())) {
                 	if (!players[(i + 1) % 2].isRespawning) {
                     	tryPunchNoise();
                     	
@@ -291,7 +293,7 @@ public class AreaState extends BasicGameState {
             	monster.aiLoop(players, this.currBattle, delta);
                 for (Attack attack : monster.weapon.attacks) {
                     for (Player player : players) {
-                        if (attack.hitbox.intersects(player.getHitbox())) {
+                        if (attack.hitbox.intersects(player.getHitBox())) {
                         	if (!player.isRespawning) {
                         		player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
                         	}
@@ -306,7 +308,7 @@ public class AreaState extends BasicGameState {
         for (Player p : players) {
             if (container.getInput().isKeyPressed(p.buttons.get("pickup"))) {
                 for (Weapon w : floorweapons) {
-                    if (p.getHitbox().intersects(w.getHitBox())) {
+                    if (p.getHitBox().intersects(w.getHitBox())) {
                         p.weapon.drop();
                         if (p.weapon.groundSprite == null) {
                             
@@ -375,7 +377,7 @@ public class AreaState extends BasicGameState {
     public void runOverCoins(Player p){
         ArrayList<Coin> out = new ArrayList<Coin>();
         for (Coin c : floorcoins){
-            if (p.getHitbox().intersects(c.getHitBox())) {
+            if (p.getHitBox().intersects(c.getHitBox())) {
             	p.score += c.value;
             	this.screenTexts.add(new Text(p.pos, Integer.toString(c.value), c.color));
                 out.add(c);
