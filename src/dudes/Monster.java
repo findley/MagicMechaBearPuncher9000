@@ -126,7 +126,8 @@ public abstract class Monster extends Dude {
         double rand = Math.random();
         Weapon w;
 
-    	int index = (int) ((int) rand*lootItems.length);
+    	int index = (int) ( rand*lootItems.length);
+    	
     	w = lootItems[index];
 		w.createGroundSprite();
 		return w;

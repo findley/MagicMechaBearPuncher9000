@@ -28,8 +28,8 @@ public class Bear extends Weapon {
 		playerSizeX = 128;
 		playerSizeY = 128;
 		cooldown = 50;
-		offsetY = -2;
-		offsetX = 10;
+		attackOffsetY = -2;
+		attackOffsetX = 10;
 	}
 	
 	@Override
@@ -46,11 +46,11 @@ public class Bear extends Weapon {
 		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
 		Rectangle hitbox;
 		if (owner.isRight){
-			hitbox = new Rectangle(center[0] + offsetX, center[1] + offsetY, attackWidth,
+			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
 				attackHeight);
 		}
 		else {
-			hitbox = new Rectangle(center[0]-attackWidth - offsetX, center[1] + offsetY, attackWidth,
+			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
 					attackHeight);
 		}
 		attacks.add(new Attack(owner.isRight, hitbox, "player"));

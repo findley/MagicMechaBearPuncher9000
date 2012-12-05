@@ -39,6 +39,8 @@ public abstract class Weapon {
 	public int playerSizeY;
 	public int offsetX;
 	public int offsetY;
+	public int attackOffsetX;
+	public int attackOffsetY;
 	
 	public int kind; //0 for town, 1 for forest, 2 for castle
 	

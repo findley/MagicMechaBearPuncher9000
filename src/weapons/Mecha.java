@@ -20,8 +20,8 @@ public class Mecha extends Weapon {
 		this.x = x;
 		this.y = y;
 		damage = 15;
-		attackWidth = 100;
-		attackHeight = 30;
+		attackWidth = 50;
+		attackHeight = 180;
 		attackTime = 200;
 		delayTime = 500;
 		spriteSizeX = 192;
@@ -29,6 +29,8 @@ public class Mecha extends Weapon {
 		playerSizeX = 192;
 		playerSizeY = 192;
 		cooldown = 50;
+		attackOffsetY = -90;
+		attackOffsetX = 45;
 	}
 	
 	@Override
@@ -41,20 +43,19 @@ public class Mecha extends Weapon {
 
 	@Override
 	public void attack() throws SlickException {
-		float[] corner = owner.weaponLoc();
-		corner[0] -= attackWidth / 2;
-		corner[1] -= attackHeight / 2;
-		Rectangle hitbox = new Rectangle(corner[0], corner[1], attackWidth,
+		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
+		Rectangle hitbox;
+		if (owner.isRight){
+			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
 				attackHeight);
+		}
+		else {
+			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
+					attackHeight);
+		}
 		attacks.add(new Attack(owner.isRight, hitbox, "player"));
 	}
 
-	@Override
-	protected boolean updateAttack(Attack attack) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
 	@Override
 	public void createGroundSprite() throws SlickException {
 		groundSprite = new Image("Assets/Weapons/Mecha/groundWand.png");
