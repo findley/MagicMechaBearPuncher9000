@@ -46,7 +46,7 @@ public class Knight extends Monster {
 
 	public void init() throws SlickException {
 		//create spritesheets for the weapon:
-		homeToleranceX = container.getWidth()/3;
+		homeToleranceX = container.getWidth()/4;
 		this.weapon.init();
 		aiDelay = 1000;
 	}
@@ -64,11 +64,9 @@ public class Knight extends Monster {
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
 			throws SlickException {
-		float rightProb = 0;
-		float upProb = 0;
-		System.out.println("locked: "+locked);
-		System.out.println("homing:" +homing);
-		System.out.println("nothing: "+doingNothing);
+		if (health <= 0){
+			currentAnimation = handleAnimation("die");
+		}
 		if (doingNothing) {
 			if (locked == null) {
 				doingNothing = this.doNothing(700, delta);
@@ -93,12 +91,12 @@ public class Knight extends Monster {
 
 			} else {
 				doingNothing = this.doNothing(300, delta);
-				if (locked.pos[0] > this.pos[0]) {
+				if (locked.getHitBox().getCenterX() > this.pos[0]) {
 					this.moveRight(0, players, monsters);
 				} else {
 					this.moveLeft(0, players, monsters);
 				}
-				if (!doingNothing && Math.random() < .4) {
+				if (!doingNothing && Math.random() < .3) {
 					currentAnimation = handleAnimation("attack");
 					this.attack();
 				} else {
@@ -109,9 +107,9 @@ public class Knight extends Monster {
 			return;
 		}
 		if (locked == null) {
-			if (Math.abs(players[0].pos[0] - this.pos[0]) < homeToleranceX) {
+			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX) {
 				locked = players[0];
-			} else if (Math.abs(players[1].pos[0] - this.pos[0]) < homeToleranceX) {
+			} else if (Math.abs(players[1].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX) {
 				locked = players[1];
 			}
 			else {
@@ -127,110 +125,33 @@ public class Knight extends Monster {
 				else if (Math.random() < .5) {
 					this.movingDown = true;
 				}
+				currentAnimation = handleAnimation("walk");
+				currentAnimation.start();
 				doingNothing = true;
 			}
 
 		} else {
-			if (Math.abs(locked.pos[0] - this.pos[0]) > 1.5 * homeToleranceX) {
+			if (Math.abs(locked.getHitBox().getCenterX() - this.pos[0]) > 1.5 * homeToleranceX) {
 				locked = null;
 				homing = false;
 			} else {
 				if (!homing) {
 					homing = true;
 				} else {
-					homing = home(locked.pos, players, monsters);
+					homing = home(locked.getHitBox().getCenter(), players, monsters);
 					if (!homing) {
 						this.doNothing(300, delta);
 						doingNothing = true;
 					}
+					currentAnimation = handleAnimation("walk");
+					currentAnimation.start();
 					return;
 				}
 			}
-
-			return;
-		}
-
-		/*
-		if (doingNothing){
-			doingNothing = this.doNothing(300, delta);
-			if(locked.pos[0] > this.pos[0]){
-				this.moveRight(0);
-			}
-			else{
-				this.moveLeft(0);
-			}
-			if (!doingNothing){	
-				currentAnimation = handleAnimation("attack");
-				this.attack();
-			}
-			else{
-				currentAnimation = handleAnimation("walk");
-			}
-			currentAnimation.start();
-			return;
-		}
-		if (homing) {
-			homing = home(locked.pos);
-			if(!homing) {
-				this.doNothing(300,delta);
-				doingNothing = true;
-			}
-			return;
-		}
-		if(this.flinching){
-			currentAnimation = handleAnimation("flinch");
-			currentAnimation.start();
-			return;
-		}
-		if (aiCurTime > aiDelay || aiCurTime == 0) {
-			aiCurTime = delta;
-			if (locked == null || Math.random() > .3) {
-				if (Math.abs(players[0].pos[0] - this.pos[0]) < Math
-						.abs(players[1].pos[0] - this.pos[0])) {
-					locked = players[0];
-				} else {
-					locked = players[1];
-				}
-			}
-			if (locked.pos[0] > this.pos[0] && Math.random() > .15) {
-				this.moveRight = true;
-			} else {
-				this.moveRight = false;
-			}
-			if (locked.pos[1] > this.pos[1] && Math.random() > .15) {
-				this.moveUp = false;
-			} else {
-				this.moveUp = true;;
-			}
-		}
-		else{
-			aiCurTime += delta;
-			if(this.moveRight){
-				this.moveRight(1);
-			}
-			else {
-				this.moveLeft(1);
-			}
-			if(this.moveUp){
-				this.moveUp(1);
-			}
-			else {
-				this.moveDown(1);
-			}
-		}
-		if (Math.random() > .99 && Math.abs(this.pos[0] - locked.pos[0]) < homeToleranceX && 
-				Math.abs(this.pos[1] - locked.pos[1]) < homeToleranceY){
-			homing = true;
-		}
-		if(isAttacking){
-			currentAnimation = handleAnimation("punch");
-		} else if (health <= 0){
-			currentAnimation = handleAnimation("die");
-		} else{
 			currentAnimation = handleAnimation("walk");
+			currentAnimation.start();
+			return;
 		}
-		currentAnimation.start();
-		*/
 	}
 
 	@Override

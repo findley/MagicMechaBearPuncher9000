@@ -39,6 +39,7 @@ public abstract class Dude implements Comparable<Dude> {
     public int         delayDur;
     public int         delayTime;
     public float cooldown;
+    int maxOverlap = 10;
         
     // only for enemies
     public SpriteSheet sprites;
@@ -71,18 +72,20 @@ public abstract class Dude implements Comparable<Dude> {
     public void moveLeft(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         isRight = false;
         pos[0] -= moveDist;
-        /*
+        float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
-        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        	if(players[i] != this && Math.abs(players[i].getHitBox().getCenterX() - center[0]) < maxOverlap
+                	&& Math.abs(players[i].getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[0]+=moveDist;
         	}
         }
         for(int i = 0; i < monsters.size(); i++){
-        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        	if(monsters.get(i) != this && 
+        		Math.abs(monsters.get(i).getHitBox().getCenterX() - center[0]) < maxOverlap
+        	&& Math.abs(monsters.get(i).getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[0]+=moveDist;
         	}
         }
-        */
         if (pos[0] < 0) {
             pos[0] = 0;
         }
@@ -91,18 +94,21 @@ public abstract class Dude implements Comparable<Dude> {
     public void moveRight(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         isRight = true;
         pos[0] += moveDist;
-        /*
+        float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
-        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        	if(players[i] != this && Math.abs(players[i].getHitBox().getCenterX() - center[0]) < maxOverlap
+                	&& Math.abs(players[i].getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[0]-=moveDist;
         	}
         }
         for(int i = 0; i < monsters.size(); i++){
-        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        	if(monsters.get(i) != this && 
+        		Math.abs(monsters.get(i).getHitBox().getCenterX() - center[0]) < maxOverlap
+        	&& Math.abs(monsters.get(i).getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[0]-=moveDist;
         	}
         }
-        */
+        
         if (pos[0] < 0) {
             pos[0] = 0;
         }
@@ -113,18 +119,20 @@ public abstract class Dude implements Comparable<Dude> {
     
     public void moveUp(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         pos[1] -= moveDist;
-        /*
+        float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
-        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        	if(players[i] != this && Math.abs(players[i].getHitBox().getCenterX() - center[0]) < maxOverlap
+                	&& Math.abs(players[i].getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[1]+=moveDist;
         	}
         }
         for(int i = 0; i < monsters.size(); i++){
-        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        	if(monsters.get(i) != this && 
+        		Math.abs(monsters.get(i).getHitBox().getCenterX() - center[0]) < maxOverlap
+        	&& Math.abs(monsters.get(i).getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[1]+=moveDist;
         	}
         }
-        */
         if (pos[0] < 0) {
             pos[0] = 0;
         }
@@ -135,18 +143,20 @@ public abstract class Dude implements Comparable<Dude> {
     
     public void moveDown(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         pos[1] += moveDist;
-        /*
+        float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
-        	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
+        	if(players[i] != this && Math.abs(players[i].getHitBox().getCenterX() - center[0]) < maxOverlap
+                	&& Math.abs(players[i].getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[1]-=moveDist;
         	}
         }
         for(int i = 0; i < monsters.size(); i++){
-        	if(monsters.get(i) != this && monsters.get(i).getHitBox().intersects(this.getHitBox())){
+        	if(monsters.get(i) != this && 
+        		Math.abs(monsters.get(i).getHitBox().getCenterX() - center[0]) < maxOverlap
+        	&& Math.abs(monsters.get(i).getHitBox().getCenterY() - center[1]) < maxOverlap){
         		pos[1]-=moveDist;
         	}
         }
-        */
         if (pos[0] < 0) {
             pos[0] = 0;
         }

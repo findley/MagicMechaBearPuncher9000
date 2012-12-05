@@ -56,9 +56,9 @@ public abstract class Monster extends Dude {
         boolean xFlag = true;
         boolean yFlag = false;
         float actualDist = Math.abs(targetpos[0] - this.pos[0]);
-        if (targetpos[1] - this.pos[1] > this.weapon.attackHeight) {
+        if (targetpos[1] - this.getHitBox().getCenterY()> this.weapon.attackHeight) {
             this.moveDown(this.moveSpeed, players, monsters);
-        } else if (this.pos[1] - targetpos[1] > this.weapon.attackHeight) {
+        } else if (this.getHitBox().getCenterY() - targetpos[1] > this.weapon.attackHeight) {
             this.moveUp(this.moveSpeed, players, monsters);
         } else {
             yFlag = true;
@@ -127,7 +127,6 @@ public abstract class Monster extends Dude {
         Weapon w;
 
     	int index = (int) ( rand*lootItems.length);
-    	
     	w = lootItems[index];
 		w.createGroundSprite();
 		return w;
