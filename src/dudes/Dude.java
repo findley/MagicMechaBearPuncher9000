@@ -71,7 +71,7 @@ public abstract class Dude implements Comparable<Dude> {
     public void moveLeft(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         isRight = false;
         pos[0] -= moveDist;
-        
+        /*
         for(int i = 0; i < players.length; i++){
         	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
         		pos[0]+=moveDist;
@@ -82,7 +82,7 @@ public abstract class Dude implements Comparable<Dude> {
         		pos[0]+=moveDist;
         	}
         }
-        
+        */
         if (pos[0] < 0) {
             pos[0] = 0;
         }
@@ -91,7 +91,7 @@ public abstract class Dude implements Comparable<Dude> {
     public void moveRight(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         isRight = true;
         pos[0] += moveDist;
-        
+        /*
         for(int i = 0; i < players.length; i++){
         	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
         		pos[0]-=moveDist;
@@ -102,7 +102,7 @@ public abstract class Dude implements Comparable<Dude> {
         		pos[0]-=moveDist;
         	}
         }
-        
+        */
         if (pos[0] < 0) {
             pos[0] = 0;
         }
@@ -113,7 +113,7 @@ public abstract class Dude implements Comparable<Dude> {
     
     public void moveUp(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         pos[1] -= moveDist;
-        
+        /*
         for(int i = 0; i < players.length; i++){
         	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
         		pos[1]+=moveDist;
@@ -124,7 +124,7 @@ public abstract class Dude implements Comparable<Dude> {
         		pos[1]+=moveDist;
         	}
         }
-        
+        */
         if (pos[0] < 0) {
             pos[0] = 0;
         }
@@ -135,7 +135,7 @@ public abstract class Dude implements Comparable<Dude> {
     
     public void moveDown(float moveDist, Player[] players, ArrayList<Monster> monsters) {
         pos[1] += moveDist;
-        
+        /*
         for(int i = 0; i < players.length; i++){
         	if(players[i] != this && players[i].getHitBox().intersects(this.getHitBox())){
         		pos[1]-=moveDist;
@@ -146,7 +146,7 @@ public abstract class Dude implements Comparable<Dude> {
         		pos[1]-=moveDist;
         	}
         }
-        
+        */
         if (pos[0] < 0) {
             pos[0] = 0;
         }
