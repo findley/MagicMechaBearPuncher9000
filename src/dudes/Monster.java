@@ -9,8 +9,7 @@ import org.newdawn.slick.geom.Shape;
 
 import core.MainGame;
 
-import weapons.Coin;
-import weapons.Weapon;
+import weapons.*;
 
 public abstract class Monster extends Dude {
     Player  locked    = null;
@@ -120,7 +119,18 @@ public abstract class Monster extends Dude {
         return this.lastHit;
     }
     
-    abstract public Weapon getDropWeapon() throws SlickException;
+    public Weapon getDropWeapon() throws SlickException {
+    	Weapon[] lootItems = new Weapon[]{ new Bear(pos[0], pos[1]), new Mecha(pos[0],pos[1]) } ;
+    	
+    	float[] pos = this.pos;
+        double rand = Math.random();
+        Weapon w;
+
+    	int index = (int) ((int) rand*lootItems.length);
+    	w = lootItems[index];
+		w.createGroundSprite();
+		return w;
+    }
     
     abstract public Coin getDropCoin() throws SlickException;
 

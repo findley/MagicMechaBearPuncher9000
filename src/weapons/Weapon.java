@@ -46,6 +46,7 @@ public abstract class Weapon {
 	public int damage;
 	public int attackWidth;
 	
+	public int itemTimer;
 	public float cooldown;
 	public int attackHeight;
 	public float attackTime;
@@ -58,6 +59,7 @@ public abstract class Weapon {
 	public ArrayList<Projectile> projectiles;
 	
 	public Weapon() {
+		itemTimer = 15000;
 		attacks = new ArrayList<Attack>();
 		projectiles = new ArrayList<Projectile>();
 		cooldown = 0;

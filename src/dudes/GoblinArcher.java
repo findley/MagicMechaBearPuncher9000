@@ -8,18 +8,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import weapons.Axe;
-import weapons.Bear;
-import weapons.Bow;
-import weapons.Coin;
-import weapons.Crossbow;
-import weapons.Fireball;
-import weapons.GoblinBow;
-import weapons.KnightKnife;
-import weapons.Mini;
-import weapons.Spear;
-import weapons.Sword;
-import weapons.Weapon;
+import weapons.*;
 
 public class GoblinArcher extends Monster {
 	float homeToleranceX;
@@ -197,23 +186,6 @@ public class GoblinArcher extends Monster {
                 return weapon.anims[4];
             }
         }
-	}
-	
-	@Override
-	public Weapon getDropWeapon() throws SlickException {
-		Weapon[] lootItems = new Weapon[]{ new Sword(pos[0], pos[1]), new Bear(pos[0],pos[1]), new Bow(pos[0], pos[1]), new Fireball(pos[0], pos[1]), new Mini(pos[0], pos[1]) } ; 
-		//float[] pos = {m.pos[0]+90,m.pos[1]};
-    	float[] pos = this.pos;
-        double rand = Math.random();
-        Weapon w;
-                
-        if(rand < 0.5){
-        	int index = (int) ((int) 2*rand*lootItems.length);
-        	w = lootItems[index];
-    		w.createGroundSprite();
-    		return w;
-        }
-        return null;
 	}
 	
 	@Override

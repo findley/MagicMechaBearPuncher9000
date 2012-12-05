@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import obstacles.Obstacle;
-
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -35,7 +33,6 @@ public class AreaState extends BasicGameState {
     protected Player[]                      players;
     protected TiledMap                      bgImage;
     protected ArrayList<ArrayList<Monster>> monsters;
-    protected ArrayList<Obstacle>			obstacles;
     protected ArrayList<Monster>            currBattle;
     protected Image							princess;
     private ArrayList<Weapon>               floorweapons;
@@ -62,7 +59,6 @@ public class AreaState extends BasicGameState {
         progression = 0;
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
-        obstacles = new ArrayList<Obstacle>();
         currBattle = new ArrayList<Monster>();
         floorweapons = new ArrayList<Weapon>();
         liveProjectiles = new ArrayList<Projectile>();
@@ -93,7 +89,7 @@ public class AreaState extends BasicGameState {
             p.render(g);
             g.setColor(Color.green);
             g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
-            g.drawString("POINTS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
+            g.drawString("POINTS: " + p.score + " TIMER " + p.itemTimer, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
             g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
         }
         
@@ -112,10 +108,6 @@ public class AreaState extends BasicGameState {
                 	//g.draw(m.weapon.attacks.get(0).hitbox);
                 }
             }
-        }
-        
-        for (Obstacle o : obstacles) {
-        	o.render(g);
         }
         
         for (Weapon i : floorweapons) {
@@ -166,15 +158,6 @@ public class AreaState extends BasicGameState {
 
         for (Projectile p : monsterProjectiles) {
         	p.move();
-        }
-        
-        for (Obstacle o : obstacles){
-        	for (Player p : players){
-        		if(o.getHitbox().intersects(p.getHitBox())){
-        			o.effect(p);
-        		}
-        		o.endEffect(p);
-        	}
         }
         
         removeTexts();
@@ -319,6 +302,7 @@ public class AreaState extends BasicGameState {
                         p.weapon = w;
                         w.assignOwner(p);
                         w.init();
+                        p.itemTimer = w.itemTimer;
                         remove.add(w);
                         
                     }
@@ -329,19 +313,16 @@ public class AreaState extends BasicGameState {
         
         checkIfMonsterDead();
         for (Player p : players) {
+        	
+        	p.itemCheck(delta);
+        	
         	p.deathCheck(delta);
         	if(p.isRespawning && !p.weapon.isFist){
         		Weapon w = new Fist(p.pos[0],p.pos[1]);
         		p.weapon.drop();
-                if (p.weapon.groundSprite == null) {
-                    
-                } else {
-                    add.add(p.weapon);
-                }
                 p.weapon = w;
                 w.assignOwner(p);
                 w.init();
-                remove.add(w);
         	}
         }
         
@@ -412,18 +393,6 @@ public class AreaState extends BasicGameState {
         
         for (Coin i : rid) {
             floorcoins.remove(i);
-        }
-        
-        ArrayList<Obstacle> getRidOf = new ArrayList<Obstacle>();
-        for (Obstacle i : obstacles) {
-            i.pos[0] -= shift;
-            if (i.pos[0] < 0) {
-                getRidOf.add(i);
-            }
-        }
-
-        for (Obstacle i : getRidOf) {
-           // obstacles.remove(i);
         }
     }
     

@@ -2,9 +2,6 @@ package states;
 
 import java.util.ArrayList;
 
-import obstacles.Obstacle;
-import obstacles.SpiderWeb;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
@@ -16,9 +13,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import core.MainGame;
 
-import weapons.Bear;
-import weapons.Sword;
-import weapons.Weapon;
+import weapons.*;
 
 import dudes.GoblinArcher;
 import dudes.Knight;
@@ -111,6 +106,6 @@ public class TownState extends AreaState {
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		Music loop = new Music("Assets/Sound/Town2.wav");
-		loop.play();
+		loop.loop();
 	}
 }

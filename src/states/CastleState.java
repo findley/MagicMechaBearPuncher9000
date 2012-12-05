@@ -2,8 +2,6 @@ package states;
 
 import java.util.ArrayList;
 
-import obstacles.SpiderWeb;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
@@ -13,9 +11,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 import core.MainGame;
 
-import weapons.Bear;
-import weapons.Sword;
-import weapons.Weapon;
+import weapons.*;
 
 import dudes.GoblinArcher;
 import dudes.Knight;

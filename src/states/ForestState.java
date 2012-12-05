@@ -2,8 +2,6 @@ package states;
 
 import java.util.ArrayList;
 
-import obstacles.SpiderWeb;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;

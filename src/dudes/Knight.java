@@ -261,26 +261,6 @@ public class Knight extends Monster {
 	}
 	
 	@Override
-	public Weapon getDropWeapon() throws SlickException {
-		Weapon[] lootItems = new Weapon[]{ new Sword(pos[0], pos[1]), new Bear(pos[0],pos[1]), new Bow(pos[0], pos[1]), new Fireball(pos[0], pos[1]), new Mini(pos[0], pos[1]), new Bear(pos[0], pos[1]) } ; 
-		//float[] pos = {m.pos[0]+90,m.pos[1]};
-    	float[] pos = this.pos;
-        double rand = Math.random();
-        Weapon w;
-                
-        //
-        w = new Mecha(pos[0], pos[1]);
-        //
-//        if(rand < 0.5){
-        	int index = (int) ((int) 2*rand*lootItems.length);
-//        	w = lootItems[index];
-    		w.createGroundSprite();
-    		return w;
-//        }
-//        return null;
-	}
-	
-	@Override
 	public Coin getDropCoin() throws SlickException {
 		double rand2 = Math.random();
         if(rand2<0.5){

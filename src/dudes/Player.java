@@ -14,11 +14,7 @@ import org.newdawn.slick.geom.Shape;
 
 import core.MainGame;
 
-import weapons.Axe;
-import weapons.Bear;
-import weapons.Fist;
-import weapons.Spear;
-import weapons.Weapon;
+import weapons.*;
 
 public class Player extends Dude {
     public HashMap<String, Integer> buttons;
@@ -30,6 +26,9 @@ public class Player extends Dude {
     public boolean					webbed = false;
     public float					constSpeed;
     
+    public int                      itemTimer;
+    public Color                    itemFill;
+    
     public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
         this.buttons = buttons;
         this.isRight = true;
@@ -40,7 +39,8 @@ public class Player extends Dude {
         maxHealth = 100;
         health = maxHealth;
         score = 0;
-        healthFill = new Color(0f, 1f, 0f, 1f);
+        healthFill = new Color(1f, 0f, 0f);
+        itemFill = new Color(0f, 0f, 1f);
         attackTime = 0;
         this.weapon = new Fist(this);
         //hitbox = weapon.getPlayerHitBox(pos[0], pos[1]);
@@ -159,18 +159,25 @@ public class Player extends Dude {
         this.score += points;
     }
     
-//    @Override
-//    public void renderHealthBar(Graphics g) {
-//        float x = 25 + (MainGame.GAME_WIDTH - 200) * playerID;
-//        float y = 75;
-//        int width = 150;
-//        int height = 10;
-//        int padding = 2;
-//        double healthRemaining = width * health / maxHealth;
-//        g.setColor(healthFill);
-//        g.drawRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
-//        g.fillRect(x, y, (float) healthRemaining, height);
-//    }
+    @Override
+    public void renderHealthBar(Graphics g) {
+    	int offset = -30;
+        float x = pos[0];
+        float y = pos[1] + offset;
+        int width = 100;
+        int height = 10;
+        int padding = 1;
+        double healthRemaining = (width-padding) * health / maxHealth;
+        double itemRemaining = (width-padding) * itemTimer / weapon.itemTimer;
+        
+        g.setColor(Color.black);
+        g.drawRect(x, y, width, height);
+        g.drawRect(x, y + height, width, height);
+        g.setColor(healthFill);
+        g.fillRect(x + padding, y + padding, (float) healthRemaining, height - padding);
+        g.setColor(itemFill);
+        g.fillRect(x + padding, y + height + padding, (float) itemRemaining, height - padding);
+    }
     
     @Override
     public float[] weaponLoc() {
@@ -196,6 +203,23 @@ public class Player extends Dude {
     		if (health >= maxHealth) {
     			health = maxHealth;
     			isRespawning = false;
+    		}
+    	}
+    }
+    
+    public void itemCheck(int delta) throws SlickException {
+    	if (weapon.isFist) {
+    		itemTimer = 0;
+    	} else {
+    		if (itemTimer - delta <= 0) {
+    			itemTimer = 0;
+    			Weapon w = new Fist(pos[0],pos[1]);
+        		weapon.drop();
+        		weapon = w;
+                w.assignOwner(this);
+                w.init();
+    		} else {
+    			itemTimer -= delta;
     		}
     	}
     }
