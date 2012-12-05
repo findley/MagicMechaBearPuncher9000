@@ -94,6 +94,7 @@ public class AreaState extends BasicGameState {
             g.setColor(Color.green);
             g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
             g.drawString("POINTS: " + p.score, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
+            g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
         }
         
         for (Text t : screenTexts) {

@@ -108,7 +108,6 @@ public abstract class Weapon {
 	}
 	
 	public Shape getPlayerHitBox(float ownerX, float ownerY) {
-		System.out.println(offsetX);
 		return new Rectangle(ownerX + offsetX, ownerY + offsetY, playerSizeX, playerSizeY);
 	}
 	
@@ -123,9 +122,17 @@ public abstract class Weapon {
 		} else {
 		}
 	}
+	
 	// method for the movement of an attack based on current info.
 	// kinda state machine-y
-	protected abstract boolean updateAttack(Attack attack);
+	protected boolean updateAttack(Attack attack) {
+		if(owner.isAttacking) {
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	
 	public void updateAttacks(){
 		ArrayList<Attack> removals = new ArrayList<Attack>();

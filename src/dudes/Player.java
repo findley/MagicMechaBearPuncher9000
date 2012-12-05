@@ -159,18 +159,18 @@ public class Player extends Dude {
         this.score += points;
     }
     
-    @Override
-    public void renderHealthBar(Graphics g) {
-        float x = 25 + (MainGame.GAME_WIDTH - 200) * playerID;
-        float y = 75;
-        int width = 150;
-        int height = 10;
-        int padding = 2;
-        double healthRemaining = width * health / maxHealth;
-        g.setColor(healthFill);
-        g.drawRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
-        g.fillRect(x, y, (float) healthRemaining, height);
-    }
+//    @Override
+//    public void renderHealthBar(Graphics g) {
+//        float x = 25 + (MainGame.GAME_WIDTH - 200) * playerID;
+//        float y = 75;
+//        int width = 150;
+//        int height = 10;
+//        int padding = 2;
+//        double healthRemaining = width * health / maxHealth;
+//        g.setColor(healthFill);
+//        g.drawRect(x - padding, y - padding, width + padding * 2, height + padding * 2);
+//        g.fillRect(x, y, (float) healthRemaining, height);
+//    }
     
     @Override
     public float[] weaponLoc() {

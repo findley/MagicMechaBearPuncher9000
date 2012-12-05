@@ -8,13 +8,14 @@ import org.newdawn.slick.geom.Rectangle;
 import dudes.Dude;
 import dudes.Player;
 
-public class Bear extends Weapon {
-	
-	public Bear(Dude owner) {
+public class Mecha extends Weapon {
+
+	public Mecha(Dude owner) {
 		this(owner.pos[0], owner.pos[1]);
 		assignOwner(owner);
 	}
-	public Bear(float x, float y) {
+
+	public Mecha(float x, float y) {
 		super();
 		this.x = x;
 		this.y = y;
@@ -23,24 +24,23 @@ public class Bear extends Weapon {
 		attackHeight = 30;
 		attackTime = 200;
 		delayTime = 500;
-		spriteSizeX = 128;
-		spriteSizeY = 128;
-		playerSizeX = 128;
-		playerSizeY = 128;
+		spriteSizeX = 192;
+		spriteSizeY = 192;
+		playerSizeX = 192;
+		playerSizeY = 192;
 		cooldown = 50;
 	}
 	
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/Bear/player" + ((Player)owner).playerID + "bigbear.png", spriteSizeX, spriteSizeY);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Mecha/player" + ((Player)owner).playerID + "Mecha.png", spriteSizeX, spriteSizeY);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);	
 		initAnimations();
 	}
-	
+
 	@Override
-	public void attack() {
-		// TODO Auto-generated method stub
+	public void attack() throws SlickException {
 		float[] corner = owner.weaponLoc();
 		corner[0] -= attackWidth / 2;
 		corner[1] -= attackHeight / 2;
@@ -50,7 +50,13 @@ public class Bear extends Weapon {
 	}
 
 	@Override
+	protected boolean updateAttack(Attack attack) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Bear/bearclaw.png");
+		groundSprite = new Image("Assets/Weapons/Mecha/groundWand.png");
 	}
 }
