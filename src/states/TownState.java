@@ -92,9 +92,9 @@ public class TownState extends AreaState {
 		monsters.add(group_3);
 
 		battleStops = new int[3];
-		battleStops[0] = 1000;
-		battleStops[1] = 2000;
-		battleStops[2] = 3000;
+		battleStops[0] = 700;
+		battleStops[1] = 1300;
+		battleStops[2] = 1900;
 
 	}
 	

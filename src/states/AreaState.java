@@ -173,7 +173,7 @@ public class AreaState extends BasicGameState {
         
         float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
         
-        if (progression > 32 * (areaLength - 32)) {// don't scroll if you're at the end of the screen
+        if (progression > 20 * (areaLength - 32)) {// don't scroll if you're at the end of the screen
             completed = true;
         } else {
             if (backPlayerPos > MainGame.GAME_WIDTH / 10) {// don't scroll unless both players are far right enough
