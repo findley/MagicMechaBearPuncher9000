@@ -214,6 +214,7 @@ public class Player extends Dude {
     		if (itemTimer - delta <= 0) {
     			itemTimer = 0;
     			Weapon w = new Fist(pos[0],pos[1]);
+    			pos[1] -= (w.spriteSizeY - weapon.spriteSizeY);
         		weapon.drop();
         		weapon = w;
                 w.assignOwner(this);

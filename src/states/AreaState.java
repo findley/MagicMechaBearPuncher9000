@@ -292,19 +292,14 @@ public class AreaState extends BasicGameState {
         for (Player p : players) {
             if (container.getInput().isKeyPressed(p.buttons.get("pickup"))) {
                 for (Weapon w : floorweapons) {
-                    if (p.getHitBox().intersects(w.getHitBox())) {
+                    if (p.getHitBox().intersects(w.getHitBox()) && p.weapon.isFist) {
+            			p.pos[1] -= (w.spriteSizeY - p.weapon.spriteSizeY);
                         p.weapon.drop();
-                        if (p.weapon.groundSprite == null) {
-                            
-                        } else {
-                            add.add(p.weapon);
-                        }
                         p.weapon = w;
                         w.assignOwner(p);
                         w.init();
                         p.itemTimer = w.itemTimer;
                         remove.add(w);
-                        
                     }
                 }
                 //runOverCoins(p);
