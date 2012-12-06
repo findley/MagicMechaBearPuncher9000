@@ -42,7 +42,6 @@ public class Bear extends Weapon {
 	
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
 		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
 		Rectangle hitbox;
 		if (owner.isRight){
