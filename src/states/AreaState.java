@@ -302,7 +302,6 @@ public class AreaState extends BasicGameState {
                         remove.add(w);
                     }
                 }
-                //runOverCoins(p);
             }
         }
         
