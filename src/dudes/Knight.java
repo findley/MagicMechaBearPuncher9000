@@ -30,7 +30,7 @@ public class Knight extends Monster {
 		isRight = false;
 		moveSpeed = 1;
 		healthFill = new Color(Color.red);
-		attackTime = 0;
+		attackTime = 2000;
 		//hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		kind = k;
 		value = 100;
@@ -100,7 +100,6 @@ public class Knight extends Monster {
 					currentAnimation = handleAnimation("attack");
 					this.attack();
 				} else {
-					currentAnimation = handleAnimation("walk");
 				}
 				currentAnimation.start();
 			}

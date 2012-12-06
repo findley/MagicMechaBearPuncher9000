@@ -21,8 +21,8 @@ public class Diglet extends Weapon {
 		this.x = x;
 		this.y = y;
 		damage = 15;
-		attackWidth = 100;
-		attackHeight = 30;
+		attackWidth = 64;
+		attackHeight = 92;
 		attackTime = 1000;
 		delayTime = 0;
 		spriteSizeX = 64;
@@ -30,8 +30,8 @@ public class Diglet extends Weapon {
 		playerSizeX = 64;
 		playerSizeY = 92;
 		cooldown = 0;
-		attackOffsetY = -2;
-		attackOffsetX = 10;
+		attackOffsetY = -92/2;
+		attackOffsetX = -64/2;
 	}
 	@Override
 	public void init() throws SlickException {
