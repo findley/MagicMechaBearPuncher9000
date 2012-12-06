@@ -40,13 +40,13 @@ public abstract class Monster extends Dude {
         }
         
         if (isAttacking) {
-            attackTime += delta;
-            if (attackTime < this.weapon.attackTime) {
+            if (!currentAnimation.isStopped()) {
                 return;
             } else {
                 isAttacking = false;
                 delayed = true;
                 currentAnimation.restart();
+                currentAnimation = null;
                 delayTime = 0;
             }
         }
@@ -128,7 +128,7 @@ public abstract class Monster extends Dude {
 
     	int index = (int) (rand*lootItems.length);
     	w = lootItems[index];
-    	w = new Mecha(pos[0], pos[1]);
+    	w = new Diglet(pos[0], pos[1]);
 		w.createGroundSprite();
 		return w;
     }

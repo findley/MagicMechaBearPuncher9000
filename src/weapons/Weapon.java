@@ -49,11 +49,9 @@ public abstract class Weapon {
 	public int attackWidth;
 	
 	public int itemTimer;
-	public float cooldown;
 	public int attackHeight;
-	public float attackTime;
 	public int delayTime;
-	public ArrayList<Attack> attacks;
+	public Attack attack;
 	public Dude owner;
 	public float x;
 	public float y;
@@ -62,9 +60,7 @@ public abstract class Weapon {
 	
 	public Weapon() {
 		itemTimer = 15000;
-		attacks = new ArrayList<Attack>();
 		projectiles = new ArrayList<Projectile>();
-		cooldown = 0;
 		spriteSizeX = 64;
 		spriteSizeY = 64;
 		playerSizeX = 64;
@@ -98,8 +94,20 @@ public abstract class Weapon {
 
 	// to start attack
 	
-	public abstract void attack() throws SlickException;
-		
+	public void attack() throws SlickException {
+		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
+		Rectangle hitbox;
+		if (owner.isRight){
+			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
+				attackHeight);
+		}
+		else {
+			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
+					attackHeight);
+		}
+		attack = new Attack(owner.isRight, hitbox, "player");
+	}
+	
 	public void assignOwner(Dude owner) {
 		this.owner = owner;
 	}
@@ -120,33 +128,10 @@ public abstract class Weapon {
 		return new Rectangle(x, y, groundSprite.getWidth(), groundSprite.getHeight());
 	}
 	
-	public void Draw() {
+	public void draw() {
 		if (this.owner == null) {
 			groundSprite.draw(x, y);
 		} else {
-		}
-	}
-	
-	// method for the movement of an attack based on current info.
-	// kinda state machine-y
-	protected boolean updateAttack(Attack attack) {
-		if(owner.isAttacking) {
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	
-	public void updateAttacks(){
-		ArrayList<Attack> removals = new ArrayList<Attack>();
-		for(int i = 0; i < attacks.size(); i++){
-			if(!updateAttack(attacks.get(i))){
-				removals.add(attacks.get(i));
-			}
-		}
-		for(Attack attack:removals){
-			attacks.remove(attack);
 		}
 	}
 	

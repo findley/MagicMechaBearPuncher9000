@@ -25,14 +25,12 @@ public class GoblinArcher extends Monster {
 		isRight = false;
 		moveSpeed = 4;
 		healthFill = new Color(Color.red);
-		attackTime = 0;
 		//hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		homeToleranceX = 100;
 		homeToleranceY = 75;
 		kind = k;
 		value = 80;
 		canMove = false;
-		cooldown = 200.0f;
 		range = 200;
 		screenWidth = 700;
 		this.weapon = new GoblinBow(this);
@@ -90,11 +88,11 @@ public class GoblinArcher extends Monster {
 					if (diff > range) {
 						this.moveRight = true;
 						this.isRight = true;
-						this.attack();
+						this.weapon.attack();
 					} else {
 						if (this.pos[0] < 10) {
 							canMove = false;
-							this.attack();
+							this.weapon.attack();
 							this.isRight = true;
 						} else {
 							this.moveRight = false;
@@ -106,11 +104,11 @@ public class GoblinArcher extends Monster {
 					if (diff > range) {
 						this.moveRight = false;
 						this.isRight = false;
-						this.attack();
+						this.weapon.attack();
 					} else {
 						if (this.pos[0] > screenWidth - 100 ) {
 							canMove = false;
-							this.attack();
+							this.weapon.attack();
 							this.isRight = false;
 						} else {
 							this.moveRight = true;							

@@ -24,7 +24,6 @@ public class RangeWeapon extends Weapon {
 		damage = 0;
 		attackWidth = 100;
 		attackHeight = 6;
-		attackTime = 200;
 		delayTime = 500;
 		this.ranged = true;
 	}
@@ -36,20 +35,5 @@ public class RangeWeapon extends Weapon {
 	@Override
 	public void attack() throws SlickException {
 		
-	}
-
-	@Override
-	protected boolean updateAttack(Attack attack) {
-		if(owner.isAttacking) {
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	
-	@Override
-	public void createGroundSprite() throws SlickException {
-		groundSprite = null;
 	}
 }

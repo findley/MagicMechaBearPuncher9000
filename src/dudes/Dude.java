@@ -24,7 +24,6 @@ public abstract class Dude implements Comparable<Dude> {
     public float       moveSpeed;
     public int         maxHealth;
     public Color       healthFill;
-    public int         attackTime;
     public boolean     invincible;
     public int         invincibleDuration;
     public int         invincibleTimer;
@@ -38,7 +37,6 @@ public abstract class Dude implements Comparable<Dude> {
     public boolean     delayed;
     public int         delayDur;
     public int         delayTime;
-    public float cooldown;
     int maxOverlap = 10;
         
     // only for enemies
@@ -50,11 +48,6 @@ public abstract class Dude implements Comparable<Dude> {
     
     public Dude() {
         invincibleDuration = 500;
-        cooldown = 0;
-    }
-    
-    public void attack() throws SlickException {
-        this.weapon.attack();
     }
     
     public void flinch(int milliseconds) {
@@ -66,7 +59,6 @@ public abstract class Dude implements Comparable<Dude> {
             isAttacking = false;
             delayed = false;
         }
-        
     }
     
     public void moveLeft(float moveDist, Player[] players, ArrayList<Monster> monsters) {
@@ -201,8 +193,8 @@ public abstract class Dude implements Comparable<Dude> {
         
         // Render a health bar for the Dude
         this.renderHealthBar(g);
-        for (Attack attack : this.weapon.attacks) {
-            g.draw(attack.hitbox);
+        if (weapon.attack!=null) {
+        	g.draw(weapon.attack.hitbox);
         }
     }
     

@@ -21,13 +21,11 @@ public class Bear extends Weapon {
 		damage = 15;
 		attackWidth = 100;
 		attackHeight = 30;
-		attackTime = 200;
 		delayTime = 500;
 		spriteSizeX = 128;
 		spriteSizeY = 128;
 		playerSizeX = 128;
 		playerSizeY = 128;
-		cooldown = 50;
 		attackOffsetY = -2;
 		attackOffsetX = 10;
 	}
@@ -40,21 +38,6 @@ public class Bear extends Weapon {
 		initAnimations();
 	}
 	
-	@Override
-	public void attack() {
-		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
-		Rectangle hitbox;
-		if (owner.isRight){
-			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
-				attackHeight);
-		}
-		else {
-			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
-					attackHeight);
-		}
-		attacks.add(new Attack(owner.isRight, hitbox, "player"));
-	}
-
 	@Override
 	public void createGroundSprite() throws SlickException {
 		groundSprite = new Image("Assets/Weapons/Bear/bearclaw.png");

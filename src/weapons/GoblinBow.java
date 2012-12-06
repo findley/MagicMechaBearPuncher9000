@@ -25,7 +25,6 @@ public class GoblinBow extends Weapon{
 		damage = 0;
 		attackWidth = 100;
 		attackHeight = 6;
-		attackTime = 1000;
 		delayTime = 500;
 		kind = 0;
 		ranged = true;
@@ -80,15 +79,5 @@ public class GoblinBow extends Weapon{
 		anims[7] = new Animation(weaponSheet, 0, 7, 2, 7, true, 200, true);
 		anims[7].setLooping(false);
 
-	}
-	
-	@Override
-	protected boolean updateAttack(Attack attack) {
-		if(owner.isAttacking) {
-			return true;
-		}
-		else{
-			return false;
-		}
 	}
 }

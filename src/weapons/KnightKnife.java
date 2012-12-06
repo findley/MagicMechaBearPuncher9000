@@ -22,7 +22,6 @@ public class KnightKnife extends Weapon{
 		damage = 5;
 		attackWidth = 50;
 		attackHeight = 6;
-		attackTime = 1000;
 		delayTime = 500;
 		kind = k;
 	}
@@ -41,21 +40,6 @@ public class KnightKnife extends Weapon{
 		initAnimations();
 	}
 	
-	@Override
-	public void attack() {
-		float[] corner = owner.weaponLoc();
-		Rectangle hitbox;
-		if (owner.isRight){
-			hitbox = new Rectangle(corner[0], corner[1], attackWidth,
-				attackHeight);
-		}
-		else{
-			hitbox = new Rectangle(corner[0]-attackWidth, corner[1], attackWidth,
-					attackHeight);
-		}
-		attacks.add(new Attack(owner.isRight, hitbox, "player"));
-	}
-
 	@Override
 	public void initAnimations(){
 		// flinch left
@@ -84,15 +68,5 @@ public class KnightKnife extends Weapon{
 		anims[7] = new Animation(weaponSheet, 0, 7, 2, 7, true, 200, true);
 		anims[7].setLooping(false);
 
-	}
-	
-	@Override
-	protected boolean updateAttack(Attack attack) {
-		if(owner.isAttacking) {
-			return true;
-		}
-		else{
-			return false;
-		}
 	}
 }

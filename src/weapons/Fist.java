@@ -20,7 +20,6 @@ public class Fist extends Weapon {
 		damage = 10;
 		attackWidth = 30;
 		attackHeight = 6;
-		attackTime = 200;
 		delayTime = 500;
 		isFist = true;
 	}
@@ -33,30 +32,4 @@ public class Fist extends Weapon {
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();
 	}
-	
-	@Override
-	public void attack() {
-		float[] corner = owner.weaponLoc();
-		Rectangle hitbox;
-		if (owner.isRight){
-			hitbox = new Rectangle(corner[0], corner[1], attackWidth,
-				attackHeight);
-		}
-		else {
-			hitbox = new Rectangle(corner[0]-attackWidth, corner[1], attackWidth,
-					attackHeight);
-		}
-		attacks.add(new Attack(owner.isRight, hitbox, "player"));
-	}
-
-	@Override
-	protected boolean updateAttack(Attack attack) {
-		if(owner.isAttacking) {
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	
 }

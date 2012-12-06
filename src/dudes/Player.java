@@ -22,7 +22,7 @@ public class Player extends Dude {
     public int                      score;
     private final int               RESPAWN_TIMER = 5000;
     public boolean                  isRespawning;
-    public Animation[]       playerDeath = new Animation[2];
+    public Animation[]              playerDeath = new Animation[2];
     public boolean					webbed = false;
     public float					constSpeed;
     
@@ -41,10 +41,7 @@ public class Player extends Dude {
         score = 0;
         healthFill = new Color(1f, 0f, 0f);
         itemFill = new Color(0f, 0f, 1f);
-        attackTime = 0;
         this.weapon = new Fist(this);
-        //hitbox = weapon.getPlayerHitBox(pos[0], pos[1]);
-        //hitbox = new Rectangle(pos[0], pos[1], weapon.playerSizeX, weapon.playerSizeY);
         deathTimer = 0;
     }
     
@@ -65,7 +62,7 @@ public class Player extends Dude {
     	if (isRespawning) {
     		return;
     	}
-        if (currentAnimation != null) {
+        if (currentAnimation != null && !isAttacking) {
             if (currentAnimation.isStopped()) {
                 currentAnimation.restart();
                 currentAnimation = null;
@@ -81,34 +78,28 @@ public class Player extends Dude {
         }
         
         if (isAttacking) {
-            attackTime += delta;
-            if (attackTime < this.weapon.attackTime) {
+            if (!currentAnimation.isStopped()) {
                 return;
             } else {
                 isAttacking = false;
                 delayed = true;
+                currentAnimation.restart();
+                currentAnimation = null;
                 delayTime = 0;
+                weapon.attack = null;
             }
+        } else {
+        	weapon.attack = null;
         }
         
         float moveDist = (float) .1 * delta * moveSpeed;
         
-        if (cooldown > 0) {
-        	cooldown-= 1;
-        }
         if (input.isKeyPressed(buttons.get("action"))) {
-        	if (cooldown > 0) {
-        		return;
-        	} else {
         		this.isAttacking = true;
                 currentAnimation = handleAnimation("punch");
                 currentAnimation.start();
-                cooldown = this.weapon.cooldown;
-                attackTime = 0;
                 this.weapon.attack();
                 return;
-        	}
-            
         } else if (input.isKeyDown(buttons.get("right")) || input.isKeyDown(buttons.get("left")) || input.isKeyDown(buttons.get("down"))
                 || input.isKeyDown(buttons.get("up"))) {
             currentAnimation = handleAnimation("walk");
@@ -123,7 +114,7 @@ public class Player extends Dude {
                 this.moveUp(moveDist, players, monsters);
         } else {
             if (currentAnimation != null) {
-                currentAnimation.stop();
+                //currentAnimation.stop();
             }
         }
     }
@@ -190,6 +181,8 @@ public class Player extends Dude {
     
     public void deathCheck(int delta) {
     	if ((health <= 0) && (deathTimer == 0)) {
+    		isAttacking = false;
+    		weapon.attack = null;
     		deathTimer = RESPAWN_TIMER;
     		isRespawning = true;
     		if (isRight)
@@ -213,6 +206,8 @@ public class Player extends Dude {
     	} else {
     		if (itemTimer - delta <= 0) {
     			itemTimer = 0;
+    			currentAnimation = null;
+    			isAttacking = false;
     			Weapon w = new Fist(pos[0],pos[1]);
     			pos[1] -= (w.spriteSizeY - weapon.spriteSizeY);
         		weapon.drop();

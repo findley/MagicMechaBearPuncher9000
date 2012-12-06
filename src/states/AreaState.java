@@ -104,14 +104,11 @@ public class AreaState extends BasicGameState {
             Collections.sort(currBattle);
             for (Monster m : currBattle) {
                 m.render(g);
-                if (m.weapon.attacks.size() > 0){
-                	//g.draw(m.weapon.attacks.get(0).hitbox);
-                }
             }
         }
         
         for (Weapon i : floorweapons) {
-            i.Draw();
+            i.draw();
         }
         
         for (Coin c : floorcoins){
@@ -250,39 +247,39 @@ public class AreaState extends BasicGameState {
         for (int i = 0; i < players.length; i++) {
             Player player = players[i];
             player.invincibleTimer += delta;
-            player.weapon.updateAttacks();
-            for (Attack attack : player.weapon.attacks) {
-                for (Monster monster : this.currBattle) {
-                    if (attack.hitbox.intersects(monster.getHitBox())) {
-                    	tryPunchNoise();
-                    	
-                        monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
-                        monster.setLastHit(player);
-                    }
-                }
-                if (attack.hitbox.intersects(players[(i + 1) % 2].getHitBox())) {
-                	if (!players[(i + 1) % 2].isRespawning) {
-                    	tryPunchNoise();
-                    	
-                		players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
-                	}
-                }
+            for (Monster monster : this.currBattle) {
+            	if (player.weapon.attack!=null) {
+	                if (player.weapon.attack.hitbox.intersects(monster.getHitBox())) {
+	                	tryPunchNoise();
+	                	
+	                    monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
+	                    monster.setLastHit(player);
+	                }
+            	}
+            }
+            if (player.weapon.attack!=null) {
+	            if (player.weapon.attack.hitbox.intersects(players[(i + 1) % 2].getHitBox())) {
+	            	if (!players[(i + 1) % 2].isRespawning) {
+	                	tryPunchNoise();
+	                	
+	            		players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
+	            	}
+	            }
             }
         }
         
         for (Monster monster : this.currBattle) {
             monster.invincibleTimer += delta;
-            monster.weapon.updateAttacks();
             if (monster.state == enemyState.ALIVE) {
             	monster.aiLoop(players, this.currBattle, delta);
-                for (Attack attack : monster.weapon.attacks) {
-                    for (Player player : players) {
-                        if (attack.hitbox.intersects(player.getHitBox())) {
-                        	if (!player.isRespawning) {
-                        		player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
-                        	}
-                        }
-                    }
+                for (Player player : players) {
+                	if (monster.weapon.attack!=null) {
+	                    if (monster.weapon.attack.hitbox.intersects(player.getHitBox())) {
+	                    	if (!player.isRespawning) {
+	                    		player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
+	                    	}
+	                    }
+                	}
                 }
             }
         }

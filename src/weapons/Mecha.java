@@ -22,13 +22,11 @@ public class Mecha extends Weapon {
 		damage = 15;
 		attackWidth = 50;
 		attackHeight = 180;
-		attackTime = 200;
 		delayTime = 500;
 		spriteSizeX = 192;
 		spriteSizeY = 192;
 		playerSizeX = 192;
 		playerSizeY = 192;
-		cooldown = 50;
 		attackOffsetY = -90;
 		attackOffsetX = 45;
 	}
@@ -39,21 +37,6 @@ public class Mecha extends Weapon {
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);	
 		initAnimations();
-	}
-
-	@Override
-	public void attack() throws SlickException {
-		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
-		Rectangle hitbox;
-		if (owner.isRight){
-			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
-				attackHeight);
-		}
-		else {
-			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
-					attackHeight);
-		}
-		attacks.add(new Attack(owner.isRight, hitbox, "player"));
 	}
 
 	@Override
