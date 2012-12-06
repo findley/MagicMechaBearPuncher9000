@@ -4,10 +4,8 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
 
 import dudes.Dude;
-import dudes.Player;
 
 public class Diglet extends Weapon {
 	
@@ -27,7 +25,8 @@ public class Diglet extends Weapon {
 		spriteSizeX = 64;
 		spriteSizeY = 92;
 		playerSizeX = 64;
-		playerSizeY = 92;
+		playerSizeY = 0;
+		offsetY = 92;
 		attackOffsetY = -92/2;
 		attackOffsetX = -64/2;
 	}

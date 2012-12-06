@@ -114,7 +114,7 @@ public class Player extends Dude {
                 this.moveUp(moveDist, players, monsters);
         } else {
             if (currentAnimation != null) {
-                //currentAnimation.stop();
+                currentAnimation.stop();
             }
         }
     }

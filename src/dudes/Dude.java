@@ -128,8 +128,8 @@ public abstract class Dude implements Comparable<Dude> {
         if (pos[0] < 0) {
             pos[0] = 0;
         }
-        if (pos[1] < MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSizeY + 5) {
-            pos[1] = MainGame.GAME_HEIGHT - 32 * 8 - weapon.playerSizeY + 5;
+        if (pos[1] < MainGame.GAME_HEIGHT - 32 * 8 - (weapon.playerSizeY + weapon.offsetY) + 5) {
+            pos[1] = MainGame.GAME_HEIGHT - 32 * 8 - (weapon.playerSizeY + weapon.offsetY) + 5;
         }
     }
     
@@ -152,8 +152,8 @@ public abstract class Dude implements Comparable<Dude> {
         if (pos[0] < 0) {
             pos[0] = 0;
         }
-        if (pos[1] > MainGame.GAME_HEIGHT - 32 - weapon.playerSizeY - 5) {
-            pos[1] = MainGame.GAME_HEIGHT - 32 - weapon.playerSizeY - 5;
+        if (pos[1] > MainGame.GAME_HEIGHT - 32 - (weapon.playerSizeY + weapon.offsetY) - 5) {
+            pos[1] = MainGame.GAME_HEIGHT - 32 - (weapon.playerSizeY + weapon.offsetY) - 5;
         }
     }
     

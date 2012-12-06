@@ -22,6 +22,10 @@ public class Fist extends Weapon {
 		attackHeight = 6;
 		delayTime = 500;
 		isFist = true;
+		playerSizeX = 40;
+		playerSizeY = 54;
+		offsetX = 12;
+		offsetY = 5;
 	}
 
 	@Override

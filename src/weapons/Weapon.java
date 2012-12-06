@@ -32,7 +32,6 @@ public abstract class Weapon {
 	
 	public Sound attackSound;
 	
-	//public int playerSize;
 	public int spriteSizeX;
 	public int spriteSizeY;
 	public int playerSizeX;

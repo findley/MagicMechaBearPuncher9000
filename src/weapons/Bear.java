@@ -3,7 +3,6 @@ package weapons;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
-import org.newdawn.slick.geom.Rectangle;
 
 import dudes.Dude;
 import dudes.Player;
@@ -24,8 +23,10 @@ public class Bear extends Weapon {
 		delayTime = 500;
 		spriteSizeX = 128;
 		spriteSizeY = 128;
-		playerSizeX = 128;
-		playerSizeY = 128;
+		playerSizeX = 40;
+		playerSizeY = 64;
+		offsetX = 44;
+		offsetY = 44;
 		attackOffsetY = -2;
 		attackOffsetX = 10;
 	}

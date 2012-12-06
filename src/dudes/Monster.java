@@ -5,9 +5,6 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Shape;
-
-import core.MainGame;
 
 import weapons.*;
 
@@ -128,6 +125,7 @@ public abstract class Monster extends Dude {
 
     	int index = (int) (rand*lootItems.length);
     	w = lootItems[index];
+    	
     	w = new Diglet(pos[0], pos[1]);
 		w.createGroundSprite();
 		return w;
