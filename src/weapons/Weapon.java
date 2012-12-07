@@ -118,6 +118,20 @@ public abstract class Weapon {
 		
 	}
 	
+	public Shape getAttackHitBox(){
+		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
+		Rectangle hitbox;
+		if (owner.isRight){
+			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
+				attackHeight);
+		}
+		else {
+			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
+					attackHeight);
+		}
+		return hitbox;
+	}
+	
 	public Shape getPlayerHitBox(float ownerX, float ownerY) {
 		return new Rectangle(ownerX + offsetX, ownerY + offsetY, playerSizeX, playerSizeY);
 	}

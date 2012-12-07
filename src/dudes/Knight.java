@@ -97,7 +97,9 @@ public class Knight extends Monster {
 				}
 				if (!doingNothing && Math.random() < .3) {
 					currentAnimation = handleAnimation("attack");
+					//this.isAttacking = true;
 					this.weapon.attack();
+					//this.weapon.attack = null;
 				} else {
 				}
 				currentAnimation.start();

@@ -53,35 +53,37 @@ public abstract class Monster extends Dude {
         boolean xFlag = true;
         boolean yFlag = false;
         float actualDist = Math.abs(targetpos[0] - this.pos[0]);
-        if (targetpos[1] - this.getHitBox().getCenterY()> this.weapon.attackHeight) {
+        if (targetpos[1] +10> this.weapon.getAttackHitBox().getMaxY()-2) {
             this.moveDown(this.moveSpeed, players, monsters);
-        } else if (this.getHitBox().getCenterY() - targetpos[1] > this.weapon.attackHeight) {
+        } else if (targetpos[1] +10< this.weapon.getAttackHitBox().getMinY() + 2) {
             this.moveUp(this.moveSpeed, players, monsters);
         } else {
             yFlag = true;
         }
         if(this.isRight){
-        	if (targetpos[0] > this.weaponLoc()[0] + this.weapon.attackWidth) {
+        	if (targetpos[0] > this.weapon.getAttackHitBox().getMaxX() - 5) {
         		this.moveRight(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
-        	else if (targetpos[0] < this.weaponLoc()[0] && actualDist > 64){
+        	if (targetpos[0] < this.weapon.getAttackHitBox().getMinX()) {
         		this.moveLeft(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
         }
         else{
-        	if (targetpos[0] < this.weaponLoc()[0] - this.weapon.attackWidth) {
+        	if (targetpos[0] < this.weapon.getAttackHitBox().getMinX() + 5) {
         		this.moveLeft(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
-        	else if (targetpos[0] > this.weaponLoc()[0]&& actualDist > 64){
+        	if (targetpos[0] > this.weapon.getAttackHitBox().getMaxX()) {
         		this.moveRight(this.moveSpeed, players, monsters);
         		xFlag = false;
         	}
         } 
-        
+        System.out.println("xflag: " + xFlag);
+        System.out.println("yflag: " + yFlag);
         if (yFlag && xFlag) {
+        	System.out.println("hello");
             return false;
         }
         return true;

@@ -24,6 +24,8 @@ public class KnightKnife extends Weapon{
 		attackHeight = 6;
 		delayTime = 500;
 		kind = k;
+		attackOffsetY = 15;
+		attackOffsetX = 10;
 	}
 	
 	@Override
