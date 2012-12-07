@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="25" height="25" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="house1" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/house_1.png" width="128" height="128"/>
+  <tile id="14">
+   <properties>
+    <property name="minigame" value="locked"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="17" name="TownTiles" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/dirt_grass_fence_sheet_zoom2.png" width="256" height="192"/>
+  <tile id="0">
+   <properties>
+    <property name="blocked" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="65" name="house2" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/house_2.png" width="160" height="128"/>
+  <tile id="17">
+   <properties>
+    <property name="minigame" value="dodge"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="85" name="barn" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/barn.png" width="192" height="192"/>
+  <tile id="32">
+   <properties>
+    <property name="minigame" value="catch"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="minigame" value="catch"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="121" name="old man" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/oldManSprite.png" width="32" height="32"/>
+  <tile id="0">
+   <properties>
+    <property name="minigame" value="oldman"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="122" name="shop" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/shop.png" width="160" height="128"/>
+  <tile id="17">
+   <properties>
+    <property name="minigame" value="shop"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="142" name="inn" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/inn.png" width="192" height="128"/>
+  <tile id="21">
+   <properties>
+    <property name="minigame" value="inn"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="166" name="farmer" tilewidth="32" tileheight="32">
+  <image source="../Hub 1/Images/farmerFront.png" width="32" height="32"/>
+ </tileset>
+ <layer name="Collision" width="25" height="25">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAACxNkYGAQHEaYXIDPvIG2gxS/jtqBwIuJtKMUiMtIsINaYKDSFTFipMTdSLCDH4tYEJXsoDYYSnbgi69RO7Db0U1DO4ixn5AdlTS2oxIqR649uPLnUMUAJ/poZ8QJAAA=
+  </data>
+ </layer>
+ <layer name="Background" width="25" height="25" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC92V3Q6CMAyF+wpEMF4heml8AOZUeP+ncouQNOW03Yw3enGy0Wz5+rfSEFHzR7olxWVdFcR3jaLCsM7ndXT40kfEGAtZpfFpcQTSfa9VST2kDe0tH0rr0Rv55tontSIXGkP6dUo6CnWLuG2XdKiIw6vp6vMz6a7oUZAr1EMRMPL3DO6WMErj4PaJ7TWGrIX27jljEmdnh7Ge62nrO7d9ox4DYAyA4fU0YoQPGdo7tOLIb6ITuop9K+4EwPRmSfb1Qu+3hdSCOzVxRJAPlDttvkWDwfPKGSNt56GsGepFb7ZbcQTazrEziEcyZNxa70SxWvJmiVcP69+v9dWv6wVd68lkxAkAAA==
+  </data>
+ </layer>
+ <layer name="Houses" width="25" height="25" visible="0">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3O106UURQG0MECKAK+kihNpKmI9CYCCihdmtK70pv0+pwskrkiGfKbYQIT/JJ1s88+5zuh0P9cpoQPlPKRMspvuKOCSqqopobaAPf+sMgSy6ywGmG3jnoa+EQjnwN0rLHOBptssR1ht4lmWvjCV1oDdPxlh1322Ocgwm4b7XzjOx10Bug45IhjTjjlLMJuF9300EsfPwJ0xHsSeMBDHoVnL8jgJa/IDPDO+TVnj0kkieTwLItscsjl9b9+/Eqe8JQUnoVnebwhnwIKo+xIJY10nodnRRTzlne8j7LjPmeAQYYY5mcMOn4xwihjjMegY4JJpphmJgYds8wxzwK/Y9ARL+m/7Q/coVwAYfJO9cQJAAA=
+  </data>
+ </layer>
+</map>

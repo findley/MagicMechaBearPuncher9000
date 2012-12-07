@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="200" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
+  <image source="Tilesets/woods_tile_sheet copy.png" trans="ffffff" width="160" height="96"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="200" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+1Y2U4DMQxccRey8P9/S5GoFBkfYyfZLtI8jAS78TUeO20/t237PBh7h8z50Zij+R7N09kxgxPy+pePvfs7wxN6RjsX2Y6+vzeX94pfyVfajdTQFtQV+dy3/I6v8GjNCpKTxrHnQ86i5suzz/ahyh9Sh1ZLpScWKjbVPFrne5aukHMzZxupvTrHezKOVl/m7rnFaE7c7Jx5+q1yJfOKdFSZX8sWzX/GfCBYcUdk/Y7soIr/ZrxD7xMtvpdP30MZ27tDkL3hzYjmuym9QXPPajEzixWNabVKf14OmbiZPTgSB+FHe4bsGWvnaf7RPjXxXNOep2X5TuuXdY9kdIno2+Izo6dVe1vbFUg8Of8Il5H2UH5HbDO8aHrM6gHRZrWnUe8yOXj+LQ7Q/PsZRPZmpDuEq4otMsuZPnn1ZOtAapm5FyozMsunx1evRUtLCDfRrkL7jfY08ts/8+oa0abG4YjeZvW66n9mThEvWR8e72gM7Yz1eSyaBS/faK9ntBLNL7KDre8ylv4j/s+Mmd+Ts78JVO4yqy8jv5llcvM+h/38/1XMIdJrZGvdR95+s/xamvBiIHvbu1syOWT0uOp3oFkam3FmFlZzJb9Tnwmr8zpr3Ufq4ah5XB3jgyAIE68EQRAEUcD7Fc8dnq64/D7v/769k+elnTx/UZ5Htlk7772Vu5UvkqPM1bJBfER1Wjb92ccgxwzfaC2Z/FBbr/eyRutspIkeGm/S7o0gCBMvBEEQBEEQBEEQBEEQBEEQxL/EA0EQJr4BE1ejKgBLAAA=
+  </data>
+ </layer>
+</map>

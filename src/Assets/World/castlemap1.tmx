@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="200" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tileset" tilewidth="32" tileheight="32">
+  <image source="Tilesets/castle_tile_sheet_1.png" trans="ffffff" width="192" height="64"/>
+ </tileset>
+ <tileset firstgid="13" name="tileset" tilewidth="32" tileheight="32">
+  <image source="Tilesets/castle_tile_sheet_1.png" trans="ffffff" width="192" height="64"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="200" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3bSwrAIAxAQU9gS//3P2lPEGlBiOAsZvXWEgixllIqAPy0AqEbCGXPLwAAAKBt0XUd+CD7Per6yB0Aeth0ffLeus16dH3yvgOhCwidAAB0dQCh7P0AjCz7fy+M7AVNRuE2AEsAAA==
+  </data>
+ </layer>
+</map>

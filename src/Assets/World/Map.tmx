@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="200" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="Tilesets/tileset_rough_1.png" width="192" height="96"/>
+ </tileset>
+ <layer name="Background" width="200" height="24" opacity="0.84">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3PywqEMAwF0OLWR2f8/48Vd0U6EuuAqGdxFmlzEzKklAYAAAAAAIAX6P/o6lsAAAAAAJ7oW5g39bTzV1P2j4H+OTA/OrOWX99yUeedfE3khkhPi7FwNHv0zlYte/KJbMvus3s+AAAAAADcUgf8tAD48BKWAEsAAA==
+  </data>
+ </layer>
+</map>
