@@ -41,7 +41,7 @@ public class Diglet extends Weapon {
 	
 	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Crossbow/crossbow.png");
+		groundSprite = new Image("Assets/Weapons/Diglet/shovel.png");
 	}
 	
 	@Override
