@@ -162,12 +162,6 @@ public class AreaState extends BasicGameState {
         	t.update();
         }
         
-        if (inBattle) {
-            for (Monster m : currBattle) {
-                m.move(container.getInput(), delta);
-            }
-        }
-        
         float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
         
         if (progression > 20 * (areaLength - 32)) {// don't scroll if you're at the end of the screen

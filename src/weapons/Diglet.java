@@ -27,7 +27,7 @@ public class Diglet extends Weapon {
 		playerSizeX = 64;
 		playerSizeY = 0;
 		offsetY = 92;
-		attackOffsetY = -92/2;
+		attackOffsetY = -92;
 		attackOffsetX = -64/2;
 	}
 	@Override

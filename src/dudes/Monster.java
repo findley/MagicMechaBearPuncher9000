@@ -80,10 +80,8 @@ public abstract class Monster extends Dude {
         		xFlag = false;
         	}
         } 
-        System.out.println("xflag: " + xFlag);
-        System.out.println("yflag: " + yFlag);
+
         if (yFlag && xFlag) {
-        	System.out.println("hello");
             return false;
         }
         return true;
