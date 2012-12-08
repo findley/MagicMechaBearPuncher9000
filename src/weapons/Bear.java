@@ -18,8 +18,8 @@ public class Bear extends Weapon {
 		this.x = x;
 		this.y = y;
 		damage = 15;
-		attackWidth = 100;
-		attackHeight = 30;
+		attackWidth = 50;
+		attackHeight = 60;
 		delayTime = 500;
 		spriteSizeX = 128;
 		spriteSizeY = 128;
@@ -27,8 +27,8 @@ public class Bear extends Weapon {
 		playerSizeY = 64;
 		offsetX = 44;
 		offsetY = 44;
-		attackOffsetY = -2;
-		attackOffsetX = 10;
+		attackOffsetY = -30;
+		attackOffsetX = 20;
 	}
 	
 	@Override

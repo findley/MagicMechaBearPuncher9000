@@ -99,8 +99,7 @@ public class AreaState extends BasicGameState {
         
         if (inBattle) {
         	g.setColor(Color.green);
-            g.drawString("FIGHT", container.getWidth()/2, 170);
-            
+            g.drawString("FIGHT", container.getWidth()/2, 170);            
             Collections.sort(currBattle);
             for (Monster m : currBattle) {
                 m.render(g);
@@ -202,6 +201,7 @@ public class AreaState extends BasicGameState {
         		m.weapon.projectiles.remove(0);
         	}
         }
+        
         removeProjectiles();
         for (Projectile p: liveProjectiles) {
         	for (Monster monster : this.currBattle) {

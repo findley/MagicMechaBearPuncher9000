@@ -94,17 +94,7 @@ public abstract class Weapon {
 	// to start attack
 	
 	public void attack() throws SlickException {
-		float[] center = this.getPlayerHitBox(owner.pos[0], owner.pos[1]).getCenter();
-		Rectangle hitbox;
-		if (owner.isRight){
-			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
-				attackHeight);
-		}
-		else {
-			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
-					attackHeight);
-		}
-		attack = new Attack(owner.isRight, hitbox, "player");
+		attack = new Attack(owner.isRight, getAttackHitBox(), "player");
 	}
 	
 	public void assignOwner(Dude owner) {
