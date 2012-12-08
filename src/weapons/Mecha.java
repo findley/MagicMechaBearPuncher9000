@@ -41,6 +41,6 @@ public class Mecha extends Weapon {
 
 	@Override
 	public void createGroundSprite() throws SlickException {
-		groundSprite = new Image("Assets/Weapons/Mecha/groundWand.png");
+		groundSprite = new Image("Assets/Weapons/Mecha/cog.png");
 	}
 }
