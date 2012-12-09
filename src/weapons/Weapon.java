@@ -57,6 +57,8 @@ public abstract class Weapon {
 	public boolean ranged;
 	public ArrayList<Projectile> projectiles;
 	
+	public String name;
+	
 	public Weapon() {
 		itemTimer = 15000;
 		projectiles = new ArrayList<Projectile>();
@@ -66,6 +68,9 @@ public abstract class Weapon {
 		playerSizeY = 64;
 		offsetX = 0;
 		offsetY = 0;
+		
+		//Default placeholder for weapons' names. Should be overridden in subclasses.
+		name = "weapon";
 	}
 	
 	public abstract void init() throws SlickException;
