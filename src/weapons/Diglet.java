@@ -30,6 +30,8 @@ public class Diglet extends Weapon {
 		offsetY = 92;
 		attackOffsetY = -92;
 		attackOffsetX = -64/2;
+		
+		name = "Diglet";
 	}
 	@Override
 	public void init() throws SlickException {

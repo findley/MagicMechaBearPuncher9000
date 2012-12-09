@@ -31,6 +31,8 @@ public class Mecha extends Weapon {
 		offsetX = 50;
 		attackOffsetY = -90;
 		attackOffsetX = 45;
+		
+		name = "Mecha";
 	}
 	
 	@Override
