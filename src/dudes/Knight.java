@@ -114,6 +114,9 @@ public class Knight extends Monster {
 			}
 			return;
 		}
+		if(locked != null && locked.isRespawning) {
+			locked = null;
+		}
 		if (locked == null) {
 			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX) {
 				locked = players[0];
