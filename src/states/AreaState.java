@@ -52,6 +52,7 @@ public class AreaState extends BasicGameState {
     protected Sound                         attackNoise;
     protected Sound							pickupJewelNoise;
     protected HashMap<String, Sound>		pickupWeaponSounds;
+    protected HashMap<String, Sound>		deathWeaponSounds;
     
     protected int                           noiseCooldown;
     public AreaState(int stateID) {
@@ -84,6 +85,7 @@ public class AreaState extends BasicGameState {
         
         //Initialize HashMaps to contain weapons SFX.
         pickupWeaponSounds = new HashMap<String,Sound>();
+        deathWeaponSounds = new HashMap<String,Sound>();
         initWeaponSounds();
     }
     
@@ -319,6 +321,9 @@ public class AreaState extends BasicGameState {
         	p.deathCheck(delta);
         	if(p.isRespawning && !p.weapon.isFist){
         		Weapon w = new Fist(p.pos[0],p.pos[1]);
+        		if (deathWeaponSounds.get(p.weapon.name) != null){
+                	deathWeaponSounds.get(p.weapon.name).play();
+                }
         		p.weapon.drop();
                 p.weapon = w;
                 w.assignOwner(p);
@@ -501,10 +506,20 @@ public class AreaState extends BasicGameState {
     private void initWeaponSounds(){
     	//Create all sounds for picking up weapons
     	try {
-			Sound pickupBear = new Sound("Assets/Sound/pickupBear.wav");
+    		Sound pickupBear = new Sound("Assets/Sound/pickupBear.wav");
+    		Sound pickupDiglet = new Sound("Assets/Sound/pickupDiglet.wav");
+    		Sound pickupMecha = new Sound("Assets/Sound/pickupMecha.wav");
+    		
+    		Sound deathBear = new Sound("Assets/Sound/deathBear.wav");
+			Sound deathMecha = new Sound("Assets/Sound/deathMecha.wav");
 			
 			//Initialize array for picking up weapons
 	    	pickupWeaponSounds.put("Bear", pickupBear);
+	    	pickupWeaponSounds.put("Diglet", pickupDiglet);
+	    	pickupWeaponSounds.put("Mecha", pickupMecha);
+	    	
+	    	deathWeaponSounds.put("Bear", deathBear);
+	    	deathWeaponSounds.put("Mecha", deathMecha);
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
