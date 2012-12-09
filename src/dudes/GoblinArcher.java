@@ -18,6 +18,7 @@ public class GoblinArcher extends Monster {
 	float screenWidth;
 	
 	public GoblinArcher(float xPos, float yPos, int k) {
+		super();
 		maxHealth = 37;
 		health = maxHealth;
 		pos[0] = xPos;
@@ -59,6 +60,15 @@ public class GoblinArcher extends Monster {
 
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
+		if (flinching) {
+            flinchTime += delta;
+            if (flinchTime < flinchDur) {
+                return;
+            } else {
+                flinching = false;
+            }
+        }
+		
 		ArrayList<Dude> dudeAr = new ArrayList<Dude>();
 		dudeAr.addAll(monsters);
 		dudeAr.addAll(Arrays.asList(players));
