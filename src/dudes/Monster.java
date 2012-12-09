@@ -129,8 +129,22 @@ public abstract class Monster extends Dude {
 		return w;
     }
     
-    abstract public Coin getDropCoin() throws SlickException;
-
+	public Coin getDropCoin() throws SlickException {
+		double rand2 = Math.random();
+        if(rand2<0.5){
+        	return new Coin("yellow",pos);
+        } else if(rand2<0.7){
+        	return new Coin("red",pos);
+        } else if(rand2<0.85){
+        	return new Coin("blue",pos);
+        } else if(rand2<0.95){
+        	return new Coin("green",pos);
+        } else if (rand2 < 1){
+        	return new Coin("purple",pos);
+        } 
+        
+        return null;
+	}
     @Override
     public void renderHealthBar(Graphics g) {
     	if (this.state == enemyState.ALIVE) {

@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -13,12 +14,18 @@ import weapons.*;
 public class GoblinArcher extends Monster {
 	float homeToleranceX;
 	float homeToleranceY;
+	GameContainer container;
+	boolean movingUp;
+	boolean movingDown;
+	boolean movingLeft;
+	boolean movingRight;
 	boolean canMove;
 	float range;
 	float screenWidth;
 	
-	public GoblinArcher(float xPos, float yPos, int k) {
+	public GoblinArcher(float xPos, float yPos, int k, GameContainer container) {
 		super();
+		this.container = container;
 		maxHealth = 37;
 		health = maxHealth;
 		pos[0] = xPos;
@@ -27,13 +34,10 @@ public class GoblinArcher extends Monster {
 		moveSpeed = 4;
 		healthFill = new Color(Color.red);
 		//hitbox = new Rectangle(pos[0], pos[1], 64, 64);
-		homeToleranceX = 100;
-		homeToleranceY = 75;
 		kind = k;
 		value = 80;
-		canMove = false;
 		range = 200;
-		screenWidth = 700;
+		screenWidth = container.getWidth();
 		this.weapon = new GoblinBow(this);
 		try {
 			this.init();
@@ -59,7 +63,110 @@ public class GoblinArcher extends Monster {
 	}
 
 	@Override
-	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
+	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
+			throws SlickException {
+		if (this.isAttacking){
+			if(currentAnimation.isStopped()){
+				this.isAttacking = false;
+				this.weapon.attack = null;
+			}
+			else {
+				return;
+			}
+		}
+		if (health <= 0){
+			currentAnimation = handleAnimation("die");
+		}
+		if (doingNothing) {
+			if (locked == null) {
+				doingNothing = this.doNothing(700, delta);
+				if(this.movingLeft){
+					this.moveLeft(1, players, monsters);
+				}
+				if(this.movingRight){
+					this.moveRight(1, players, monsters);
+				}
+				if(this.movingUp){
+					this.moveUp(1, players, monsters);
+				}
+				if(this.movingDown){
+					this.moveDown(1, players, monsters);
+				}
+				if(!doingNothing){
+					this.movingLeft = false;
+					this.movingRight = false;
+					this.movingDown = false;
+					this.movingUp = false;
+				}
+
+			} else {
+				doingNothing = this.doNothing(300, delta);
+				if (locked.getHitBox().getCenterX() > this.pos[0]) {
+					this.moveRight(0, players, monsters);
+				} else {
+					this.moveLeft(0, players, monsters);
+				}
+				if (!doingNothing && Math.random() < .3) {
+					currentAnimation = handleAnimation("punch");
+					this.isAttacking = true;
+					this.weapon.attack();
+				} else {
+				}
+				currentAnimation.start();
+			}
+			return;
+		}
+		if(locked != null && locked.isRespawning) {
+			locked = null;
+		}
+		if (locked == null) {
+			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX) {
+				locked = players[0];
+			} else if (Math.abs(players[1].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX) {
+				locked = players[1];
+			}
+			else {
+				if (Math.random() < .5) {
+					this.movingLeft = true;
+				}
+				else if (Math.random() < .5) {
+					this.movingRight = true;
+				}
+				if (Math.random() < .5) {
+					this.movingUp = true;
+				}
+				else if (Math.random() < .5) {
+					this.movingDown = true;
+				}
+				currentAnimation = handleAnimation("walk");
+				currentAnimation.start();
+				doingNothing = true;
+			}
+
+		} else {
+			if (Math.abs(locked.getHitBox().getCenterX() - this.pos[0]) > 1.5 * homeToleranceX) {
+				locked = null;
+				homing = false;
+			} else {
+				if (!homing) {
+					homing = true;
+				} else {
+					homing = home(locked.getHitBox().getCenter(), players, monsters);
+					if (!homing) {
+						this.doNothing(300, delta);
+						doingNothing = true;
+					}
+					currentAnimation = handleAnimation("walk");
+					currentAnimation.start();
+					return;
+				}
+			}
+			currentAnimation = handleAnimation("walk");
+			currentAnimation.start();
+			return;
+		}
+	}
+	public void aiLoop2(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
 		if (flinching) {
             flinchTime += delta;
             if (flinchTime < flinchDur) {
@@ -196,25 +303,6 @@ public class GoblinArcher extends Monster {
         }
 	}
 	
-	@Override
-	public Coin getDropCoin() throws SlickException {
-		double rand2 = Math.random();
-        if(rand2<0.5){
-        	return new Coin("yellow",pos);
-        } else if(rand2<0.7){
-        	return new Coin("red",pos);
-        } else if(rand2<0.85){
-        	return new Coin("blue",pos);
-        } else if(rand2<0.95){
-        	return new Coin("green",pos);
-        } else if (rand2 < 1){
-        	return new Coin("purple",pos);
-        } 
-        
-        return null;
-	}
 	
-	public void setScreenWidth(float x) {
-		this.screenWidth = x;
-	}
+	
 }

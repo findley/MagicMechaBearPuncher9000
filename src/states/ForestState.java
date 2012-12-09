@@ -33,11 +33,9 @@ public class ForestState extends AreaState {
 
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		GoblinArcher g1_knight1 = new GoblinArcher(container.getWidth(),
-				container.getHeight() - 80, 1);
-		g1_knight1.setScreenWidth(MainGame.GAME_WIDTH);
+				container.getHeight() - 80, 1, container);
 		GoblinArcher g1_knight2 = new GoblinArcher(container.getWidth(),
-				container.getHeight() - 160, 1);
-		g1_knight2.setScreenWidth(MainGame.GAME_WIDTH);
+				container.getHeight() - 160, 1, container);
 		//GoblinArcher g1_knight3 = new GoblinArcher(container.getWidth(),
 			//	container.getHeight() - 240, 1);
 		g1_knight1.init();
@@ -65,11 +63,11 @@ public class ForestState extends AreaState {
 		Knight g3_knight1 = new Knight(0,
 				container.getHeight() - 80, 1, container);
 		GoblinArcher g3_knight2 = new GoblinArcher(0,
-				container.getHeight() - 160, 1);
+				container.getHeight() - 160, 1, container);
 		Knight g3_knight3 = new Knight(container.getWidth(),
 				container.getHeight() - 240, 1, container);
 		GoblinArcher g3_knight4 = new GoblinArcher(container.getWidth(),
-				container.getHeight() - 240, 1);
+				container.getHeight() - 240, 1, container);
 		g3_knight1.init();
 		g3_knight2.init();
 		g3_knight3.init();
