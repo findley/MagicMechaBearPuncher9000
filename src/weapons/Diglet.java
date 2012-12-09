@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 import dudes.Dude;
+import dudes.Player;
 
 public class Diglet extends Weapon {
 	
@@ -32,8 +33,7 @@ public class Diglet extends Weapon {
 	}
 	@Override
 	public void init() throws SlickException {
-		weaponSheet = new SpriteSheet("Assets/Weapons/Diglet/player0Diglet.png", spriteSizeX, spriteSizeY);
-		//weaponSheet = new SpriteSheet("Assets/Weapons/Diglet/player" + ((Player)owner).playerID + "bigbear.png", spriteSizeX, spriteSizeY);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Diglet/player" + ((Player)owner).playerID + "Diglet.png", spriteSizeX, spriteSizeY);
 		defaultSprite[0] = weaponSheet.getSprite(21, 0);
 		defaultSprite[1] = weaponSheet.getSprite(22, 0);	
 		initAnimations();
