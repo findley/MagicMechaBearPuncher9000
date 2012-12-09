@@ -3,6 +3,7 @@ package states;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -50,6 +51,8 @@ public class AreaState extends BasicGameState {
     private ArrayList<Text>                 screenTexts;
     protected Sound                         attackNoise;
     protected Sound							pickupJewelNoise;
+    protected HashMap<String, Sound>		pickupWeaponSounds;
+    
     protected int                           noiseCooldown;
     public AreaState(int stateID) {
         super();
@@ -78,6 +81,10 @@ public class AreaState extends BasicGameState {
         attackNoise = new Sound("Assets/Sound/punch.wav");
         pickupJewelNoise = new Sound("Assets/Sound/Pickup_Jewel.wav");
         noiseCooldown = 0;
+        
+        //Initialize HashMaps to contain weapons SFX.
+        pickupWeaponSounds = new HashMap<String,Sound>();
+        initWeaponSounds();
     }
     
     @Override
@@ -293,7 +300,12 @@ public class AreaState extends BasicGameState {
                         w.init();
                         p.itemTimer = w.itemTimer;
                         remove.add(w);
+                        if (pickupWeaponSounds.get(w.name) != null){
+                        	pickupWeaponSounds.get(w.name).play();
+                        }
                         break;
+                        //play Sound
+                        
                     }
                 }
             }
@@ -483,6 +495,23 @@ public class AreaState extends BasicGameState {
     	}
     }
     
+    /**
+     * Method that initializes HashMap to contain all sounds corresponding to weapons.
+     */
+    private void initWeaponSounds(){
+    	//Create all sounds for picking up weapons
+    	try {
+			Sound pickupBear = new Sound("Assets/Sound/pickupBear.wav");
+			
+			//Initialize array for picking up weapons
+	    	pickupWeaponSounds.put("Bear", pickupBear);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    }
     @Override
     public int getID(){return 0;}
     /*

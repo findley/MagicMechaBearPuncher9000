@@ -63,20 +63,15 @@ public class Knight extends Monster {
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
 			throws SlickException {
-		System.out.println("isAttacking: " + this.isAttacking);
 		if (this.isAttacking){
-			System.out.println("hello1");
 			if(currentAnimation.isStopped()){
-				System.out.println("hello2");
 				this.isAttacking = false;
 				this.weapon.attack = null;
 			}
 			else {
-				System.out.println("hmmm");
 				return;
 			}
 		}
-		System.out.println("wtf");
 		if (health <= 0){
 			currentAnimation = handleAnimation("die");
 		}

@@ -29,6 +29,8 @@ public class Bear extends Weapon {
 		offsetY = 44;
 		attackOffsetY = -30;
 		attackOffsetX = 20;
+		
+		name = "Bear";
 	}
 	
 	@Override
