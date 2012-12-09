@@ -62,7 +62,8 @@ public abstract class Dude implements Comparable<Dude> {
     }
     
     public void moveLeft(float moveDist, Player[] players, ArrayList<Monster> monsters) {
-        isRight = false;
+        maxOverlap = (int) Math.min(this.getHitBox().getWidth()/5, this.getHitBox().getHeight()/5);
+    	isRight = false;
         pos[0] -= moveDist;
         float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
@@ -84,7 +85,8 @@ public abstract class Dude implements Comparable<Dude> {
     }
     
     public void moveRight(float moveDist, Player[] players, ArrayList<Monster> monsters) {
-        isRight = true;
+    	maxOverlap = (int) Math.min(this.getHitBox().getWidth()/5, this.getHitBox().getHeight()/5);
+    	isRight = true;
         pos[0] += moveDist;
         float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
@@ -110,7 +112,8 @@ public abstract class Dude implements Comparable<Dude> {
     }
     
     public void moveUp(float moveDist, Player[] players, ArrayList<Monster> monsters) {
-        pos[1] -= moveDist;
+    	maxOverlap = (int) Math.min(this.getHitBox().getWidth()/5, this.getHitBox().getHeight()/5);
+    	pos[1] -= moveDist;
         float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
         	if(players[i] != this && Math.abs(players[i].getHitBox().getCenterX() - center[0]) < maxOverlap
@@ -134,7 +137,8 @@ public abstract class Dude implements Comparable<Dude> {
     }
     
     public void moveDown(float moveDist, Player[] players, ArrayList<Monster> monsters) {
-        pos[1] += moveDist;
+    	maxOverlap = (int) Math.min(this.getHitBox().getWidth()/5, this.getHitBox().getHeight()/5);
+    	pos[1] += moveDist;
         float[] center = this.getHitBox().getCenter();
         for(int i = 0; i < players.length; i++){
         	if(players[i] != this && Math.abs(players[i].getHitBox().getCenterX() - center[0]) < maxOverlap
