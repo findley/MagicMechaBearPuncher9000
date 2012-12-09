@@ -49,6 +49,7 @@ public class AreaState extends BasicGameState {
     private ArrayList<Projectile>           monsterProjectiles;
     private ArrayList<Text>                 screenTexts;
     protected Sound                         attackNoise;
+    protected Sound							pickupJewelNoise;
     protected int                           noiseCooldown;
     public AreaState(int stateID) {
         super();
@@ -75,6 +76,7 @@ public class AreaState extends BasicGameState {
         screenTexts = new ArrayList<Text>();
         
         attackNoise = new Sound("Assets/Sound/punch.wav");
+        pickupJewelNoise = new Sound("Assets/Sound/Pickup_Jewel.wav");
         noiseCooldown = 0;
     }
     
@@ -345,6 +347,7 @@ public class AreaState extends BasicGameState {
         ArrayList<Coin> out = new ArrayList<Coin>();
         for (Coin c : floorcoins){
             if (p.getHitBox().intersects(c.getHitBox())) {
+            	pickupJewelNoise.play();
             	p.score += c.value;
             	this.screenTexts.add(new Text(p.pos, Integer.toString(c.value), c.color));
                 out.add(c);
