@@ -62,8 +62,8 @@ public class GoblinArcher extends Monster {
 		}
 	}
 
-	@Override
-	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
+	
+	public void aiLoop2(Player[] players, ArrayList<Monster> monsters, int delta)
 			throws SlickException {
 		if (this.isAttacking){
 			if(currentAnimation.isStopped()){
@@ -166,7 +166,9 @@ public class GoblinArcher extends Monster {
 			return;
 		}
 	}
-	public void aiLoop2(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
+	
+	@Override
+	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
 		if (flinching) {
             flinchTime += delta;
             if (flinchTime < flinchDur) {
