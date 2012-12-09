@@ -127,7 +127,6 @@ public abstract class Weapon {
 	}
 	
 	public Shape getHitBox() {
-		System.out.println(groundSprite);
 		return new Rectangle(x, y, groundSprite.getWidth(), groundSprite.getHeight());
 	}
 	
