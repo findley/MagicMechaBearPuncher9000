@@ -28,6 +28,7 @@ public class TownState extends AreaState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.init(container, game);
+		loop = new Music("Assets/Sound/Loops/TownState.wav");
 		bgImage = new TiledMap("Assets/World/Map2.tmx");
 		areaLength = 200;
 
@@ -105,7 +106,6 @@ public class TownState extends AreaState {
 	
 	@Override
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-		Music loop = new Music("Assets/Sound/Town2.wav");
 		loop.loop();
 	}
 }

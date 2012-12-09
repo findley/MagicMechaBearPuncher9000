@@ -3,6 +3,7 @@ package states;
 import java.util.ArrayList;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 import org.newdawn.slick.tiled.TiledMap;
@@ -22,6 +23,7 @@ public class ForestState extends AreaState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.init(container, game);
+		loop = new Music("Assets/Sound/Loops/TownState.wav");
 		bgImage = new TiledMap("Assets/World/woodsmap1.tmx");
 		areaLength = 200;
 
@@ -103,6 +105,11 @@ public class ForestState extends AreaState {
 	@Override
 	public int getID(){
 		return 3;
+	}
+
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		loop.loop();
 	}
 }
 
