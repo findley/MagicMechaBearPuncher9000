@@ -19,22 +19,19 @@ public class MainMenuState extends BasicGameState {
     }
     
     
-    Image background = null;
+    private Image background;
     
 
 
     @Override
     public void init(GameContainer container, StateBasedGame game)
             throws SlickException {
-        // TODO Auto-generated method stub
-        background = new Image("Assets/Black.jpg");
+        background = new Image("Assets/JewelsAndMisc/menu.png");
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g)
             throws SlickException {
-        // TODO Auto-generated method stub
-        //background.draw(0,0);
         String Title = "WHO IS BETTER AT SAVING THE PRINCESS?";
         g.drawString(Title, container.getWidth()/2f - 170, container.getHeight()/8f);
         String Story = "THE PRINCESS HAS BEEN KIDNAPPED!\nWHOEVER CAN SAVE HER BETTER WILL WIN HER HAND.";
@@ -49,6 +46,8 @@ public class MainMenuState extends BasicGameState {
         g.drawString(rightPlay,container.getWidth()/2f,container.getHeight()/2);
         String navKeys = "P for play\nEsc for Exit";
         g.drawString(navKeys, container.getWidth()/2f-50, container.getHeight()-100f);
+        System.out.println(background.getHeight());
+        background.draw(0, 0);
     }
 
     @Override
@@ -67,12 +66,6 @@ public class MainMenuState extends BasicGameState {
         
     }
 
-    @Override
-    public void enter(GameContainer container, StateBasedGame game)
-            throws SlickException {
-    	background = new Image("Assets/Black.jpg");
-    }
-    
     @Override
     public int getID() {
         // TODO Auto-generated method stub
