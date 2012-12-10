@@ -23,7 +23,7 @@ public class Wizard extends RangeWeapon {
 		super(x, y);
 		this.x = x;
 		this.y = y;
-		damage = 5;
+		damage = 12;
 		attackWidth = 75;
 		attackHeight = 75;
 		delayTime = 500;
@@ -43,7 +43,6 @@ public class Wizard extends RangeWeapon {
 		SpriteSheet ln = new SpriteSheet("Assets/Weapons/Wand/lightning.png", 100, 500);
 		lightning = new Animation(ln, 0, 0, 9, 0, true, 40, true);
 		weaponSheet = new SpriteSheet("Assets/Weapons/Wand/player" + ((Player)owner).playerID + "Wizard.png", spriteSizeX, spriteSizeY);
-		//weaponSheet = new SpriteSheet("Assets/Weapons/Wand/player" + ((Player)owner).playerID + "Wizard.png", spriteSizeX, spriteSizeY);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();
@@ -51,8 +50,8 @@ public class Wizard extends RangeWeapon {
 	
 	@Override
 	public void attack() throws SlickException {
+		super.attack();
 		lightning.restart();
-		attack = new Attack(owner.isRight, getAttackHitBox(), "player");
 	}
 	
 	@Override

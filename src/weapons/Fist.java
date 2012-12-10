@@ -26,6 +26,8 @@ public class Fist extends Weapon {
 		playerSizeY = 54;
 		offsetX = 12;
 		offsetY = 5;
+		
+		name = "Fist";
 	}
 
 	@Override

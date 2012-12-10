@@ -3,6 +3,7 @@ package weapons;
 
 import org.newdawn.slick.geom.Shape;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
@@ -30,8 +31,6 @@ public abstract class Weapon {
 	public Image[] defaultSprite = new Image[2];
 	// for left and right
 	
-	public Sound attackSound;
-	
 	public int spriteSizeX;
 	public int spriteSizeY;
 	public int playerSizeX;
@@ -40,6 +39,8 @@ public abstract class Weapon {
 	public int offsetY;
 	public int attackOffsetX;
 	public int attackOffsetY;
+	
+    protected static HashMap<String, Sound> attackNoises = new HashMap<String, Sound>();
 	
 	public int kind; //0 for town, 1 for forest, 2 for castle
 	
@@ -101,6 +102,14 @@ public abstract class Weapon {
 	
 	public void attack() throws SlickException {
 		attack = new Attack(owner.isRight, getAttackHitBox(), "player");
+		if (name.equals("Fireman")) {
+			return;
+		}
+		try {
+			attackNoises.get(name).play();
+			System.out.println("boom");
+		} catch (Exception e) {
+		}
 	}
 	
 	public void assignOwner(Dude owner) {
@@ -145,5 +154,13 @@ public abstract class Weapon {
 	
 	public void createGroundSprite() throws SlickException {
 		groundSprite = null;
+	}
+	
+	public static void initSoundEffects() throws SlickException {
+		attackNoises.put("Fist", new Sound("Assets/Sound/punch.wav"));
+		attackNoises.put("Wizard", new Sound("Assets/Sound/attackWizard.wav"));
+		attackNoises.put("Bear", new Sound("Assets/Sound/punch.wav"));
+		attackNoises.put("Diglet", new Sound("Assets/Sound/punch.wav"));
+		attackNoises.put("Mecha", new Sound("Assets/Sound/punch.wav"));
 	}
 }

@@ -32,6 +32,7 @@ public class Diglet extends Weapon {
 		offsetY = 92;
 		attackOffsetY = -32;
 		attackOffsetX = -24;
+		itemTimer = 8000;
 		
 		name = "Diglet";
 	}

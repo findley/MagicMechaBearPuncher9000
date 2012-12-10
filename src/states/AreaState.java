@@ -60,7 +60,6 @@ public class AreaState extends BasicGameState {
     protected HashMap<String, Sound>		deathWeaponSounds;
     protected boolean         				debug;
     
-    protected int                           noiseCooldown;
     public AreaState(int stateID) {
         super();
     }
@@ -89,9 +88,8 @@ public class AreaState extends BasicGameState {
         
         screenTexts = new ArrayList<Text>();
         
-        attackNoise = new Sound("Assets/Sound/punch.wav");
+        Weapon.initSoundEffects();
         pickupJewelNoise = new Sound("Assets/Sound/Pickup_Jewel.wav");
-        noiseCooldown = 0;
         
         //Initialize HashMaps to contain weapons SFX.
         pickupWeaponSounds = new HashMap<String,Sound>();
@@ -288,7 +286,6 @@ public class AreaState extends BasicGameState {
             for (Monster monster : this.currBattle) {
             	if (player.weapon.attack!=null) {
 	                if (player.weapon.attack.hitbox.intersects(monster.getHitBox())) {
-	                	tryPunchNoise();
 	                	monster.pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH);
 	                    monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
 	                    
@@ -299,7 +296,6 @@ public class AreaState extends BasicGameState {
             if (player.weapon.attack!=null) {
 	            if (player.weapon.attack.hitbox.intersects(players[(i + 1) % 2].getHitBox())) {
 	            	if (!players[(i + 1) % 2].isRespawning) {
-	                	tryPunchNoise();
 	                	players[(i + 1) % 2].pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH);	                	
 	            		players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
 	            	}
@@ -385,12 +381,6 @@ public class AreaState extends BasicGameState {
         } 
         if (completed && game.getCurrentStateID()==3){
         	game.enterState(4, new FadeOutTransition(), new FadeInTransition());
-        }
-        
-        if (noiseCooldown <= 0) {
-        	noiseCooldown = 0;
-        } else {
-        	noiseCooldown -= delta;
         }
     }
     
@@ -532,39 +522,25 @@ public class AreaState extends BasicGameState {
         }
     }
     
-    public void tryPunchNoise() {
-    	if (noiseCooldown == 0) {
-    		attackNoise.play();
-    		noiseCooldown = 500;
-    	}
-    }
-    
     /**
      * Method that initializes HashMap to contain all sounds corresponding to weapons.
+     * @throws SlickException 
      */
-    private void initWeaponSounds(){
-    	//Create all sounds for picking up weapons
-    	try {
-    		Sound pickupBear = new Sound("Assets/Sound/pickupBear.wav");
-    		Sound pickupDiglet = new Sound("Assets/Sound/pickupDiglet.wav");
-    		Sound pickupMecha = new Sound("Assets/Sound/pickupMecha.wav");
-    		
-    		Sound deathBear = new Sound("Assets/Sound/deathBear.wav");
-			Sound deathMecha = new Sound("Assets/Sound/deathMecha.wav");
-			
-			//Initialize array for picking up weapons
-	    	pickupWeaponSounds.put("Bear", pickupBear);
-	    	pickupWeaponSounds.put("Diglet", pickupDiglet);
-	    	pickupWeaponSounds.put("Mecha", pickupMecha);
-	    	
-	    	deathWeaponSounds.put("Bear", deathBear);
-	    	deathWeaponSounds.put("Mecha", deathMecha);
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    private void initWeaponSounds() throws SlickException {
+		Sound pickupBear = new Sound("Assets/Sound/pickupBear.wav");
+		Sound pickupDiglet = new Sound("Assets/Sound/pickupDiglet.wav");
+		Sound pickupMecha = new Sound("Assets/Sound/pickupMecha.wav");
+		
+		Sound deathBear = new Sound("Assets/Sound/deathBear.wav");
+		Sound deathMecha = new Sound("Assets/Sound/deathMecha.wav");
+		
+		//Initialize array for picking up weapons
+    	pickupWeaponSounds.put("Bear", pickupBear);
+    	pickupWeaponSounds.put("Diglet", pickupDiglet);
+    	pickupWeaponSounds.put("Mecha", pickupMecha);
     	
-    	
+    	deathWeaponSounds.put("Bear", deathBear);
+    	deathWeaponSounds.put("Mecha", deathMecha);
     }
     
     @Override

@@ -15,7 +15,7 @@ public class Fireman extends Weapon {
 		super();
 		this.x = x;
 		this.y = y;
-		damage = 3;
+		damage = 8;
 		attackWidth = 70;
 		attackHeight = 70;
 		delayTime = 500;
