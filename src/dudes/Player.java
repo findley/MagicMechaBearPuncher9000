@@ -118,9 +118,12 @@ public class Player extends Dude {
         } else if (fireman) {
         	if (this.isRight) {
         		 this.moveRight(moveDist, players, monsters);
+        		 this.weapon.attack();	 
+        		 
         	} else {
         		this.moveLeft(moveDist, players, monsters);
         	}
+        	this.weapon.attack();
         	
         } else {
             if (currentAnimation != null) {
