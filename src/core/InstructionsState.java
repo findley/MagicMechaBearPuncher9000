@@ -10,7 +10,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class InstructionsState extends BasicGameState{
 
-	Image background = null;
+	private Image background;
+	private Image instro;
 	
 	public InstructionsState(int stateID) {
 		super();
@@ -18,7 +19,8 @@ public class InstructionsState extends BasicGameState{
 	@Override
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
-        background = new Image("Assets/Black.jpg");
+        background = new Image("Assets/JewelsAndMisc/menu.png");
+        instro = new Image("Assets/JewelsAndMisc/ins.png");
 	}
 
 	@Override
@@ -31,7 +33,12 @@ public class InstructionsState extends BasicGameState{
         String rightPlay = "Player 2\nuse the arrow keys\nto move left, right, up, and down\n. to attack\n, to pick up things";
         g.drawString(rightPlay,container.getWidth()*2/3f-50,container.getHeight()/2);
         String navKeys = "P for play\nM for menu\nEsc for Exit";
-        g.drawString(navKeys, container.getWidth()/2f-50, container.getHeight()-75f);
+		g.drawString(navKeys, container.getWidth() / 2f - 50,
+				container.getHeight() - 75f);
+		background.draw(0, 0);
+		instro.draw((background.getWidth() - instro.getWidth()) / 2,
+				(background.getHeight() - instro.getHeight()) / 2);
+        
 	}
 
 	@Override
@@ -48,12 +55,6 @@ public class InstructionsState extends BasicGameState{
         }
 	}
 	
-    @Override
-    public void enter(GameContainer container, StateBasedGame game)
-            throws SlickException {
-    	background = new Image("Assets/Black.jpg");
-    }
-
 	@Override
 	public int getID() {
 		return 1;
