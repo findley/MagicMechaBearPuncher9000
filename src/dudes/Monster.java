@@ -2,6 +2,7 @@ package dudes;
 
 import java.util.ArrayList;
 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -14,6 +15,8 @@ public abstract class Monster extends Dude {
     boolean moveUp;
     boolean homing    = false;
     int     aiDelay;
+
+	GameContainer container;
     int     aiCurTime = 0;
     int		nothingTime = 0;
     boolean doingNothing = false;
@@ -115,6 +118,7 @@ public abstract class Monster extends Dude {
     public Player getLastHit() {
         return this.lastHit;
     }
+    
     
     public Weapon getDropWeapon() throws SlickException {
     	Weapon[] lootItems = new Weapon[]{ new Bear(pos[0], pos[1]), new Mecha(pos[0],pos[1]), new Diglet(pos[0], pos[1]) } ;

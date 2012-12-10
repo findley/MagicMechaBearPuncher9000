@@ -29,6 +29,7 @@ public class Bear extends Weapon {
 		offsetY = 44;
 		attackOffsetY = -30;
 		attackOffsetX = 20;
+		pushback = 64;
 		
 		name = "Bear";
 	}

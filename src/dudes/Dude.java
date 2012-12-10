@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -38,7 +39,7 @@ public abstract class Dude implements Comparable<Dude> {
     public int         delayDur;
     public int         delayTime;
     int maxOverlap = 10;
-        
+
     // only for enemies
     public SpriteSheet sprites;
     public int[]       spriteIndex = new int[2];
@@ -224,4 +225,12 @@ public abstract class Dude implements Comparable<Dude> {
 		// TODO Auto-generated method stub
 		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
 	}
+    
+    public void pushback(float playerPos, float pushback, float max) {
+    	if (playerPos > pos[0]) {
+    		pos[0] = Math.max(0, pos[0] - pushback);
+    	} else {
+    		pos[0] = Math.min( max - this.getHitBox().getWidth(), pos[0] + pushback);
+    	}
+    }
 }
