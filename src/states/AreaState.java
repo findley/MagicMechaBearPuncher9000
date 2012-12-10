@@ -105,7 +105,7 @@ public class AreaState extends BasicGameState {
         bgImage.render(-progression % 32, 0, progression / 32, top, 32 + 1, 24);
     	
         //RENDER HUD
-        hud.draw(300, 0);
+        hud.draw(MainGame.GAME_WIDTH/2 - 270, 0);
         
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
@@ -117,18 +117,19 @@ public class AreaState extends BasicGameState {
 	            }
             }
             
-            int hudVal = (p.playerID == 0) ? 378 : 600;
-            int itemVal = (p.playerID == 0) ? 65 : -75;
+            int hudVal = (p.playerID == 0) ? -168 : 127;
+            int itemVal = (p.playerID == 0) ? -75 : 33;
+            int pointVal = (p.playerID == 0) ? -140 : 95;
             Image hudPlayerPic = new Image("Assets/players/player"+p.playerID+"/player"+p.playerID+".png");
             
             if (p.weapon.groundSprite != null) {
-            	p.weapon.groundSprite.draw(hudVal + itemVal, 5, 35, 35);
+            	p.weapon.groundSprite.draw(MainGame.GAME_WIDTH/2 + itemVal, 5, 35, 35);
             }
             
-            hudPlayerPic.draw(hudVal, 5, 40, 40);
+            hudPlayerPic.draw(MainGame.GAME_WIDTH/2 + hudVal, 5, 40, 40);
                         
             g.setColor(Color.black);
-            g.drawString(""+p.score, 400 + 175 * p.playerID, 70);
+            g.drawString(""+p.score, MainGame.GAME_WIDTH/2 + pointVal, 70);
             
             if (p.weapon.name.equals("Wizard")) {
         		((Wizard)p.weapon).render(container, game, g);
@@ -140,7 +141,7 @@ public class AreaState extends BasicGameState {
         }
         
         if (inBattle) {
-        	battleMsg.draw(486, 0);
+        	battleMsg.draw(MainGame.GAME_WIDTH/2 - 19, 0);
             
             Collections.sort(currBattle);
             for (Monster m : currBattle) {
