@@ -106,8 +106,36 @@ public class Player extends Dude {
                 currentAnimation.start();
                 this.weapon.attack();
                 return;
+        } else if (fireman && firemanrandom > .3) {
+        	if (firemanrandom > .5 ) {
+        		if (firemanrandom > .7 ) {
+        			 this.moveUp(moveDist, players, monsters);
+        		} else if (firemanrandom > .9) {
+        			this.moveDown(moveDist, players, monsters);
+        		} else {
+        			if (this.isRight){
+    	        		this.moveLeft(moveDist, players, monsters);
+        				currentAnimation = handleAnimation("walk");
+        	            currentAnimation.start();
+        			} else {
+        				this.moveRight(moveDist, players, monsters);
+        				currentAnimation = handleAnimation("walk");
+        	            currentAnimation.start();
+        			}
+        		}
+        	} else {
+	        	if (this.isRight) {
+	        		 this.moveRight(moveDist, players, monsters);
+	        		 this.weapon.attack();	 
+	        		 
+	        	} else {
+	        		this.moveLeft(moveDist, players, monsters);
+	        	}
+        	}
+        	this.weapon.attack();
+        	
         } else if (input.isKeyDown(buttons.get("right")) || input.isKeyDown(buttons.get("left")) || input.isKeyDown(buttons.get("down"))
-                || input.isKeyDown(buttons.get("up")) && firemanrandom < .3) {
+                || input.isKeyDown(buttons.get("up")) ){
             currentAnimation = handleAnimation("walk");
             currentAnimation.start();
             if (input.isKeyDown(buttons.get("right")))
@@ -119,10 +147,10 @@ public class Player extends Dude {
             if (input.isKeyDown(buttons.get("up")))
                 this.moveUp(moveDist, players, monsters);
         } else if (fireman) {
-        	if (firemanrandom > .7 ) {
-        		if (firemanrandom < .8 ) {
+        	if (firemanrandom < .5 ) {
+        		if (firemanrandom < .15 ) {
         			 this.moveUp(moveDist, players, monsters);
-        		} else if (firemanrandom < .9) {
+        		} else if (firemanrandom < .35) {
         			this.moveDown(moveDist, players, monsters);
         		} else if (firemanrandom < 1) {
         			if (this.isRight){
@@ -145,7 +173,6 @@ public class Player extends Dude {
 	        	}
         	}
         	this.weapon.attack();
-        	
         } else {
             if (currentAnimation != null) {
                 currentAnimation.stop();
@@ -216,9 +243,11 @@ public class Player extends Dude {
     private void handleFireman(Input input) {
     	fireman = false;
     	firemanrandom = 0;
+    	moveSpeed = 3;
     	if (this.weapon.name.equals("Fireman")) {
     		firemantimer ++;
     		firemanrandom = (float) Math.random();
+    		moveSpeed = 6;
     		if (firemantimer == 5) { 
     			this.health -=1; 
     			firemantimer = 0;
