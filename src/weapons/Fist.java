@@ -34,6 +34,7 @@ public class Fist extends Weapon {
 		playerSheet = ((Player)owner).sprites;
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
+		this.pushback = 10;
 		initAnimations();
 	}
 }

@@ -55,7 +55,7 @@ public abstract class Weapon {
 	public float x;
 	public float y;
 	public boolean ranged;
-	public float pushback = 50;
+	public float pushback = 0;
 	public ArrayList<Projectile> projectiles;
 	
 	public String name;
