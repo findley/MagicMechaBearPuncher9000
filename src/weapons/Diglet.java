@@ -4,6 +4,8 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 import dudes.Dude;
 import dudes.Player;
@@ -20,16 +22,16 @@ public class Diglet extends Weapon {
 		this.x = x;
 		this.y = y;
 		damage = 15;
-		attackWidth = 64;
-		attackHeight = 92;
+		attackWidth = 48;
+		attackHeight = 64;
 		delayTime = 0;
 		spriteSizeX = 64;
 		spriteSizeY = 92;
 		playerSizeX = 64;
 		playerSizeY = 0;
 		offsetY = 92;
-		attackOffsetY = -92;
-		attackOffsetX = -64/2;
+		attackOffsetY = -32;
+		attackOffsetX = -24;
 		
 		name = "Diglet";
 	}
@@ -44,6 +46,26 @@ public class Diglet extends Weapon {
 	@Override
 	public void createGroundSprite() throws SlickException {
 		groundSprite = new Image("Assets/Weapons/Diglet/shovel.png");
+	}
+	
+	@Override
+	public Shape getPlayerHitBox(float ownerX, float ownerY) {
+		return new Rectangle(0,0,0,0);
+	}
+	
+	@Override
+	public Shape getAttackHitBox(){
+		float[] center = {owner.pos[0] + spriteSizeX / 2, owner.pos[1] + spriteSizeY / 2};
+		Rectangle hitbox;
+		if (owner.isRight){
+			hitbox = new Rectangle(center[0] + attackOffsetX, center[1] + attackOffsetY, attackWidth,
+				attackHeight);
+		}
+		else {
+			hitbox = new Rectangle(center[0]-attackWidth - attackOffsetX, center[1] + attackOffsetY, attackWidth,
+					attackHeight);
+		}
+		return hitbox;
 	}
 	
 	@Override
