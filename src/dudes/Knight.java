@@ -103,7 +103,7 @@ public class Knight extends Monster {
 				} else {
 					this.moveLeft(0, players, monsters);
 				}
-				if (!doingNothing && Math.random() < .3) {
+				if (!doingNothing && Math.random() < .6) {
 					currentAnimation = handleAnimation("punch");
 					this.isAttacking = true;
 					this.weapon.attack();
