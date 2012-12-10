@@ -66,7 +66,7 @@ public class AreaState extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    	debug = false;
+    	debug = true;
         progression = 0;
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
@@ -128,10 +128,11 @@ public class AreaState extends BasicGameState {
                         
             g.setColor(Color.black);
             g.drawString(""+p.score, MainGame.GAME_WIDTH/2 + pointVal, 70);
-            
+            /*
             if (p.weapon.name.equals("Wizard")) {
         		((Wizard)p.weapon).render(container, game, g);
         	}
+        	*/
         }
         
         for (Text t : screenTexts) {
@@ -343,6 +344,9 @@ public class AreaState extends BasicGameState {
                     }
                 }
             }
+            for (Weapon r : remove) {
+                floorweapons.remove(r);
+            }
         }
         
         checkIfMonsterDead();
@@ -363,9 +367,7 @@ public class AreaState extends BasicGameState {
         	}
         }
         
-        for (Weapon r : remove) {
-            floorweapons.remove(r);
-        }
+        
         
         for (Weapon a : add) {
             floorweapons.add(a);
