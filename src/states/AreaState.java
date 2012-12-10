@@ -24,6 +24,7 @@ import weapons.Attack;
 import weapons.Coin;
 import weapons.Fist;
 import weapons.Weapon;
+import weapons.Wizard;
 import core.MainGame;
 import core.Text;
 import dudes.Dude;
@@ -120,6 +121,10 @@ public class AreaState extends BasicGameState {
             g.setColor(Color.black);
             g.drawString(""+p.score, 400 + 175 * p.playerID, 70);
             g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
+            
+            if (p.weapon.name.equals("Wizard")) {
+        		((Wizard)p.weapon).lightning.draw(100, 100);
+        	}
         }
         
         for (Text t : screenTexts) {
