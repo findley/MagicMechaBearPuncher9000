@@ -29,6 +29,9 @@ public class Player extends Dude {
     public int                      itemTimer;
     public Color                    itemFill;
     public boolean fireman;
+    public float firemanRandom;
+    public int firemantimer;
+    public float gameWidth;
     public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
         this.buttons = buttons;
         this.isRight = true;
@@ -116,6 +119,7 @@ public class Player extends Dude {
             if (input.isKeyDown(buttons.get("up")))
                 this.moveUp(moveDist, players, monsters);
         } else if (fireman) {
+        	
         	if (this.isRight) {
         		 this.moveRight(moveDist, players, monsters);
         		 this.weapon.attack();	 
@@ -194,13 +198,36 @@ public class Player extends Dude {
     
     private void handleFireman(Input input) {
     	fireman = false;
+
     	if (this.weapon.name.equals("Fireman")) {
+    		firemantimer ++;
+    		if (firemantimer == 5) { 
+    			this.health -=1; 
+    			firemantimer = 0;
+    		}
     		fireman = true;
     		this.flinching = false;
     		this.isAttacking = false;
-    		this.health -= .5;
+    		
+    		
+    		if (this.pos[0] < 10) {
+    			if (!this.isRight) {
+    				this.isRight = true;
+    				currentAnimation = handleAnimation("walk");
+    	            currentAnimation.start();
+    			}
+    		}
+    		
+    		if (this.pos[0] > gameWidth - 100) {
+    			if (this.isRight) {
+    				this.isRight = false;
+    				currentAnimation = handleAnimation("walk");
+    	            currentAnimation.start();
+    			}
+    		}
     		
     	} else {
+    		firemantimer = 0;
     		return;
     	}
     }
@@ -223,6 +250,10 @@ public class Player extends Dude {
     			isRespawning = false;
     		}
     	}
+    }
+    
+    public void setGameWidth(float x) {
+    	this.gameWidth = x;
     }
     
     public void itemCheck(int delta) throws SlickException {

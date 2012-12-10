@@ -71,6 +71,9 @@ public class MainGame extends StateBasedGame {
 			players[0] = new Player(p0Buttons, 100f, GAME_HEIGHT*5/6);
 			players[1] = new Player(p1Buttons, 150f, GAME_HEIGHT*4/6);
 			
+			players[0].setGameWidth(GAME_WIDTH);
+			players[1].setGameWidth(GAME_WIDTH);
+			
 			app.start();
 		} catch (SlickException e) {
 			e.printStackTrace();
