@@ -123,7 +123,7 @@ public class AreaState extends BasicGameState {
             g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
             
             if (p.weapon.name.equals("Wizard")) {
-        		((Wizard)p.weapon).lightning.draw(100, 100);
+        		((Wizard)p.weapon).render(container, game, g);
         	}
         }
         
