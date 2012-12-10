@@ -42,7 +42,8 @@ public class Wizard extends RangeWeapon {
 	public void init() throws SlickException {
 		SpriteSheet ln = new SpriteSheet("Assets/Weapons/Wand/lightning.png", 100, 500);
 		lightning = new Animation(ln, 0, 0, 9, 0, true, 40, true);
-		weaponSheet = new SpriteSheet("Assets/Weapons/Wand/player" + ((Player)owner).playerID + "Wizard.png", spriteSizeX, spriteSizeY);
+		weaponSheet = new SpriteSheet("Assets/Weapons/Wand/player0Wizard.png", spriteSizeX, spriteSizeY);
+		//weaponSheet = new SpriteSheet("Assets/Weapons/Wand/player" + ((Player)owner).playerID + "Wizard.png", spriteSizeX, spriteSizeY);
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);
 		initAnimations();

@@ -198,9 +198,6 @@ public abstract class Dude implements Comparable<Dude> {
         
         // Render a health bar for the Dude
         this.renderHealthBar(g);
-        if (weapon.attack!=null) {
-        	g.draw(weapon.attack.hitbox);
-        }
     }
     
     public void renderHealthBar(Graphics g) {
