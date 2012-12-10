@@ -28,7 +28,7 @@ public class Player extends Dude {
     
     public int                      itemTimer;
     public Color                    itemFill;
-    
+    public boolean fireman;
     public Player(HashMap<String, Integer> buttons, float xPos, float yPos) {
         this.buttons = buttons;
         this.isRight = true;
@@ -62,6 +62,9 @@ public class Player extends Dude {
     	if (isRespawning) {
     		return;
     	}
+    	
+    	handleFireman(input);
+    	
         if (currentAnimation != null && !isAttacking) {
             if (currentAnimation.isStopped()) {
                 currentAnimation.restart();
@@ -94,7 +97,7 @@ public class Player extends Dude {
         
         float moveDist = (float) .1 * delta * moveSpeed;
         
-        if (input.isKeyPressed(buttons.get("action"))) {
+        if (input.isKeyPressed(buttons.get("action")) && !fireman) {
         		this.isAttacking = true;
                 currentAnimation = handleAnimation("punch");
                 currentAnimation.start();
@@ -112,6 +115,13 @@ public class Player extends Dude {
                 this.moveDown(moveDist, players, monsters);
             if (input.isKeyDown(buttons.get("up")))
                 this.moveUp(moveDist, players, monsters);
+        } else if (fireman) {
+        	if (this.isRight) {
+        		 this.moveRight(moveDist, players, monsters);
+        	} else {
+        		this.moveLeft(moveDist, players, monsters);
+        	}
+        	
         } else {
             if (currentAnimation != null) {
                 currentAnimation.stop();
@@ -179,6 +189,17 @@ public class Player extends Dude {
         }
     }
     
+    private void handleFireman(Input input) {
+    	fireman = false;
+    	if (this.weapon.name.equals("Fireman")) {
+    		fireman = true;
+    		this.flinching = false;
+    		this.isAttacking = false;
+    		
+    	} else {
+    		return;
+    	}
+    }
     public void deathCheck(int delta) {
     	if ((health <= 0) && (deathTimer == 0)) {
     		isAttacking = false;
