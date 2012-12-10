@@ -106,10 +106,5 @@ public class ForestState extends AreaState {
 	public int getID(){
 		return 3;
 	}
-
-	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-		loop.loop();
-	}
 }
 

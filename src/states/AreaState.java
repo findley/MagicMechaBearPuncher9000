@@ -530,12 +530,18 @@ public class AreaState extends BasicGameState {
     	
     	
     }
+    
     @Override
     public int getID(){return 0;}
-    /*
-    @Override
-    public int getID() {
-        // TODO Auto-generated method stub
-        return 1;
-    }*/
+
+	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		loop.loop(1, 0);
+		loop.fade(1000, (float) .5, false);
+	}
+	
+	@Override
+	public void leave(GameContainer container, StateBasedGame game) {
+		loop.fade(100, 0, true);
+	}
 }

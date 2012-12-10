@@ -103,9 +103,4 @@ public class TownState extends AreaState {
 	public int getID(){
 		return 2;
 	}
-	
-	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-		loop.loop();
-	}
 }

@@ -111,9 +111,4 @@ public class CastleState extends AreaState {
 	public int getID(){
 		return 4;
 	}
-	
-	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-		loop.loop();
-	}
 }
