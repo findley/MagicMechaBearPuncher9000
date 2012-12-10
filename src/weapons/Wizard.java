@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.state.StateBasedGame;
 
 import projectiles.Bolt;
@@ -22,17 +23,17 @@ public class Wizard extends RangeWeapon {
 		super(x, y);
 		this.x = x;
 		this.y = y;
-		damage = 15;
-		attackWidth = 50;
-		attackHeight = 180;
+		damage = 5;
+		attackWidth = 75;
+		attackHeight = 75;
 		delayTime = 500;
 		spriteSizeX = 64;
 		spriteSizeY = 64;
 		playerSizeX = 64;
 		playerSizeY = 64;
 		offsetX = 0;
-		attackOffsetY = -90;
-		attackOffsetX = 45;
+		attackOffsetY = -50;
+		attackOffsetX = 70;
 		
 		name = "Wizard";
 	}
@@ -50,6 +51,7 @@ public class Wizard extends RangeWeapon {
 	@Override
 	public void attack() throws SlickException {
 		lightning.restart();
+		attack = new Attack(owner.isRight, getAttackHitBox(), "player");
 	}
 	
 	@Override
