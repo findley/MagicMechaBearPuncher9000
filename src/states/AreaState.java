@@ -483,6 +483,7 @@ public class AreaState extends BasicGameState {
             if (w == null) {
             	
             } else {
+            	w.y = Math.max(MainGame.GAME_HEIGHT - 32 * 8- (w.groundSprite.getHeight()) + 15, w.y);            	
          		floorweapons.add(w);	
             }            
             
@@ -490,6 +491,7 @@ public class AreaState extends BasicGameState {
             if (c == null) {
             	
             } else {
+            	c.pos[1] = Math.max(MainGame.GAME_HEIGHT - 32 * 8- (c.sprite.getHeight()) + 15, c.pos[1]);            
                 floorcoins.add(c);	
             }
             

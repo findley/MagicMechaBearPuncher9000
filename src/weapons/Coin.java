@@ -12,7 +12,7 @@ public class Coin {
 	
 	HashMap<String,Integer> points = new HashMap<String,Integer>();
 	HashMap<String,Color> colors = new HashMap<String,Color>();
-	Image sprite;
+	public Image sprite;
 	public int value;
 	public float[] pos;
 	public Color color;
