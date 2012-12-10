@@ -146,6 +146,10 @@ public class Player extends Dude {
                 this.moveDown(moveDist, players, monsters);
             if (input.isKeyDown(buttons.get("up")))
                 this.moveUp(moveDist, players, monsters);
+            
+            if (fireman) {
+            	this.weapon.attack();
+            }
         } else if (fireman) {
         	if (firemanrandom < .5 ) {
         		if (firemanrandom < .15 ) {
