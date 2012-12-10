@@ -1,5 +1,6 @@
 package weapons;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
@@ -56,5 +57,26 @@ public class Mecha extends Weapon {
 			offsetX = 60;
 		}
 		return new Rectangle(ownerX + offsetX, ownerY + offsetY, playerSizeX, playerSizeY);						
+	}
+	
+	public void initAnimations() {
+		// flinch left
+		anims[0] = new Animation(weaponSheet, 0, 0, 3, 0, true, 500, true);
+		anims[0].setLooping(false);
+		// flinch right
+		anims[1] = new Animation(weaponSheet, 0, 1, 3, 1, true, 500, true);
+		anims[1].setLooping(false);
+
+		// punch left
+		anims[2] = new Animation(weaponSheet, 0, 2, 3, 2, true, 100, true);
+		anims[2].setLooping(false);
+		// punch right
+		anims[3] = new Animation(weaponSheet, 0, 3, 3, 3, true, 100, true);
+		anims[3].setLooping(false);
+
+		// walk left
+		anims[4] = new Animation(weaponSheet, 0, 4, 3, 4, true, 150, true);
+		// walk right
+		anims[5] = new Animation(weaponSheet, 0, 5, 3, 5, true, 150, true);
 	}
 }
