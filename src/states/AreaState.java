@@ -180,7 +180,6 @@ public class AreaState extends BasicGameState {
     
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
-    	
         if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)) {
             container.exit();
         }
@@ -479,8 +478,10 @@ public class AreaState extends BasicGameState {
     public void checkIfMonsterDead() throws SlickException{
         ArrayList<Monster> removeMonster = new ArrayList<Monster>();
         for (Monster m : this.currBattle) {
-            if (m.state == enemyState.ALIVE && m.health <= 0) {
-        		m.state = enemyState.DYING;
+            if (m.state == enemyState.ALIVE && m.health <= 0.1) {
+            	System.out.println(m.health);
+            	System.out.println(m.health);
+        		m.state = enemyState.DEAD;
         		m.renderDeath();
                 m.getLastHit().incrementScore(m.value);
 
