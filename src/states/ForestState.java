@@ -23,7 +23,7 @@ public class ForestState extends AreaState {
 	public void init(GameContainer container, StateBasedGame game)
 			throws SlickException {
 		super.init(container, game);
-		loop = new Music("Assets/Sound/Loops/TownState.wav");
+		loop = new Music("Assets/Sound/Loops/ForestState.wav");
 		bgImage = new TiledMap("Assets/World/woodsmap1.tmx");
 		areaLength = 200;
 
