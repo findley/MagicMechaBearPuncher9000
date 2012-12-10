@@ -198,6 +198,7 @@ public class Player extends Dude {
     		fireman = true;
     		this.flinching = false;
     		this.isAttacking = false;
+    		this.health -= .5;
     		
     	} else {
     		return;
