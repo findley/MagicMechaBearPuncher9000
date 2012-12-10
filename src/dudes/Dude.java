@@ -223,11 +223,11 @@ public abstract class Dude implements Comparable<Dude> {
 		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
 	}
     
-    public void pushback(float playerPos, float pushback, float max) {
+    public void pushback(float playerPos, float pushback, float max, Player[] players, ArrayList<Monster> monsters) {
     	if (playerPos > pos[0]) {
-    		pos[0] = Math.max(0, pos[0] - pushback);
+    		this.moveLeft(pushback, players, monsters);
     	} else {
-    		pos[0] = Math.min( max - this.getHitBox().getWidth(), pos[0] + pushback);
+    		this.moveRight(pushback, players, monsters);
     	}
     }
 }

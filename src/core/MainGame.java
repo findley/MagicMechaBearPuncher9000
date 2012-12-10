@@ -48,7 +48,7 @@ public class MainGame extends StateBasedGame {
 		// TODO Auto-generated method stub
 		try {
 			AppGameContainer app = new AppGameContainer(new MainGame());
-			app.setDisplayMode(GAME_WIDTH, GAME_HEIGHT, false);
+			app.setDisplayMode(GAME_WIDTH, GAME_HEIGHT, true);
 			app.setTargetFrameRate(60);
 			app.setShowFPS(true);
 			
