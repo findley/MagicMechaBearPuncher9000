@@ -14,7 +14,6 @@ import weapons.*;
 public class Knight extends Monster {
 	float homeToleranceX;
 	float homeToleranceY;
-	GameContainer container;
 	boolean movingUp;
 	boolean movingDown;
 	boolean movingLeft;

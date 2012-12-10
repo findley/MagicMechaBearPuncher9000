@@ -258,8 +258,9 @@ public class AreaState extends BasicGameState {
             	if (player.weapon.attack!=null) {
 	                if (player.weapon.attack.hitbox.intersects(monster.getHitBox())) {
 	                	tryPunchNoise();
-	                	
+	                	monster.pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH);
 	                    monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
+	                    
 	                    monster.setLastHit(player);
 	                }
             	}
@@ -268,7 +269,7 @@ public class AreaState extends BasicGameState {
 	            if (player.weapon.attack.hitbox.intersects(players[(i + 1) % 2].getHitBox())) {
 	            	if (!players[(i + 1) % 2].isRespawning) {
 	                	tryPunchNoise();
-	                	
+	                	players[(i + 1) % 2].pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH);	                	
 	            		players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
 	            	}
 	            }
