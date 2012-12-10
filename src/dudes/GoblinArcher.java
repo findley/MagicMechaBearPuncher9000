@@ -34,7 +34,7 @@ public class GoblinArcher extends Monster {
 		healthFill = new Color(Color.red);
 		//hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		kind = k;
-		value = 80;
+		value = 8;
 		range = 200;
 		screenWidth = container.getWidth();
 		this.weapon = new GoblinBow(this);

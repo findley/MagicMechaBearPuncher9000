@@ -34,6 +34,8 @@ import dudes.Player;
 public class AreaState extends BasicGameState {
     protected Player[]                      players;
     protected TiledMap                      bgImage;
+    protected Image							hud;
+    protected Image							battleMsg;
     protected ArrayList<ArrayList<Monster>> monsters;
     protected ArrayList<Monster>            currBattle;
     protected Image							princess;
@@ -75,6 +77,9 @@ public class AreaState extends BasicGameState {
         completed = false;
         areaLength = 0;
         
+        hud = new Image("Assets/JewelsAndMisc/HUD.png");
+        battleMsg = new Image("Assets/JewelsAndMisc/Battle_banner.png");
+        
         sPlayers = new ArrayList<Player>();
         sPlayers.add(players[0]);
         sPlayers.add(players[1]);
@@ -96,13 +101,24 @@ public class AreaState extends BasicGameState {
     	int top = 24-container.getHeight()*24/768;
         bgImage.render(-progression % 32, 0, progression / 32, top, 32 + 1, 24);
     	
+        //RENDER HUD
+        hud.draw(300, 0);
         
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
             p.render(g);
-            g.setColor(Color.green);
-            g.drawString("PLAYER " + (p.playerID + 1), 25 + (MainGame.GAME_WIDTH - 200) * p.playerID, 50);
-            g.drawString("POINTS: " + p.score + " TIMER " + p.itemTimer, 25 + (MainGame.GAME_WIDTH - 200)  * p.playerID, 100);
+            
+            int hudVal = (p.playerID == 0) ? 378 : 600;
+            Image hudPlayerPic = new Image("Assets/players/player"+p.playerID+"/player"+p.playerID+".png");
+            
+            if (p.weapon.groundSprite != null) {
+            	p.weapon.groundSprite.draw(hudVal + 65, 5, 35, 35);
+            }
+            
+            hudPlayerPic.draw(hudVal, 5, 40, 40);
+                        
+            g.setColor(Color.black);
+            g.drawString(""+p.score, 400 + 175 * p.playerID, 70);
             g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
         }
         
@@ -111,8 +127,8 @@ public class AreaState extends BasicGameState {
         }
         
         if (inBattle) {
-        	g.setColor(Color.green);
-            g.drawString("FIGHT", container.getWidth()/2, 170);            
+        	battleMsg.draw(486, 0);
+            
             Collections.sort(currBattle);
             for (Monster m : currBattle) {
                 m.render(g);
@@ -459,7 +475,7 @@ public class AreaState extends BasicGameState {
             if (m.state == enemyState.ALIVE && m.health <= 0) {
         		m.state = enemyState.DYING;
         		m.renderDeath();
-                m.getLastHit().incrementScore(100);
+                m.getLastHit().incrementScore(m.value);
 
             	this.screenTexts.add(new Text(m.getLastHit().pos, Integer.toString(m.value), Color.red));
             }
