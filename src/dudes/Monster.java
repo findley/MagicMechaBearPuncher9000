@@ -53,6 +53,11 @@ public abstract class Monster extends Dude {
     }
     
     public boolean home(float[] targetpos, Player[] players, ArrayList<Monster> monsters) throws SlickException {
+    	if (pos[0] < 0 ) {
+    		pos[0] = 0;
+    	} else if ( pos [0] > container.getWidth() ) {
+    		pos[0] -= this.weapon.spriteSizeX;
+    	}
         boolean xFlag = true;
         boolean yFlag = false;
         float actualDist = Math.abs(targetpos[0] - this.pos[0]);
@@ -121,7 +126,7 @@ public abstract class Monster extends Dude {
     
     
     public Weapon getDropWeapon() throws SlickException {
-    	Weapon[] lootItems = new Weapon[]{ new Bear(pos[0], pos[1]), new Mecha(pos[0],pos[1]), new Diglet(pos[0], pos[1]) } ;
+    	Weapon[] lootItems = new Weapon[]{ new Bear(pos[0], pos[1]), new Mecha(pos[0],pos[1]), new Diglet(pos[0], pos[1]), new Wizard(pos[0], pos[1]) } ;
     	
     	float[] pos = this.pos;
         double rand = Math.random();
