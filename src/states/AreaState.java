@@ -329,6 +329,9 @@ public class AreaState extends BasicGameState {
             if (container.getInput().isKeyPressed(p.buttons.get("pickup"))) {
                 for (Weapon w : floorweapons) {
                     if (p.getHitBox().intersects(w.getHitBox()) ) {
+                    	if (p.weapon.name.equals("Fireman")) {
+                    		break;
+                    	}
             			p.pos[1] -= (w.spriteSizeY - p.weapon.spriteSizeY);
                         p.weapon.drop();
                         p.weapon = w;
