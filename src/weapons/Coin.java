@@ -26,15 +26,15 @@ public class Coin {
 	}
 	
 	private void initPoints(){
-		points.put("yellow", 10);
+		points.put("yellow", 1);
 		colors.put("yellow", Color.yellow);
-		points.put("red", 20);
+		points.put("red", 2);
 		colors.put("red", Color.red);
-		points.put("blue", 30);
+		points.put("blue", 3);
 		colors.put("blue", Color.blue);
-		points.put("green", 40);
+		points.put("green", 4);
 		colors.put("green", Color.darkGray);
-		points.put("purple", 50);
+		points.put("purple", 5);
 		colors.put("purple", Color.magenta);
 		
 	}

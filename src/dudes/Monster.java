@@ -134,6 +134,7 @@ public abstract class Monster extends Dude {
 
     	int index = (int) (rand*lootItems.length);
     	w = lootItems[index];
+    	w = new Wizard(pos[0], pos[1]);
 		w.createGroundSprite();
 		return w;
     }
