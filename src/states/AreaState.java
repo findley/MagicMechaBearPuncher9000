@@ -328,6 +328,10 @@ public class AreaState extends BasicGameState {
                     	if (p.weapon.name.equals("Fireman")) {
                     		break;
                     	}
+                    	
+                    	if (w.owner != null) {
+                    		break;
+                    	}
             			p.pos[1] -= (w.spriteSizeY - p.weapon.spriteSizeY);
                         p.weapon.drop();
                         p.weapon = w;
