@@ -109,10 +109,11 @@ public class AreaState extends BasicGameState {
             p.render(g);
             
             int hudVal = (p.playerID == 0) ? 378 : 600;
+            int itemVal = (p.playerID == 0) ? 65 : -75;
             Image hudPlayerPic = new Image("Assets/players/player"+p.playerID+"/player"+p.playerID+".png");
             
             if (p.weapon.groundSprite != null) {
-            	p.weapon.groundSprite.draw(hudVal + 65, 5, 35, 35);
+            	p.weapon.groundSprite.draw(hudVal + itemVal, 5, 35, 35);
             }
             
             hudPlayerPic.draw(hudVal, 5, 40, 40);
