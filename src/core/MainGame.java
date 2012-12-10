@@ -38,7 +38,7 @@ public class MainGame extends StateBasedGame {
     }
 	
 	public MainGame() {
-        super("WHO IS BETTER AT SAVING THE PRINCESS");
+        super("Magic Mecha Bear Puncher 9000");
     }
 
     /**
