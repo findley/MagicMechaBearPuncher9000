@@ -58,6 +58,7 @@ public class AreaState extends BasicGameState {
     protected Music							loop;
     protected HashMap<String, Sound>		pickupWeaponSounds;
     protected HashMap<String, Sound>		deathWeaponSounds;
+    protected boolean         				debug;
     
     protected int                           noiseCooldown;
     public AreaState(int stateID) {
@@ -66,6 +67,7 @@ public class AreaState extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
+    	debug = false;
         progression = 0;
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
@@ -108,6 +110,12 @@ public class AreaState extends BasicGameState {
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
             p.render(g);
+            if (debug) {
+                g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
+	            if (p.weapon.attack!=null) {
+	            	g.draw(p.weapon.attack.hitbox);
+	            }
+            }
             
             int hudVal = (p.playerID == 0) ? 378 : 600;
             int itemVal = (p.playerID == 0) ? 65 : -75;
@@ -121,7 +129,6 @@ public class AreaState extends BasicGameState {
                         
             g.setColor(Color.black);
             g.drawString(""+p.score, 400 + 175 * p.playerID, 70);
-            g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
             
             if (p.weapon.name.equals("Wizard")) {
         		((Wizard)p.weapon).render(container, game, g);
