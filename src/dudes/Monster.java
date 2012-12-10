@@ -126,7 +126,7 @@ public abstract class Monster extends Dude {
     
     
     public Weapon getDropWeapon() throws SlickException {
-    	Weapon[] lootItems = new Weapon[]{ new Bear(pos[0], pos[1]), new Mecha(pos[0],pos[1]), new Diglet(pos[0], pos[1]), new Wizard(pos[0], pos[1]) } ;
+    	Weapon[] lootItems = new Weapon[]{ new Bear(pos[0], pos[1]), new Mecha(pos[0],pos[1]), new Diglet(pos[0], pos[1]), new Wizard(pos[0], pos[1]), new Fireman(pos[0], pos[1]) } ;
     	
     	float[] pos = this.pos;
         double rand = Math.random();
