@@ -67,7 +67,7 @@ public class ForestState extends AreaState {
 		GoblinArcher g3_knight2 = new GoblinArcher(0,
 				container.getHeight() - 160, 1, container);
 		Knight g3_knight3 = new Knight(container.getWidth(),
-				container.getHeight() - 240, 1, container);
+				container.getHeight() - 200, 1, container);
 		GoblinArcher g3_knight4 = new GoblinArcher(container.getWidth(),
 				container.getHeight() - 240, 1, container);
 		g3_knight1.init();
