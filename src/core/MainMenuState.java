@@ -46,7 +46,6 @@ public class MainMenuState extends BasicGameState {
         g.drawString(rightPlay,container.getWidth()/2f,container.getHeight()/2);
         String navKeys = "P for play\nEsc for Exit";
         g.drawString(navKeys, container.getWidth()/2f-50, container.getHeight()-100f);
-        System.out.println(background.getHeight());
         background.draw(0, 0);
     }
 
