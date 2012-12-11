@@ -182,7 +182,7 @@ public abstract class Dude implements Comparable<Dude> {
     public void render(Graphics g) throws SlickException {
         if (currentAnimation != null) {
             if (flinching) {
-                if ((flinchTime % (flinchDur / 3)) < flinchDur / 6) {
+                if ((flinchTime % (flinchDur / 3)) < flinchDur / 5) {
                     currentAnimation.draw(pos[0], pos[1]);
                 }
             } else {

@@ -128,11 +128,10 @@ public class AreaState extends BasicGameState {
                         
             g.setColor(Color.black);
             g.drawString(""+p.score, MainGame.GAME_WIDTH/2 + pointVal, 70);
-            /*
+
             if (p.weapon.name.equals("Wizard")) {
         		((Wizard)p.weapon).render(container, game, g);
         	}
-        	*/
         }
         
         for (Text t : screenTexts) {

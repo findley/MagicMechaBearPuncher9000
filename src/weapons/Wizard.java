@@ -15,12 +15,11 @@ import projectiles.Projectile;
 
 import dudes.Player;
 
-public class Wizard extends RangeWeapon {
+public class Wizard extends Weapon {
 
 	public Animation lightning;
 	
 	public Wizard(float x, float y) {
-		super(x, y);
 		this.x = x;
 		this.y = y;
 		damage = 12;
@@ -51,7 +50,6 @@ public class Wizard extends RangeWeapon {
 	@Override
 	public void attack() throws SlickException {
 		super.attack();
-		System.out.println("hi");
 		lightning.restart();
 	}
 	
