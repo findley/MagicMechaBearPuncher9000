@@ -85,6 +85,8 @@ public class GoblinArcher extends Monster {
             }
         }
 		
+		
+		
 		ArrayList<Dude> dudeAr = new ArrayList<Dude>();
 		dudeAr.addAll(monsters);
 		dudeAr.addAll(Arrays.asList(players));
@@ -108,6 +110,15 @@ public class GoblinArcher extends Monster {
 				}
 			}
 			float diff;
+			if (Math.random() < .1 ) {
+				if ( locked.pos[0] > this.pos[0] ) {
+					this.isRight = true;
+				} else {
+					this.isRight = false;
+				}
+				monsterAttack();
+				return;
+			}
 			if (Math.random() > .15) {
 				if (locked.pos[0] > this.pos[0]) {
 					diff = locked.pos[0] - this.pos[0];
