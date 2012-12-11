@@ -73,6 +73,18 @@ public class GoblinArcher extends Monster {
             }
         }
 		
+		if (isAttacking) {
+            if (!currentAnimation.isStopped()) {
+                return;
+            } else {
+                isAttacking = false;
+                delayed = true;
+                currentAnimation.restart();
+                currentAnimation = null;
+                delayTime = 0;
+            }
+        }
+		
 		ArrayList<Dude> dudeAr = new ArrayList<Dude>();
 		dudeAr.addAll(monsters);
 		dudeAr.addAll(Arrays.asList(players));
@@ -102,10 +114,16 @@ public class GoblinArcher extends Monster {
 					if (diff > range) {
 						this.moveRight = true;
 						this.isRight = true;
+						this.isAttacking = true;
+		                currentAnimation = handleAnimation("punch");
+		                currentAnimation.start();
 						this.weapon.attack();
 					} else {
 						if (this.pos[0] < 10) {
 							canMove = false;
+							this.isAttacking = true;
+			                currentAnimation = handleAnimation("punch");
+			                currentAnimation.start();
 							this.weapon.attack();
 							this.isRight = true;
 						} else {
@@ -118,10 +136,16 @@ public class GoblinArcher extends Monster {
 					if (diff > range) {
 						this.moveRight = false;
 						this.isRight = false;
+						this.isAttacking = true;
+		                currentAnimation = handleAnimation("punch");
+		                currentAnimation.start();
 						this.weapon.attack();
 					} else {
 						if (this.pos[0] > screenWidth - 100 ) {
 							canMove = false;
+							this.isAttacking = true;
+			                currentAnimation = handleAnimation("punch");
+			                currentAnimation.start();
 							this.weapon.attack();
 							this.isRight = false;
 						} else {
