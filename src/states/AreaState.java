@@ -515,7 +515,7 @@ public class AreaState extends BasicGameState {
             	
             } else {
             	w.y = Math.max(MainGame.GAME_HEIGHT - 32 * 8- (w.groundSprite.getHeight()) + 15, w.y);            	
-         		floorweapons.add(w);	
+         		floorweapons.add(w);
             }            
             
             Coin c = m.getDropCoin();

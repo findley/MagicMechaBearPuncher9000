@@ -28,8 +28,8 @@ public class Diglet extends Weapon {
 		spriteSizeX = 64;
 		spriteSizeY = 92;
 		playerSizeX = 64;
-		playerSizeY = 0;
-		offsetY = 92;
+		playerSizeY = 10;
+		offsetY = 80;
 		attackOffsetY = -32;
 		attackOffsetX = -24;
 		itemTimer = 8000;
@@ -43,15 +43,10 @@ public class Diglet extends Weapon {
 		defaultSprite[1] = weaponSheet.getSprite(22, 0);	
 		initAnimations();
 	}
-	
+
 	@Override
 	public void createGroundSprite() throws SlickException {
 		groundSprite = new Image("Assets/Weapons/Diglet/shovel.png");
-	}
-	
-	@Override
-	public Shape getPlayerHitBox(float ownerX, float ownerY) {
-		return new Rectangle(0,0,0,0);
 	}
 	
 	@Override
