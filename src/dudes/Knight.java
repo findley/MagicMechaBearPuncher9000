@@ -100,18 +100,20 @@ public class Knight extends Monster {
 		}
 		
 		if (locked != null) {
-			if (isRight) {
-				if ( Math.abs(locked.pos[0] - pos[0]) < 80) {
-					if (Math.random() < .5) {
-						monsterAttack();
-						return;
+			if ( (pos[1] - locked.pos[1] < locked.weapon.playerSizeY - 64) && (pos[1] - locked.pos[1] >=0)) {
+				if (isRight) {
+					if ( Math.abs(locked.pos[0] - pos[0]) < 80) {
+						if (Math.random() < .5) {
+							monsterAttack();
+							return;
+						}
 					}
-				}
-			} else {
-				if (Math.abs(locked.pos[0] - pos[0]) < locked.weapon.playerSizeX + 10) {
-					if (Math.random() < .5) {
-						monsterAttack();
-						return;
+				} else {
+					if (Math.abs(locked.pos[0] - pos[0]) < locked.weapon.playerSizeX + 10) {
+						if (Math.random() < .5) {
+							monsterAttack();
+							return;
+						}
 					}
 				}
 			}
