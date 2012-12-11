@@ -97,14 +97,14 @@ public class Knight extends Monster {
 		if (locked != null) {
 			if (isRight) {
 				if ( Math.abs(locked.pos[0] - pos[0]) < 80) {
-					if (Math.random() < .7) {
+					if (Math.random() < .5) {
 						monsterAttack();
 						return;
 					}
 				}
 			} else {
 				if (Math.abs(locked.pos[0] - pos[0]) < locked.weapon.playerSizeX + 10) {
-					if (Math.random() < .7) {
+					if (Math.random() < .5) {
 						monsterAttack();
 						return;
 					}
@@ -223,7 +223,6 @@ public class Knight extends Monster {
             if (whichAnim.equals("flinch")) {
                 return weapon.anims[1];
             } else if (whichAnim.equals("punch")) {
-            	System.out.println("punch right");
                 return weapon.anims[3];
             } else if (whichAnim.equals("die")){
             	return weapon.anims[7];
