@@ -129,8 +129,9 @@ public class GoblinArcher extends Monster {
 					} else {
 						if (this.pos[0] < 10) {
 							canMove = false;
-							
 							this.isRight = true;
+							monsterAttack();
+							return;
 						} else {
 							this.moveRight = false;
 							
@@ -145,8 +146,9 @@ public class GoblinArcher extends Monster {
 					} else {
 						if (this.pos[0] > screenWidth - 100 ) {
 							canMove = false;
-							monsterAttack();
 							this.isRight = false;
+							monsterAttack();
+							return;
 						} else {
 							this.moveRight = true;							
 						}
