@@ -301,10 +301,11 @@ public class Player extends Dude {
     			currentAnimation = playerDeath[1];
     		currentAnimation.start();
     	} else if (deathTimer > 0) {
-    		deathTimer = Math.max(deathTimer-delta, 0);
+    		//deathTimer = Math.max(deathTimer-delta, 0);
     		health = health + (double)delta / RESPAWN_TIMER * maxHealth;
     		if (health >= maxHealth) {
     			health = maxHealth;
+    			deathTimer = 0;
     			isRespawning = false;
     		}
     	}
