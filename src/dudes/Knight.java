@@ -62,6 +62,16 @@ public class Knight extends Monster {
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
 			throws SlickException {
+		
+		if (flinching) {
+            flinchTime += delta;
+            if (flinchTime < flinchDur) {
+                return;
+            } else {
+                flinching = false;
+            }
+        }
+		
 		if (this.isAttacking){
 			if(currentAnimation.isStopped()){
 				this.isAttacking = false;
@@ -71,9 +81,9 @@ public class Knight extends Monster {
 				return;
 			}
 		}
-		if (health <= 0){
-			currentAnimation = handleAnimation("die");
-		}
+		
+		
+		
 		if (doingNothing) {
 			if (locked == null) {
 				doingNothing = this.doNothing(700, delta);
@@ -104,15 +114,30 @@ public class Knight extends Monster {
 					this.moveLeft(0, players, monsters);
 				}
 				if (!doingNothing && Math.random() < .6) {
-					currentAnimation = handleAnimation("punch");
-					this.isAttacking = true;
-					this.weapon.attack();
+					monsterAttack();
+					return;
 				} else {
 				}
 				currentAnimation.start();
 			}
 			return;
 		}
+		
+		if(flinching){
+			currentAnimation = handleAnimation("flinch");
+			currentAnimation.start();
+		} else if(isAttacking){
+			monsterAttack();
+			return;
+			//currentAnimation = handleAnimation("punch");
+			//currentAnimation.start();			
+		} else if (health <= 0){
+			currentAnimation = handleAnimation("die");
+			currentAnimation.start();
+			
+		} 
+		
+		
 		if(locked != null && locked.isRespawning) {
 			locked = null;
 		}

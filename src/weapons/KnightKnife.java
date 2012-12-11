@@ -52,10 +52,10 @@ public class KnightKnife extends Weapon{
 		anims[1].setLooping(false);
 
 		// punch left
-		anims[2] = new Animation(weaponSheet, 0, 0, 2, 0, true, 80, true);
+		anims[2] = new Animation(weaponSheet, 0, 0, 2, 0, true, 800, true);
 		anims[2].setLooping(false);
 		// punch right
-		anims[3] = new Animation(weaponSheet, 0, 1, 2, 1, true, 80, true);
+		anims[3] = new Animation(weaponSheet, 0, 1, 2, 1, true, 800, true);
 		anims[3].setLooping(false);
 
 		// walk left
@@ -71,4 +71,6 @@ public class KnightKnife extends Weapon{
 		anims[7].setLooping(false);
 
 	}
+	
+	
 }

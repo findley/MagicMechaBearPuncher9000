@@ -21,7 +21,6 @@ public abstract class Monster extends Dude {
     int		nothingTime = 0;
     boolean doingNothing = false;
     int     moveSpeed;
-    boolean attackNow = false;
     Player  lastHit;
     public int value;
     public enemyState state = enemyState.ALIVE;
