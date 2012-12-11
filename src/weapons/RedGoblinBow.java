@@ -10,14 +10,14 @@ import projectiles.Arrow;
 import dudes.Dude;
 import dudes.Player;
 
-public class GoblinBow extends Weapon{
+public class RedGoblinBow extends Weapon{
 	
-	public GoblinBow(Dude owner) {
+	public RedGoblinBow(Dude owner) {
 		this(owner.pos[0], owner.pos[1], owner.kind);
 		assignOwner(owner);
 	}
 
-	public GoblinBow(float x, float y, int k) {
+	public RedGoblinBow(float x, float y, int k) {
 		super();
 		groundSprite = null;
 		this.x = x;
@@ -26,18 +26,18 @@ public class GoblinBow extends Weapon{
 		attackWidth = 100;
 		attackHeight = 6;
 		delayTime = 500;
-		kind = k;
+		kind = 0;
 		ranged = true;
 	}
 	
 	@Override
 	public void init() throws SlickException {
 		if(kind==0){
-			weaponSheet = new SpriteSheet("Assets/Weapons/GoblinArcher/goblinarcher.png", spriteSizeX, spriteSizeY);
-		} else if(kind==1){
-			weaponSheet = new SpriteSheet("Assets/Weapons/GoblinArcher/purpleGoblinarcher.png", spriteSizeX, spriteSizeY);
-		} else{
 			weaponSheet = new SpriteSheet("Assets/Weapons/GoblinArcher/redGoblinarcher.png", spriteSizeX, spriteSizeY);
+		} else if(kind==1){
+			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/camoKnightSheet.png", spriteSizeX, spriteSizeY);
+		} else{
+			weaponSheet = new SpriteSheet("Assets/Weapons/KnightKnife/darkKnightSheet.png", spriteSizeX, spriteSizeY);
 		}
 		defaultSprite[0] = weaponSheet.getSprite(0, 5);
 		defaultSprite[1] = weaponSheet.getSprite(0, 4);

@@ -39,15 +39,11 @@ public class CastleState extends AreaState {
 		ArrayList<Monster> group_1 = new ArrayList<Monster>();
 		Knight g1_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 2, container);
-		//GoblinArcher g1_knight2 = new GoblinArcher(container.getWidth(),
-				//container.getHeight() - 160, 2);
 		Knight g1_knight3 = new Knight(container.getWidth(),
 				container.getHeight() - 240, 2, container);
 		g1_knight1.init();
-		//g1_knight2.init();
 		g1_knight3.init();
 		group_1.add(g1_knight1);
-		//group_1.add(g1_knight2);
 		group_1.add(g1_knight3);
 
 		ArrayList<Monster> group_2 = new ArrayList<Monster>();
@@ -57,13 +53,21 @@ public class CastleState extends AreaState {
 				container.getHeight() - 160, 2, container);
 		Knight g2_knight3 = new Knight(container.getWidth(),
 				container.getHeight() - 240, 2, container);
+		GoblinArcher g2_goblin1 = new GoblinArcher(container.getWidth()+80,
+				container.getHeight() - 80, 2, container);
+		GoblinArcher g2_goblin2 = new GoblinArcher(container.getWidth()+80,
+				container.getHeight() - 160, 2, container);
 		g2_knight1.init();
 		g2_knight2.init();
 		g2_knight3.init();
+		g2_goblin1.init();
+		g2_goblin2.init();
 		group_2.add(g2_knight1);
 		group_2.add(g2_knight2);
 		group_2.add(g2_knight3);
-
+		group_2.add(g2_goblin1);
+		group_2.add(g2_goblin2);
+		
 		ArrayList<Monster> group_3 = new ArrayList<Monster>();
 		Knight g3_knight1 = new Knight(container.getWidth(),
 				container.getHeight() - 80, 2, container);
@@ -73,14 +77,23 @@ public class CastleState extends AreaState {
 				container.getHeight() - 240, 2, container);
 		Knight g3_knight4 = new Knight(0,
 				container.getHeight() - 80, 2, container);
+
+		GoblinArcher g3_goblin1 = new GoblinArcher(container.getWidth(),
+				container.getHeight() - 80, 2, container);
+		GoblinArcher g3_goblin2 = new GoblinArcher(container.getWidth(),
+				container.getHeight() - 160, 2, container);
 		g3_knight1.init();
 		g3_knight2.init();
 		g3_knight3.init();
 		g3_knight4.init();
+		g3_goblin1.init();
+		g3_goblin2.init();
 		group_3.add(g3_knight1);
 		group_3.add(g3_knight2);
 		group_3.add(g3_knight3);
 		group_3.add(g3_knight4);
+		group_3.add(g3_goblin1);
+		group_3.add(g3_goblin2);
 
 		monsters.add(group_1);
 		monsters.add(group_2);
