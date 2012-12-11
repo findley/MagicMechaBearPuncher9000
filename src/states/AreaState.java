@@ -494,7 +494,7 @@ public class AreaState extends BasicGameState {
             if (m.state == enemyState.ALIVE && m.health <= 0.1) {
             	System.out.println(m.health);
             	System.out.println(m.health);
-        		m.state = enemyState.DEAD;
+        		m.state = enemyState.DYING;
         		m.renderDeath();
                 m.getLastHit().incrementScore(m.value);
 
@@ -502,8 +502,6 @@ public class AreaState extends BasicGameState {
             }
             else if (m.state == enemyState.DYING && m.currentAnimation.isStopped()) {
             	m.state = enemyState.DEAD;
-            }
-            else if (m.state == enemyState.DEAD) {
         		removeMonster.add(m);
             }
         }

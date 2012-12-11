@@ -9,6 +9,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
+import dudes.Monster.enemyState;
+
 import weapons.*;
 
 public class GoblinArcher extends Monster {
@@ -64,6 +66,9 @@ public class GoblinArcher extends Monster {
 		
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
+		if(this.state == enemyState.DYING){
+			return;
+		}
 		if (flinching) {
             flinchTime += delta;
             if (flinchTime < flinchDur) {

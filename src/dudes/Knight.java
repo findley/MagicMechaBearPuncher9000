@@ -62,6 +62,9 @@ public class Knight extends Monster {
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
 			throws SlickException {
+		if(this.state == enemyState.DYING){
+			return;
+		}
 		
 		if (currentAnimation != null && !isAttacking) {
             if (currentAnimation.isStopped()) {
@@ -92,7 +95,9 @@ public class Knight extends Monster {
         } else {
         	weapon.attack = null;
         }
-        
+        if(locked != null && locked.isRespawning) {
+			locked = null;
+		}
 		
 		if (locked != null) {
 			if (isRight) {

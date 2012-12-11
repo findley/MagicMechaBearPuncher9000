@@ -73,10 +73,10 @@ public class GoblinBow extends Weapon{
 		anims[5] = new Animation(weaponSheet, 0, 3, 3, 3, true, 80, true);
 		
 		// die left
-		anims[6] = new Animation(weaponSheet, 0, 6, 2, 6, true, 200, true);
+		anims[6] = new Animation(weaponSheet, 3, 6, 3, 6, true, 200, true);
 		anims[6].setLooping(false);
 		// die right
-		anims[7] = new Animation(weaponSheet, 0, 7, 2, 7, true, 200, true);
+		anims[7] = new Animation(weaponSheet, 3, 7, 3, 7, true, 200, true);
 		anims[7].setLooping(false);
 
 	}
