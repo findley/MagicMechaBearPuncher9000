@@ -29,10 +29,10 @@ public class Knight extends Monster {
 		isRight = false;
 		moveSpeed = 1;
 		healthFill = new Color(Color.red);
-		//hitbox = new Rectangle(pos[0], pos[1], 64, 64);
+		// hitbox = new Rectangle(pos[0], pos[1], 64, 64);
 		kind = k;
 		value = 10;
-		
+
 		this.weapon = new KnightKnife(this);
 		try {
 			this.init();
@@ -43,111 +43,114 @@ public class Knight extends Monster {
 	}
 
 	public void init() throws SlickException {
-		//create spritesheets for the weapon:
-		homeToleranceX = container.getWidth()/4;
+		// create spritesheets for the weapon:
+		homeToleranceX = container.getWidth() / 4;
 		this.weapon.init();
 		aiDelay = 1000;
 	}
 
 	// return leftmost point of weapon
 	public float[] weaponLoc() {
-		if(this.isRight){
-			return new float[] {pos[0] + 64 + 15, pos[1]+ 40};
-		}
-		else {
-			return new float[] {pos[0] - 15, pos[1]+40};
+		if (this.isRight) {
+			return new float[] { pos[0] + 64 + 15, pos[1] + 40 };
+		} else {
+			return new float[] { pos[0] - 15, pos[1] + 40 };
 		}
 	}
 
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
 			throws SlickException {
-		if(this.state == enemyState.DYING){
+		delayTime += delta;
+		if (this.state == enemyState.DYING) {
 			return;
 		}
-		
+
 		if (currentAnimation != null && !isAttacking) {
-            if (currentAnimation.isStopped()) {
-                currentAnimation.restart();
-                currentAnimation = null;
-            }
-        }
-        if (flinching) {
-            flinchTime += delta;
-            if (flinchTime < flinchDur) {
-                return;
-            } else {
-                flinching = false;
-            }
-        }
-        
-        if (isAttacking) {
-            if (!currentAnimation.isStopped()) {
-                return;
-            } else {
-                isAttacking = false;
-                delayed = true;
-                currentAnimation.restart();
-                currentAnimation = null;
-                delayTime = 0;
-                weapon.attack = null;
-            }
-        } else {
-        	weapon.attack = null;
-        }
-        if(locked != null && locked.isRespawning) {
+			if (currentAnimation.isStopped()) {
+				currentAnimation.restart();
+				currentAnimation = null;
+			}
+		}
+		if (flinching) {
+			flinchTime += delta;
+			if (flinchTime < flinchDur) {
+				return;
+			} else {
+				flinching = false;
+			}
+		}
+
+		if (isAttacking) {
+			if (!currentAnimation.isStopped()) {
+				return;
+			} else {
+				isAttacking = false;
+				delayed = true;
+				currentAnimation.restart();
+				currentAnimation = null;
+				delayTime = 0;
+				weapon.attack = null;
+			}
+		} else {
+			weapon.attack = null;
+		}
+		if (locked != null && locked.isRespawning) {
 			locked = null;
 		}
-		
+
 		if (locked != null) {
-			if(this.weapon.getAttackHitBox().intersects(locked.getHitBox())){
-				if(Math.random() < .5){
-					monsterAttack();
+			if (this.weapon.getAttackHitBox().intersects(locked.getHitBox())) {
+				if (!this.isAttacking && delayTime > 500) {
+					if (Math.random() < 1) {
+						monsterAttack();
+					}
 				}
 			}
 		}
-		
+		/*
 		else {
-			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX && !players[0].isRespawning) {
+			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX
+					&& !players[0].isRespawning) {
 				locked = players[0];
-			} else if (Math.abs(players[1].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX && !players[1].isRespawning) {
+			} else if (Math.abs(players[1].getHitBox().getCenterX()
+					- this.pos[0]) < homeToleranceX
+					&& !players[1].isRespawning) {
 				locked = players[1];
-			}
-			else {
+			} else {
 				if (Math.random() < .5) {
 					this.movingLeft = true;
-				}
-				else if (Math.random() < .5) {
+				} else if (Math.random() < .5) {
 					this.movingRight = true;
 				}
 				if (Math.random() < .5) {
 					this.movingUp = true;
-				}
-				else if (Math.random() < .5) {
+				} else if (Math.random() < .5) {
 					this.movingDown = true;
 				}
+				doingNothing = true;
 				currentAnimation = handleAnimation("walk");
 				currentAnimation.start();
-				
+
 			}
 		}
-		
+		*/
 		if (doingNothing) {
 			if (locked == null) {
 				doingNothing = this.doNothing(700, delta);
-				if(this.movingLeft){
+				if (this.movingLeft) {
 					this.moveLeft(1, players, monsters);
 				}
-				if(this.movingRight){
+				if (this.movingRight) {
 					this.moveRight(1, players, monsters);
 				}
-				if(this.movingUp){
+				if (this.movingUp) {
 					this.moveUp(1, players, monsters);
 				}
-				if(this.movingDown){
+				if (this.movingDown) {
 					this.moveDown(1, players, monsters);
 				}
-				if(!doingNothing){
+				if (!doingNothing) {
 					this.movingLeft = false;
 					this.movingRight = false;
 					this.movingDown = false;
@@ -170,42 +173,39 @@ public class Knight extends Monster {
 			}
 			return;
 		}
-		
-		if(flinching){
+
+		if (flinching) {
 			currentAnimation = handleAnimation("flinch");
 			currentAnimation.start();
-		} else if(isAttacking){
+		} else if (isAttacking) {
 			monsterAttack();
 			return;
-			//currentAnimation = handleAnimation("punch");
-			//currentAnimation.start();			
-		} else if (health <= 0){
+			// currentAnimation = handleAnimation("punch");
+			// currentAnimation.start();
+		} else if (health <= 0) {
 			currentAnimation = handleAnimation("die");
 			currentAnimation.start();
-			
-		} 
-		
-		
-		if(locked != null && locked.isRespawning) {
+
+		}
+
+		if (locked != null && locked.isRespawning) {
 			locked = null;
 		}
 		if (locked == null) {
-			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX) {
+			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX && !players[0].isRespawning) {
 				locked = players[0];
-			} else if (Math.abs(players[1].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX) {
+			} else if (Math.abs(players[1].getHitBox().getCenterX()
+					- this.pos[0]) < homeToleranceX && !players[1].isRespawning) {
 				locked = players[1];
-			}
-			else {
+			} else {
 				if (Math.random() < .5) {
 					this.movingLeft = true;
-				}
-				else if (Math.random() < .5) {
+				} else if (Math.random() < .5) {
 					this.movingRight = true;
 				}
 				if (Math.random() < .5) {
 					this.movingUp = true;
-				}
-				else if (Math.random() < .5) {
+				} else if (Math.random() < .5) {
 					this.movingDown = true;
 				}
 				currentAnimation = handleAnimation("walk");
@@ -221,7 +221,8 @@ public class Knight extends Monster {
 				if (!homing) {
 					homing = true;
 				} else {
-					homing = home(locked.getHitBox().getCenter(), players, monsters);
+					homing = home(locked.getHitBox().getCenter(), players,
+							monsters);
 					if (!homing) {
 						this.doNothing(50, delta);
 						doingNothing = true;
@@ -239,29 +240,29 @@ public class Knight extends Monster {
 
 	@Override
 	public Animation handleAnimation(String whichAnim) {
-        if (isRight) {
-            if (whichAnim.equals("flinch")) {
-                return weapon.anims[1];
-            } else if (whichAnim.equals("punch")) {
-                return weapon.anims[3];
-            } else if (whichAnim.equals("die")){
-            	return weapon.anims[7];
-            } else {
-                // else, the walk animation for now
-                return weapon.anims[5];
-            }
-        } else {
-            if (whichAnim.equals("flinch")) {
-                return weapon.anims[0];
-            } else if (whichAnim.equals("punch")) {
-                return weapon.anims[2];
-            } else if (whichAnim.equals("die")){
-            	return weapon.anims[6];
-            } else {
-                // else, the walk animation for now
-                return weapon.anims[4];
-            }
-        }
+		if (isRight) {
+			if (whichAnim.equals("flinch")) {
+				return weapon.anims[1];
+			} else if (whichAnim.equals("punch")) {
+				return weapon.anims[3];
+			} else if (whichAnim.equals("die")) {
+				return weapon.anims[7];
+			} else {
+				// else, the walk animation for now
+				return weapon.anims[5];
+			}
+		} else {
+			if (whichAnim.equals("flinch")) {
+				return weapon.anims[0];
+			} else if (whichAnim.equals("punch")) {
+				return weapon.anims[2];
+			} else if (whichAnim.equals("die")) {
+				return weapon.anims[6];
+			} else {
+				// else, the walk animation for now
+				return weapon.anims[4];
+			}
+		}
 	}
-	
+
 }
