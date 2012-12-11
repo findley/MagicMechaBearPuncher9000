@@ -111,7 +111,6 @@ public abstract class Weapon {
 		}
 		try {
 			attackNoises.get(name).play();
-			System.out.println("boom");
 		} catch (Exception e) {
 		}
 	}

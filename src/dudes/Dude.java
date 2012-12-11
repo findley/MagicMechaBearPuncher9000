@@ -224,10 +224,10 @@ public abstract class Dude implements Comparable<Dude> {
     
     public void pushback(float playerPos, float pushback, float max, Player[] players, ArrayList<Monster> monsters) {
     	if (playerPos > pos[0]) {
-    		this.moveLeft(pushback, players, monsters);
+    		this.moveLeft(2*pushback, players, monsters);
     		this.isRight = true;
     	} else {
-    		this.moveRight(pushback, players, monsters);
+    		this.moveRight(2*pushback, players, monsters);
     		this.isRight = false;
     	}
     }
