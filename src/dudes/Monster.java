@@ -138,6 +138,12 @@ public abstract class Monster extends Dude {
 		return w;
     }
     
+    public void monsterAttack() throws SlickException {
+    	this.isAttacking = true;
+        currentAnimation = handleAnimation("punch");
+        currentAnimation.start();
+		this.weapon.attack();
+    }
 	public Coin getDropCoin() throws SlickException {
 		double rand2 = Math.random();
         if(rand2<0.5){
