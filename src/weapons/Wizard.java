@@ -51,6 +51,7 @@ public class Wizard extends RangeWeapon {
 	@Override
 	public void attack() throws SlickException {
 		super.attack();
+		System.out.println("hi");
 		lightning.restart();
 	}
 	
