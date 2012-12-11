@@ -63,7 +63,13 @@ public class Knight extends Monster {
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta)
 			throws SlickException {
 		
-		if (flinching) {
+		if (currentAnimation != null && !isAttacking) {
+            if (currentAnimation.isStopped()) {
+                currentAnimation.restart();
+                currentAnimation = null;
+            }
+        }
+        if (flinching) {
             flinchTime += delta;
             if (flinchTime < flinchDur) {
                 return;
@@ -71,16 +77,22 @@ public class Knight extends Monster {
                 flinching = false;
             }
         }
-		
-		if (this.isAttacking){
-			if(currentAnimation.isStopped()){
-				this.isAttacking = false;
-				this.weapon.attack = null;
-			}
-			else {
-				return;
-			}
-		}
+        
+        if (isAttacking) {
+            if (!currentAnimation.isStopped()) {
+                return;
+            } else {
+                isAttacking = false;
+                delayed = true;
+                currentAnimation.restart();
+                currentAnimation = null;
+                delayTime = 0;
+                weapon.attack = null;
+            }
+        } else {
+        	weapon.attack = null;
+        }
+        
 		
 		
 		
@@ -195,6 +207,7 @@ public class Knight extends Monster {
             if (whichAnim.equals("flinch")) {
                 return weapon.anims[1];
             } else if (whichAnim.equals("punch")) {
+            	System.out.println("punch right");
                 return weapon.anims[3];
             } else if (whichAnim.equals("die")){
             	return weapon.anims[7];
@@ -206,6 +219,7 @@ public class Knight extends Monster {
             if (whichAnim.equals("flinch")) {
                 return weapon.anims[0];
             } else if (whichAnim.equals("punch")) {
+            	System.out.println("punch left");
                 return weapon.anims[2];
             } else if (whichAnim.equals("die")){
             	return weapon.anims[6];
