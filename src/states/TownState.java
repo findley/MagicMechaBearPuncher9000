@@ -30,7 +30,7 @@ public class TownState extends AreaState {
 		super.init(container, game);
 		loop = new Music("Assets/Sound/Loops/TownState.wav");
 		bgImage = new TiledMap("Assets/World/Map2.tmx");
-		areaLength = 200;
+		areaLength = 180;
 
 		// note: players are initialized ONLY in the first area
 		players[0].init(0);
