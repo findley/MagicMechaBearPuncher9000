@@ -33,6 +33,8 @@ public class Wizard extends Weapon {
 		offsetX = 0;
 		attackOffsetY = -50;
 		attackOffsetX = 70;
+
+		attackTiming = 330;
 		
 		name = "Wizard";
 	}

@@ -281,6 +281,9 @@ public class AreaState extends BasicGameState {
         
         for (int i = 0; i < players.length; i++) {
             Player player = players[i];
+            if (player.weapon.attack != null) {
+            	player.weapon.attack.update(delta);
+            }
             player.invincibleTimer += delta;
             for (Monster monster : this.currBattle) {
             	if (player.weapon.attack!=null) {

@@ -219,7 +219,6 @@ public abstract class Dude implements Comparable<Dude> {
     }
     
     public Shape getHitBox() {
-		// TODO Auto-generated method stub
 		return this.weapon.getPlayerHitBox(pos[0], pos[1]);
 	}
     

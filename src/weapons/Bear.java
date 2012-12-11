@@ -32,6 +32,8 @@ public class Bear extends Weapon {
 		attackOffsetX = 20;
 		pushback = 64;
 		
+		attackTiming = 150;
+		
 		name = "Bear";
 	}
 	

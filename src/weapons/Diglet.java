@@ -29,10 +29,12 @@ public class Diglet extends Weapon {
 		spriteSizeY = 92;
 		playerSizeX = 64;
 		playerSizeY = 10;
-		offsetY = 80;
+		offsetY = 81;
 		attackOffsetY = -32;
 		attackOffsetX = -24;
 		itemTimer = 8000;
+		
+		attackTiming = 350;
 		
 		name = "Diglet";
 	}

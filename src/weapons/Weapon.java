@@ -40,6 +40,8 @@ public abstract class Weapon {
 	public int attackOffsetX;
 	public int attackOffsetY;
 	
+	public int attackTiming;
+	
     protected static HashMap<String, Sound> attackNoises = new HashMap<String, Sound>();
 	
 	public int kind; //0 for town, 1 for forest, 2 for castle
@@ -73,6 +75,8 @@ public abstract class Weapon {
 		
 		//Default placeholder for weapons' names. Should be overridden in subclasses.
 		name = "weapon";
+		
+		attackTiming = 0;
 	}
 	
 	public abstract void init() throws SlickException;
@@ -101,7 +105,7 @@ public abstract class Weapon {
 	// to start attack
 	
 	public void attack() throws SlickException {
-		attack = new Attack(owner.isRight, getAttackHitBox(), "player");
+		attack = new Attack(owner.isRight, getAttackHitBox(), "player", attackTiming);
 		if (name.equals("Fireman")) {
 			return;
 		}

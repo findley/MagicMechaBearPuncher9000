@@ -27,6 +27,8 @@ public class Fist extends Weapon {
 		offsetX = 12;
 		offsetY = 5;
 		
+		attackTiming = 100;
+		
 		name = "Fist";
 	}
 

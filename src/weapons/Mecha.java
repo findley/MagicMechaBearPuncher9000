@@ -33,6 +33,8 @@ public class Mecha extends Weapon {
 		attackOffsetY = -90;
 		attackOffsetX = 45;
 		
+		attackTiming = 400;
+		
 		name = "Mecha";
 	}
 	
