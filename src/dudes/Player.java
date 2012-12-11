@@ -97,9 +97,12 @@ public class Player extends Dude {
         } else {
         	weapon.attack = null;
         }
-        
-        float moveDist = (float) .1 * delta * moveSpeed;
-        
+
+		float moveDist = (float) .1 * delta * moveSpeed;
+		if (weapon.name.equals("Mecha")) {
+			moveDist = moveDist * 2 / 3;
+		}
+
         if (input.isKeyPressed(buttons.get("action")) && !fireman) {
         		this.isAttacking = true;
                 currentAnimation = handleAnimation("punch");
