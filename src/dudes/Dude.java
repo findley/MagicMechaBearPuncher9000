@@ -107,8 +107,8 @@ public abstract class Dude implements Comparable<Dude> {
         if (pos[0] < 0) {
             pos[0] = 0;
         }
-        if (pos[0] > MainGame.GAME_WIDTH - weapon.playerSizeX) {
-            pos[0] = MainGame.GAME_WIDTH - weapon.playerSizeX;
+        if (pos[0] > MainGame.GAME_WIDTH - weapon.spriteSizeX) {
+            pos[0] = MainGame.GAME_WIDTH - weapon.spriteSizeX;
         }
     }
     

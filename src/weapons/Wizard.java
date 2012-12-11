@@ -28,13 +28,14 @@ public class Wizard extends Weapon {
 		delayTime = 500;
 		spriteSizeX = 64;
 		spriteSizeY = 64;
-		playerSizeX = 64;
-		playerSizeY = 64;
-		offsetX = 0;
+		playerSizeX = 40;
+		playerSizeY = 54;
+		offsetX = 12;
+		offsetY = 5;
 		attackOffsetY = -50;
 		attackOffsetX = 70;
 
-		attackTiming = 330;
+		attackTiming = 250;
 		
 		name = "Wizard";
 	}
