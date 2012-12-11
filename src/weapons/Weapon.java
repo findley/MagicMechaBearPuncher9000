@@ -101,7 +101,6 @@ public abstract class Weapon {
 	// to start attack
 	
 	public void attack() throws SlickException {
-		System.out.println("fuck you");
 		attack = new Attack(owner.isRight, getAttackHitBox(), "player");
 		if (name.equals("Fireman")) {
 			return;

@@ -94,7 +94,23 @@ public class Knight extends Monster {
         }
         
 		
-		
+		if (locked != null) {
+			if (isRight) {
+				if ( Math.abs(locked.pos[0] - pos[0]) < 80) {
+					if (Math.random() < .7) {
+						monsterAttack();
+						return;
+					}
+				}
+			} else {
+				if (Math.abs(locked.pos[0] - pos[0]) < locked.weapon.playerSizeX + 10) {
+					if (Math.random() < .7) {
+						monsterAttack();
+						return;
+					}
+				}
+			}
+		}
 		
 		if (doingNothing) {
 			if (locked == null) {
@@ -130,7 +146,7 @@ public class Knight extends Monster {
 					return;
 				} else {
 				}
-				currentAnimation.start();
+
 			}
 			return;
 		}

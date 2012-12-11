@@ -141,7 +141,6 @@ public abstract class Monster extends Dude {
     	this.isAttacking = true;
         currentAnimation = handleAnimation("punch");
         currentAnimation.start();
-        System.out.println("monster attack");
 		this.weapon.attack();
     }
 	public Coin getDropCoin() throws SlickException {
