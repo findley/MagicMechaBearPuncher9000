@@ -286,6 +286,8 @@ public class Player extends Dude {
     }
     public void deathCheck(int delta) {
     	if ((health <= 0) && (deathTimer == 0)) {
+
+        	pos[1] = Math.max(MainGame.GAME_HEIGHT - 32 * 8- (playerDeath[0].getHeight()) + 15, pos[1]);           
     		isAttacking = false;
     		weapon.attack = null;
     		deathTimer = RESPAWN_TIMER;

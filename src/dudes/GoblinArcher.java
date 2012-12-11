@@ -61,8 +61,7 @@ public class GoblinArcher extends Monster {
 		}
 	}
 
-	
-	
+		
 	@Override
 	public void aiLoop(Player[] players, ArrayList<Monster> monsters, int delta) throws SlickException {
 		if (flinching) {
