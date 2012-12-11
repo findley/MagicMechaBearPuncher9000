@@ -60,7 +60,7 @@ public abstract class Monster extends Dude {
         boolean xFlag = true;
         boolean yFlag = false;
         float actualDist = Math.abs(targetpos[0] - this.pos[0]);
-        if (targetpos[1] +10> this.weapon.getAttackHitBox().getMaxY()-2) {
+        if (targetpos[1] +10 > this.weapon.getAttackHitBox().getMaxY()-2) {
             this.moveDown(this.moveSpeed, players, monsters);
         } else if (targetpos[1] +10< this.weapon.getAttackHitBox().getMinY() + 2) {
             this.moveUp(this.moveSpeed, players, monsters);

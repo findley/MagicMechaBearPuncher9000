@@ -100,22 +100,35 @@ public class Knight extends Monster {
 		}
 		
 		if (locked != null) {
-			if ( (pos[1] - locked.pos[1] < locked.weapon.playerSizeY - 64) && (pos[1] - locked.pos[1] >=0)) {
-				if (isRight) {
-					if ( Math.abs(locked.pos[0] - pos[0]) < 80) {
-						if (Math.random() < .5) {
-							monsterAttack();
-							return;
-						}
-					}
-				} else {
-					if (Math.abs(locked.pos[0] - pos[0]) < locked.weapon.playerSizeX + 10) {
-						if (Math.random() < .5) {
-							monsterAttack();
-							return;
-						}
-					}
+			if(this.weapon.getAttackHitBox().intersects(locked.getHitBox())){
+				if(Math.random() < .5){
+					monsterAttack();
 				}
+			}
+		}
+		
+		else {
+			if (Math.abs(players[0].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX && !players[0].isRespawning) {
+				locked = players[0];
+			} else if (Math.abs(players[1].getHitBox().getCenterX() - this.pos[0]) < homeToleranceX && !players[1].isRespawning) {
+				locked = players[1];
+			}
+			else {
+				if (Math.random() < .5) {
+					this.movingLeft = true;
+				}
+				else if (Math.random() < .5) {
+					this.movingRight = true;
+				}
+				if (Math.random() < .5) {
+					this.movingUp = true;
+				}
+				else if (Math.random() < .5) {
+					this.movingDown = true;
+				}
+				currentAnimation = handleAnimation("walk");
+				currentAnimation.start();
+				
 			}
 		}
 		
@@ -142,7 +155,7 @@ public class Knight extends Monster {
 				}
 
 			} else {
-				doingNothing = this.doNothing(300, delta);
+				doingNothing = this.doNothing(50, delta);
 				if (locked.getHitBox().getCenterX() > this.pos[0]) {
 					this.moveRight(0, players, monsters);
 				} else {
@@ -210,7 +223,7 @@ public class Knight extends Monster {
 				} else {
 					homing = home(locked.getHitBox().getCenter(), players, monsters);
 					if (!homing) {
-						this.doNothing(300, delta);
+						this.doNothing(50, delta);
 						doingNothing = true;
 					}
 					currentAnimation = handleAnimation("walk");
@@ -241,7 +254,6 @@ public class Knight extends Monster {
             if (whichAnim.equals("flinch")) {
                 return weapon.anims[0];
             } else if (whichAnim.equals("punch")) {
-            	System.out.println("punch left");
                 return weapon.anims[2];
             } else if (whichAnim.equals("die")){
             	return weapon.anims[6];

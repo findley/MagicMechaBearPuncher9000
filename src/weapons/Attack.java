@@ -54,7 +54,6 @@ public class Attack {
 		if (duration <= attackTime && nextFrame > attackTime) {
 			this.hitbox = this.realHitbox;
 		} else {
-			System.out.println("nothing");
 			this.hitbox = new Rectangle(0,0,0,0);
 		}
 		duration += delta;

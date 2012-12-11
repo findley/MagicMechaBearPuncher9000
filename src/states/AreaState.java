@@ -492,8 +492,7 @@ public class AreaState extends BasicGameState {
         ArrayList<Monster> removeMonster = new ArrayList<Monster>();
         for (Monster m : this.currBattle) {
             if (m.state == enemyState.ALIVE && m.health <= 0.1) {
-            	System.out.println(m.health);
-            	System.out.println(m.health);
+
         		m.state = enemyState.DYING;
         		m.renderDeath();
                 m.getLastHit().incrementScore(m.value);
