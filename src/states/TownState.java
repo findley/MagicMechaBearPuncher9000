@@ -100,6 +100,15 @@ public class TownState extends AreaState {
 	}
 	
 	@Override
+	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+		super.enter(container, game);
+		for (int i = 0; i < players.length; i++) {
+			players[i].health = players[i].maxHealth;
+			players[i].score = 0;
+		}
+	}
+	
+	@Override
 	public int getID(){
 		return 2;
 	}

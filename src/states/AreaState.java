@@ -598,10 +598,19 @@ public class AreaState extends BasicGameState {
 	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
 		loop.loop(1, 0);
 		loop.fade(1000, (float) .5, false);
+		
+		if (completed) {
+			this.init(container, game);
+		}
 	}
 	
 	@Override
 	public void leave(GameContainer container, StateBasedGame game) {
 		loop.fade(100, 0, true);
+
+		for (int i = 0; i < players.length; i++) {
+			players[i].pos[0] = 100;
+			players[i].pos[1] = MainGame.GAME_HEIGHT/6*(4 + i);
+		}
 	}
 }
