@@ -47,15 +47,15 @@ public class CastleState extends AreaState {
 		group_1.add(g1_knight3);
 
 		ArrayList<Monster> group_2 = new ArrayList<Monster>();
-		Knight g2_knight1 = new Knight(container.getWidth(),
+		Knight g2_knight1 = new Knight(container.getWidth()-64,
 				container.getHeight() - 80, 2, container);
-		Knight g2_knight2 = new Knight(container.getWidth(),
+		Knight g2_knight2 = new Knight(container.getWidth()-64,
 				container.getHeight() - 160, 2, container);
 		Knight g2_knight3 = new Knight(container.getWidth(),
 				container.getHeight() - 240, 2, container);
-		GoblinArcher g2_goblin1 = new GoblinArcher(container.getWidth()+80,
+		GoblinArcher g2_goblin1 = new GoblinArcher(container.getWidth() ,
 				container.getHeight() - 80, 2, container);
-		GoblinArcher g2_goblin2 = new GoblinArcher(container.getWidth()+80,
+		GoblinArcher g2_goblin2 = new GoblinArcher(container.getWidth() ,
 				container.getHeight() - 160, 2, container);
 		g2_knight1.init();
 		g2_knight2.init();
@@ -69,9 +69,9 @@ public class CastleState extends AreaState {
 		group_2.add(g2_goblin2);
 		
 		ArrayList<Monster> group_3 = new ArrayList<Monster>();
-		Knight g3_knight1 = new Knight(container.getWidth(),
+		Knight g3_knight1 = new Knight(container.getWidth()-64,
 				container.getHeight() - 80, 2, container);
-		Knight g3_knight2 = new Knight(container.getWidth(),
+		Knight g3_knight2 = new Knight(container.getWidth()-64,
 				container.getHeight() - 160, 2, container);
 		Knight g3_knight3 = new Knight(0,
 				container.getHeight() - 240, 2, container);
