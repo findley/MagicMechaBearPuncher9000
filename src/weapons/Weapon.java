@@ -162,7 +162,7 @@ public abstract class Weapon {
 	public static void initSoundEffects() throws SlickException {
 		attackNoises.put("Fist", new Sound("Assets/Sound/punch.wav"));
 		attackNoises.put("Wizard", new Sound("Assets/Sound/attackWizard.wav"));
-		attackNoises.put("Bear", new Sound("Assets/Sound/punch.wav"));
+		attackNoises.put("Bear", new Sound("Assets/Sound/attackBear.wav"));
 		attackNoises.put("Diglet", new Sound("Assets/Sound/punch.wav"));
 		attackNoises.put("Mecha", new Sound("Assets/Sound/punch.wav"));
 	}
