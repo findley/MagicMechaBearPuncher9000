@@ -6,6 +6,7 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 
 import projectiles.Arrow;
+import projectiles.RedArrow;
 
 import dudes.Dude;
 import dudes.Player;
@@ -47,7 +48,11 @@ public class GoblinBow extends Weapon{
 	@Override
 	public void attack() throws SlickException {
 		if (this.ranged){
-			projectiles.add(new Arrow(owner.pos, null, owner.isRight));
+			if (kind == 0) {
+				projectiles.add(new Arrow(owner.pos, null, owner.isRight));
+			} else {
+				projectiles.add(new RedArrow(owner.pos, null, owner.isRight));				
+			}
 		}
 	}
 
