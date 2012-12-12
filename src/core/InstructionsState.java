@@ -51,7 +51,7 @@ public class InstructionsState extends BasicGameState{
             game.enterState(0);
         }
         if (container.getInput().isKeyPressed(Input.KEY_P)){
-            game.enterState(2);
+            game.enterState(6);
         }
 	}
 	

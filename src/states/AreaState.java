@@ -40,7 +40,7 @@ public class AreaState extends BasicGameState {
     protected ArrayList<ArrayList<Monster>> monsters;
     protected ArrayList<Monster>            currBattle;
     protected Image							princess;
-    private ArrayList<Weapon>               floorweapons;
+    public ArrayList<Weapon>                floorweapons;
     private ArrayList<Coin>					floorcoins;
     private boolean                         inBattle;
     private boolean                         completed;
@@ -59,6 +59,10 @@ public class AreaState extends BasicGameState {
     protected HashMap<String, Sound>		pickupWeaponSounds;
     protected HashMap<String, Sound>		deathWeaponSounds;
     protected boolean         				debug;
+    public Image							credit;
+    public boolean							showCred;
+    private int                             winning;
+    public Image []							winImgs;
     
     public AreaState(int stateID) {
         super();
@@ -103,7 +107,8 @@ public class AreaState extends BasicGameState {
         bgImage.render(-progression % 32, 0, progression / 32, top, 32 + 1, 24);
     	
         //RENDER HUD
-        hud.draw(MainGame.GAME_WIDTH/2 - 270, 0);
+        if(game.getCurrentStateID()!=5){
+            hud.draw(MainGame.GAME_WIDTH/2 - 270, 0);
         
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
@@ -124,13 +129,34 @@ public class AreaState extends BasicGameState {
             	p.weapon.groundSprite.draw(MainGame.GAME_WIDTH/2 + itemVal, 5, 35, 35);
             }
             
-            hudPlayerPic.draw(MainGame.GAME_WIDTH/2 + hudVal, 5, 40, 40);
+            if (game.getCurrentStateID()!=5){
+            	hudPlayerPic.draw(MainGame.GAME_WIDTH/2 + hudVal, 5, 40, 40);
+            }
                         
             g.setColor(Color.black);
             g.drawString(""+p.score, MainGame.GAME_WIDTH/2 + pointVal, 70);
 
             if (p.weapon.name.equals("Wizard")) {
         		((Wizard)p.weapon).render(container, game, g);
+        	}
+        } }else {
+        	if(winning == 0){
+        		winImgs[0].draw((container.getWidth() - winImgs[0].getWidth()) / 2,
+        				(container.getHeight() - winImgs[0].getHeight()) / 2);
+        		players[0].render(g);
+        	} else if(winning==1){
+        		winImgs[1].draw((container.getWidth() - winImgs[1].getWidth()) / 2,
+        				(container.getHeight() - winImgs[1].getHeight()) / 2);
+        		players[1].render(g);
+        	} else{
+        		winImgs[2].draw((container.getWidth() - winImgs[2].getWidth()) / 2,
+        				(container.getHeight() - winImgs[2].getHeight()) / 2);
+        		players[0].render(g);
+        		players[1].render(g);
+        	}
+        	if(showCred){
+        		credit.draw((container.getWidth() - credit.getWidth()) / 2,
+    				(container.getHeight() - credit.getHeight()) / 2);
         	}
         }
         
@@ -164,17 +190,13 @@ public class AreaState extends BasicGameState {
         }
         
         if (completed && game.getCurrentStateID()==4){
-        	princess.draw(container.getWidth()-100, container.getHeight() - 80);
         	if(players[0].score > players[1].score){
-            	g.setColor(Color.green);
-                container.getGraphics().drawString("THANK YOU FOR SAVING ME PLAYER 1. YOU WIN!", container.getWidth()/2-200, 170);
+        		winning = 0;
         	} else if(players[1].score > players[0].score){
-            	g.setColor(Color.green);
-                g.drawString("THANK YOU FOR SAVING ME PLAYER 2. YOU WIN!", container.getWidth()/2-200, 170);
-        	} else{
-            	g.setColor(Color.green);
-                g.drawString("A TIE? WELL I GUESS YOU'RE BOTH OUT OF LUCK. THANKS THOUGH!", container.getWidth()/2-200, 170);
-        	}
+        		winning = 1;
+            } else{
+        		winning = 2;
+         	}
         }
     }
     
@@ -393,6 +415,21 @@ public class AreaState extends BasicGameState {
         } 
         if (completed && game.getCurrentStateID()==3){
         	game.enterState(4, new FadeOutTransition(), new FadeInTransition());
+        }
+        if (completed && game.getCurrentStateID()==4){
+        	game.enterState(5, new FadeOutTransition(), new FadeInTransition());
+        }
+        if (game.getCurrentStateID()==5){
+            if (container.getInput().isKeyPressed(Input.KEY_M)){
+                game.enterState(0);
+            }
+            if (container.getInput().isKeyPressed(Input.KEY_C)){
+                if (showCred){
+                	showCred = false;
+                } else{
+                	showCred = true;
+                }
+            }
         }
     }
     
