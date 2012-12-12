@@ -59,15 +59,15 @@ public class MainGame extends StateBasedGame {
 			p0Buttons.put("left", Input.KEY_A);
 			p0Buttons.put("down", Input.KEY_S);
 			p0Buttons.put("right", Input.KEY_D);
-			p0Buttons.put("action", Input.KEY_F);
-			p0Buttons.put("pickup", Input.KEY_Q);			
+			p0Buttons.put("action", Input.KEY_PERIOD);
+			p0Buttons.put("pickup", Input.KEY_COMMA);			
 			HashMap<String, Integer> p1Buttons = new HashMap<String, Integer>();
 			p1Buttons.put("up", Input.KEY_UP);
 			p1Buttons.put("left", Input.KEY_LEFT);
 			p1Buttons.put("down", Input.KEY_DOWN);
 			p1Buttons.put("right", Input.KEY_RIGHT);
-			p1Buttons.put("action", Input.KEY_PERIOD);
-			p1Buttons.put("pickup", Input.KEY_COMMA);
+			p1Buttons.put("action", Input.KEY_X);
+			p1Buttons.put("pickup", Input.KEY_Z);
 			
 			// set up players
 			players[0] = new Player(p0Buttons, 100f, GAME_HEIGHT*5/6);

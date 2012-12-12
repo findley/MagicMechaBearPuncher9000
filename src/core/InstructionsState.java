@@ -47,7 +47,7 @@ public class InstructionsState extends BasicGameState{
         if (container.getInput().isKeyPressed(Input.KEY_ESCAPE)){
             container.exit();
         }
-        if (container.getInput().isKeyPressed(Input.KEY_M)){
+        if (container.getInput().isKeyPressed(Input.KEY_I)){
             game.enterState(0);
         }
         if (container.getInput().isKeyPressed(Input.KEY_P)){

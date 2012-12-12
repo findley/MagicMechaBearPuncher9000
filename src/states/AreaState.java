@@ -351,6 +351,7 @@ public class AreaState extends BasicGameState {
         ArrayList<Weapon> remove = new ArrayList<Weapon>();
         ArrayList<Weapon> add = new ArrayList<Weapon>();
         for (Player p : players) {
+        	
             if (container.getInput().isKeyPressed(p.buttons.get("pickup"))) {
                 for (Weapon w : floorweapons) {
                     if (p.getHitBox().intersects(w.getHitBox()) ) {
