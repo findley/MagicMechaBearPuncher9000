@@ -70,7 +70,7 @@ public class AreaState extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    	debug = true;
+    	debug = false;
         progression = 0;
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
@@ -609,8 +609,8 @@ public class AreaState extends BasicGameState {
 		loop.fade(100, 0, true);
 
 		for (int i = 0; i < players.length; i++) {
-			players[i].pos[0] = 100;
-			players[i].pos[1] = MainGame.GAME_HEIGHT/6*(4 + i);
+			players[i].pos[0] = 100 + 50 * i;
+			players[i].pos[1] = MainGame.GAME_HEIGHT/6*(4 + i) - players[i].weapon.playerSizeY;
 		}
 	}
 }
