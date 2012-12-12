@@ -40,9 +40,6 @@ public class GoblinArcher extends Monster {
 		range = 200;
 		screenWidth = container.getWidth();
 		
-		if ( k == 1) {
-			health = 37*2;
-		}
 		this.weapon = new GoblinBow(this);
 		try {
 			this.init();
