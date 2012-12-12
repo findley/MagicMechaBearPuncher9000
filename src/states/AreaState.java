@@ -1,7 +1,6 @@
 package states;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -20,14 +19,12 @@ import org.newdawn.slick.state.transition.FadeOutTransition;
 import org.newdawn.slick.tiled.TiledMap;
 
 import projectiles.Projectile;
-import weapons.Attack;
 import weapons.Coin;
 import weapons.Fist;
 import weapons.Weapon;
 import weapons.Wizard;
 import core.MainGame;
 import core.Text;
-import dudes.Dude;
 import dudes.Monster;
 import dudes.Monster.enemyState;
 import dudes.Player;
@@ -35,34 +32,35 @@ import dudes.Player;
 public class AreaState extends BasicGameState {
     protected Player[]                      players;
     protected TiledMap                      bgImage;
-    protected Image							hud;
-    protected Image							battleMsg;
+    protected Image                         hud;
+    protected Image                         battleMsg;
     protected ArrayList<ArrayList<Monster>> monsters;
     protected ArrayList<Monster>            currBattle;
-    protected Image							princess;
+    protected Image                         princess;
     public ArrayList<Weapon>                floorweapons;
-    private ArrayList<Coin>					floorcoins;
+    private ArrayList<Coin>                 floorcoins;
     private boolean                         inBattle;
     private boolean                         completed;
     private int                             progression;
     protected int[]                         battleStops;
     protected int                           areaLength;
     private ArrayList<Player>               sPlayers;
-    private final int                       PLAYER_STUN_LENGTH = 500;
-    private final int						MONSTER_STUN_LENGTH = 200;
+    private final int                       PLAYER_STUN_LENGTH  = 500;
+    private final int                       MONSTER_STUN_LENGTH = 200;
     private ArrayList<Projectile>           liveProjectiles;
     private ArrayList<Projectile>           monsterProjectiles;
     private ArrayList<Text>                 screenTexts;
     protected Sound                         attackNoise;
-    protected Sound							pickupJewelNoise;
-    protected Music							loop;
-    protected HashMap<String, Sound>		pickupWeaponSounds;
-    protected HashMap<String, Sound>		deathWeaponSounds;
-    protected boolean         				debug;
-    public Image							credit;
-    public boolean							showCred;
+    protected Sound                         pickupJewelNoise;
+    protected Music                         loop;
+    protected HashMap<String, Sound>        pickupWeaponSounds;
+    protected HashMap<String, Sound>        deathWeaponSounds;
+    protected boolean                       debug;
+    public Image                            credit;
+    public boolean                          showCred;
     private int                             winning;
-    public Image []							winImgs;
+    public Image[]                          winImgs;
+    private double                          dropRate            = 1.0;
     
     public AreaState(int stateID) {
         super();
@@ -70,7 +68,7 @@ public class AreaState extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
-    	debug = false;
+        debug = false;
         progression = 0;
         players = MainGame.players;
         monsters = new ArrayList<ArrayList<Monster>>();
@@ -95,77 +93,74 @@ public class AreaState extends BasicGameState {
         Weapon.initSoundEffects();
         pickupJewelNoise = new Sound("Assets/Sound/Pickup_Jewel.wav");
         
-        //Initialize HashMaps to contain weapons SFX.
-        pickupWeaponSounds = new HashMap<String,Sound>();
-        deathWeaponSounds = new HashMap<String,Sound>();
+        // Initialize HashMaps to contain weapons SFX.
+        pickupWeaponSounds = new HashMap<String, Sound>();
+        deathWeaponSounds = new HashMap<String, Sound>();
         initWeaponSounds();
     }
     
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-    	int top = 24-container.getHeight()*24/768;
+        int top = 24 - container.getHeight() * 24 / 768;
         bgImage.render(-progression % 32, 0, progression / 32, top, 32 + 1, 24);
-    	
-        //RENDER HUD
-        if(game.getCurrentStateID()!=5){
-            hud.draw(MainGame.GAME_WIDTH/2 - 270, 0);
         
-        Collections.sort(sPlayers);
-        for (Player p : sPlayers) {
-            p.render(g);
-            if (debug) {
-                g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
-	            if (p.weapon.attack!=null) {
-	            	g.draw(p.weapon.attack.hitbox);
-	            }
-            }
+        // RENDER HUD
+        if (game.getCurrentStateID() != 5) {
+            hud.draw(MainGame.GAME_WIDTH / 2 - 270, 0);
             
-            int hudVal = (p.playerID == 0) ? -168 : 127;
-            int itemVal = (p.playerID == 0) ? -75 : 33;
-            int pointVal = (p.playerID == 0) ? -140 : 95;
-            Image hudPlayerPic = new Image("Assets/players/player"+p.playerID+"/player"+p.playerID+".png");
-            
-            if (p.weapon.groundSprite != null) {
-            	p.weapon.groundSprite.draw(MainGame.GAME_WIDTH/2 + itemVal, 5, 35, 35);
+            Collections.sort(sPlayers);
+            for (Player p : sPlayers) {
+                p.render(g);
+                if (debug) {
+                    g.draw(p.weapon.getPlayerHitBox(p.pos[0], p.pos[1]));
+                    if (p.weapon.attack != null) {
+                        g.draw(p.weapon.attack.hitbox);
+                    }
+                }
+                
+                int hudVal = (p.playerID == 0) ? -168 : 127;
+                int itemVal = (p.playerID == 0) ? -75 : 33;
+                int pointVal = (p.playerID == 0) ? -140 : 95;
+                Image hudPlayerPic = new Image("Assets/players/player" + p.playerID + "/player" + p.playerID + ".png");
+                
+                if (p.weapon.groundSprite != null) {
+                    p.weapon.groundSprite.draw(MainGame.GAME_WIDTH / 2 + itemVal, 5, 35, 35);
+                }
+                
+                if (game.getCurrentStateID() != 5) {
+                    hudPlayerPic.draw(MainGame.GAME_WIDTH / 2 + hudVal, 5, 40, 40);
+                }
+                
+                g.setColor(Color.black);
+                g.drawString("" + p.score, MainGame.GAME_WIDTH / 2 + pointVal, 70);
+                
+                if (p.weapon.name.equals("Wizard")) {
+                    ((Wizard) p.weapon).render(container, game, g);
+                }
             }
-            
-            if (game.getCurrentStateID()!=5){
-            	hudPlayerPic.draw(MainGame.GAME_WIDTH/2 + hudVal, 5, 40, 40);
+        } else {
+            if (winning == 0) {
+                winImgs[0].draw((container.getWidth() - winImgs[0].getWidth()) / 2, (container.getHeight() - winImgs[0].getHeight()) / 2);
+                players[0].render(g);
+            } else if (winning == 1) {
+                winImgs[1].draw((container.getWidth() - winImgs[1].getWidth()) / 2, (container.getHeight() - winImgs[1].getHeight()) / 2);
+                players[1].render(g);
+            } else {
+                winImgs[2].draw((container.getWidth() - winImgs[2].getWidth()) / 2, (container.getHeight() - winImgs[2].getHeight()) / 2);
+                players[0].render(g);
+                players[1].render(g);
             }
-                        
-            g.setColor(Color.black);
-            g.drawString(""+p.score, MainGame.GAME_WIDTH/2 + pointVal, 70);
-
-            if (p.weapon.name.equals("Wizard")) {
-        		((Wizard)p.weapon).render(container, game, g);
-        	}
-        } }else {
-        	if(winning == 0){
-        		winImgs[0].draw((container.getWidth() - winImgs[0].getWidth()) / 2,
-        				(container.getHeight() - winImgs[0].getHeight()) / 2);
-        		players[0].render(g);
-        	} else if(winning==1){
-        		winImgs[1].draw((container.getWidth() - winImgs[1].getWidth()) / 2,
-        				(container.getHeight() - winImgs[1].getHeight()) / 2);
-        		players[1].render(g);
-        	} else{
-        		winImgs[2].draw((container.getWidth() - winImgs[2].getWidth()) / 2,
-        				(container.getHeight() - winImgs[2].getHeight()) / 2);
-        		players[0].render(g);
-        		players[1].render(g);
-        	}
-        	if(showCred){
-        		credit.draw((container.getWidth() - credit.getWidth()) / 2,
-    				(container.getHeight() - credit.getHeight()) / 2);
-        	}
+            if (showCred) {
+                credit.draw((container.getWidth() - credit.getWidth()) / 2, (container.getHeight() - credit.getHeight()) / 2);
+            }
         }
         
         for (Text t : screenTexts) {
-        	t.render(g);
+            t.render(g);
         }
         
         if (inBattle) {
-        	battleMsg.draw(MainGame.GAME_WIDTH/2 - 19, 0);
+            battleMsg.draw(MainGame.GAME_WIDTH / 2 - 19, 0);
             
             Collections.sort(currBattle);
             for (Monster m : currBattle) {
@@ -177,26 +172,26 @@ public class AreaState extends BasicGameState {
             i.draw();
         }
         
-        for (Coin c : floorcoins){
-        	c.Draw();
+        for (Coin c : floorcoins) {
+            c.Draw();
         }
         
         for (Projectile p : liveProjectiles) {
-        	p.render(g);
+            p.render(g);
         }
         
         for (Projectile p : monsterProjectiles) {
-        	p.render(g);
+            p.render(g);
         }
         
-        if (completed && game.getCurrentStateID()==4){
-        	if(players[0].score > players[1].score){
-        		winning = 0;
-        	} else if(players[1].score > players[0].score){
-        		winning = 1;
-            } else{
-        		winning = 2;
-         	}
+        if (completed && game.getCurrentStateID() == 4) {
+            if (players[0].score > players[1].score) {
+                winning = 0;
+            } else if (players[1].score > players[0].score) {
+                winning = 1;
+            } else {
+                winning = 2;
+            }
         }
     }
     
@@ -212,22 +207,22 @@ public class AreaState extends BasicGameState {
         }
         
         for (Projectile p : liveProjectiles) {
-        	p.move();
+            p.move();
         }
-
+        
         for (Projectile p : monsterProjectiles) {
-        	p.move();
+            p.move();
         }
         
         removeTexts();
         for (Text t : screenTexts) {
-        	t.update();
+            t.update();
         }
         
         for (Monster m : currBattle) {
-        	if (m.weapon.attack != null ) {
-        		m.weapon.attack.update(delta);
-        	} 
+            if (m.weapon.attack != null) {
+                m.weapon.attack.update(delta);
+            }
         }
         float backPlayerPos = Math.min(players[0].pos[0], players[1].pos[0]);
         
@@ -250,100 +245,99 @@ public class AreaState extends BasicGameState {
                         players[0].pos[0] -= shift;
                         players[1].pos[0] -= shift;
                         
-                        floorItemsMove(shift);                        
+                        floorItemsMove(shift);
                     }
                 }
             }
         }
         
         for (Player p : players) {
-        	while (p.weapon.projectiles.size() > 0) {
-        		liveProjectiles.add(p.weapon.projectiles.get(0));
-        		p.weapon.projectiles.remove(0);
-        	}
+            while (p.weapon.projectiles.size() > 0) {
+                liveProjectiles.add(p.weapon.projectiles.get(0));
+                p.weapon.projectiles.remove(0);
+            }
         }
         
         for (Monster m : currBattle) {
-        	while (m.weapon.projectiles.size() > 0) {
-        		monsterProjectiles.add(m.weapon.projectiles.get(0));
-        		m.weapon.projectiles.remove(0);
-        	}
+            while (m.weapon.projectiles.size() > 0) {
+                monsterProjectiles.add(m.weapon.projectiles.get(0));
+                m.weapon.projectiles.remove(0);
+            }
         }
         
         removeProjectiles();
-        for (Projectile p: liveProjectiles) {
-        	for (Monster monster : this.currBattle) {
-        		if (p.getHitbox().intersects(monster.getHitBox()) && p.hasHit == false) {
-        			monster.hurt(p.damage, 500);
-        			monster.setLastHit(p.owner);
-        			p.hasHit = true;
-        		}
-        	}
-        	
-        	 
-        	for (Player player : players) {
-        		if (p.getHitbox().intersects(player.getHitBox()) && p.hasHit == false) {
-        			if (p.owner != player){
-        				if (!player.isRespawning) {
-        					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
-        					p.hasHit = true;
-        				}
-        			}
-        		}
-        	}
+        for (Projectile p : liveProjectiles) {
+            for (Monster monster : this.currBattle) {
+                if (p.getHitbox().intersects(monster.getHitBox()) && p.hasHit == false) {
+                    monster.hurt(p.damage, 500);
+                    monster.setLastHit(p.owner);
+                    p.hasHit = true;
+                }
+            }
+            
+            for (Player player : players) {
+                if (p.getHitbox().intersects(player.getHitBox()) && p.hasHit == false) {
+                    if (p.owner != player) {
+                        if (!player.isRespawning) {
+                            player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
+                            p.hasHit = true;
+                        }
+                    }
+                }
+            }
         }
         
         for (Projectile p : monsterProjectiles) {
-        	for (Player player : players) {
-        		if (p.getHitbox().intersects(player.getHitBox()) && p.hasHit == false) {
-        			if (p.owner != player){
-        				if (!player.isRespawning) {
-        					player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
-        					p.hasHit = true;
-        				}
-        			}
-        		}
-        	}
+            for (Player player : players) {
+                if (p.getHitbox().intersects(player.getHitBox()) && p.hasHit == false) {
+                    if (p.owner != player) {
+                        if (!player.isRespawning) {
+                            player.hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
+                            p.hasHit = true;
+                        }
+                    }
+                }
+            }
         }
         
         for (int i = 0; i < players.length; i++) {
             Player player = players[i];
             if (player.weapon.attack != null) {
-            	player.weapon.attack.update(delta);
+                player.weapon.attack.update(delta);
             }
             player.invincibleTimer += delta;
             for (Monster monster : this.currBattle) {
-            	if (player.weapon.attack!=null) {
-	                if (player.weapon.attack.hitbox.intersects(monster.getHitBox())) {
-	                	monster.pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH, players, currBattle);
-	                    monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
-	                    
-	                    monster.setLastHit(player);
-	                }
-            	}
+                if (player.weapon.attack != null) {
+                    if (player.weapon.attack.hitbox.intersects(monster.getHitBox())) {
+                        monster.pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH, players, currBattle);
+                        monster.hurt(player.weapon.damage, MONSTER_STUN_LENGTH);
+                        
+                        monster.setLastHit(player);
+                    }
+                }
             }
-            if (player.weapon.attack!=null) {
-	            if (player.weapon.attack.hitbox.intersects(players[(i + 1) % 2].getHitBox())) {
-	            	if (!players[(i + 1) % 2].isRespawning) {
-	                	players[(i + 1) % 2].pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH, players, currBattle);	                	
-	            		players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
-	            	}
-	            }
+            if (player.weapon.attack != null) {
+                if (player.weapon.attack.hitbox.intersects(players[(i + 1) % 2].getHitBox())) {
+                    if (!players[(i + 1) % 2].isRespawning) {
+                        players[(i + 1) % 2].pushback(player.pos[0], player.weapon.pushback, MainGame.GAME_WIDTH, players, currBattle);
+                        players[(i + 1) % 2].hurt(player.weapon.damage, PLAYER_STUN_LENGTH);
+                    }
+                }
             }
         }
         
         for (Monster monster : this.currBattle) {
             monster.invincibleTimer += delta;
             if (monster.state == enemyState.ALIVE) {
-            	monster.aiLoop(players, this.currBattle, delta);
+                monster.aiLoop(players, this.currBattle, delta);
                 for (Player player : players) {
-                	if (monster.weapon.attack!=null) {
-	                    if (monster.weapon.attack.hitbox.intersects(player.getHitBox())) {
-	                    	if (!player.isRespawning) {
-	                    		player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
-	                    	}
-	                    }
-                	}
+                    if (monster.weapon.attack != null) {
+                        if (monster.weapon.attack.hitbox.intersects(player.getHitBox())) {
+                            if (!player.isRespawning) {
+                                player.hurt(monster.weapon.damage, PLAYER_STUN_LENGTH);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -351,29 +345,29 @@ public class AreaState extends BasicGameState {
         ArrayList<Weapon> remove = new ArrayList<Weapon>();
         ArrayList<Weapon> add = new ArrayList<Weapon>();
         for (Player p : players) {
-        	
+            
             if (container.getInput().isKeyPressed(p.buttons.get("pickup"))) {
                 for (Weapon w : floorweapons) {
-                    if (p.getHitBox().intersects(w.getHitBox()) ) {
-                    	if (p.weapon.name.equals("Fireman")) {
-                    		break;
-                    	}
-                    	
-                    	if (w.owner != null) {
-                    		break;
-                    	}
-            			p.pos[1] -= (w.spriteSizeY - p.weapon.spriteSizeY);
+                    if (p.getHitBox().intersects(w.getHitBox())) {
+                        if (p.weapon.name.equals("Fireman")) {
+                            break;
+                        }
+                        
+                        if (w.owner != null) {
+                            break;
+                        }
+                        p.pos[1] -= (w.spriteSizeY - p.weapon.spriteSizeY);
                         p.weapon.drop();
                         p.weapon = w;
                         w.assignOwner(p);
                         w.init();
                         p.itemTimer = w.itemTimer;
                         remove.add(w);
-                        if (pickupWeaponSounds.get(w.name) != null){
-                        	pickupWeaponSounds.get(w.name).play();
+                        if (pickupWeaponSounds.get(w.name) != null) {
+                            pickupWeaponSounds.get(w.name).play();
                         }
                         break;
-                        //play Sound
+                        // play Sound
                         
                     }
                 }
@@ -385,23 +379,21 @@ public class AreaState extends BasicGameState {
         
         checkIfMonsterDead();
         for (Player p : players) {
-        	
-        	p.itemCheck(delta);
-        	
-        	p.deathCheck(delta);
-        	if(p.isRespawning && !p.weapon.isFist){
-        		Weapon w = new Fist(p.pos[0],p.pos[1]);
-        		if (deathWeaponSounds.get(p.weapon.name) != null){
-                	deathWeaponSounds.get(p.weapon.name).play();
+            
+            p.itemCheck(delta);
+            
+            p.deathCheck(delta);
+            if (p.isRespawning && !p.weapon.isFist) {
+                Weapon w = new Fist(p.pos[0], p.pos[1]);
+                if (deathWeaponSounds.get(p.weapon.name) != null) {
+                    deathWeaponSounds.get(p.weapon.name).play();
                 }
-        		p.weapon.drop();
+                p.weapon.drop();
                 p.weapon = w;
                 w.assignOwner(p);
                 w.init();
-        	}
+            }
         }
-        
-        
         
         for (Weapon a : add) {
             floorweapons.add(a);
@@ -411,24 +403,24 @@ public class AreaState extends BasicGameState {
             inBattle = false;
         }
         
-        if (completed && game.getCurrentStateID()==2){
-        	game.enterState(3, new FadeOutTransition(), new FadeInTransition());
-        } 
-        if (completed && game.getCurrentStateID()==3){
-        	game.enterState(4, new FadeOutTransition(), new FadeInTransition());
+        if (completed && game.getCurrentStateID() == 2) {
+            game.enterState(3, new FadeOutTransition(), new FadeInTransition());
         }
-        if (completed && game.getCurrentStateID()==4){
-        	game.enterState(5, new FadeOutTransition(), new FadeInTransition());
+        if (completed && game.getCurrentStateID() == 3) {
+            game.enterState(4, new FadeOutTransition(), new FadeInTransition());
         }
-        if (game.getCurrentStateID()==5){
-            if (container.getInput().isKeyPressed(Input.KEY_M)){
+        if (completed && game.getCurrentStateID() == 4) {
+            game.enterState(5, new FadeOutTransition(), new FadeInTransition());
+        }
+        if (game.getCurrentStateID() == 5) {
+            if (container.getInput().isKeyPressed(Input.KEY_M)) {
                 game.enterState(0);
             }
-            if (container.getInput().isKeyPressed(Input.KEY_C)){
-                if (showCred){
-                	showCred = false;
-                } else{
-                	showCred = true;
+            if (container.getInput().isKeyPressed(Input.KEY_C)) {
+                if (showCred) {
+                    showCred = false;
+                } else {
+                    showCred = true;
                 }
             }
         }
@@ -438,22 +430,22 @@ public class AreaState extends BasicGameState {
         return new ArrayList<Weapon>();
     }
     
-    public void runOverCoins(Player p){
+    public void runOverCoins(Player p) {
         ArrayList<Coin> out = new ArrayList<Coin>();
-        for (Coin c : floorcoins){
+        for (Coin c : floorcoins) {
             if (p.getHitBox().intersects(c.getHitBox())) {
-            	pickupJewelNoise.play();
-            	p.score += c.value;
-            	this.screenTexts.add(new Text(p.pos, Integer.toString(c.value), c.color));
+                pickupJewelNoise.play();
+                p.score += c.value;
+                this.screenTexts.add(new Text(p.pos, Integer.toString(c.value), c.color));
                 out.add(c);
             }
         }
-        for (Coin c : out){
-        	floorcoins.remove(c);
+        for (Coin c : out) {
+            floorcoins.remove(c);
         }
     }
     
-    public void floorItemsMove(float shift){
+    public void floorItemsMove(float shift) {
         ArrayList<Weapon> remove = new ArrayList<Weapon>();
         for (Weapon i : floorweapons) {
             i.x -= shift;
@@ -461,7 +453,7 @@ public class AreaState extends BasicGameState {
                 remove.add(i);
             }
         }
-
+        
         for (Weapon i : remove) {
             floorweapons.remove(i);
         }
@@ -480,92 +472,87 @@ public class AreaState extends BasicGameState {
     }
     
     public void removeTexts() {
-    	ArrayList<Text> removeTexts = new ArrayList<Text>();
-    	for (Text t : screenTexts) {
-    		if (t.duration < 0) {
-    			removeTexts.add(t);
-    		}
-    		
-    	}
-    	
-    	for (Text t : removeTexts) {
-    		screenTexts.remove(t);
-    	}
+        ArrayList<Text> removeTexts = new ArrayList<Text>();
+        for (Text t : screenTexts) {
+            if (t.duration < 0) {
+                removeTexts.add(t);
+            }
+            
+        }
+        
+        for (Text t : removeTexts) {
+            screenTexts.remove(t);
+        }
     }
     
     public void removeProjectiles() {
-    	ArrayList<Projectile> removeProjectiles = new ArrayList<Projectile>();
-    	for (Projectile p : liveProjectiles) {
-    		if (p.hasHit) {
-    			removeProjectiles.add(p);
-    		} else if (p.pos[0] > MainGame.GAME_WIDTH + 200) {
-    			removeProjectiles.add(p);
-    		}    		
-    		
-    	}
-    	
-    	
-    	for (Projectile p : removeProjectiles) {
-    		liveProjectiles.remove(p);
-    	}
-    	
-    	
-    	removeProjectiles = new ArrayList<Projectile>();
-    	for (Projectile p : monsterProjectiles) {
-    		if (p.hasHit) {
-    			removeProjectiles.add(p);
-    		} else if (p.pos[0] > MainGame.GAME_WIDTH + 200) {
-    			removeProjectiles.add(p);
-    		}    		
-    		
-    	}
-    	
-    	
-    	for (Projectile p : removeProjectiles) {
-    		monsterProjectiles.remove(p);
-    	}
+        ArrayList<Projectile> removeProjectiles = new ArrayList<Projectile>();
+        for (Projectile p : liveProjectiles) {
+            if (p.hasHit) {
+                removeProjectiles.add(p);
+            } else if (p.pos[0] > MainGame.GAME_WIDTH + 200) {
+                removeProjectiles.add(p);
+            }
+            
+        }
+        
+        for (Projectile p : removeProjectiles) {
+            liveProjectiles.remove(p);
+        }
+        
+        removeProjectiles = new ArrayList<Projectile>();
+        for (Projectile p : monsterProjectiles) {
+            if (p.hasHit) {
+                removeProjectiles.add(p);
+            } else if (p.pos[0] > MainGame.GAME_WIDTH + 200) {
+                removeProjectiles.add(p);
+            }
+            
+        }
+        
+        for (Projectile p : removeProjectiles) {
+            monsterProjectiles.remove(p);
+        }
     }
-
-    public void checkIfMonsterDead() throws SlickException{
+    
+    public void checkIfMonsterDead() throws SlickException {
         ArrayList<Monster> removeMonster = new ArrayList<Monster>();
         for (Monster m : this.currBattle) {
             if (m.state == enemyState.ALIVE && m.health <= 0.1) {
-
-        		m.state = enemyState.DYING;
-        		m.renderDeath();
+                
+                m.state = enemyState.DYING;
+                m.renderDeath();
                 m.getLastHit().incrementScore(m.value);
-
-            	this.screenTexts.add(new Text(m.getLastHit().pos, Integer.toString(m.value), Color.red));
-            }
-            else if (m.state == enemyState.DYING && m.currentAnimation.isStopped()) {
-            	m.state = enemyState.DEAD;
-        		removeMonster.add(m);
+                
+                this.screenTexts.add(new Text(m.getLastHit().pos, Integer.toString(m.value), Color.red));
+            } else if (m.state == enemyState.DYING && m.currentAnimation.isStopped()) {
+                m.state = enemyState.DEAD;
+                removeMonster.add(m);
             }
         }
         
         monsterDrop(removeMonster);
     }
-   
     
-    public void monsterDrop(ArrayList<Monster> removeMonster) throws SlickException{
+    public void monsterDrop(ArrayList<Monster> removeMonster) throws SlickException {
         for (Monster m : removeMonster) {
-        	m.renderDeath();
+            m.renderDeath();
             this.currBattle.remove(m);
-            double rand = Math.random();
-            Weapon w = m.getDropWeapon();
+            Weapon w = m.getDropWeapon(dropRate);
             if (w == null) {
-            	
+                dropRate = Math.min(dropRate + .2, 1.0);
             } else {
-            	w.y = Math.max(MainGame.GAME_HEIGHT - 32 * 8- (w.groundSprite.getHeight()) + 15, w.y);            	
-         		floorweapons.add(w);
-            }            
+                w.y = Math.max(MainGame.GAME_HEIGHT - 32 * 8 - (w.groundSprite.getHeight()) + 15, w.y);
+                floorweapons.add(w);
+                dropRate = Math.max(dropRate - .2, .2);
+            }
             
             Coin c = m.getDropCoin();
             if (c == null) {
-            	
+                
             } else {
-            	c.pos[1] = Math.max(MainGame.GAME_HEIGHT - 32 * 8- (c.sprite.getHeight()) + 15, c.pos[1]);            
-                floorcoins.add(c);	
+                c.pos[1] = Math.max(MainGame.GAME_HEIGHT - 32 * 8 - (c.sprite.getHeight()) + 15, c.pos[1]);
+                floorcoins.add(c);
             }
             
         }
@@ -573,45 +560,48 @@ public class AreaState extends BasicGameState {
     
     /**
      * Method that initializes HashMap to contain all sounds corresponding to weapons.
-     * @throws SlickException 
+     * 
+     * @throws SlickException
      */
     private void initWeaponSounds() throws SlickException {
-		Sound pickupBear = new Sound("Assets/Sound/pickupBear.wav");
-		Sound pickupDiglet = new Sound("Assets/Sound/pickupDiglet.wav");
-		Sound pickupMecha = new Sound("Assets/Sound/pickupMecha.wav");
-		
-		Sound deathBear = new Sound("Assets/Sound/deathBear.wav");
-		Sound deathMecha = new Sound("Assets/Sound/deathMecha.wav");
-		
-		//Initialize array for picking up weapons
-    	pickupWeaponSounds.put("Bear", pickupBear);
-    	pickupWeaponSounds.put("Diglet", pickupDiglet);
-    	pickupWeaponSounds.put("Mecha", pickupMecha);
-    	
-    	deathWeaponSounds.put("Bear", deathBear);
-    	deathWeaponSounds.put("Mecha", deathMecha);
+        Sound pickupBear = new Sound("Assets/Sound/pickupBear.wav");
+        Sound pickupDiglet = new Sound("Assets/Sound/pickupDiglet.wav");
+        Sound pickupMecha = new Sound("Assets/Sound/pickupMecha.wav");
+        
+        Sound deathBear = new Sound("Assets/Sound/deathBear.wav");
+        Sound deathMecha = new Sound("Assets/Sound/deathMecha.wav");
+        
+        // Initialize array for picking up weapons
+        pickupWeaponSounds.put("Bear", pickupBear);
+        pickupWeaponSounds.put("Diglet", pickupDiglet);
+        pickupWeaponSounds.put("Mecha", pickupMecha);
+        
+        deathWeaponSounds.put("Bear", deathBear);
+        deathWeaponSounds.put("Mecha", deathMecha);
     }
     
     @Override
-    public int getID(){return 0;}
-
-	@Override
-	public void enter(GameContainer container, StateBasedGame game) throws SlickException {
-		loop.loop(1, 0);
-		loop.fade(1000, (float) .5, false);
-		
-		if (completed) {
-			this.init(container, game);
-		}
-	}
-	
-	@Override
-	public void leave(GameContainer container, StateBasedGame game) {
-		loop.fade(100, 0, true);
-
-		for (int i = 0; i < players.length; i++) {
-			players[i].pos[0] = 100 + 50 * i;
-			players[i].pos[1] = MainGame.GAME_HEIGHT/6*(4 + i) - players[i].weapon.playerSizeY;
-		}
-	}
+    public int getID() {
+        return 0;
+    }
+    
+    @Override
+    public void enter(GameContainer container, StateBasedGame game) throws SlickException {
+        loop.loop(1, 0);
+        loop.fade(1000, (float) .5, false);
+        
+        if (completed) {
+            this.init(container, game);
+        }
+    }
+    
+    @Override
+    public void leave(GameContainer container, StateBasedGame game) {
+        loop.fade(100, 0, true);
+        
+        for (int i = 0; i < players.length; i++) {
+            players[i].pos[0] = 100 + 50 * i;
+            players[i].pos[1] = MainGame.GAME_HEIGHT / 6 * (4 + i) - players[i].weapon.playerSizeY;
+        }
+    }
 }
