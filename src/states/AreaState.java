@@ -103,7 +103,9 @@ public class AreaState extends BasicGameState {
         bgImage.render(-progression % 32, 0, progression / 32, top, 32 + 1, 24);
     	
         //RENDER HUD
-        hud.draw(MainGame.GAME_WIDTH/2 - 270, 0);
+        if(game.getCurrentStateID()!=5){
+            hud.draw(MainGame.GAME_WIDTH/2 - 270, 0);
+        }
         
         Collections.sort(sPlayers);
         for (Player p : sPlayers) {
@@ -124,7 +126,9 @@ public class AreaState extends BasicGameState {
             	p.weapon.groundSprite.draw(MainGame.GAME_WIDTH/2 + itemVal, 5, 35, 35);
             }
             
-            hudPlayerPic.draw(MainGame.GAME_WIDTH/2 + hudVal, 5, 40, 40);
+            if (game.getCurrentStateID()!=5){
+            	hudPlayerPic.draw(MainGame.GAME_WIDTH/2 + hudVal, 5, 40, 40);
+            }
                         
             g.setColor(Color.black);
             g.drawString(""+p.score, MainGame.GAME_WIDTH/2 + pointVal, 70);
@@ -164,7 +168,7 @@ public class AreaState extends BasicGameState {
         }
         
         if (completed && game.getCurrentStateID()==4){
-        	princess.draw(container.getWidth()-100, container.getHeight() - 80);
+        	princess.draw(container.getWidth()-100, container.getHeight()*5/6);
         	if(players[0].score > players[1].score){
             	g.setColor(Color.green);
                 container.getGraphics().drawString("THANK YOU FOR SAVING ME PLAYER 1. YOU WIN!", container.getWidth()/2-200, 170);
@@ -393,6 +397,9 @@ public class AreaState extends BasicGameState {
         } 
         if (completed && game.getCurrentStateID()==3){
         	game.enterState(4, new FadeOutTransition(), new FadeInTransition());
+        }
+        if (completed && game.getCurrentStateID()==4){
+        	game.enterState(5, new FadeOutTransition(), new FadeInTransition());
         }
     }
     
